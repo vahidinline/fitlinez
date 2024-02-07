@@ -1,0 +1,23 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project /Users/vahidafshari/fitlinez/ios/fitlinez.xcodeproj -configuration Debug -scheme fitlinez -destination id=982E4BAF-4AB8-4700-BDD3-C7B58ADAD557
+
+User defaults from command line:
+    IDEPackageSupportUseBuiltinSCM = YES
+
+Prepare packages
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'fitlinez' in project 'fitlinez' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+Build description signature: 9e4e7b0d71e43d7b0d2efdd7cc578419
+Build description path: /Users/vahidafshari/Library/Developer/Xcode/DerivedData/fitlinez-fdfjjuvbdhtzundbndffjakdgdmi/Build/Intermediates.noindex/XCBuildData/9e4e7b0d71e43d7b0d2efdd7cc578419.xcbuilddata
+
+/Users/vahidafshari/fitlinez/ios/Pods/Target Support Files/Pods-fitlinez/Pods-fitlinez.debug.xcconfig:1:1: error: unable to open configuration settings file
+warning: Run script build phase 'Start Packager' will be run during every build because it does not specify any outputs. To address this warning, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'fitlinez' from project 'fitlinez')
+warning: Run script build phase 'Bundle React Native code and images' will be run during every build because it does not specify any outputs. To address this warning, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'fitlinez' from project 'fitlinez')
+warning: Run script build phase 'Upload source maps to Bugsnag' will be run during every build because it does not specify any outputs. To address this warning, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'fitlinez' from project 'fitlinez')

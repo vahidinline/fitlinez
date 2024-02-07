@@ -1,0 +1,429 @@
+[
+  {
+    "_id": {
+      "$oid": "64835e158c58bf163126a502"
+    },
+    "id": 1,
+    "name": "Abs and Back",
+    "img": "https://musclemaker.com.au/wp-content/uploads/2020/03/shutterstock_269153795.jpg",
+    "exercises": [
+      {
+        "id": 1,
+        "active": true,
+        "name": "Warm up - Elbow Circles",
+        "category": "Upper body",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "warmup",
+        "subsitute": [],
+        "equipment": "bodyweight",
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "Shoulders"
+          }
+        ],
+        "gifUrl": "http://backend.fitlinez.com/appgifs/elbow-circles.gif",
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": "2 minutes"
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Stand straight with feet shoulder width apart."
+          },
+
+          {
+            "id": 2,
+            "line": "Bend elbows and touch shoulders"
+          },
+          {
+            "id": 3,
+            "line": "Set elbows pointing outward, then roll in a circular motion forward and then backwards"
+          }
+        ],
+        "inputType": "rep"
+      },
+      {
+        "id": 2,
+        "active": true,
+        "name": "Warm up - Rowing",
+        "category": "Upper body",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "warmup",
+        "subsitute": [],
+        "equipment": "Rowing machine",
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "Shoulders"
+          },
+          {
+            "id": 2,
+            "name": "lower back"
+          },
+          {
+            "id": 3,
+            "name": "upper back"
+          }
+        ],
+        "gifUrl": "http://backend.fitlinez.com/appgifs/how-to-row.gif",
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": "3 minutes"
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Start by holding the oar with arms extended, knees bent, and weight on the balls of your feet"
+          },
+
+          {
+            "id": 2,
+            "line": "With legs straight, pull the oar toward your chest. Bend your elbows out to the sides and touch the oar just under your chest"
+          },
+          {
+            "id": 3,
+            "line": "With your back straight, core engaged, and balls of your feet firmly in the straps, push back first with the lower body, then use your upper back to pull hands toward your chest. Release your arms toward the base and bend your knees to glide back to starting position. Think: legs, arms, arms, legs"
+          }
+        ],
+        "inputType": "rep"
+      },
+      {
+        "id": 3,
+        "active": true,
+        "name": "Barbell bench press",
+        "category": "Upper body",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "main",
+        "subsitute": [
+          {
+            "id": 1,
+            "name": "Floor Press",
+            "img": "",
+            "gifUrl": "https://backend.fitlinez.com/appgifs/dumbbell-floor-press.gif",
+            "description": "",
+            "instructions": [
+              {
+                "id": 1,
+                "line": "Lie on the floor with your knees bent and feet flat on the floor."
+              },
+              {
+                "id": 2,
+                "line": "Hold a pair of dumbbells directly above your shoulders with your arms straight and your palms facing each other."
+              },
+              {
+                "id": 3,
+                "line": "Lower the dumbbells to the sides of your chest."
+              },
+              {
+                "id": 4,
+                "line": "Pause, and then push the weights back up to the starting position."
+              }
+            ]
+          }
+        ],
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "pecs"
+          },
+          {
+            "id": 2,
+            "name": "front delts"
+          },
+          {
+            "id": 3,
+            "name": "triceps"
+          }
+        ],
+        "gifUrl": "http://backend.fitlinez.com/appgifs/barbell-bench-press.gif",
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": "3 or 4 sets. 8-12 reps"
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Lie flat on a bench and set your hands just outside of shoulder width."
+          },
+          {
+            "id": 2,
+            "line": "Set your shoulder blades by pinching them together and driving them into the bench"
+          },
+          {
+            "id": 3,
+            "line": "Take a deep breath and allow your spotter to help you with the lift off in order to maintain tightness through your upper back"
+          },
+          {
+            "id": 4,
+            "line": "Let the weight settle and ensure your upper back remains tight after lift off."
+          },
+          {
+            "id": 5,
+            "line": "Inhale and allow the bar to descend slowly by unlocking the elbows."
+          },
+          {
+            "id": 6,
+            "line": "Lower the bar in a straight line to the base of the sternum (breastbone) and touch the chest."
+          },
+          {
+            "id": 7,
+            "line": "Push the bar back up in a straight line by pressing yourself into the bench, driving your feet into the floor for leg drive, and extending the elbows."
+          }
+        ],
+        "inputType": "weight"
+      },
+      {
+        "id": 4,
+        "active": true,
+        "name": "close-grip push-up (on knees)",
+        "category": "Upper body",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "main",
+        "subsitute": [
+          {
+            "id": 1,
+            "name": "",
+            "img": "",
+            "gifUrl": "",
+            "description": "",
+            "instructions": ""
+          }
+        ],
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "shoulders"
+          },
+          {
+            "id": 2,
+            "name": "chest"
+          },
+          {
+            "id": 3,
+            "name": "triceps"
+          }
+        ],
+        "gifUrl": "http://backend.fitlinez.com/appgifs/02591301-Close-Grip-Push-up_Upper-Arms_360.gif",
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": "3 or 4 sets. 8-12 reps"
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Place the knees on the floor, the hands below the shoulders, and cross your feet"
+          },
+          {
+            "id": 2,
+            "line": "Keeping your back straight, start bending the elbows until your chest is almost touching the floor"
+          },
+          {
+            "id": 3,
+            "line": "Pause and push back to the starting position"
+          }
+        ],
+        "inputType": "rep"
+      },
+      {
+        "id": 5,
+        "active": true,
+        "name": "Cable Pulldown",
+        "category": "Upper body",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "main",
+        "subsitute": [
+          {
+            "id": 1,
+            "name": "",
+            "img": "",
+            "gifUrl": "",
+            "description": "",
+            "instructions": ""
+          }
+        ],
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "deltoids"
+          },
+          {
+            "id": 2,
+            "name": "chest"
+          },
+          {
+            "id": 3,
+            "name": "triceps"
+          }
+        ],
+        "gifUrl": "http://backend.fitlinez.com/appgifs/wide-grip-lat-pulldown.gif",
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": "3 or 4 sets. 8-12 reps"
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Stand up, grab the handles and sit back down, securing your thighs under the pad"
+          },
+          {
+            "id": 2,
+            "line": "Bring your shoulders back and down, engage your core, and take a breath"
+          },
+          {
+            "id": 3,
+            "line": "Pull the handles down by rowing through your elbows"
+          },
+          {
+            "id": 4,
+            "line": "As you pull, your elbows should remain in line with your torso instead of going back behind your body"
+          }
+        ],
+        "inputType": "rep"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "64835e158c58bf163126a503"
+    },
+    "id": 2,
+    "name": "Chest and Triceps",
+    "img": "https://cdn.shopify.com/s/files/1/2074/9385/files/chest_and_tricep_workout_1024x1024.png?v=1603915808",
+    "exercises": [
+      {
+        "id": 1,
+        "active": true,
+        "name": "Bench Press",
+        "category": "Chest",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "main",
+        "subsitute": [
+          {
+            "id": 1,
+            "name": "Seated Rows",
+            "img": "",
+            "gifUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2022/08/wide-grip-lat-pulldown.gif",
+            "description": [
+              {
+                "id": 1,
+                "line": "The lat pulldown is a machine-based compound exercise primarily performed in order to replicate the movement of a pull-up, thereby targeting the latissimus dorsi and the biceps brachii to great effect."
+              }
+            ],
+            "instructions": [
+              {
+                "id": 1,
+                "line": "Sit down on the machine and place your feet on the front platform or crossbar provided making sure that your knees are slightly bent and not locked."
+              }
+            ]
+          }
+        ],
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "chest"
+          },
+          {
+            "id": 2,
+            "name": "triceps"
+          }
+        ],
+        "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2022/08/band-assisted-pull-up.gif",
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": ""
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Start by standing directly below a pull-up bar"
+          },
+          {
+            "id": 2,
+            "line": "Grab the bar with an overhand grip, hands shoulder-width apart"
+          },
+          {
+            "id": 3,
+            "line": "Hang from the bar with your arms fully extended"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "active": true,
+        "name": "cable lat pullover",
+        "category": "core",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "main",
+        "subsitute": [
+          {
+            "id": 1,
+            "name": "",
+            "img": "",
+            "gifUrl": "",
+            "description": "",
+            "instructions": ""
+          }
+        ],
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "back"
+          },
+          {
+            "id": 2,
+            "name": "abs"
+          }
+        ],
+        "gifUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2022/09/pullover-muscles.gif",
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": ""
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Start by standing directly below a pull-up bar"
+          },
+          {
+            "id": 2,
+            "line": "Grab the bar with an overhand grip, hands shoulder-width apart"
+          },
+          {
+            "id": 3,
+            "line": "Hang from the bar with your arms fully extended"
+          }
+        ]
+      }
+    ]
+  }
+]

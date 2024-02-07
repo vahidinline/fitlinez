@@ -1,0 +1,264 @@
+[
+  {
+    "id": 1,
+    "name": "Abs and Back",
+    "img": "https://musclemaker.com.au/wp-content/uploads/2020/03/shutterstock_269153795.jpg",
+    "exercises": [
+      {
+        "id": 1,
+        "active": true,
+        "name": "pull up with band",
+        "category": "core",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "main",
+        "subsitute": [
+          {
+            "id": 1,
+            "name": "Seated Rows",
+            "img": "",
+            "gifUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2022/08/wide-grip-lat-pulldown.gif",
+            "description": [
+              {
+                "id": 1,
+                "line": "The lat pulldown is a machine-based compound exercise primarily performed in order to replicate the movement of a pull-up, thereby targeting the latissimus dorsi and the biceps brachii to great effect."
+              }
+            ],
+            "instructions": [
+              {
+                "id": 1,
+                "line": "Sit down on the machine and place your feet on the front platform or crossbar provided making sure that your knees are slightly bent and not locked."
+              }
+            ]
+          }
+        ],
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "back"
+          },
+          {
+            "id": 2,
+            "name": "abs"
+          }
+        ],
+
+        "gifUrl": [
+          {
+            "id": 1,
+            "url": "https://fitnessprogramer.com/wp-content/uploads/2022/08/band-assisted-pull-up.gif"
+          }
+        ],
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": ""
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Start by standing directly below a pull-up bar"
+          },
+          {
+            "id": 2,
+            "line": "Grab the bar with an overhand grip, hands shoulder-width apart"
+          },
+          {
+            "id": 3,
+            "line": "Hang from the bar with your arms fully extended"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "active": true,
+        "name": "cable lat pullover",
+        "category": "core",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "main",
+        "subsitute": [
+          {
+            "id": 1,
+            "name": "",
+            "img": "",
+            "gifUrl": "",
+            "description": "",
+            "instructions": ""
+          }
+        ],
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "back"
+          },
+          {
+            "id": 2,
+            "name": "abs"
+          }
+        ],
+
+        "gifUrl": [
+          {
+            "id": 1,
+            "url": "https://www.inspireusafoundation.org/wp-content/uploads/2022/09/pullover-muscles.gif"
+          }
+        ],
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": ""
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Start by standing directly below a pull-up bar"
+          },
+          {
+            "id": 2,
+            "line": "Grab the bar with an overhand grip, hands shoulder-width apart"
+          },
+          {
+            "id": 3,
+            "line": "Hang from the bar with your arms fully extended"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Chest and Triceps",
+    "img": "https://cdn.shopify.com/s/files/1/2074/9385/files/chest_and_tricep_workout_1024x1024.png?v=1603915808",
+    "exercises": [
+      {
+        "id": 1,
+        "active": true,
+        "name": "Bench Press",
+        "category": "Chest",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "main",
+        "subsitute": [
+          {
+            "id": 1,
+            "name": "Seated Rows",
+            "img": "",
+            "gifUrl": "https://www.inspireusafoundation.org/wp-content/uploads/2022/08/wide-grip-lat-pulldown.gif",
+            "description": [
+              {
+                "id": 1,
+                "line": "The lat pulldown is a machine-based compound exercise primarily performed in order to replicate the movement of a pull-up, thereby targeting the latissimus dorsi and the biceps brachii to great effect."
+              }
+            ],
+            "instructions": [
+              {
+                "id": 1,
+                "line": "Sit down on the machine and place your feet on the front platform or crossbar provided making sure that your knees are slightly bent and not locked."
+              }
+            ]
+          }
+        ],
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "chest"
+          },
+          {
+            "id": 2,
+            "name": "triceps"
+          }
+        ],
+
+        "gifUrl": [
+          {
+            "id": 1,
+            "url": "https://fitnessprogramer.com/wp-content/uploads/2022/08/band-assisted-pull-up.gif"
+          }
+        ],
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": ""
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Start by standing directly below a pull-up bar"
+          },
+          {
+            "id": 2,
+            "line": "Grab the bar with an overhand grip, hands shoulder-width apart"
+          },
+          {
+            "id": 3,
+            "line": "Hang from the bar with your arms fully extended"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "active": true,
+        "name": "cable lat pullover",
+        "category": "core",
+        "level": "beginner",
+        "loc": "gym",
+        "type": "main",
+        "subsitute": [
+          {
+            "id": 1,
+            "name": "",
+            "img": "",
+            "gifUrl": "",
+            "description": "",
+            "instructions": ""
+          }
+        ],
+        "bodyPart": [
+          {
+            "id": 1,
+            "name": "back"
+          },
+          {
+            "id": 2,
+            "name": "abs"
+          }
+        ],
+
+        "gifUrl": [
+          {
+            "id": 1,
+            "url": "https://www.inspireusafoundation.org/wp-content/uploads/2022/09/pullover-muscles.gif"
+          }
+        ],
+        "vide": "",
+        "description": [
+          {
+            "id": 1,
+            "line": ""
+          }
+        ],
+        "instructions": [
+          {
+            "id": 1,
+            "line": "Start by standing directly below a pull-up bar"
+          },
+          {
+            "id": 2,
+            "line": "Grab the bar with an overhand grip, hands shoulder-width apart"
+          },
+          {
+            "id": 3,
+            "line": "Hang from the bar with your arms fully extended"
+          }
+        ]
+      }
+    ]
+  }
+]
