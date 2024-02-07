@@ -109,6 +109,7 @@ function Item(props) {
   useEffect(() => {
     if (saveCount + 1 >= adjustedNumberOfSets) {
       if (index >= dataLength - 1) {
+        console.log('into index >= dataLength - 1');
         // When it's the last set of the last movement
         setButtonTitle(i18n.t('finishWorkout'));
       } else {
@@ -139,32 +140,25 @@ function Item(props) {
     // Increment the counter.
     setSaveCount((prevCount) => prevCount + 1);
 
-    // Then check if it's the last set.
+    // Check if it's the last set and the last exercise
     if (saveCount + 1 >= adjustedNumberOfSets) {
-      console.log('Last set of the movement --');
-      // We have saved all the sets, now call the doneItem function.
-      doneItem(index);
       if (index >= dataLength - 1) {
-        console.log('Last set of the last movement');
+        // It's the last set of the last exercise, so finish the session
         setFinish(true);
+      } else {
+        // It's the last set, but not the last exercise, navigate to next exercise
+        doneItem(index);
       }
     } else {
-      // Still need to save some sets.
+      // Still need to save some sets
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
 
-    // Now, we no longer need the below check
-    // because we have already catered for it in the doneItem(index) condition above.
-    /* 
-      try {
-        console.log(`Index: ${index}, dataLength: ${dataLength}`);
-        if (index >= dataLength - 1) {
-          setFinish(true);
-        }
-      } catch (error) {
-        console.error("Error in handleButton:", error);
-      }
-    */
+    // Call the doneItem function when appropriate
+    if (saveCount + 1 >= adjustedNumberOfSets && index >= dataLength - 1) {
+      // We have saved all the sets of the last exercise
+      doneItem(index);
+    }
   };
 
   return (
