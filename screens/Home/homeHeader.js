@@ -40,6 +40,7 @@ function HomeHeader({ planStartDate, data, title }) {
   const userLevel = userAuth.level;
   const Userplatform = Platform.OS;
   const { userPrivilege } = useContext(UserPrivilegeContext);
+  console.log('userPrivilege', userPrivilege);
 
   useEffect(() => {
     const res = generateHeaderText(planStartDate, data, i18n, title);

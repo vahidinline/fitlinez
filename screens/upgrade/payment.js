@@ -97,23 +97,22 @@ function ConfirmPayment() {
               margin: 10,
               width: Dimensions.get('window').width / 1.1,
             }}>
-            {unsuccess && (
-              <Button
-                onPress={() => {
-                  Linking.openURL('https://t.me/fitlinezsupport');
-                }}
-                title={`${i18n.t('support')}`}
-                titleStyle={{ color: theme.colors.white }}
-                containerStyle={{ margin: 10 }}
-                buttonStyle={{
-                  backgroundColor: theme.colors.button,
-                  borderColor: theme.colors.border,
-                  borderWidth: 1,
-                  borderRadius: 16,
-                  width: Dimensions.get('window').width / 2.4,
-                }}
-              />
-            )}
+            <Button
+              onPress={() => {
+                Linking.openURL('https://t.me/fitlinezsupport');
+              }}
+              title={`${i18n.t('support')}`}
+              titleStyle={{ color: theme.colors.white }}
+              containerStyle={{ margin: 10 }}
+              buttonStyle={{
+                backgroundColor: theme.colors.button,
+                borderColor: theme.colors.border,
+                borderWidth: 1,
+                borderRadius: 16,
+                width: Dimensions.get('window').width / 2.4,
+              }}
+            />
+
             <Button
               onPress={() => {
                 navigator.reset({

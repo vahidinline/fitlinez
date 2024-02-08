@@ -413,7 +413,7 @@ function Item(props) {
           borderColor: theme.colors.border,
           paddingTop: 10,
         }}>
-        <Button
+        {/* <Button
           // type="outline"
           buttonStyle={{
             backgroundColor: theme.colors.background,
@@ -428,7 +428,7 @@ function Item(props) {
             color: theme.colors.secondary,
           }}
           onPress={() => undoneItem(index)}
-        />
+        /> */}
 
         <Button
           type="outline"
@@ -436,7 +436,7 @@ function Item(props) {
             backgroundColor: theme.colors.button,
             borderRadius: 12,
             borderWidth: 1,
-            width: Dimensions.get('window').width / 2.4,
+            width: Dimensions.get('window').width / 1.1,
             height: Dimensions.get('window').height / 20,
           }}
           //  onPress={() => doneItem(index)}

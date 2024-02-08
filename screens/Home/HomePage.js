@@ -23,12 +23,9 @@ import * as SQLite from 'expo-sqlite';
 import AlertUser from './Alert';
 import HomeAssess from './homeAssess';
 import HomeTop from './HomeTop';
-import Upgrade from './upgrade';
-import PushApp from '../../components/push';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
 import { syncMessages } from '../../api/notification';
-import MarketPlaceIndex from '../marketplace/MarketPlaceIndex';
 const db1 = SQLite.openDatabase('packeges.db');
 
 // trackEvent('Screen View', { name: 'HomePage' });

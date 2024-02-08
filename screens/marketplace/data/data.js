@@ -118,4 +118,20 @@ const trainersList = [
   { id: 8, name: 'Trainer 8', img: 'https://picsum.photos/200/300' },
 ];
 
-export { duration, targget, level, days, rate, status, trainersList };
+const location = [
+  {
+    id: 1,
+    name: 'all',
+  },
+
+  {
+    id: 2,
+    name: 'Gym',
+  },
+  {
+    id: 3,
+    name: 'Home',
+  },
+];
+
+export { duration, targget, level, days, rate, status, trainersList, location };

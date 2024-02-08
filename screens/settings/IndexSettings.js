@@ -26,6 +26,7 @@ import {
   IconClear,
   IconInfo,
   IconLanguage,
+  IconNotification,
   IconRanking,
   IconSupport,
   IconTrash,
@@ -135,6 +136,7 @@ function SettingIndex() {
       name: 'Push Notification',
       icon: IconInfo,
       func: () => registerForPushNotificationsAsync(),
+      sub: true,
     },
   ];
 
@@ -142,6 +144,10 @@ function SettingIndex() {
     const { status } = await Notifications.requestPermissionsAsync();
     if (status !== 'granted') {
       Alert.alert('Sorry, we need notification permissions to make this work!');
+    } else {
+      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+      Alert.alert('Push Notification has been enabled');
     }
   }
 
@@ -227,18 +233,30 @@ function SettingIndex() {
               <List.Item
                 title={() => {
                   return (
-                    <Text
+                    <View
                       style={{
-                        fontSize: 16,
-                        fontWeight: item.id !== 5 ? '300' : '500',
-                        color: item.id !== 5 ? theme.colors.text : 'red',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        // top: 15,
                         marginLeft: 10,
-                        //position: 'absolute',
-                        //right: 180,
-                        //top: -10,
                       }}>
-                      {item.name}
-                    </Text>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: item.id !== 5 ? '300' : '500',
+                          color: item.id !== 5 ? theme.colors.text : 'red',
+                          marginLeft: 10,
+                          //position: 'absolute',
+                          //right: 180,
+                          //top: -10,
+                        }}>
+                        {item.name}
+                      </Text>
+                      {item.sub && <IconNotification />}
+                    </View>
                   );
                 }}
                 onPress={() => item.func()}

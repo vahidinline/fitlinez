@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import {
   currentPalnPercentage,
   readWorkoutData,
-  generateHeaderText,
 } from '../../api/readWorkoutData';
 import CurrentWorkoutCard from './CurrentWorkoutCard';
 import { getPackages } from '../../api/GetData';
@@ -20,6 +19,7 @@ import * as TaskManager from 'expo-task-manager';
 import { useFocusEffect } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
+import NoWorkoutCard from './noWorkout';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -172,7 +172,7 @@ function HomeIndex() {
           flex: 1,
           marginTop: currentPlan ? Dimensions.get('window').height / 7 : 0,
         }}>
-        {currentPlan && (
+        {currentPlan ? (
           <View
             style={{
               // overflow: 'hidden',
@@ -202,6 +202,17 @@ function HomeIndex() {
               location={currentPlan?.location || ''}
               userPervilage={userPervilage}
             />
+          </View>
+        ) : (
+          <View
+            style={{
+              // overflow: 'hidden',
+              //height: Dimensions.get('window').height / 3.5,
+              width: Dimensions.get('window').width,
+              marginTop: 10,
+              marginBottom: Dimensions.get('window').height / 6,
+            }}>
+            <NoWorkoutCard />
           </View>
         )}
 

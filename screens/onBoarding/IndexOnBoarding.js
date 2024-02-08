@@ -25,6 +25,7 @@ import { I18n } from 'i18n-js';
 import api from '../../api/api';
 import AuthContext from '../../api/context';
 import { set } from 'lodash';
+import { StatusBar } from 'expo-status-bar';
 const db = SQLite.openDatabase('userBasicData.db');
 
 function IndexOnBoarding() {

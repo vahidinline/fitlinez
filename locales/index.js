@@ -315,8 +315,12 @@ const i18nt = {
     text703: 'I will sacrifice whatever is necessary to be the best.',
     nextSet: 'Next Set',
     nextExercise: 'Next Exercise',
+    noPlanSelectedTitle: 'No Plan Selected',
+    noPlanSelectedSubTitle: 'Please select a plan to start your workout',
   },
   fa: {
+    noPlanSelectedTitle: 'برنامه ای انتخاب نشده است',
+    noPlanSelectedSubTitle: 'لطفا برنامه ای را برای شروع تمرین خود انتخاب کنید',
     nextSet: 'ست بعدی',
     nextExercise: 'تمرین بعدی',
     text1001: 'مسیرهای سخت اغلب به زیباترین مقصدها ختم می‌شوند',

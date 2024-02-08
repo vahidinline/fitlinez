@@ -24,32 +24,15 @@ function MarketPlaceIndex() {
   const packagesRef = useRef(null);
   const [showFilter, setShowFilter] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(''); // Add this state
-  const navigation = useNavigation();
+  const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = (query) => setSearchQuery(query);
-  const [filteredPackages, setFilteredPackages] = useState([]); // Add this state
+  const [filteredPackages, setFilteredPackages] = useState([]);
+  const navigation = useNavigation();
   const removeFilteredItem = (itemKeyToRemove) => {
     setSelectedFilter(
       ({ [itemKeyToRemove]: _, ...remainingFilters }) => remainingFilters
     );
   };
-
-  console.log('selectedFilter', selectedFilter);
-
-  const applyFilters = (packages) => {
-    return packages.filter((pack) => {
-      return (
-        pack.DaysPerWeek.toString() === selectedFilter.Days &&
-        pack.duration.toString() === selectedFilter.Duration &&
-        pack.level.toLowerCase() === selectedFilter.Level.toLowerCase() &&
-        pack.target.toLowerCase() === selectedFilter.Target.toLowerCase()
-      );
-    });
-  };
-
-  useEffect(() => {
-    setFilteredPackages(applyFilters(packages));
-  }, [packages]);
 
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
@@ -78,21 +61,22 @@ function MarketPlaceIndex() {
   const filterPackagesByLevel = (packages, filter) => {
     return packages.filter((packages) => packages.level === filter);
   };
+
   const sections = [
     {
-      title: 'Workouts',
+      title: i18n.t('allWorkouts'),
       data: packages,
       renderItem: ({ item }) => (
         <ListItems packages={item} name={'Workouts'} navigation={navigation} />
       ),
     },
     {
-      title: 'Gym & Home Workouts',
+      title: 'Home Workouts',
       data: packages,
       renderItem: ({ item }) => (
         <ListItems
           packages={item}
-          name={'Gym & Home Workouts'}
+          name={'Home Workouts'}
           navigation={navigation}
         />
       ),
@@ -105,16 +89,30 @@ function MarketPlaceIndex() {
     },
   ];
 
+  const filterBySearch = (packages, searchQuery) => {
+    return packages.filter((packages) =>
+      packages.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
   useEffect(() => {
-    if (searchQuery) {
-      const filteredData = packages.filter((packages) =>
-        packages.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredPackages(filteredData);
-    } else {
-      setFilteredPackages(packages);
-    }
+    const filteredData = filterBySearch(packages, searchQuery);
+    setFilteredPackages(filteredData);
   }, [searchQuery, packages]);
+
+  // useEffect(() => {
+  //   if (searchQuery) {
+  //     const filteredData = packages.filter((packages) =>
+  //       packages.name?.toLowerCase().includes(searchQuery.toLowerCase())
+  //     );
+  //     setFilteredPackages(filteredData);
+  //   } else {
+  //     setFilteredPackages(packages);
+  //   }
+  // }, [searchQuery, packages]);
+
+  const filteredPackage = filterBySearch(packages, searchQuery);
+  console.log('filteredPackage', filteredPackage);
 
   return (
     <View
@@ -144,7 +142,7 @@ function MarketPlaceIndex() {
             justifyContent: 'flex-start',
           }}
           inputStyle={{
-            color: theme.colors.primary,
+            color: theme.colors.secondary,
             borderRadius: 30,
             height: 50,
           }}
@@ -211,24 +209,29 @@ function MarketPlaceIndex() {
             ListHeaderComponent={() => (
               <View>
                 <ListItems
+                  packages={filteredPackage}
+                  name={'Search Results'}
+                  navigation={navigation}
+                />
+                <ListItems
                   packages={packages}
                   name={'Workouts'}
                   navigation={navigation}
                 />
                 <ListItems
                   packages={filterPackages(packages, true)}
-                  name={'Gym & Home Workouts'}
+                  name={i18n.t('homeWorkout')}
                   navigation={navigation}
                 />
                 {/* <TrainersList name={'Trainers'} /> */}
                 <ListItems
                   packages={filterPackagesByLevel(packages, 'Beginner')}
-                  name={'Beginner'}
+                  name={i18n.t('beginner')}
                   navigation={navigation}
                 />
                 <ListItems
                   packages={filterPackagesByLevel(packages, 'Intermediate')}
-                  name={'Intermediate'}
+                  name={i18n.t('intermediate')}
                   navigation={navigation}
                 />
               </View>

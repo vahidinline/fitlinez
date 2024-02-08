@@ -14,6 +14,7 @@ import StepThree from './step3';
 import StepFour from './step4';
 import { Icon } from 'iconsax-react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 
 function ForgotPassIndex() {
   const [currentStep, setCurrentStep] = React.useState(0);

@@ -2,7 +2,7 @@ import { BottomSheet, Button, useTheme } from '@rneui/themed';
 import React, { useContext, useEffect } from 'react';
 import Filters from '../Filters';
 import { Dimensions, View } from 'react-native';
-import { targget, level, days, duration } from '../data/data';
+import { targget, level, days, duration, location } from '../data/data';
 import { IconWeight, IconClock, IconLevel, IconTimer } from './icons';
 import { useState } from 'react';
 import Header from '../../../components/header';
@@ -40,7 +40,7 @@ function FilterIndex({ setSelectedFilter, showFilter, setShowFilter }) {
           icon={<IconWeight />}
           numColumns={3}
           setListOffilters={(filter) =>
-            setListOfFilters((prevState) => ({ ...prevState, Target: filter }))
+            setListOfFilters((prevState) => ({ ...prevState, filter }))
           }
         />
 
@@ -50,7 +50,7 @@ function FilterIndex({ setSelectedFilter, showFilter, setShowFilter }) {
           icon={<IconLevel />}
           numColumns={3}
           setListOffilters={(filter) =>
-            setListOfFilters((prevState) => ({ ...prevState, Level: filter }))
+            setListOfFilters((prevState) => ({ ...prevState, filter }))
           }
         />
         <Filters
@@ -61,7 +61,19 @@ function FilterIndex({ setSelectedFilter, showFilter, setShowFilter }) {
           setListOffilters={(filter) =>
             setListOfFilters((prevState) => ({
               ...prevState,
-              Duration: filter,
+              filter,
+            }))
+          }
+        />
+        <Filters
+          data={location}
+          name={i18n.t('location')}
+          icon={<IconWeight />}
+          numColumns={3}
+          setListOffilters={(filter) =>
+            setListOfFilters((prevState) => ({
+              ...prevState,
+              filter,
             }))
           }
         />
@@ -72,7 +84,7 @@ function FilterIndex({ setSelectedFilter, showFilter, setShowFilter }) {
           icon={<IconClock />}
           numColumns={3}
           setListOffilters={(filter) =>
-            setListOfFilters((prevState) => ({ ...prevState, Days: filter }))
+            setListOfFilters((prevState) => ({ ...prevState, filter }))
           }
         />
 
