@@ -1,11 +1,11 @@
 const Countries = [
   {
-    name: 'Estonia',
-    code: 'EE',
-    emoji: '🇪🇪',
-    unicode: 'U+1F1EA U+1F1EA',
+    name: 'Iran',
+    code: 'IR',
+    emoji: '🇮🇷',
+    unicode: 'U+1F1EE U+1F1F7',
     image:
-      'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/EE.svg',
+      'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IR.svg',
   },
   {
     name: 'Canada',
@@ -15,6 +15,16 @@ const Countries = [
     image:
       'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CA.svg',
   },
+
+  {
+    name: 'Estonia',
+    code: 'EE',
+    emoji: '🇪🇪',
+    unicode: 'U+1F1EA U+1F1EA',
+    image:
+      'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/EE.svg',
+  },
+
   {
     name: 'United States',
     code: 'US',
@@ -62,14 +72,6 @@ const Countries = [
     unicode: 'U+1F1E6 U+1F1F9',
     image:
       'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AT.svg',
-  },
-  {
-    name: 'Iran',
-    code: 'IR',
-    emoji: '🇮🇷',
-    unicode: 'U+1F1EE U+1F1F7',
-    image:
-      'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IR.svg',
   },
   {
     name: 'Australia',

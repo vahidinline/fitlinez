@@ -60,37 +60,40 @@ const CountDown = ({ setStopwatchTime, handleInputChange }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.timeText}>{formatTime(time)}</Text>
-      <View style={styles.buttonContainer}>
-        {running ? (
-          <>
-            <TouchableOpacity
-              style={styles.pauseButton}
-              onPress={pauseStopwatch}>
-              <IconPause />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.saveButton} onPress={handleStop}>
-              <IconSave />
-            </TouchableOpacity>
-          </>
-        ) : (
-          <>
-            <TouchableOpacity
-              style={styles.startButton}
-              onPress={startStopwatch}>
-              <IconPlay />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.resetButton}
-              onPress={resetStopwatch}>
-              <IconReset />
-            </TouchableOpacity>
-          </>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {running && (
+          <TouchableOpacity style={styles.pauseButton} onPress={pauseStopwatch}>
+            <IconPause />
+          </TouchableOpacity>
         )}
         {!running && (
-          <TouchableOpacity
-            style={styles.resumeButton}
-            onPress={resumeStopwatch}></TouchableOpacity>
+          <TouchableOpacity style={styles.saveButton} onPress={handleStop}>
+            <IconSave />
+          </TouchableOpacity>
+        )}
+      </View>
+      <Text style={styles.timeText}>{formatTime(time)}</Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {!running && (
+          <TouchableOpacity style={styles.startButton} onPress={startStopwatch}>
+            <IconPlay />
+          </TouchableOpacity>
+        )}
+
+        {running && (
+          <TouchableOpacity style={styles.resetButton} onPress={resetStopwatch}>
+            <IconReset />
+          </TouchableOpacity>
         )}
       </View>
     </View>
@@ -100,49 +103,53 @@ const CountDown = ({ setStopwatchTime, handleInputChange }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    justifyContent: 'space-between',
     borderRadius: 14,
+    flexDirection: 'row',
   },
   buttonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
+    height: 50,
   },
 
   timeText: {
     fontSize: 20,
     color: '#5B5891',
-    top: 10,
+    // top: 10,
   },
 
   startButton: {
     position: 'absolute',
-    right: 14,
-    left: Dimensions.get('window').width / 4,
-    bottom: 0,
+    right: 0,
+    //  left: Dimensions.get('window').width / 4,
   },
   resetButton: {
-    marginRight: 10,
     position: 'absolute',
-    right: Dimensions.get('window').width / 4.5,
-    bottom: 0,
+    right: 0,
   },
   pauseButton: {
     position: 'absolute',
-    left: Dimensions.get('window').width / 4,
-    bottom: 0,
+    left: 0,
   },
   resumeButton: {
     position: 'absolute',
-    right: Dimensions.get('window').width / 4,
-    bottom: 0,
+    right: 0,
   },
   saveButton: {
-    marginRight: 30,
+    marginRight: 10,
     position: 'absolute',
-    right: Dimensions.get('window').width / 4.5,
-    bottom: 10,
+    left: 0,
+  },
+
+  button: {
+    backgroundColor: 'red',
+    height: '100%',
+    position: 'absolute',
+    right: Dimensions.get('window').width / 4,
+    bottom: 0,
   },
 });
 

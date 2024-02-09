@@ -87,8 +87,6 @@ function WorkoutAgenda(props) {
         key={item.id}
         style={{
           flexDirection: 'column',
-          borderBottomWidth: 1,
-          borderBottomColor: theme.colors.border,
         }}>
         <View
           style={{

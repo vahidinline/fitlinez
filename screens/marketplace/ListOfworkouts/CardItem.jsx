@@ -8,19 +8,112 @@ import { Svg, Path } from 'react-native-svg';
 import LanguageContext from '../../../api/langcontext';
 import i18nt from '../../../locales';
 import { I18n } from 'i18n-js';
+import { Iconstar } from '../filters/icons';
 
-function CardItem({ item }) {
+const SingleItem = ({ title, sub, level, star, mainTitle }) => {
   const { theme } = useTheme();
   const navigation = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   return (
+    <View
+      style={{
+        //flexDirection: 'row',
+
+        marginVertical: 10,
+        marginHorizontal: 10,
+      }}>
+      {title && (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            // alignItems: 'center',
+            width: Dimensions.get('window').width / 2.2,
+          }}>
+          <Text
+            style={{
+              color: mainTitle ? theme.colors.secondary : theme.colors.grey,
+              fontSize: mainTitle ? 16 : 12,
+              fontWeight: '500',
+              //marginHorizontal: 10,
+            }}>
+            {title}
+          </Text>
+
+          <Text
+            style={{
+              color: theme.colors.text,
+              fontSize: 14,
+              fontWeight: '500',
+              //marginHorizontal: 10,
+            }}>
+            {sub}
+          </Text>
+        </View>
+      )}
+      {level && (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            // alignItems: 'center',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+
+              alignItems: 'center',
+              //marginLeft: 10,
+            }}>
+            <Iconstar size={32} color={theme.colors.gold} />
+            <Text
+              style={{
+                color: theme.colors.text,
+                fontSize: 16,
+                fontWeight: '500',
+                marginHorizontal: 0,
+              }}>
+              {star}
+            </Text>
+          </View>
+          <Chip
+            style={{
+              borderWidth: 1,
+              borderColor:
+                level === 'Beginner'
+                  ? theme.colors.beginnerText
+                  : level === 'Intermediate'
+                  ? theme.colors.intermediateText
+                  : theme.colors.advancedText,
+              backgroundColor:
+                level === 'Beginner'
+                  ? theme.colors.beginnerbg
+                  : level === 'Intermediate'
+                  ? theme.colors.intermediatebg
+                  : theme.colors.border,
+            }}>
+            {level}
+          </Chip>
+        </View>
+      )}
+    </View>
+  );
+};
+
+function CardItem({ item }) {
+  const { theme } = useTheme();
+  const navigation = useNavigation();
+  const { userLanguage } = useContext(LanguageContext);
+  const RTL = userLanguage === 'fa' ? true : false;
+  const i18n = new I18n(i18nt);
+  i18n.locale = userLanguage;
+  return (
     <Card
       onPress={() => navigation.navigate('PlanItem', { item: item })}
       style={{
-        borderRadius: 20,
-
+        borderRadius: 16,
         marginHorizontal: 20,
         marginBottom: 20,
         marginTop: 0,
@@ -28,13 +121,10 @@ function CardItem({ item }) {
         shadowOpacity: 0,
         borderWidth: 1,
         borderColor: theme.colors.border,
-        direction: userLanguage === 'fa' ? 'rtl' : 'ltr',
       }}>
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
         }}>
         <Card.Cover
           style={{
@@ -46,93 +136,28 @@ function CardItem({ item }) {
           }}
           source={{ uri: item.image }}
         />
+
         <View
           style={{
-            flexDirection: 'column',
+            direction: RTL ? 'rtl' : 'ltr',
+            //marginHorizontal: 10,
           }}>
-          <Text
-            style={{
-              fontSize: 16,
-              justifyContent: 'center',
-              //alignSelf: 'center',
-              marginVertical: 0,
-              marginHorizontal: 20,
-              fontWeight: '500',
-              color: theme.colors.secondary,
-            }}>
-            {item.name}
-          </Text>
-          <View
-            style={{
-              //marginHorizontal: 10, // Add some margin to the right of each item
-              //justifyContent: 'space-between',
-              marginLeft: 20, // Add some margin to the right of each item
-              marginRight: 10, // Add some margin to the right of each item
-              //marginTop: 30,
-              //marginRight: 40,
-            }}>
-            <List.Item
-              titleStyle={{
-                justifyContent: 'flex-end',
-              }}
-              right={(props) => <Text>{item.creator}</Text>}
-              left={(props) => <Text>{`${i18n.t('trainer')}:`}</Text>}
-            />
-            <List.Item
-              right={(props) => (
-                <Text>{`${item.duration} ${i18n.t('week')}`}</Text>
-              )}
-              left={(props) => <Text>{`${i18n.t('duration')}:`}</Text>}
-            />
-            <List.Item
-              right={(props) => <Text>{item.target}</Text>}
-              left={(props) => <Text>{`${i18n.t('target')}:`}</Text>}
-            />
-            <List.Item
-              right={(props) => (
-                <Text>{`${item.DaysPerWeek} ${i18n.t('days')}`}</Text>
-              )}
-              left={(props) => <Text>{`${i18n.t('daysperweek')}:`}</Text>}
-            />
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              //justifyContent: 'space-between',
-              alignItems: 'center',
-              marginTop: 10,
-            }}>
-            <Chip
-              style={{
-                //backgroundColor: theme.colors.primary,
-                marginHorizontal: 10,
-                //width: Dimensions.get('window').width / 3,
-              }}>
-              {item.level}
-            </Chip>
-            {item?.star && (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  //marginHorizontal: 16,
-                }}>
-                <Text>4.5</Text>
-                <Svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none">
-                  <Path
-                    d="M15.9978 23.36L21.5312 26.7067C22.5445 27.32 23.7845 26.4133 23.5178 25.2667L22.0512 18.9733L26.9445 14.7333C27.8378 13.96 27.3578 12.4933 26.1845 12.4L19.7445 11.8533L17.2245 5.90668C16.7712 4.82668 15.2245 4.82668 14.7712 5.90668L12.2512 11.84L5.81117 12.3867C4.63784 12.48 4.15784 13.9467 5.05117 14.72L9.94451 18.96L8.47784 25.2533C8.21117 26.4 9.45117 27.3067 10.4645 26.6933L15.9978 23.36Z"
-                    fill="#FABB05"
-                  />
-                </Svg>
-              </View>
-            )}
-          </View>
+          <SingleItem title={item.name} mainTitle={true} />
+          <SingleItem title={i18n.t('trainer')} sub={item.creator} />
+          <SingleItem
+            title={i18n.t('duration')}
+            sub={`${item.duration} ${i18n.t('week')}`}
+          />
+          <SingleItem title={i18n.t('target')} sub={item.target} />
+          <SingleItem
+            title={i18n.t('duration')}
+            sub={`${item.duration} ${i18n.t('week')}`}
+          />
+          <SingleItem
+            title={i18n.t('daysperweek')}
+            sub={`${item.DaysPerWeek} ${i18n.t('daysinweek')}`}
+          />
+          <SingleItem level={item.level} star={item.star} />
         </View>
       </View>
     </Card>

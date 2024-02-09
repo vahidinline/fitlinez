@@ -188,21 +188,23 @@ function SignUpIndex(props) {
             }}
             title={
               <>
-                <Text> I accept the </Text>
+                <Text> {i18n.t('signupTerms')} </Text>
                 <Text
                   style={{ textDecorationLine: 'underline' }}
                   onPress={() =>
                     Linking.openURL('https://www.fitlinez.com/terms-of-service')
                   }>
-                  terms and conditions
+                  {' '}
+                  {i18n.t('termsandconditions')}
                 </Text>
-                <Text> and </Text>
+                <Text> {i18n.t('and')} </Text>
                 <Text
                   style={{ textDecorationLine: 'underline' }}
                   onPress={() =>
                     Linking.openURL('https://www.fitlinez.com/privacy-policy')
                   }>
-                  privacy policy
+                  {''}
+                  {i18n.t('privacypolicy')}
                 </Text>
               </>
             }
@@ -227,7 +229,7 @@ function SignUpIndex(props) {
             },
             btnDisable && { color: '#fff' },
           ]}
-          title="Signup"
+          title={i18n.t('signUp')}
         />
       </View>
       <View
@@ -243,13 +245,14 @@ function SignUpIndex(props) {
             alignSelf: 'center',
             marginTop: 20,
           }}>
-          Already have an account?{' '}
+          {i18n.t('signupFooterText')}
           <Text
             onPress={() => navigation.navigate('Login')}
             style={{
               color: theme.colors.button,
             }}>
-            Sign In
+            {' '}
+            {i18n.t('signupFooterText2')}
           </Text>
         </Text>
       </View>

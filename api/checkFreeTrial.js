@@ -8,7 +8,7 @@ const checkFreeTrial = (userAuth) => {
   const daysLeft = 14 - diffDays;
 
   const result = daysLeft > 0 ? true : false;
-
+  console.log('daysLeft', daysLeft);
   return result;
 };
 export default checkFreeTrial;

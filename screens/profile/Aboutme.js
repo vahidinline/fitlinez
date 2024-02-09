@@ -115,7 +115,7 @@ function Aboutme() {
           marginHorizontal: 20,
         }}
         onPress={() => navigation.navigate('IndexOnBoarding')}
-        title={'edit'}
+        title={i18n.t('updateProfile')}
       />
     </View>
   );

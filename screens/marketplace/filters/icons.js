@@ -1141,31 +1141,31 @@ const IconStatue = () => {
   );
 };
 
-const IconPremium = () => {
+const IconPremium = ({ size, color }) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
+      width={size || 18}
+      height={size || 18}
       viewBox="0 0 18 18"
       fill="none">
       <Path
         d="M12.525 14.2345H5.47503C5.16003 14.2345 4.80753 13.987 4.70253 13.687L1.59753 5.00203C1.15503 3.75703 1.67253 3.37453 2.73753 4.13953L5.66253 6.23203C6.15003 6.56953 6.70503 6.39703 6.91503 5.84953L8.23503 2.33203C8.65503 1.20703 9.35253 1.20703 9.77253 2.33203L11.0925 5.84953C11.3025 6.39703 11.8575 6.56953 12.3375 6.23203L15.0825 4.27453C16.2525 3.43453 16.815 3.86203 16.335 5.21953L13.305 13.702C13.1925 13.987 12.84 14.2345 12.525 14.2345Z"
-        stroke="#292D32"
+        stroke={color || '#47464F'}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M4.875 16.5H13.125"
-        stroke="#292D32"
+        stroke={color || '#47464F'}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M7.125 10.5H10.875"
-        stroke="#292D32"
+        stroke={color || '#47464F'}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -6611,14 +6611,14 @@ const IconImage = () => {
 const IconWarning = ({ color, size }) => {
   return (
     <Svg
-      width={size}
-      height={size}
+      width={size || 24}
+      height={size || 24}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <Path
         d="M12 9V14"
-        stroke={color}
+        stroke={color || '#FF5C5C'}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -6632,7 +6632,7 @@ const IconWarning = ({ color, size }) => {
       />
       <Path
         d="M11.9945 17H12.0035"
-        stroke={color}
+        stroke={color || '#FF5C5C'}
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -6698,7 +6698,58 @@ const IconNotification = ({ color, size }) => {
   );
 };
 
+const Iconclose = ({ color, size }) => {
+  return (
+    <Svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M9.16998 14.83L14.83 9.17004"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M14.83 14.83L9.16998 9.17004"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+};
+
+const Iconstar = ({ color, size }) => {
+  return (
+    <Svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size || 24}
+      height={size || 24}
+      viewBox="0 0 32 32"
+      fill="none">
+      <Path
+        d="M15.9978 23.36L21.5312 26.7067C22.5445 27.32 23.7845 26.4133 23.5178 25.2667L22.0512 18.9733L26.9445 14.7333C27.8378 13.96 27.3578 12.4933 26.1845 12.4L19.7445 11.8533L17.2245 5.90668C16.7712 4.82668 15.2245 4.82668 14.7712 5.90668L12.2512 11.84L5.81117 12.3867C4.63784 12.48 4.15784 13.9467 5.05117 14.72L9.94451 18.96L8.47784 25.2533C8.21117 26.4 9.45117 27.3067 10.4645 26.6933L15.9978 23.36Z"
+        fill={color || '#5B5891'}
+      />
+    </Svg>
+  );
+};
+
 export {
+  Iconstar,
+  Iconclose,
   IconNotification,
   IconCamera,
   IconWarning,

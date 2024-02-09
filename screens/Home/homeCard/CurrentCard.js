@@ -28,14 +28,15 @@ function CurrentCard({ title, subtitle, component, icon, value, index }) {
       }}>
       <View
         style={{
-          position: 'absolute',
+          //position: 'absolute',
           top: 0,
           right: index === 1 ? 0 : Dimensions.get('window').width / 22,
           flexDirection: 'row',
           //justifyContent: 'flex-start',
           justifyContent: 'flex-start',
           alignItems: 'center',
-          marginRight: 20,
+          marginRight: 0,
+          //bottom: 0,
         }}>
         {icon}
         <Text

@@ -169,7 +169,7 @@ function LoginIndex(props) {
             }
             //onPress={() => navigation.navigate('ForgotPassIndex')}
             style={{
-              color: theme.colors.secondary2,
+              color: theme.colors.secondary,
               alignSelf: 'flex-end',
               marginTop: -10,
             }}>
@@ -232,13 +232,14 @@ function LoginIndex(props) {
             alignSelf: 'center',
             marginTop: 20,
           }}>
-          Don't have an account?{' '}
+          {i18n.t('loginFooterText')}
           <Text
             onPress={() => navigation.navigate('Register')}
             style={{
               color: theme.colors.button,
             }}>
-            Sign Up
+            {' '}
+            {i18n.t('loginFooterText2')}
           </Text>
         </Text>
       </View>

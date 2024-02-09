@@ -60,7 +60,7 @@ function NoWorkoutCard({ title, trainer, location }) {
         style={{
           flexDirection: 'column',
           justifyContent: 'space-between',
-          marginHorizontal: 20,
+          //marginHorizontal: 20,
           alignItems: 'center',
           marginTop: 20,
           width: Dimensions.get('window').width / 1.1,
@@ -86,8 +86,8 @@ function NoWorkoutCard({ title, trainer, location }) {
           subtitle={i18n.t('todaysactivity')}
           component={
             <Button
-              disabled
-              //onPress={() => handleNextStep(userAuth.date)}
+              //disabled
+              onPress={() => navigation.navigate('WorkoutListIndex')}
               buttonStyle={{
                 borderRadius: 8,
                 backgroundColor: theme.colors.button,
@@ -114,10 +114,10 @@ function NoWorkoutCard({ title, trainer, location }) {
                   alignSelf: 'center',
                   color: theme.colors.secondary,
                 }}>
-                {`${isNaN(percentage) ? 0 : percentage}`} %
+                {/* {`${isNaN(percentage) ? 0 : percentage}`} % */}
               </Text>
               <LinearProgress
-                value={isNaN(percentage) ? 0 : percentage / 100}
+                // value={isNaN(percentage) ? 0 : percentage / 100}
                 style={{ marginTop: 10 }}
               />
             </View>
@@ -153,8 +153,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: '600',
     color: 'white',
+    //marginLeft: 10,
+    justifyContent: 'flex-start',
   },
 });
 export default NoWorkoutCard;

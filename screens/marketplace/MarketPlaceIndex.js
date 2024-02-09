@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { trainersList } from './data/data';
 import { getPackages } from '../../api/GetData';
 import { IconFilter, IconSearch } from './filters/icons';
+import { Tab } from '../../navigation/newBottomNavigator';
 
 function MarketPlaceIndex() {
   const [packages, setPackages] = useState([]);
@@ -55,7 +56,7 @@ function MarketPlaceIndex() {
   }, []);
 
   const filterPackages = (packages, filter) => {
-    return packages.filter((packages) => packages.location === 'both');
+    return packages.filter((packages) => packages.location === filter);
   };
 
   const filterPackagesByLevel = (packages, filter) => {
@@ -112,7 +113,6 @@ function MarketPlaceIndex() {
   // }, [searchQuery, packages]);
 
   const filteredPackage = filterBySearch(packages, searchQuery);
-  console.log('filteredPackage', filteredPackage);
 
   return (
     <View
@@ -210,17 +210,22 @@ function MarketPlaceIndex() {
               <View>
                 <ListItems
                   packages={filteredPackage}
-                  name={'Search Results'}
+                  name={i18n.t('searchResults')}
                   navigation={navigation}
                 />
-                <ListItems
+                {/* <ListItems
                   packages={packages}
                   name={'Workouts'}
                   navigation={navigation}
+                /> */}
+                <ListItems
+                  packages={filterPackages(packages, 'both')}
+                  name={i18n.t('homeWorkout')}
+                  navigation={navigation}
                 />
                 <ListItems
-                  packages={filterPackages(packages, true)}
-                  name={i18n.t('homeWorkout')}
+                  packages={filterPackages(packages, 'gym')}
+                  name={i18n.t('gymWorkout')}
                   navigation={navigation}
                 />
                 {/* <TrainersList name={'Trainers'} /> */}

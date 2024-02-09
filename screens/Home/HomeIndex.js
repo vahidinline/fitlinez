@@ -206,8 +206,6 @@ function HomeIndex() {
         ) : (
           <View
             style={{
-              // overflow: 'hidden',
-              //height: Dimensions.get('window').height / 3.5,
               width: Dimensions.get('window').width,
               marginTop: 10,
               marginBottom: Dimensions.get('window').height / 6,

@@ -13,12 +13,15 @@ import React from 'react';
 import { Alert, Dimensions, ScrollView, View } from 'react-native';
 import { Card, List } from 'react-native-paper';
 import {
+  Icon8,
   IconClock,
+  IconHomeFocused,
   IconLevel,
   IconLogo,
   IconRanking,
   IconTimer,
   IconWeight,
+  Iconstar,
 } from '../filters/icons';
 import i18nt from '../../../locales';
 import LanguageContext from '../../../api/langcontext';
@@ -33,6 +36,59 @@ import { Path, Svg } from 'react-native-svg';
 import Header from '../../../components/header';
 
 const db = SQLite.openDatabase('packeges.db'); // Open or create the database
+
+const SingleItem = ({ title, sub, icon }) => {
+  const { theme } = useTheme();
+  const navigation = useNavigation();
+  const { userLanguage } = useContext(LanguageContext);
+  const i18n = new I18n(i18nt);
+  i18n.locale = userLanguage;
+  return (
+    <View
+      style={{
+        //flexDirection: 'row',
+
+        marginVertical: 10,
+        marginHorizontal: 10,
+      }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          // alignItems: 'center',
+          width: Dimensions.get('window').width / 2.2,
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {icon}
+          <Text
+            style={{
+              color: theme.colors.grey,
+              fontSize: 16,
+              fontWeight: '500',
+              marginHorizontal: 10,
+            }}>
+            {title}
+          </Text>
+        </View>
+      </View>
+
+      <Text
+        style={{
+          color: theme.colors.secondary,
+          fontSize: 18,
+          fontWeight: '500',
+          //marginHorizontal: 10,
+        }}>
+        {sub}
+      </Text>
+    </View>
+  );
+};
 
 function PlanItem({ route }) {
   const navigation = useNavigation();
@@ -69,23 +125,6 @@ function PlanItem({ route }) {
       console.log(error);
     }
   };
-  // const savePackages = () => {
-  //   try {
-  //     const jsonString = JSON.stringify(item);
-  //     const currentDateTime = new Date().toISOString();
-
-  //     db.transaction((tx) => {
-  //       tx.executeSql('INSERT INTO packages (data, timestamp) VALUES (?, ?);', [
-  //         jsonString,
-  //         currentDateTime,
-  //       ]);
-  //     });
-
-  //     console.log('Data saved');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -182,98 +221,120 @@ function PlanItem({ route }) {
         />
         <View
           style={{
-            flexDirection: 'row',
+            borderWidth: 1,
+            borderColor: theme.colors.border,
+            borderRadius: 16,
             marginTop: 10,
-            borderBottomColor: theme.colors.secondary,
-            borderBottomWidth: 0.3,
             marginHorizontal: 10,
-            marginVertical: 10,
-            //backgroundColor: theme.colors.background,
           }}>
           <View
             style={{
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: theme.colors.border,
-              marginBottom: 20,
-              padding: 5,
-            }}>
-            <IconLogo height={50} width={100} />
-          </View>
-
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: 'bold',
-              color: theme.colors.secondary,
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
-              //left: Dimensions.get('window').width / 3,
+              flexDirection: 'row',
+              marginTop: 10,
+              borderBottomColor: theme.colors.secondary,
+              borderBottomWidth: 0.3,
               marginHorizontal: 10,
               marginVertical: 10,
-              top: 10,
+
+              //backgroundColor: theme.colors.background,
             }}>
-            {item.creator}
-          </Text>
-        </View>
+            <View
+              style={{
+                borderRadius: 10,
+                //borderWidth: 0.5,
+                borderColor: theme.colors.border,
+                marginBottom: 20,
+                padding: 5,
+              }}>
+              <IconLogo height={50} width={100} />
+            </View>
 
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: theme.colors.secondary,
+                justifyContent: 'center',
+                alignContent: 'center',
+                alignItems: 'center',
+                //left: Dimensions.get('window').width / 3,
+                marginHorizontal: 10,
+                marginVertical: 10,
+                top: 10,
+              }}>
+              {item.creator}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 20,
+              marginBottom: 0,
+              marginHorizontal: 10,
+            }}>
+            <SingleItem
+              title={i18n.t('level')}
+              sub={item.level}
+              icon={<IconLevel />}
+            />
+            <SingleItem
+              title={i18n.t('target')}
+              sub={item.target}
+              icon={<IconWeight />}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: Dimensions.get('window').width - 20,
+              marginTop: 20,
+              marginBottom: 0,
+              marginHorizontal: 10,
+            }}>
+            <SingleItem
+              title={i18n.t('duration')}
+              sub={`${item.duration} ${i18n.t('week')}`}
+              icon={<IconTimer />}
+            />
+            <SingleItem
+              title={i18n.t('daysperweek')}
+              sub={`${item.DaysPerWeek} ${i18n.t('daysinweek')} `}
+              icon={<IconClock />}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: Dimensions.get('window').width - 20,
+              marginTop: 20,
+              marginBottom: 0,
+              marginHorizontal: 10,
+            }}>
+            <SingleItem
+              title={i18n.t('date')}
+              sub={moment(date).format('DD/MM/YYYY')}
+              icon={<IconTimer />}
+            />
+            <SingleItem
+              title={i18n.t('rate')}
+              sub={`${item.star} `}
+              icon={<Iconstar size={32} color={theme.colors.gold} />}
+            />
+          </View>
+        </View>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 20,
-            marginBottom: 0,
+            borderWidth: 1,
+            borderColor: theme.colors.border,
+            borderRadius: 16,
+            marginTop: 10,
             marginHorizontal: 10,
+            //marginBottom: Dimensions.get('window').height / 1.5,
           }}>
-          <List.Item
-            titleStyle={{ fontSize: 15 }}
-            Style={{
-              color: theme.colors.secondary,
-              fontSize: 15,
-            }}
-            title="Level"
-            description={item.level}
-            left={(props) => <IconLevel {...props} />}
-          />
-          <List.Item
-            title="Target"
-            description={item.target}
-            left={(props) => <IconWeight {...props} />}
-          />
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: Dimensions.get('window').width - 20,
-            marginTop: 20,
-            marginBottom: 0,
-            marginHorizontal: 10,
-          }}>
-          <List.Item
-            titleStyle={{ fontSize: 15 }}
-            Style={{
-              color: theme.colors.secondary,
-              fontSize: 15,
-            }}
-            title="Days per week"
-            description={item.DaysPerWeek}
-            left={(props) => <IconClock {...props} />}
-          />
-          <List.Item
-            title="Duration"
-            description={item.duration}
-            left={(props) => <IconTimer {...props} />}
-          />
-        </View>
-
-        <View
-          style={
-            {
-              //marginBottom: Dimensions.get('window').height / 1.5,
-            }
-          }>
           {Object.keys(categorizedData).map((day) => (
             <View key={day}>
               <View
@@ -354,9 +415,9 @@ function PlanItem({ route }) {
                         </View>
                         {/* <View
                           style={{
-                            //justifyContent: 'flex-end',
+                            justifyContent: 'flex-end',
                             top: 10,
-                            right: 0,
+                            left: Dimensions.get('window').width / 3,
                             position: 'absolute',
                           }}>
                           {exercise.loc === 'Both' ? (

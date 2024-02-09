@@ -38,7 +38,7 @@ function TabNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="HomePage"
-      screeenOptions={{
+      screenOptions={{
         activeTintColor: theme.colors.white,
         inactiveTintColor: theme.colors.grey2,
         style: {

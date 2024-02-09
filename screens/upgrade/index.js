@@ -18,7 +18,11 @@ import { BackgroundImage } from '@rneui/base';
 import PriceRadionButton from '../profile/PriceRadioButton';
 import { useState } from 'react';
 import checkFreeTrial from '../../api/checkFreeTrial';
-import { IconWarning } from '../marketplace/filters/icons';
+import {
+  IconClock,
+  IconWarning,
+  Iconclose,
+} from '../marketplace/filters/icons';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 
 function Upgrade() {
@@ -33,9 +37,8 @@ function Upgrade() {
   const [selectedValue, setSelectedValue] = useState(null);
   const [price, setPrice] = useState(null);
   const { userPrivilege } = useContext(UserPrivilegeContext);
-
   const [title, setTitle] = useState(null);
-
+  const userLevel = userAuth.level;
   const RTL = userLanguage === 'fa' ? true : false;
   const handleSelect = (value) => {
     // Handle the selection logic, update the state, or perform any necessary actions
@@ -92,10 +95,19 @@ function Upgrade() {
       style={{
         backgroundColor: theme.colors.background,
         height: height,
-        paddingTop: 50,
+        //paddingTop: 50,
         direction: userLanguage === 'fa' ? 'rtl' : 'ltr',
       }}>
-      <Header title={i18n.t('upgrade')} />
+      <View
+        style={{
+          position: 'absolute',
+          top: 20,
+          left: 0,
+          margin: 10,
+          zIndex: 10,
+        }}>
+        <Iconclose size={24} color={theme.colors.secondary} />
+      </View>
 
       <View
         style={{
@@ -117,8 +129,8 @@ function Upgrade() {
               <Text
                 style={{
                   color: theme.colors.info,
-                  fontSize: 16,
-                  fontWeight: '700',
+                  fontSize: 14,
+                  fontWeight: '400',
                   marginVertical: 10,
                   marginHorizontal: 10,
                   justifyContent: 'center',

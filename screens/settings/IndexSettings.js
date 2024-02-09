@@ -133,7 +133,7 @@ function SettingIndex() {
     },
     {
       id: 9,
-      name: 'Push Notification',
+      name: i18n.t('pushNotification'),
       icon: IconInfo,
       func: () => registerForPushNotificationsAsync(),
       sub: true,
@@ -233,34 +233,22 @@ function SettingIndex() {
               <List.Item
                 title={() => {
                   return (
-                    <View
+                    <Text
                       style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        alignContent: 'center',
-                        alignItems: 'center',
-                        // top: 15,
+                        fontSize: 16,
+                        fontWeight: item.id !== 5 ? '300' : '500',
+                        color: item.id !== 5 ? theme.colors.text : 'red',
                         marginLeft: 10,
+                        //position: 'absolute',
+                        //right: 180,
+                        //top: -10,
                       }}>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: item.id !== 5 ? '300' : '500',
-                          color: item.id !== 5 ? theme.colors.text : 'red',
-                          marginLeft: 10,
-                          //position: 'absolute',
-                          //right: 180,
-                          //top: -10,
-                        }}>
-                        {item.name}
-                      </Text>
-                      {item.sub && <IconNotification />}
-                    </View>
+                      {item.name}
+                    </Text>
                   );
                 }}
                 onPress={() => item.func()}
-                right={(props) => item.id !== 5 && <IconArrow {...props} />}
+                right={(props) => (item.sub ? null : <IconArrow {...props} />)}
                 left={(props) => {
                   const Icon = item.icon;
                   return <Icon {...props} />;

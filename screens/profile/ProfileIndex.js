@@ -65,7 +65,8 @@ function ProfileIndex() {
   const { toggleTheme } = useContext(ThemeContext);
   const [avatar, setAvatar] = useState(null);
   const { theme } = useTheme();
-
+  const userLevel = userAuth.level;
+  console;
   const handleLogOut = () => {
     setUserAuth(null);
     AuthStorage.removeToken();
@@ -94,13 +95,13 @@ function ProfileIndex() {
       func: () => navigation.navigate('Aboutme'),
     },
 
-    {
-      id: 2,
-      name: i18n.t('unit'),
-      icon: IconUnit,
-      sub: unit,
-      func: () => navigation.navigate('UnitSelector'),
-    },
+    // {
+    //   id: 2,
+    //   name: i18n.t('unit'),
+    //   icon: IconUnit,
+    //   sub: unit,
+    //   func: () => navigation.navigate('UnitSelector'),
+    // },
     {
       id: 3,
       name: i18n.t('report'),
@@ -221,12 +222,14 @@ function ProfileIndex() {
           //backgroundColor: theme.colors.red,
           borderRadius: 24,
         }}>
-        <TouchableOpacity onPress={() => navigation.navigate('Upgrade')}>
-          <Box
-            title={i18n.t('upgradeHeaderText')}
-            subTitle={i18n.t('upgradeSmallText')}
-          />
-        </TouchableOpacity>
+        {userLevel !== 4 && (
+          <TouchableOpacity onPress={() => navigation.navigate('Upgrade')}>
+            <Box
+              title={i18n.t('upgradeHeaderText')}
+              subTitle={i18n.t('upgradeSmallText')}
+            />
+          </TouchableOpacity>
+        )}
 
         <View
           style={{

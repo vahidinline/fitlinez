@@ -40,7 +40,7 @@ const HomeNavigator = () => {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-          //  tabBarVisible: false, // Hide the tab bar for this screen
+          tabBarVisible: true, // Hide the tab bar for this screen
         }}
       />
       <Stack.Screen
@@ -61,7 +61,7 @@ const HomeNavigator = () => {
       />
       <Stack.Screen
         name="WorkoutListIndex"
-        component={MarketPlaceNavigation}
+        component={TabNavigator}
         options={{
           headerShown: false,
         }}
@@ -244,13 +244,13 @@ const HomeNavigator = () => {
           },
         })}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="PlanItem"
         component={PlanItem}
         options={{
           headerShown: false,
         }}
-      />
+      /> */}
 
       <Stack.Screen
         name="LastPageOnboarding"

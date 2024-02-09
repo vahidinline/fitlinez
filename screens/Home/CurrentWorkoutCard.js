@@ -55,7 +55,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
     <View
       style={[
         styles.container,
-        { direction: userLanguage === 'fa' ? 'rtl' : 'ltr' },
+        // { direction: userLanguage === 'fa' ? 'rtl' : 'ltr' },
       ]}>
       <LinearGradient
         colors={['#5B5891', '#3A366F', '#17124A']}
@@ -74,7 +74,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
         <Text
           style={[
             styles.text,
-            { direction: userLanguage === 'fa' ? 'rtl' : 'ltr' },
+            // { direction: userLanguage === 'fa' ? 'rtl' : 'ltr' },
           ]}>
           {i18n.t('currentPlan')}
         </Text>
