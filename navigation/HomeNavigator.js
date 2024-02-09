@@ -61,7 +61,7 @@ const HomeNavigator = () => {
       />
       <Stack.Screen
         name="WorkoutListIndex"
-        component={TabNavigator}
+        component={WorkoutListIndex}
         options={{
           headerShown: false,
         }}

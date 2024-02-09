@@ -91,7 +91,7 @@ function SettingIndex() {
   const { toggleTheme } = useContext(ThemeContext);
   const [avatar, setAvatar] = useState(null);
   const { theme } = useTheme();
-
+  const RTL = userLanguage === 'fa' ? true : false;
   const setting = [
     {
       id: 1,
@@ -184,7 +184,7 @@ function SettingIndex() {
           marginTop: 20,
           marginBottom: 0,
           marginHorizontal: 10,
-          direction: userLanguage === 'fa' ? 'rtl' : 'ltr',
+          direction: RTL ? 'rtl' : 'ltr',
         }}>
         <Text
           style={{

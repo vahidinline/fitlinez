@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import { Button, Text, useTheme } from '@rneui/themed';
 import { Icon } from 'iconsax-react-native';
 import React, { useContext } from 'react';
-import { Dimensions, Pressable, View } from 'react-native';
+import { Dimensions, Pressable, TouchableOpacity, View } from 'react-native';
 import { Card, Chip, Divider, List } from 'react-native-paper';
 import { Svg, Path } from 'react-native-svg';
 import LanguageContext from '../../../api/langcontext';
@@ -110,8 +110,8 @@ function CardItem({ item }) {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   return (
-    <Card
-      onPress={() => navigation.navigate('PlanItem', { item: item })}
+    <TouchableOpacity
+      onPress={() => navigation.navigate('MarketPlace')}
       style={{
         borderRadius: 16,
         marginHorizontal: 20,
@@ -160,7 +160,7 @@ function CardItem({ item }) {
           <SingleItem level={item.level} star={item.star} />
         </View>
       </View>
-    </Card>
+    </TouchableOpacity>
   );
 }
 

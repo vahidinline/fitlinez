@@ -180,7 +180,6 @@ function PlanItem({ route }) {
   };
 
   const updateWorkoutForTrial = (data) => {
-    console.log('updateWorkoutForTrial');
     if (userLevel === 0 && daysSinceRegistration > 14) {
       console.log(
         'userLevel === 0 && daysSinceRegistration < 14',

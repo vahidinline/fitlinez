@@ -25,6 +25,8 @@ import {
 } from '../screens/marketplace/filters/icons';
 import StatisticsIndex from '../screens/customReport/statistics';
 import ReportIndex from '../screens/Report/ReportIndex';
+import { LinearGradient } from 'expo-linear-gradient';
+import { View } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +41,11 @@ function TabNavigator() {
     <Tab.Navigator
       initialRouteName="HomePage"
       screenOptions={{
+        //linderGradient
+        backgroundColor: {
+          flex: 1,
+          backgroundColor: theme.colors.black,
+        },
         activeTintColor: theme.colors.white,
         inactiveTintColor: theme.colors.grey2,
         style: {
@@ -47,7 +54,7 @@ function TabNavigator() {
       }}
       activeColor={theme.colors.white}
       inactiveColor={theme.colors.grey0}
-      barStyle={{ backgroundColor: theme.colors.black }}>
+      barStyle={{ backgroundColor: 'transparent' }}>
       <Tab.Screen
         swipEnabled={false}
         name="Settings"
@@ -97,6 +104,7 @@ function TabNavigator() {
         name="profileNavigator"
         component={ProfileNavigator}
         options={{
+          //gradientbackground
           headerShown: false,
           title: i18n.t('profile'),
           tabBarIcon: ({ focused }) =>
