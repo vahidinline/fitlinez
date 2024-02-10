@@ -1,6 +1,6 @@
 import { Text, useTheme } from '@rneui/themed';
 import React, { useCallback, useContext } from 'react';
-import { Dimensions, ScrollView, View } from 'react-native';
+import { Dimensions, ScrollView, View, PixelRatio } from 'react-native';
 import HomeHeader from './homeHeader';
 import { WorkoutAgenda } from '../Agenda';
 import { useEffect, useState } from 'react';
@@ -19,11 +19,10 @@ import * as TaskManager from 'expo-task-manager';
 import { useFocusEffect } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
-import NoWorkoutCard from './noWorkout';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
-  //console.log('currentPlan', currentPlan);
+  console.log('currentPlan', currentPlan);
   const [totalSessions, setTotalSessions] = useState(0);
   const [percentage, setPercentage] = useState(0);
   const { theme } = useTheme();
@@ -172,7 +171,7 @@ function HomeIndex() {
           flex: 1,
           marginTop: currentPlan ? Dimensions.get('window').height / 7 : 0,
         }}>
-        {currentPlan ? (
+        {currentPlan && (
           <View
             style={{
               // overflow: 'hidden',
@@ -189,8 +188,7 @@ function HomeIndex() {
                 //marginTop: 20,
                 marginHorizontal: 30,
                 marginBottom: 20,
-                textAlign: isRTL ? 'right' : 'left', // Here
-                // alignSelf: userLanguage === 'fa' ? 'flex-end' : 'flex-start',
+                textAlign: isRTL ? 'right' : 'left',
               }}>
               {i18n.t('currentPlan')}
             </Text>
@@ -202,15 +200,6 @@ function HomeIndex() {
               location={currentPlan?.location || ''}
               userPervilage={userPervilage}
             />
-          </View>
-        ) : (
-          <View
-            style={{
-              width: Dimensions.get('window').width,
-              marginTop: 10,
-              marginBottom: Dimensions.get('window').height / 6,
-            }}>
-            <NoWorkoutCard />
           </View>
         )}
 
@@ -231,11 +220,7 @@ function HomeIndex() {
         </Text>
 
         {packages.map((item) => (
-          <CardItem
-            key={item._id}
-            item={item}
-            //onPress={() => navigation.navigate('PlanItem', { item })}
-          />
+          <CardItem key={item._id} item={item} />
         ))}
       </ScrollView>
     </View>

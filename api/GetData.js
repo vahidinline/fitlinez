@@ -122,6 +122,8 @@ const userStatusCheck = async (userAuth, setUserAuth) => {
 };
 
 const userLevelCheck = async (userAuth, setUserAuth) => {
+  console.log('userAuth', userAuth);
+
   const key = 'fitlinez-session';
 
   return new Promise((res, rej) => {
@@ -140,7 +142,7 @@ const userLevelCheck = async (userAuth, setUserAuth) => {
           setUserAuth(null);
         } else {
           const { level } = response.data;
-
+          console.log('level', level);
           if (level === 4) {
             const updatedUserAuth = {
               ...userAuth,
@@ -170,8 +172,12 @@ const userLevelCheck = async (userAuth, setUserAuth) => {
   });
 };
 
-//check new version
-const checkVersion = async (currentVersion, Userplatform, userLocation) => {
+const checkVersion = async (
+  currentVersion,
+  Userplatform,
+  userLocation,
+  i18n
+) => {
   try {
     const value = await axios.get('https://jobitta.com/api/checkNewVersion');
     const {
@@ -184,6 +190,17 @@ const checkVersion = async (currentVersion, Userplatform, userLocation) => {
       forceUpdate,
     } = value.data[0];
 
+    const laterDate = await AsyncStorage.getItem('LATER_DATE');
+
+    if (laterDate !== null) {
+      const delayDate = new Date(JSON.parse(laterDate));
+      delayDate.setDate(delayDate.getDate() + 1);
+      const now = new Date();
+      if (now < delayDate) {
+        return;
+      }
+    }
+
     if (
       status == true &&
       version !== currentVersion &&
@@ -191,11 +208,11 @@ const checkVersion = async (currentVersion, Userplatform, userLocation) => {
       (location === 'All' || location === userLocation)
     ) {
       Alert.alert(
-        `New version is available`,
-        'Please update your app to the latest version',
+        i18n.t('newVersionTitle'),
+        i18n.t('newVersionSubTitle'),
         [
           {
-            text: 'Update',
+            text: i18n.t('update'),
             onPress: () => {
               if (Userplatform === 'ios') {
                 // Open the iOS App Store directly
@@ -211,8 +228,11 @@ const checkVersion = async (currentVersion, Userplatform, userLocation) => {
           forceUpdate === true
             ? null
             : {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
+                text: i18n.t('later'),
+                onPress: async () => {
+                  const now = new Date();
+                  AsyncStorage.setItem('LATER_DATE', JSON.stringify(now));
+                },
                 style: 'cancel',
               },
         ].filter(Boolean) // This will filter out any null values
@@ -222,6 +242,64 @@ const checkVersion = async (currentVersion, Userplatform, userLocation) => {
     // error reading value
   }
 };
+
+//check new version
+// const checkVersion = async (
+//   currentVersion,
+//   Userplatform,
+//   userLocation,
+//   i18n
+// ) => {
+//   try {
+//     const value = await axios.get('https://jobitta.com/api/checkNewVersion');
+//     const {
+//       version,
+//       status,
+//       platform,
+//       location,
+//       itunesItemId,
+//       androidPackageName,
+//       forceUpdate,
+//     } = value.data[0];
+
+//     if (
+//       status == true &&
+//       version !== currentVersion &&
+//       (platform === 'Both' || platform === Userplatform) &&
+//       (location === 'All' || location === userLocation)
+//     ) {
+//       Alert.alert(
+//         i18n.t('newVersionTitle'),
+//         i18n.t('newVersionSubTitle'),
+//         [
+//           {
+//             text: i18n.t('update'),
+//             onPress: () => {
+//               if (Userplatform === 'ios') {
+//                 // Open the iOS App Store directly
+//                 Linking.openURL(
+//                   `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}`
+//                 );
+//               } else {
+//                 // Open the Android Play Store directly
+//                 Linking.openURL(`market://details?id=${androidPackageName}`);
+//               }
+//             },
+//           },
+//           forceUpdate === true
+//             ? null
+//             : {
+//                 text: i18n.t('later'),
+//                 onPress: () => console.log('Cancel Pressed'),
+//                 style: 'cancel',
+//               },
+//         ].filter(Boolean) // This will filter out any null values
+//       );
+//     }
+//   } catch (e) {
+//     // error reading value
+//   }
+// };
 
 const updateExpiredUser = async (userAuth, setUserAuth) => {
   try {

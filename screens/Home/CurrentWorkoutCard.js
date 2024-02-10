@@ -1,6 +1,6 @@
 import { Button, LinearProgress, Text, useTheme } from '@rneui/themed';
 import React, { useContext } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, PixelRatio } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import CurrentCard from './homeCard/CurrentCard';
 import { useNavigation } from '@react-navigation/native';
@@ -59,30 +59,39 @@ function CurrentWorkoutCard({ title, trainer, location }) {
       ]}>
       <LinearGradient
         colors={['#5B5891', '#3A366F', '#17124A']}
-        style={styles.background}
+        style={[
+          styles.background,
+          {
+            height:
+              PixelRatio.get() < 3
+                ? Dimensions.get('window').height / 3.8
+                : Dimensions.get('window').height / 4.5,
+          },
+        ]}
       />
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          // justifyContent: 'space-between',
           marginHorizontal: 20,
-          alignItems: 'center',
+          top: 10,
+          //alignItems: 'center',
           width: Dimensions.get('window').width / 1.1,
-          height: Dimensions.get('window').height / 14,
+          height:
+            PixelRatio.get() < 3
+              ? Dimensions.get('window').height / 12
+              : Dimensions.get('window').height / 13,
           // marginHorizontal: 20,
         }}>
         <Text
-          style={[
-            styles.text,
-            // { direction: userLanguage === 'fa' ? 'rtl' : 'ltr' },
-          ]}>
+          style={[styles.text, { fontSize: PixelRatio.get() < 3 ? 14 : 18 }]}>
           {i18n.t('currentPlan')}
         </Text>
       </View>
       <View
         style={{
           position: 'absolute',
-          top: 50,
+          top: 30,
           right: 5,
           flexDirection: 'row',
         }}>
@@ -94,6 +103,11 @@ function CurrentWorkoutCard({ title, trainer, location }) {
           component={
             <Button
               onPress={() => handleNextStep(userAuth.date)}
+              titleStyle={{
+                color: theme.colors.primary,
+                fontSize: PixelRatio.get() < 3 ? 10 : 14,
+                fontWeight: '500',
+              }}
               buttonStyle={{
                 borderRadius: 8,
                 backgroundColor: theme.colors.button,
@@ -115,7 +129,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
             <View>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: PixelRatio.get() < 3 ? 14 : 16,
                   fontWeight: 'bold',
                   alignSelf: 'center',
                   color: theme.colors.secondary,
@@ -149,7 +163,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     top: 0,
-    height: Dimensions.get('window').height / 4.2,
+    //height: Dimensions.get('window').height / 4.5,
     borderRadius: 16,
   },
   button: {

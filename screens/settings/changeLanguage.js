@@ -63,28 +63,16 @@ function ChangeLanguage() {
             data={langs}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <List.Item
-                title={() => {
-                  return (
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: item.id !== 5 ? '300' : '500',
-                        color: item.id !== 5 ? theme.colors.text : 'red',
-                        marginLeft: 10,
-                      }}>
-                      {item.name}
-                    </Text>
-                  );
-                }}
-                right={(props) => (
-                  <RadioButtonfitlinez
-                    selected={userLanguage === item.value}
-                    label={item.name}
-                    onSelect={() => setUserLanguage(item.value)}
-                  />
-                )}
-              />
+              <View
+                style={{
+                  marginHorizontal: 10,
+                }}>
+                <RadioButtonfitlinez
+                  selected={userLanguage === item.value}
+                  label={item.name}
+                  onSelect={() => setUserLanguage(item.value)}
+                />
+              </View>
             )}
           />
         </View>

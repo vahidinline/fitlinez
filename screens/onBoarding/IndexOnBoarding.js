@@ -115,7 +115,7 @@ function IndexOnBoarding() {
       onNext();
     }
   };
-
+  console.log('currentStep', currentStep);
   const submitUserDataToCloud = async () => {
     console.log('sending data to cloud');
     const res = await api.post('/userdata/firstassessment', {
@@ -175,15 +175,17 @@ function IndexOnBoarding() {
             //flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
+            width: '90%',
           }}>
           <View
             style={{
               width: Dimensions.get('window').width * 0.8,
               marginLeft: 20,
+              marginRight: 5,
               top: 7,
             }}>
             <ProgressBar
-              progress={currentStep + 1 / steps.length - 1}
+              progress={(currentStep + 1) / (steps.length - 1)}
               color={theme.colors.secondary}
             />
           </View>

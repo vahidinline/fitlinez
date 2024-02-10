@@ -56,7 +56,7 @@ const SingleItem = ({ title, sub, icon }) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           // alignItems: 'center',
-          width: Dimensions.get('window').width / 2.2,
+          width: Dimensions.get('window').width / 2.3,
         }}>
         <View
           style={{
@@ -211,7 +211,7 @@ function PlanItem({ route }) {
 
         <Card.Cover
           style={{
-            width: Dimensions.get('window').width - 20,
+            width: Dimensions.get('window').width - 30,
             height: Dimensions.get('window').height / 5,
             alignSelf: 'center',
             marginVertical: 10,

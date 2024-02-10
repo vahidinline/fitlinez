@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  PixelRatio,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
@@ -66,7 +67,7 @@ const Handleend = (props) => {
   i18n.locale = userLanguage;
   const userId = userAuth.id;
   const { theme } = useTheme();
-  const styles = getStyle(theme);
+  const styles = getStyle(theme, PixelRatio);
 
   const getUserWorkoutData = async () => {
     currentPalnPercentage().then((data) => {
@@ -322,7 +323,7 @@ const Handleend = (props) => {
 
 export default Handleend;
 
-const getStyle = (theme) =>
+const getStyle = (theme, PixelRatio) =>
   StyleSheet.create({
     buttonContainer: {
       //position: 'absolute',
@@ -356,7 +357,7 @@ const getStyle = (theme) =>
     },
 
     subtitle: {
-      fontSize: 14,
+      fontSize: PixelRatio.get() < 3 ? 10 : 14,
       fontWeight: '400',
       color: theme.colors.secondary,
       textAlign: 'center',
@@ -364,7 +365,7 @@ const getStyle = (theme) =>
       marginHorizontal: 5,
     },
     category: {
-      fontSize: 20,
+      fontSize: PixelRatio.get() < 3 ? 10 : 20,
       fontWeight: 'bold',
       color: '#3F3B6C',
       textAlign: 'center',
@@ -378,7 +379,7 @@ const getStyle = (theme) =>
       marginTop: 20,
     },
     title: {
-      fontSize: 18,
+      fontSize: PixelRatio.get() < 3 ? 14 : 18,
       fontWeight: 'bold',
       color: theme.colors.secondary,
       textAlign: 'center',

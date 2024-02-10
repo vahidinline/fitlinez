@@ -1,6 +1,6 @@
 import { Text, useTheme } from '@rneui/themed';
 import React, { useContext, useCallback } from 'react';
-import { Dimensions, Platform, View } from 'react-native';
+import { Dimensions, PixelRatio, Platform, View } from 'react-native';
 import AuthContext from '../../api/context';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
@@ -35,12 +35,11 @@ function HomeHeader({ planStartDate, data, title }) {
   const [textMessage, setTextMessage] = useState('');
   const [activeAccount, setActiveAccount] = useState(true);
   const [status, setStatus] = useState('good');
-  const currentVersion = '7.0.7.2';
+  const currentVersion = '7.0.7.8';
   const userLocation = userAuth.location;
   const userLevel = userAuth.level;
   const Userplatform = Platform.OS;
   const { userPrivilege } = useContext(UserPrivilegeContext);
-  console.log('userPrivilege', userPrivilege);
 
   useEffect(() => {
     const res = generateHeaderText(planStartDate, data, i18n, title);
@@ -53,10 +52,10 @@ function HomeHeader({ planStartDate, data, title }) {
   const checkUserPervilage = () => {
     if (userLevel === 4) {
       //setTextMessage('1message.message');
-      console.log('user is premium');
+      //console.log('user is premium');
     } else if (userPrivilege) {
       // setTextMessage('2');
-      console.log('user is free with valid days');
+      //console.log('user is free with valid days');
     } else {
       // condition 2
       setTextMessage(`${i18n.t('trialExpired')}`);
@@ -89,7 +88,7 @@ function HomeHeader({ planStartDate, data, title }) {
     useCallback(() => {
       userLevelCheck(userAuth, setUserAuth);
       userStatusCheck(userAuth, setUserAuth);
-      checkVersion(currentVersion, Userplatform, userLocation);
+      checkVersion(currentVersion, Userplatform, userLocation, i18n);
       checkUserPervilage();
       checkFirstTimeUser();
       return () => {
@@ -109,11 +108,11 @@ function HomeHeader({ planStartDate, data, title }) {
         // First time user, set a flag in AsyncStorage
         await AsyncStorage.setItem('@firstUsage', 'true');
         navigation.navigate('IndexOnBoarding');
-        console.log('first time');
+        //console.log('first time');
       } else {
         // Returning user, set the flag to false
         await AsyncStorage.setItem('@firstUsage', 'false');
-        console.log('not first time');
+        // console.log('not first time');
       }
     } catch (error) {
       // Handle AsyncStorage errors if needed
@@ -123,6 +122,16 @@ function HomeHeader({ planStartDate, data, title }) {
   useEffect(() => {
     checkFirstTimeUser();
     //AsyncStorage.removeItem('@firstUsage');
+  }, []);
+
+  useEffect(() => {
+    const getcurrentwotkout = async () => {
+      const value = await AsyncStorage.getItem('currentWorkout');
+
+      console.log('current workout', value);
+    };
+
+    getcurrentwotkout();
   }, []);
 
   return (
@@ -174,14 +183,14 @@ function HomeHeader({ planStartDate, data, title }) {
               justifyContent: 'space-between',
               alignItems: 'center',
               // backgroundColor: { backgroundColor },
-
+              flexWrap: 'wrap',
               width: '100%',
             }}>
             <Text
               onPress={() => !activeAccount && navigation.navigate('Upgrade')}
               style={{
                 color: theme.colors.secondary,
-                fontSize: messageLength > 50 ? 12 : 14,
+                fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 12 : 14,
                 //paddingHorizontal: 10,
                 flexWrap: 'wrap',
                 flex: 1,

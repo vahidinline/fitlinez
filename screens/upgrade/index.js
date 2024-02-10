@@ -114,7 +114,7 @@ function Upgrade() {
           height: height,
         }}>
         <BackgroundImage
-          source={require('../../assets/trainers.jpeg')}
+          source={require('../../assets/img/paymentbg.jpeg')}
           style={styles.background}>
           <Text style={styles.textHeader}>{i18n.t('upgradeHeaderText')}</Text>
           <Text style={styles.textSubHeader}>
@@ -246,11 +246,11 @@ function Upgrade() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     //alignItems: 'center',
     // justifyContent: 'center',
     width: Dimensions.get('window').width / 1.1,
-    //height: Dimensions.get('window').height / 3,
+    height: Dimensions.get('window').height,
     marginHorizontal: 20,
     // backgroundColor: 'orange',
   },

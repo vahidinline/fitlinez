@@ -187,26 +187,33 @@ function SignUpIndex(props) {
               fontWeight: 'normal',
             }}
             title={
-              <>
-                <Text> {i18n.t('signupTerms')} </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  // alignItems: 'center',
+                  //justifyContent: 'center',
+                  // textAlign: 'center',
+                  marginTop: 10,
+                }}>
+                <Text>{i18n.t('signupTerms')} </Text>
                 <Text
                   style={{ textDecorationLine: 'underline' }}
                   onPress={() =>
                     Linking.openURL('https://www.fitlinez.com/terms-of-service')
                   }>
-                  {' '}
                   {i18n.t('termsandconditions')}
                 </Text>
-                <Text> {i18n.t('and')} </Text>
+                <Text> {i18n.t('and')}</Text>
                 <Text
                   style={{ textDecorationLine: 'underline' }}
                   onPress={() =>
                     Linking.openURL('https://www.fitlinez.com/privacy-policy')
                   }>
-                  {''}
+                  {' '}
                   {i18n.t('privacypolicy')}
                 </Text>
-              </>
+              </View>
             }
           />
         </View>

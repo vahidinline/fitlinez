@@ -2,12 +2,13 @@ import { LinearProgress, Text, useTheme } from '@rneui/themed';
 import React from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-import { Dimensions, View, Animated } from 'react-native';
+import { Dimensions, View, Animated, PixelRatio } from 'react-native';
 import { Card } from 'react-native-paper';
 import { Path, Svg } from 'react-native-svg';
 
 function CurrentCard({ title, subtitle, component, icon, value, index }) {
   const limit = 15;
+  console.log('PixelRatio', PixelRatio.get());
   //count the number of characters in the title
   const titleLength = title && typeof title === 'string' && title.length;
 
@@ -41,8 +42,8 @@ function CurrentCard({ title, subtitle, component, icon, value, index }) {
         {icon}
         <Text
           style={{
-            fontSize: titleLength > limit ? 12 : 16,
-            fontWeight: 'bold',
+            fontSize: PixelRatio.get() < 3 ? 11 : 12,
+            fontWeight: '500',
             color: theme.colors.white,
             marginLeft: 10,
           }}>
@@ -52,7 +53,7 @@ function CurrentCard({ title, subtitle, component, icon, value, index }) {
       <View
         style={{
           position: 'absolute',
-          top: 0,
+          top: PixelRatio.get() < 3 ? 0 : 10,
           right: index === 1 ? 0 : Dimensions.get('window').width / 20,
           width: Dimensions.get('window').width / 2.5,
           flexDirection: 'column',
@@ -69,14 +70,17 @@ function CurrentCard({ title, subtitle, component, icon, value, index }) {
             borderWidth: 1,
             borderColor: theme.colors.border,
             marginTop: 10,
-            height: Dimensions.get('window').height / 9,
+            height:
+              PixelRatio.get() < 3
+                ? Dimensions.get('window').height / 7.5
+                : Dimensions.get('window').height / 9,
             width: Dimensions.get('window').width / 2.5,
             // width: '100%',
           }}>
           <Card.Content>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: PixelRatio.get() < 3 ? 10 : 16,
                 fontWeight: 'bold',
 
                 alignSelf: 'center',
@@ -86,8 +90,8 @@ function CurrentCard({ title, subtitle, component, icon, value, index }) {
             </Text>
             <Text
               style={{
-                fontSize: 16,
-                fontWeight: 'bold',
+                fontSize: PixelRatio.get() < 3 ? 10 : 16,
+                fontWeight: '500',
                 alignSelf: 'center',
                 color: theme.colors.secondary,
               }}>

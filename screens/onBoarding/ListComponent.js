@@ -36,22 +36,23 @@ function ListComponent({ data, isSelected, onSelect }) {
             style={{
               flexDirection: 'row',
               justifyContent: 'flex-start',
-              alignItems: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
+              //alignItems: 'center',
+              //alignContent: 'center',
+              //alignItems: 'center',
               top: 20,
               marginLeft: 10,
             }}>
-            {item.icon && (
-              <item.icon
-                style={[
-                  styles.icon,
-                  {
-                    color: theme.colors.secondary,
-                  },
-                ]}
-              />
-            )}
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center',
+                alignSelf: 'center',
+                bottom: 5,
+                left: 0,
+              }}>
+              {item.icon && <item.icon />}
+            </View>
             <Text style={styles.text}>{item.title}</Text>
           </View>
         </Card>

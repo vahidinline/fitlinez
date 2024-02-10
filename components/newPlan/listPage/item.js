@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import {
   Dimensions,
   KeyboardAvoidingView,
+  PixelRatio,
   Platform,
   ScrollView,
   TouchableOpacity,
@@ -199,7 +200,15 @@ function Item(props) {
         <TouchableOpacity onPress={() => setShowDrawer(!showDrawer)}>
           <IconMenu />
         </TouchableOpacity>
-        <Text style={styles.title}>{title}</Text>
+        <Text
+          style={[
+            styles.title,
+            {
+              fontSize: PixelRatio.get() < 3 ? 14 : 18,
+            },
+          ]}>
+          {title}
+        </Text>
         <TouchableOpacity onPress={() => setShowInstruction(true)}>
           <IconInfo />
         </TouchableOpacity>
@@ -437,7 +446,13 @@ function Item(props) {
             borderRadius: 12,
             borderWidth: 1,
             width: Dimensions.get('window').width / 1.1,
-            height: Dimensions.get('window').height / 20,
+            height:
+              PixelRatio.get() < 3
+                ? Dimensions.get('window').height / 16
+                : Dimensions.get('window').height / 20,
+          }}
+          titleStyle={{
+            fontSize: PixelRatio.get() < 3 ? 14 : 18,
           }}
           //  onPress={() => doneItem(index)}
           onPress={() => handleButton(childDataMap.data)}>

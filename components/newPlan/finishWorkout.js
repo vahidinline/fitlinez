@@ -222,7 +222,7 @@ const FinishWorkOut = ({ route }) => {
           source={
             image
               ? { uri: `data:image/gif;base64,${image}` }
-              : require('../../assets/login.jpeg')
+              : require('../../assets/img/shareImage.jpeg')
           }
           style={{
             width: Dimensions.get('window').width,

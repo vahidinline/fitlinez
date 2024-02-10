@@ -1,10 +1,8 @@
 import { useNavigation } from '@react-navigation/core';
-import { Button, Text, useTheme } from '@rneui/themed';
-import { Icon } from 'iconsax-react-native';
+import { Text, useTheme } from '@rneui/themed';
 import React, { useContext } from 'react';
-import { Dimensions, Pressable, TouchableOpacity, View } from 'react-native';
-import { Card, Chip, Divider, List } from 'react-native-paper';
-import { Svg, Path } from 'react-native-svg';
+import { Dimensions, TouchableOpacity, View, PixelRatio } from 'react-native';
+import { Card, Chip } from 'react-native-paper';
 import LanguageContext from '../../../api/langcontext';
 import i18nt from '../../../locales';
 import { I18n } from 'i18n-js';
@@ -12,15 +10,12 @@ import { Iconstar } from '../filters/icons';
 
 const SingleItem = ({ title, sub, level, star, mainTitle }) => {
   const { theme } = useTheme();
-  const navigation = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   return (
     <View
       style={{
-        //flexDirection: 'row',
-
         marginVertical: 10,
         marginHorizontal: 10,
       }}>
@@ -29,7 +24,6 @@ const SingleItem = ({ title, sub, level, star, mainTitle }) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            // alignItems: 'center',
             width: Dimensions.get('window').width / 2.2,
           }}>
           <Text
@@ -37,7 +31,6 @@ const SingleItem = ({ title, sub, level, star, mainTitle }) => {
               color: mainTitle ? theme.colors.secondary : theme.colors.grey,
               fontSize: mainTitle ? 16 : 12,
               fontWeight: '500',
-              //marginHorizontal: 10,
             }}>
             {title}
           </Text>
@@ -47,7 +40,6 @@ const SingleItem = ({ title, sub, level, star, mainTitle }) => {
               color: theme.colors.text,
               fontSize: 14,
               fontWeight: '500',
-              //marginHorizontal: 10,
             }}>
             {sub}
           </Text>
@@ -58,14 +50,11 @@ const SingleItem = ({ title, sub, level, star, mainTitle }) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            // alignItems: 'center',
           }}>
           <View
             style={{
               flexDirection: 'row',
-
               alignItems: 'center',
-              //marginLeft: 10,
             }}>
             <Iconstar size={32} color={theme.colors.gold} />
             <Text

@@ -30,7 +30,6 @@ const SingleItem = ({ title, sub, level, star, mainTitle }) => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             // alignItems: 'center',
-            //width: Dimensions.get('window').width / 2.2,
           }}>
           <Text
             style={{
@@ -73,7 +72,7 @@ const SingleItem = ({ title, sub, level, star, mainTitle }) => {
                 color: theme.colors.text,
                 fontSize: 16,
                 fontWeight: '500',
-                marginHorizontal: 0,
+                marginHorizontal: 5,
               }}>
               {star} / 5
             </Text>
@@ -122,7 +121,7 @@ function CardItem({ item }) {
         shadowOpacity: 0,
         borderWidth: 1,
         borderColor: theme.colors.border,
-        height: Dimensions.get('window').height / 2,
+        //height: Dimensions.get('window').height / 2,
       }}>
       <View
         style={{
@@ -130,7 +129,7 @@ function CardItem({ item }) {
         }}>
         <Card.Cover
           style={{
-            width: Dimensions.get('window').width / 2,
+            // width: Dimensions.get('window').width / 2,
             height: Dimensions.get('window').height / 6,
             resizeMode: 'cover',
             marginHorizontal: 10,

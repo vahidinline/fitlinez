@@ -31,6 +31,7 @@ function ListItems({ packages, name, navigation }) {
     <View
       style={{
         paddingTop: 10,
+        // height: Dimensions.get('window').height / 1.7,
       }}>
       <View
         style={{
@@ -72,7 +73,7 @@ function ListItems({ packages, name, navigation }) {
       </View>
       <View
         style={{
-          height: Dimensions.get('window').height / 1.7,
+          // height: Dimensions.get('window').height / 1.7,
           marginTop: 10,
           marginBottom: 0,
           backgroundColor: theme.colors.background,
