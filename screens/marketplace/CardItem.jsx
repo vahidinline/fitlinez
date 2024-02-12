@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { Text, useTheme } from '@rneui/themed';
+import { Skeleton, Text, useTheme } from '@rneui/themed';
 import { Icon } from 'iconsax-react-native';
 import React, { useContext } from 'react';
 import { Dimensions, Pressable, TouchableOpacity, View } from 'react-native';
@@ -9,6 +9,7 @@ import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import { Iconstar } from './filters/icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const SingleItem = ({ title, sub, level, star, mainTitle }) => {
   const { theme } = useTheme();
@@ -101,7 +102,7 @@ const SingleItem = ({ title, sub, level, star, mainTitle }) => {
   );
 };
 
-function CardItem({ item }) {
+function CardItem({ item, showSkeleton }) {
   const { theme } = useTheme();
   const navigation = useNavigation();
   const { userLanguage } = useContext(LanguageContext);

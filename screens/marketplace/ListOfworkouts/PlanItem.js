@@ -1,24 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
-import {
-  Button,
-  Divider,
-  Icon,
-  Image,
-  ListItem,
-  Text,
-  useTheme,
-} from '@rneui/themed';
+import { Button, Divider, Text, useTheme } from '@rneui/themed';
 import moment from 'moment';
 import React from 'react';
 import { Alert, Dimensions, ScrollView, View } from 'react-native';
-import { Card, List } from 'react-native-paper';
+import { Card } from 'react-native-paper';
 import {
-  Icon8,
   IconClock,
-  IconHomeFocused,
   IconLevel,
   IconLogo,
-  IconRanking,
   IconTimer,
   IconWeight,
   Iconstar,
@@ -32,7 +21,6 @@ import AuthContext from '../../../api/context';
 import * as SQLite from 'expo-sqlite';
 import { useEffect } from 'react';
 import { updateWorkoutPlan } from '../../../api/GetData';
-import { Path, Svg } from 'react-native-svg';
 import Header from '../../../components/header';
 
 const db = SQLite.openDatabase('packeges.db'); // Open or create the database

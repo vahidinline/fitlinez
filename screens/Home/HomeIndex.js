@@ -1,13 +1,11 @@
-import { Text, useTheme } from '@rneui/themed';
+import { Skeleton, Text, useTheme } from '@rneui/themed';
 import React, { useCallback, useContext } from 'react';
-import { Dimensions, ScrollView, View, PixelRatio } from 'react-native';
+import { Dimensions, ScrollView, View } from 'react-native';
 import HomeHeader from './homeHeader';
 import { WorkoutAgenda } from '../Agenda';
 import { useEffect, useState } from 'react';
-import {
-  currentPalnPercentage,
-  readWorkoutData,
-} from '../../api/readWorkoutData';
+import { currentPalnPercentage } from '../../api/readWorkoutData';
+import { readWorkoutData } from '../../api/readWorkoutData';
 import CurrentWorkoutCard from './CurrentWorkoutCard';
 import { getPackages } from '../../api/GetData';
 import CardItem from '../marketplace/ListOfworkouts/CardItem';
@@ -19,12 +17,12 @@ import * as TaskManager from 'expo-task-manager';
 import { useFocusEffect } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
+import { ActivityIndicator } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
-  console.log('currentPlan', currentPlan);
   const [totalSessions, setTotalSessions] = useState(0);
-  const [percentage, setPercentage] = useState(0);
   const { theme } = useTheme();
   const [packages, setPackages] = useState([]);
   const { userLanguage } = useContext(LanguageContext);
@@ -34,7 +32,7 @@ function HomeIndex() {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const isRTL = userLanguage === 'fa';
-
+  const [loading, setLoading] = useState(false);
   const BACKGROUND_FETCH_TASK = 'background-fetch';
   TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     try {
@@ -44,6 +42,10 @@ function HomeIndex() {
       return BackgroundFetch.Result.Failed;
     }
   });
+
+  useEffect(() => {
+    setLoading(false);
+  }, [currentPlan]);
 
   async function registerBackgroundFetchAsync() {
     return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
@@ -65,13 +67,12 @@ function HomeIndex() {
 
   useFocusEffect(
     useCallback(() => {
-      console.log('screen focused');
-      getUserWorkoutData();
+      setLoading(true), getUserWorkoutData();
       getData();
       getPackagesData();
       checkUserPervilage();
       return () => {
-        console.log('Screen was unfocused');
+        setLoading(false);
       };
     }, [])
   );
@@ -81,23 +82,6 @@ function HomeIndex() {
       setUserWorkoutData(data);
     });
   };
-
-  //       tx.executeSql(
-  //         'SELECT * FROM userWorkOutSession;',
-  //         [],
-  //         (_, result) => {
-  //           const rows = result.rows._array;
-  //           // get the last item in the array
-  //           const lastRow = rows[rows.length - 1];
-  //           //console.log('last row', lastRow);
-  //           if (lastRow) {
-  //             const dataObject = JSON.parse(lastRow.data);
-  //             console.log('dataObject', dataObject);
-  //             //resolve(dataObject);
-  //           } else {
-  //             //resolve(null);
-  //           }
-  //         },
 
   const getData = async () => {
     try {
@@ -114,22 +98,6 @@ function HomeIndex() {
     const result = await getPackages();
     setPackages(result);
   };
-
-  // useEffect(() => {
-  //   getUserWorkoutData();
-  //   getData();
-  //   getPackagesData();
-  // }, []);
-
-  // const startDate = '2024-01-01'; // Replace with your actual start date
-  // const done = [
-  //   { timestamp: '2024-01-02T12:00:00' },
-  //   { timestamp: '2024-01-03T12:00:00' },
-  //   { timestamp: '2024-01-07T12:00:00' },
-  //   //  { timestamp: '2024-01-15T12:00:00' },
-  //   // Add more timestamps as needed
-  // ];
-
   return (
     <View
       style={{
@@ -143,8 +111,6 @@ function HomeIndex() {
           marginBottom: 0,
         }}>
         <HomeHeader
-          //backgroundColor={currentPlan ? theme.colors.lightPrimary : '#000'}
-          //
           planStartDate={planStartDate}
           data={userWorkoutData?.data}
           i18n={i18n}
@@ -166,6 +132,9 @@ function HomeIndex() {
           </View>
         )}
       </View>
+      {loading && (
+        <ActivityIndicator size="large" color={theme.colors.secondary} />
+      )}
       <ScrollView
         style={{
           flex: 1,
@@ -174,8 +143,6 @@ function HomeIndex() {
         {currentPlan && (
           <View
             style={{
-              // overflow: 'hidden',
-              //height: Dimensions.get('window').height / 3.5,
               width: Dimensions.get('window').width,
               marginTop: 10,
               marginBottom: Dimensions.get('window').height / 6,
@@ -185,7 +152,6 @@ function HomeIndex() {
                 fontSize: 16,
                 fontWeight: '500',
                 color: theme.colors.text,
-                //marginTop: 20,
                 marginHorizontal: 30,
                 marginBottom: 20,
                 textAlign: isRTL ? 'right' : 'left',
@@ -218,7 +184,37 @@ function HomeIndex() {
           }}>
           {i18n.t('recomandedworkout')}
         </Text>
+        {packages?.length === 0 && (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              marginTop: 20,
+              marginHorizontal: 30,
+              marginBottom: 20,
+              borderRadius: 20,
+            }}>
+            <Skeleton
+              skeletonStyle={{
+                backgroundColor: theme.colors.primary,
+                borderRadius: 20,
+                borderWidth: 0.5,
+                borderColor: theme.colors.border,
+              }}
+              animation="pulse"
+              width={Dimensions.get('window').width / 1 - 20}
+              height={Dimensions.get('window').height / 3}
+            />
 
+            <Skeleton
+              LinearGradientComponent={LinearGradient}
+              animation="wave"
+              width={80}
+              height={40}
+            />
+          </View>
+        )}
         {packages.map((item) => (
           <CardItem key={item._id} item={item} />
         ))}

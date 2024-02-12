@@ -185,7 +185,11 @@ export default function RepsInput({
       <InputSpinner
         background={theme.colors.background}
         typingTimeout={2000}
-        shadow={false}
+        shadow={{
+          shadowColor: theme.colors.border,
+          shadowRadius: 0,
+          shadowOpacity: 0,
+        }}
         shadowOffset={0}
         max={500}
         min={0}
@@ -203,11 +207,13 @@ export default function RepsInput({
           shadowOpacity: 0,
           borderRadius: 16,
           borderWidth: 1,
+          shadowColor: 'transparent',
           borderColor: theme.colors.border,
         }}
         skin="clean"
         //rounded={false}
-        returnKeyType="done"></InputSpinner>
+        returnKeyType="done"
+      />
 
       {visible && (
         <RestCounterComponent

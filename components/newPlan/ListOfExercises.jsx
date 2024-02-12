@@ -296,7 +296,7 @@ const getStyles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      top: Platform.OS === 'ios' ? 0 : 10,
+      paddingTop: Platform.OS === 'ios' ? 0 : 15,
       height: height,
       backgroundColor: theme.colors.background,
     },

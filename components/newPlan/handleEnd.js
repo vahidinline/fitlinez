@@ -95,6 +95,7 @@ const Handleend = (props) => {
   };
 
   const goShare = () => {
+    console.log('inside go share');
     getData();
 
     navigation.navigate('FinishWorkOut', {
@@ -218,7 +219,7 @@ const Handleend = (props) => {
               position: 'absolute',
               right: 0,
               top: 0,
-              zIndex: 1,
+              zIndex: 100,
             }}>
             <Iconshare />
           </TouchableOpacity>

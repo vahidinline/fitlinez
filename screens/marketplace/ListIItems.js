@@ -1,4 +1,4 @@
-import { Button, Icon, Text, useTheme } from '@rneui/themed';
+import { Button, Icon, Skeleton, Text, useTheme } from '@rneui/themed';
 import { SearchBar } from '@rneui/themed';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
@@ -15,6 +15,7 @@ import LanguageContext from '../../api/langcontext';
 import { useContext } from 'react';
 import i18nt from '../../locales';
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 const db = SQLite.openDatabase('packeges.db');
 
 function ListItems({ packages, name, navigation }) {
@@ -33,6 +34,37 @@ function ListItems({ packages, name, navigation }) {
         paddingTop: 10,
         // height: Dimensions.get('window').height / 1.7,
       }}>
+      {packages?.length === 0 && (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+            marginHorizontal: 30,
+            marginBottom: 20,
+            borderRadius: 20,
+          }}>
+          <Skeleton
+            skeletonStyle={{
+              backgroundColor: theme.colors.primary,
+              borderRadius: 20,
+              borderWidth: 0.5,
+              borderColor: theme.colors.border,
+            }}
+            animation="pulse"
+            width={Dimensions.get('window').width / 1.7}
+            height={Dimensions.get('window').height / 3}
+          />
+
+          <Skeleton
+            LinearGradientComponent={LinearGradient}
+            animation="wave"
+            width={80}
+            height={40}
+          />
+        </View>
+      )}
       <View
         style={{
           flexDirection: 'row',

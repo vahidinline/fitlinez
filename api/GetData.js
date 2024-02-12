@@ -330,7 +330,7 @@ const updateExpiredUser = async (userAuth, setUserAuth) => {
 const getPackages = async () => {
   //setLoading(true);
   return new Promise(async (resolve) => {
-    await axios.get('https://jobitta.com/newplan/prebuild').then((res) => {
+    await axios.get('http://192.168.1.40:8080/newplan/prebuild').then((res) => {
       resolve(res.data);
     });
   });

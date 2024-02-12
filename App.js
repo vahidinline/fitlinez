@@ -26,22 +26,18 @@ import { UnitProvider } from './api/unitContext';
 import { PaperProvider } from 'react-native-paper';
 import UserPrivilegeContext from './api/userPrivilegeContext';
 import checkFreeTrial from './api/checkFreeTrial';
-// import { init } from '@amplitude/analytics-react-native';
-// import { logEvent } from '@amplitude/analytics-react-native';
+import { init } from '@amplitude/analytics-react-native';
+import { logEvent } from '@amplitude/analytics-react-native';
 
-// // wherever you want to log an event
-// logEvent('using app');
-// const setupAmplitude = async () => {
-//   await init('2dbde109138c224a29c59085770205c', {
-//     serverZone: 'EU',
-//   });
-// };
+// wherever you want to log an event
+logEvent('using app');
+const setupAmplitude = async () => {
+  await init('2dbde109138c224a29c59085770205c', {
+    serverZone: 'EU',
+  });
+};
 
-//setupAmplitude();
-// Aptabase.init('A-EU-5495689737', {
-//   //session tracking
-//   sessionTracking: true,
-// }); // 👈 this is where you enter your App Key
+setupAmplitude();
 
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 

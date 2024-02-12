@@ -74,14 +74,18 @@ export default function UserImagePicker({ setAvatar }) {
   }
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={pickImage}
       style={{
         // flex: 1,
-
+        borderWidth: 1,
+        borderRadius: 20,
+        borderColor: theme.colors.border,
         alignItems: 'center',
         justifyContent: 'center',
         //borderWidth: 0.5,
         borderRadius: 20,
+
         //borderColor: theme.colors.border,
         width: 100,
         height: 100,
@@ -94,8 +98,8 @@ export default function UserImagePicker({ setAvatar }) {
           // right: 30,
           //left: Dimensions.get('window').width / 5.5,
           backgroundColor: theme.colors.primary,
-          borderWidth: 0.5,
-          borderColor: theme.colors.secondary,
+          borderWidth: 1,
+          borderColor: theme.colors.border,
           borderRadius: 10,
           width: 40,
           height: 40,
@@ -111,8 +115,7 @@ export default function UserImagePicker({ setAvatar }) {
               //position: 'relative', // This will allow absolute positioning within
             }
           }>
-          <TouchableOpacity
-            onPress={pickImage}
+          <View
             style={{
               alignContent: 'center',
               justifyContent: 'center',
@@ -144,7 +147,7 @@ export default function UserImagePicker({ setAvatar }) {
               }}>
               <IconCamera />
             </View>
-          </TouchableOpacity>
+          </View>
         </View>
       ) : (
         <TouchableOpacity
@@ -157,20 +160,8 @@ export default function UserImagePicker({ setAvatar }) {
             width: 200,
 
             opacity: 0.5,
-          }}>
-          <Text
-            style={{
-              color: theme.colors.secondary,
-              fontSize: 20,
-              marginBottom: 20,
-              marginTop: 20,
-
-              textAlign: 'center',
-            }}>
-            {i18n.t('uploadImage')}
-          </Text>
-        </TouchableOpacity>
+          }}></TouchableOpacity>
       )}
-    </View>
+    </TouchableOpacity>
   );
 }
