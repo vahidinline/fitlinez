@@ -7,6 +7,7 @@ import {
   Text,
   Dimensions,
   Linking,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { Button, CheckBox, Input, useTheme } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
@@ -121,149 +122,166 @@ function SignUpIndex(props) {
   };
 
   return (
-    <View
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'android' && 'height'}
       style={{
         backgroundColor: theme.colors.background,
         flex: 1,
+        // position: 'absolute',
+        // top: -10,
+        // left: 0,
+        // right: 0,
+        // bottom: 0,
+        backgroundColor: theme.colors.background,
+        width: Dimensions.get('window').width,
+        // height: Dimensions.get('window').height,
       }}>
-      <View>
-        <StatusBar style="auto" />
+      <View
+        style={{
+          backgroundColor: theme.colors.background,
+          //flex: 1,
+        }}>
+        <View>
+          <StatusBar style="auto" />
+          <View
+            style={{
+              width: '100%',
+              height: Dimensions.get('window').height / 3,
+            }}>
+            <Image
+              style={{
+                width: 200,
+                height: 100,
+                marginTop: 100,
+                resizeMode: 'cover',
+                alignSelf: 'center',
+                borderRadius: 10,
+              }}
+              source={require('../../assets/logo.png')}
+            />
+          </View>
+        </View>
+
         <View
           style={{
-            width: '100%',
-            height: Dimensions.get('window').height / 3,
-          }}>
-          <Image
-            style={{
-              width: 200,
-              height: 100,
-              marginTop: 100,
-              resizeMode: 'cover',
-              alignSelf: 'center',
-              borderRadius: 10,
-            }}
-            source={require('../../assets/logo.png')}
-          />
-        </View>
-      </View>
-
-      <View
-        style={{
-          width: '90%',
-          height: 100,
-          alignSelf: 'center',
-        }}>
-        <FloatingPlaceholderInput
-          placeholder={i18n.t('name')}
-          type="text"
-          onChangeText={(e) => setName(e)}
-        />
-        <FloatingPlaceholderInput
-          onChange={(e) => setEmail(e)}
-          placeholder={i18n.t('email')}
-          onChangeText={(text) => emailValidate(text)}
-          type="email"
-        />
-        <FloatingPlaceholderInput
-          type="password"
-          onChangeText={(text) => passwordValidate(text)}
-          placeholder={i18n.t('password')}
-        />
-
-        <View>
-          <CheckBox
-            iconType="material-community"
-            checkedIcon="checkbox-marked"
-            uncheckedIcon="checkbox-blank-outline"
-            checkedColor={theme.colors.secondary}
-            checked={checked}
-            onPress={toggleCheckbox}
-            style={{
-              marginTop: 10,
-            }}
-            textStyle={{
-              color: theme.colors.secondary,
-              fontSize: 12,
-              fontWeight: 'normal',
-            }}
-            title={
-              <View
-                style={{
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  // alignItems: 'center',
-                  //justifyContent: 'center',
-                  // textAlign: 'center',
-                  marginTop: 10,
-                }}>
-                <Text>{i18n.t('signupTerms')} </Text>
-                <Text
-                  style={{ textDecorationLine: 'underline' }}
-                  onPress={() =>
-                    Linking.openURL('https://www.fitlinez.com/terms-of-service')
-                  }>
-                  {i18n.t('termsandconditions')}
-                </Text>
-                <Text> {i18n.t('and')}</Text>
-                <Text
-                  style={{ textDecorationLine: 'underline' }}
-                  onPress={() =>
-                    Linking.openURL('https://www.fitlinez.com/privacy-policy')
-                  }>
-                  {' '}
-                  {i18n.t('privacypolicy')}
-                </Text>
-              </View>
-            }
-          />
-        </View>
-        <Button
-          disabled={btnDisable}
-          type="outline"
-          onPress={handleSubmit}
-          buttonStyle={[
-            {
-              marginTop: 20,
-              borderRadius: 8,
-              backgroundColor: theme.colors.button,
-            },
-            btnDisable && { backgroundColor: 'lightgrey' },
-          ]}
-          titleStyle={[
-            {
-              color: theme.colors.primary,
-              fontSize: 16,
-            },
-            btnDisable && { color: '#fff' },
-          ]}
-          title={i18n.t('signUp')}
-        />
-      </View>
-      <View
-        style={{
-          position: 'absolute',
-
-          alignSelf: 'center',
-          bottom: 100,
-        }}>
-        <Text
-          style={{
-            color: theme.colors.secondary,
+            width: '90%',
+            height: 100,
             alignSelf: 'center',
-            marginTop: 20,
           }}>
-          {i18n.t('signupFooterText')}
+          <FloatingPlaceholderInput
+            placeholder={i18n.t('name')}
+            type="text"
+            onChangeText={(e) => setName(e)}
+          />
+          <FloatingPlaceholderInput
+            onChange={(e) => setEmail(e)}
+            placeholder={i18n.t('email')}
+            onChangeText={(text) => emailValidate(text)}
+            type="email"
+          />
+          <FloatingPlaceholderInput
+            type="password"
+            onChangeText={(text) => passwordValidate(text)}
+            placeholder={i18n.t('password')}
+          />
+
+          <View>
+            <CheckBox
+              iconType="material-community"
+              checkedIcon="checkbox-marked"
+              uncheckedIcon="checkbox-blank-outline"
+              checkedColor={theme.colors.secondary}
+              checked={checked}
+              onPress={toggleCheckbox}
+              style={{
+                marginTop: 10,
+              }}
+              textStyle={{
+                color: theme.colors.secondary,
+                fontSize: 12,
+                fontWeight: 'normal',
+              }}
+              title={
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    // alignItems: 'center',
+                    //justifyContent: 'center',
+                    // textAlign: 'center',
+                    marginTop: 10,
+                  }}>
+                  <Text>{i18n.t('signupTerms')} </Text>
+                  <Text
+                    style={{ textDecorationLine: 'underline' }}
+                    onPress={() =>
+                      Linking.openURL(
+                        'https://www.fitlinez.com/terms-of-service'
+                      )
+                    }>
+                    {i18n.t('termsandconditions')}
+                  </Text>
+                  <Text> {i18n.t('and')}</Text>
+                  <Text
+                    style={{ textDecorationLine: 'underline' }}
+                    onPress={() =>
+                      Linking.openURL('https://www.fitlinez.com/privacy-policy')
+                    }>
+                    {' '}
+                    {i18n.t('privacypolicy')}
+                  </Text>
+                </View>
+              }
+            />
+          </View>
+          <Button
+            disabled={btnDisable}
+            type="outline"
+            onPress={handleSubmit}
+            buttonStyle={[
+              {
+                marginTop: 20,
+                borderRadius: 8,
+                backgroundColor: theme.colors.button,
+              },
+              btnDisable && { backgroundColor: 'lightgrey' },
+            ]}
+            titleStyle={[
+              {
+                color: theme.colors.primary,
+                fontSize: 16,
+              },
+              btnDisable && { color: '#fff' },
+            ]}
+            title={i18n.t('signUp')}
+          />
+        </View>
+        <View
+          style={{
+            position: 'absolute',
+
+            alignSelf: 'center',
+            bottom: 100,
+          }}>
           <Text
-            onPress={() => navigation.navigate('Login')}
             style={{
-              color: theme.colors.button,
+              color: theme.colors.secondary,
+              alignSelf: 'center',
+              marginTop: 20,
             }}>
-            {' '}
-            {i18n.t('signupFooterText2')}
+            {i18n.t('signupFooterText')}
+            <Text
+              onPress={() => navigation.navigate('Login')}
+              style={{
+                color: theme.colors.button,
+              }}>
+              {' '}
+              {i18n.t('signupFooterText2')}
+            </Text>
           </Text>
-        </Text>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

@@ -17,6 +17,8 @@ import { BottomSheet, useTheme, Button, Text } from '@rneui/themed';
 import Item from './listPage/item';
 import { SessionContext } from '../../api/sessionContext';
 import calculateTaskCompletionPercentage from '../../api/performanceCalc';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TimeSpentContext } from '../../api/TimeSpentContext';
 const { width, height } = Dimensions.get('window');
 
 const ListOfExercises = (props) => {
@@ -40,6 +42,8 @@ const ListOfExercises = (props) => {
   const hideDialog = () => setVisible(false);
   const [progress, setProgress] = useState(1);
   const { sessionData } = useContext(SessionContext);
+  const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
+  console.log('timeSpent in List', timeSpent);
   const completionPercentage = calculateTaskCompletionPercentage(
     sessionData,
     data.length
@@ -64,7 +68,6 @@ const ListOfExercises = (props) => {
     flatListRef.current.scrollToIndex({ index: index, animated: true });
   };
   const doneItem = (index) => {
-    //console.log('doneItem', index);
     try {
       const updatedData = data.map((item, i) => {
         if (i === index) {
@@ -138,6 +141,50 @@ const ListOfExercises = (props) => {
     setData(updatedData);
   };
 
+  const setupApp = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@current_exercise_state');
+
+      if (jsonValue) {
+        const currentExerciseState = JSON.parse(jsonValue);
+        const { itemIndex, setIndex } = currentExerciseState;
+        //alert(i18n.t('alertUnfinishSession'));
+        // Add a delay to ensure FlatList is fully loaded.
+        setTimeout(() => {
+          if (itemIndex < data.length - 1) {
+            // Call the goToIndex function with the next index
+            goToIndex(itemIndex + 1);
+          } else {
+            // Optionally, you can handle the case when it is the last index
+            goToIndex(itemIndex);
+          }
+        }, 500); // Adjust delay as needed.
+
+        // Dispatch action or call function to resume set. Depends on your implementation.
+      }
+    } catch (error) {
+      console.error('Error loading exercise state', error);
+    }
+  };
+
+  const restoreTimeSpend = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@time_spend');
+      if (value !== null) {
+        console.log('time_spend recovered', value);
+        setTimeSpent(value);
+      }
+    } catch (error) {
+      console.error('Error getting time spend', error);
+      setTimeSpent(0);
+    }
+  };
+
+  useEffect(() => {
+    setupApp();
+    restoreTimeSpend();
+  }, []);
+
   const finishWorkout = () => {
     try {
       setStoptimer(true);
@@ -177,6 +224,7 @@ const ListOfExercises = (props) => {
       <View style={styles.container}>
         {sortedData.length > 0 ? (
           <FlatList
+            removeClippedSubviews={true}
             horizontal
             ref={flatListRef}
             keyExtractor={(item) => item.name}

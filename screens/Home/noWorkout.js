@@ -1,6 +1,6 @@
 import { Button, LinearProgress, Text, useTheme } from '@rneui/themed';
 import React, { useContext } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, PixelRatio } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import CurrentCard from './homeCard/CurrentCard';
 import { useNavigation } from '@react-navigation/native';
@@ -8,13 +8,16 @@ import { IconBlackDumbbell, IconTrainer } from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
-import { readWorkoutPercentageData } from '../../api/readWorkoutData';
+import {
+  readWorkoutData,
+  readWorkoutPercentageData,
+} from '../../api/readWorkoutData';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import AuthContext from '../../api/context';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 
-function NoWorkoutCard({ title, trainer, location }) {
+function NoWorkoutCard({ title, trainer, packages }) {
   // console.log('location in current', location);
   const [percentage, setPercentage] = useState(0);
   const { userPrivilege, setUserPrivilege } = useContext(UserPrivilegeContext);
@@ -47,11 +50,7 @@ function NoWorkoutCard({ title, trainer, location }) {
   //   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        { direction: userLanguage === 'fa' ? 'rtl' : 'ltr' },
-      ]}>
+    <View style={[styles.container]}>
       <LinearGradient
         colors={['#5B5891', '#3A366F', '#17124A']}
         style={styles.background}
@@ -64,65 +63,71 @@ function NoWorkoutCard({ title, trainer, location }) {
           alignItems: 'center',
           marginTop: 20,
           width: Dimensions.get('window').width / 1.1,
-          height: Dimensions.get('window').height / 14,
+          height: Dimensions.get('window').height / 15,
           // marginHorizontal: 20,
         }}>
         <Text style={[styles.text]}>{i18n.t('noPlanSelectedTitle')}</Text>
-        <Text style={[styles.text, { fontSize: 16 }]}>
+        <Text style={[styles.text, { fontSize: 14 }]}>
           {i18n.t('noPlanSelectedSubTitle')}
         </Text>
       </View>
       <View
         style={{
-          position: 'absolute',
-          top: 50,
-          right: 5,
-          flexDirection: 'row',
+          top: 30,
+          // justifyContent: 'center',
+          // // alignItems: 'center',
+          // flexDirection: 'column',
         }}>
-        <CurrentCard
-          index={2}
-          title={title}
-          //icon={<IconBlackDumbbell />}
-          subtitle={i18n.t('todaysactivity')}
-          component={
-            <Button
-              //disabled
-              onPress={() => navigation.navigate('WorkoutListIndex')}
-              buttonStyle={{
-                borderRadius: 8,
-                backgroundColor: theme.colors.button,
-                borderWidth: 1,
-                borderColor: theme.colors.border,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              {i18n.t('letsstart')}
-            </Button>
+        <Button
+          onPress={() =>
+            navigation.navigate('MarketPlace', {
+              packages: packages,
+            })
           }
-        />
-        <CurrentCard
+          titleStyle={{
+            color: theme.colors.text,
+            fontSize: PixelRatio.get() < 3 ? 10 : 14,
+            fontWeight: '500',
+          }}
+          buttonStyle={{
+            borderRadius: 8,
+            backgroundColor: theme.colors.primary,
+            borderWidth: 1,
+            borderColor: theme.colors.border,
+
+            //top: 20,
+            marginHorizontal: 15,
+            height: 40,
+            width: Dimensions.get('window').width / 1.2,
+          }}>
+          {i18n.t('showAllPlans')}
+        </Button>
+
+        {/* <CurrentCard
           index={1}
-          //title={trainer}
-          subtitle={i18n.t('progress')}
-          // icon={<IconTrainer />}
+          title={trainer}
+          // subtitle="No Data? try again"
           component={
-            <View>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  alignSelf: 'center',
-                  color: theme.colors.secondary,
-                }}>
-                {/* {`${isNaN(percentage) ? 0 : percentage}`} % */}
-              </Text>
-              <LinearProgress
-                // value={isNaN(percentage) ? 0 : percentage / 100}
-                style={{ marginTop: 10 }}
-              />
-            </View>
+            null
+            // <Button
+            //   onPress={() => readWorkoutData()}
+            //   titleStyle={{
+            //     color: theme.colors.primary,
+            //     fontSize: PixelRatio.get() < 3 ? 10 : 14,
+            //     fontWeight: '500',
+            //   }}
+            //   buttonStyle={{
+            //     borderRadius: 8,
+            //     backgroundColor: theme.colors.button,
+            //     borderWidth: 1,
+            //     borderColor: theme.colors.border,
+            //     justifyContent: 'center',
+            //     alignItems: 'center',
+            //   }}>
+            //   Reload
+            // </Button>
           }
-        />
+        /> */}
       </View>
     </View>
   );
@@ -130,12 +135,14 @@ function NoWorkoutCard({ title, trainer, location }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     //alignItems: 'center',
     // justifyContent: 'center',
     width: Dimensions.get('window').width / 1.1,
-    //height: Dimensions.get('window').height / 3,
+    height: Dimensions.get('window').height / 12,
     marginHorizontal: 20,
+    marginTop: 20,
+    zIndex: 1000,
     // backgroundColor: 'orange',
   },
   background: {
@@ -143,7 +150,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     top: 0,
-    height: Dimensions.get('window').height / 4.2,
+    height: Dimensions.get('window').height / 5,
     borderRadius: 16,
   },
   button: {
@@ -152,7 +159,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   text: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '600',
     color: 'white',
     //marginLeft: 10,

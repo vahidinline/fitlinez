@@ -97,7 +97,7 @@ export default function UserImagePicker({ setAvatar }) {
           top: 80,
           // right: 30,
           //left: Dimensions.get('window').width / 5.5,
-          backgroundColor: theme.colors.primary,
+          backgroundColor: theme.colors.background,
           borderWidth: 1,
           borderColor: theme.colors.border,
           borderRadius: 10,
@@ -105,10 +105,11 @@ export default function UserImagePicker({ setAvatar }) {
           height: 40,
           justifyContent: 'center',
           alignItems: 'center',
+          //opacity: 0.5,
         }}>
         <IconCamera />
       </View>
-      {image ? (
+      {image && (
         <View
           style={
             {
@@ -122,7 +123,7 @@ export default function UserImagePicker({ setAvatar }) {
               alignItems: 'center',
               alignSelf: 'center',
               width: 200,
-              top: 20,
+              // top: 20,
               opacity: 1,
             }}>
             <Image
@@ -135,13 +136,14 @@ export default function UserImagePicker({ setAvatar }) {
                 position: 'absolute',
                 top: 80,
                 // right: 30,
-                left: Dimensions.get('window').width / 5.5,
-                backgroundColor: theme.colors.primary,
+                // left: Dimensions.get('window').width / 5.5,
+                backgroundColor: theme.colors.background,
                 borderWidth: 0.5,
-                borderColor: theme.colors.secondary,
+                borderColor: theme.colors.border,
                 borderRadius: 10,
                 width: 40,
                 height: 40,
+                opacity: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
@@ -149,18 +151,6 @@ export default function UserImagePicker({ setAvatar }) {
             </View>
           </View>
         </View>
-      ) : (
-        <TouchableOpacity
-          onPress={pickImage}
-          style={{
-            alignContent: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
-            alignSelf: 'center',
-            width: 200,
-
-            opacity: 0.5,
-          }}></TouchableOpacity>
       )}
     </TouchableOpacity>
   );

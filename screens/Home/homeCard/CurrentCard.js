@@ -1,14 +1,18 @@
-import { LinearProgress, Text, useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import React from 'react';
-import { useEffect } from 'react';
-import { useRef } from 'react';
 import { Dimensions, View, Animated, PixelRatio } from 'react-native';
 import { Card } from 'react-native-paper';
-import { Path, Svg } from 'react-native-svg';
 
-function CurrentCard({ title, subtitle, component, icon, value, index }) {
+function CurrentCard({
+  title,
+  subtitle,
+  component,
+  icon,
+  value,
+  index,
+  width,
+}) {
   const limit = 15;
-  console.log('PixelRatio', PixelRatio.get());
   //count the number of characters in the title
   const titleLength = title && typeof title === 'string' && title.length;
 
@@ -19,7 +23,7 @@ function CurrentCard({ title, subtitle, component, icon, value, index }) {
         position: 'absolute',
         top: 0,
         right: index === 1 ? 0 : Dimensions.get('window').width / 2.6,
-        width: Dimensions.get('window').width / 2.5,
+        width: width ? width : Dimensions.get('window').width / 2.5,
         flexDirection: 'column',
         justifyContent: 'space-between',
         // alignItems: 'center',

@@ -28,10 +28,10 @@ import {
 } from '../../../screens/marketplace/filters/icons';
 import SessionTimer from '../../timer/sessionTimer';
 import DrawerList from './drawer';
-import FitAlert from '../../Alert';
-import { saveSetsData } from '../../../api/inputApis';
 import RestCounterComponent from './inputs/counter';
 import { SessionContext } from '../../../api/sessionContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TimeSpentContext } from '../../../api/TimeSpentContext';
 const { width, height } = Dimensions.get('window');
 
 function Item(props) {
@@ -40,15 +40,14 @@ function Item(props) {
   const [showInstruction, setShowInstruction] = useState(false);
   i18n.locale = userLanguage;
   const { theme } = useTheme();
-  const styles = getStyles(theme); // Call the function inside the component
+  const styles = getStyles(theme);
   const [childDataMap, setChildDataMap] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const [saveCount, setSaveCount] = useState(0);
   const [buttonTitle, setButtonTitle] = useState(i18n.t('nextSet'));
-
+  const [saveTimer, setSaveTimer] = useState(false);
   const {
     userId,
-    undoneItem,
     doneItem,
     exerciseId,
     title,
@@ -73,17 +72,19 @@ function Item(props) {
     goToIndex,
     dataLength,
   } = props;
-
+  const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
   const [showDrawer, setShowDrawer] = useState(false);
   const [visible, setVisible] = useState(false);
   const [numberOfSets, setNumberOfSets] = useState(3);
   let adjustedNumberOfSets = numberOfSets;
   const [showRest, setShowRest] = useState(false);
   const RTL = userLanguage === 'fa';
-  const [showAlert, setShowAlert] = useState(false);
   const { sessionData, setSessionData } = useContext(SessionContext);
-
-  // console.log('setSessionData', sessionData);
+  const [buttondisabled, setButtonDisabled] = useState(false);
+  let buttonVisible = true;
+  if (index >= dataLength - 1) {
+    buttonVisible = false;
+  }
 
   const handleStoreData = ({
     weight,
@@ -93,6 +94,7 @@ function Item(props) {
     totalWeight,
     title,
     itemIndex,
+    setIndex,
     timestamp,
   }) => {
     setChildDataMap({
@@ -103,22 +105,71 @@ function Item(props) {
       totalWeight,
       title,
       itemIndex,
+      setIndex,
       timestamp,
     });
+  };
+
+  useEffect(() => {
+    AsyncStorage.setItem(
+      `${exerciseId}-${childDataMap.setIndex}`,
+      JSON.stringify({
+        weight: childDataMap.weight,
+        reps: childDataMap.reps,
+      })
+    );
+  }, [childDataMap]);
+
+  const updateTotalWeight = async (weight) => {
+    try {
+      let oldValue = await AsyncStorage.getItem('@total_weight');
+      console.log('oldValue', oldValue);
+
+      // Check if oldValue is null, undefined or NaN and assign 0 if true
+      if (oldValue === null || oldValue === undefined || isNaN(oldValue)) {
+        console.log('oldValue is null, undefined or NaN', oldValue);
+        oldValue = 0;
+      }
+
+      const totalWeight = oldValue ? Number(oldValue) + weight : weight;
+      console.log('totalWeight', totalWeight);
+      await AsyncStorage.setItem('@total_weight', totalWeight.toString());
+    } catch (error) {
+      console.error('Error updating total weight', error);
+    }
+  };
+
+  const resumeTimeSpend = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@time_spend');
+      if (value !== null) {
+        console.log('time_spend', value);
+      }
+    } catch (error) {
+      console.error('Error getting time spend', error);
+    }
+  };
+
+  const storeTimeSpend = async () => {
+    console.log(timeSpent);
+    try {
+      await AsyncStorage.setItem('@time_spend', JSON.stringify(timeSpent));
+      console.log('time_spend stored', JSON.stringify(timeSpent));
+    } catch (error) {
+      console.error('Error saving time spend', error);
+    }
   };
 
   useEffect(() => {
     if (saveCount + 1 >= adjustedNumberOfSets) {
       if (index >= dataLength - 1) {
         console.log('into index >= dataLength - 1');
-        // When it's the last set of the last movement
-        setButtonTitle(i18n.t('finishWorkout'));
+        // setButtonDisabled(!buttonVisible);
+        //setButtonTitle(i18n.t('finishWorkout'));
       } else {
-        // When it's the last set, but not the last movement
         setButtonTitle(i18n.t('nextExercise'));
       }
     } else {
-      // When there are some remaining sets in the current movement
       setButtonTitle(i18n.t('nextSet'));
     }
   }, [currentIndex, saveCount, adjustedNumberOfSets]);
@@ -127,39 +178,51 @@ function Item(props) {
     adjustedNumberOfSets = 1;
   }
 
-  const handleButton = () => {
-    // Save new data first.
-    saveSetsData(childDataMap);
+  const saveExerciseState = async (data) => {
+    //console.log('currentExerciseState', data);
+    //store sum of all sets totalWeight in async storage
 
+    const jsonValue = JSON.stringify(data);
+    try {
+      await AsyncStorage.setItem('@current_exercise_state', jsonValue);
+    } catch (err) {
+      console.error('Error saving data', err);
+    }
+  };
+
+  const handleButton = async () => {
+    saveExerciseState(childDataMap);
+
+    updateTotalWeight(childDataMap.totalWeight); //use new function here
+    setSaveTimer(true);
     setShowRest((prevShowRest) => !prevShowRest);
-
     setSessionData((prevState) => [
       ...prevState,
       { setIndex: prevState.length + 1, exerciseId: exerciseId },
     ]);
 
-    // Increment the counter.
-    setSaveCount((prevCount) => prevCount + 1);
-
-    // Check if it's the last set and the last exercise
-    if (saveCount + 1 >= adjustedNumberOfSets) {
-      if (index >= dataLength - 1) {
-        // It's the last set of the last exercise, so finish the session
-        setFinish(true);
+    setSaveCount((prevCount) => {
+      let count = prevCount + 1;
+      if (count >= adjustedNumberOfSets) {
+        console.log('into count >= adjustedNumberOfSets');
+        if (index >= dataLength - 1) {
+          console.log('into index >= dataLength - 1');
+          // setFinish(true);
+        } else {
+          console.log('into else');
+          doneItem(index);
+        }
       } else {
-        // It's the last set, but not the last exercise, navigate to next exercise
-        doneItem(index);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
       }
-    } else {
-      // Still need to save some sets
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-    }
+      if (count >= adjustedNumberOfSets && index >= dataLength - 1) {
+        console.log('into count >= adjustedNumberOfSets');
+        // doneItem(index);
+        setFinish(true);
+      }
 
-    // Call the doneItem function when appropriate
-    if (saveCount + 1 >= adjustedNumberOfSets && index >= dataLength - 1) {
-      // We have saved all the sets of the last exercise
-      doneItem(index);
-    }
+      return count;
+    });
   };
 
   return (
@@ -204,7 +267,7 @@ function Item(props) {
           style={[
             styles.title,
             {
-              fontSize: PixelRatio.get() < 3 ? 14 : 18,
+              fontSize: PixelRatio.get() > 2 ? 12 : 18,
             },
           ]}>
           {title}
@@ -247,7 +310,11 @@ function Item(props) {
           <IconSub />
         </TouchableOpacity>
 
-        <SessionTimer stoptimer={stoptimer} />
+        <SessionTimer
+          saveTimer={saveTimer}
+          setSaveTimer={setSaveTimer}
+          stoptimer={stoptimer}
+        />
         <TouchableOpacity
           style={{
             flexDirection: 'row',
@@ -285,21 +352,7 @@ function Item(props) {
         />
       </View>
 
-      {showAlert && (
-        <FitAlert
-          toggleDialog={() => setShowAlert(!showAlert)}
-          visible={true}
-          message="You are not premium user"
-          buttonArray={[
-            {
-              onPress: () => {},
-              label: 'OK',
-            },
-          ]}
-        />
-      )}
-
-      {inputType !== 'timer' && inputType !== 'rep' && <Recomand />}
+      {/* {inputType !== 'timer' && inputType !== 'rep' && <Recomand />} */}
       <View
         style={{
           flexDirection: 'row',
@@ -328,7 +381,7 @@ function Item(props) {
             />
           ) : (
             Array.from(Array(adjustedNumberOfSets), (e, i) => {
-              if (inputType === 'rep') {
+              if (inputType === 'rep' && type !== 'cooldown') {
                 return (
                   <RepsInput
                     key={i}
@@ -345,7 +398,7 @@ function Item(props) {
                     currentIndex={currentIndex}
                   />
                 );
-              } else {
+              } else if (type !== 'cooldown') {
                 return (
                   <WeightAndSetsInput
                     key={i}
@@ -422,42 +475,28 @@ function Item(props) {
           borderColor: theme.colors.border,
           paddingTop: 10,
         }}>
-        {/* <Button
-          // type="outline"
-          buttonStyle={{
-            backgroundColor: theme.colors.background,
-            borderRadius: 12,
-            borderWidth: 1,
-            width: Dimensions.get('window').width / 2.4,
-            height: Dimensions.get('window').height / 20,
-            borderColor: theme.colors.border,
-          }}
-          title={i18n.t('previousExercise')}
-          titleStyle={{
-            color: theme.colors.secondary,
-          }}
-          onPress={() => undoneItem(index)}
-        /> */}
-
-        <Button
-          type="outline"
-          buttonStyle={{
-            backgroundColor: theme.colors.button,
-            borderRadius: 12,
-            borderWidth: 1,
-            width: Dimensions.get('window').width / 1.1,
-            height:
-              PixelRatio.get() < 3
-                ? Dimensions.get('window').height / 16
-                : Dimensions.get('window').height / 20,
-          }}
-          titleStyle={{
-            fontSize: PixelRatio.get() < 3 ? 14 : 18,
-          }}
-          //  onPress={() => doneItem(index)}
-          onPress={() => handleButton(childDataMap.data)}>
-          {buttonTitle}
-        </Button>
+        {buttonVisible && (
+          <Button
+            // disabled={buttondisabled}
+            type="outline"
+            buttonStyle={{
+              backgroundColor: theme.colors.button,
+              borderRadius: 12,
+              borderWidth: 1,
+              width: Dimensions.get('window').width / 1.1,
+              height:
+                PixelRatio.get() < 3
+                  ? Dimensions.get('window').height / 16
+                  : Dimensions.get('window').height / 20,
+            }}
+            titleStyle={{
+              fontSize: PixelRatio.get() < 3 ? 14 : 18,
+            }}
+            //  onPress={() => doneItem(index)}
+            onPress={() => handleButton(childDataMap.data)}>
+            {buttonTitle}
+          </Button>
+        )}
       </View>
     </KeyboardAvoidingView>
   );
@@ -507,4 +546,4 @@ const getStyles = (theme) =>
     },
   });
 
-export default Item;
+export default React.memo(Item);

@@ -15,12 +15,11 @@ import AuthContext from '../../api/context';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 
 function CurrentWorkoutCard({ title, trainer, location }) {
-  // console.log('location in current', location);
   const [percentage, setPercentage] = useState(0);
   const { userPrivilege, setUserPrivilege } = useContext(UserPrivilegeContext);
   useEffect(() => {
     readWorkoutPercentageData(title).then((data) => {
-      setPercentage(data.percentage);
+      setPercentage(data?.percentage ? data.percentage : 0);
     });
   }, []);
 
@@ -52,11 +51,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        // { direction: userLanguage === 'fa' ? 'rtl' : 'ltr' },
-      ]}>
+    <View style={[styles.container]}>
       <LinearGradient
         colors={['#5B5891', '#3A366F', '#17124A']}
         style={[
@@ -151,19 +146,14 @@ function CurrentWorkoutCard({ title, trainer, location }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //alignItems: 'center',
-    // justifyContent: 'center',
     width: Dimensions.get('window').width / 1.1,
-    //height: Dimensions.get('window').height / 3,
     marginHorizontal: 20,
-    // backgroundColor: 'orange',
   },
   background: {
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
-    //height: Dimensions.get('window').height / 4.5,
     borderRadius: 16,
   },
   button: {

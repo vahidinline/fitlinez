@@ -18,10 +18,13 @@ import { useFocusEffect } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
 import { ActivityIndicator } from 'react-native-paper';
-import { LinearGradient } from 'expo-linear-gradient';
+import NoWorkoutCard from './noWorkout';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
+  const [currentPlanAsync, setCurrentPlanAsync] = useState(null);
+  const [isPlanAssigned, setIsPlanAssigned] = useState(false);
   const [totalSessions, setTotalSessions] = useState(0);
   const { theme } = useTheme();
   const [packages, setPackages] = useState([]);
@@ -33,6 +36,8 @@ function HomeIndex() {
   i18n.locale = userLanguage;
   const isRTL = userLanguage === 'fa';
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
+
   const BACKGROUND_FETCH_TASK = 'background-fetch';
   TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     try {
@@ -44,7 +49,20 @@ function HomeIndex() {
   });
 
   useEffect(() => {
-    setLoading(false);
+    const timeout = setTimeout(() => {
+      if (currentPlan === null) {
+        setLoading(false);
+        setIsPlanAssigned(false);
+      } else {
+        setLoading(false);
+        setIsPlanAssigned(true);
+      }
+    }, 5000);
+    // Cleanup function to clear the timeout if currentPlan is not null
+    return () => {
+      clearTimeout(timeout);
+      setLoading(false);
+    };
   }, [currentPlan]);
 
   async function registerBackgroundFetchAsync() {
@@ -77,6 +95,22 @@ function HomeIndex() {
     }, [])
   );
 
+  const getPlanFromAsyncStorage = async () => {
+    await AsyncStorage.getItem('workoutsList').then((value) => {
+      // alert('workoutsList');
+      if (value !== null) {
+        const workoutsList = JSON.parse(value);
+
+        setCurrentPlanAsync(workoutsList[0]);
+      } else {
+        //alert('workoutsList without data');
+      }
+    });
+  };
+  useEffect(() => {
+    getPlanFromAsyncStorage();
+  }, []);
+
   const getUserWorkoutData = async () => {
     currentPalnPercentage().then((data) => {
       setUserWorkoutData(data);
@@ -85,11 +119,15 @@ function HomeIndex() {
 
   const getData = async () => {
     try {
-      const data = await readWorkoutData();
-      setCurrentPlan(data?.dataObject.item);
-      setTotalSessions(data?.totalSessions);
-      setPlanStartDate(data?.dataObject.addedDateTime);
+      const { workoutPlanData, totalSession, addedDateTime } =
+        await readWorkoutData();
+
+      setCurrentPlan(workoutPlanData);
+      setTotalSessions(totalSession);
+      setPlanStartDate(addedDateTime);
     } catch (error) {
+      setCurrentPlan(null);
+      setLoading(false);
       return false;
     }
   };
@@ -104,11 +142,23 @@ function HomeIndex() {
         flex: 1,
         backgroundColor: theme.colors.background,
       }}>
+      {loading && (
+        <View
+          style={{
+            position: 'absolute',
+            top: 400,
+            left: 0,
+            right: 0,
+            zIndex: 100,
+          }}>
+          <ActivityIndicator size="large" color={theme.colors.warning} />
+        </View>
+      )}
       <View
         style={{
-          flex: 0.2,
           marginTop: Dimensions.get('window').height / 12,
           marginBottom: 0,
+          zIndex: 100,
         }}>
         <HomeHeader
           planStartDate={planStartDate}
@@ -119,7 +169,7 @@ function HomeIndex() {
         {currentPlan && (
           <View
             style={{
-              height: Dimensions.get('window').height / 3.5,
+              height: Dimensions.get('window').height / 9,
               marginTop: 20,
             }}>
             <WorkoutAgenda
@@ -132,13 +182,11 @@ function HomeIndex() {
           </View>
         )}
       </View>
-      {loading && (
-        <ActivityIndicator size="large" color={theme.colors.secondary} />
-      )}
+
       <ScrollView
         style={{
           flex: 1,
-          marginTop: currentPlan ? Dimensions.get('window').height / 7 : 0,
+          // marginTop: currentPlan ? Dimensions.get('window').height / 7 : 0,
         }}>
         {currentPlan && (
           <View
@@ -168,7 +216,16 @@ function HomeIndex() {
             />
           </View>
         )}
-
+        {!isPlanAssigned && !currentPlan && (
+          <View
+            style={{
+              width: Dimensions.get('window').width,
+              marginTop: 10,
+              marginBottom: Dimensions.get('window').height / 6,
+            }}>
+            <NoWorkoutCard packages={packages} userPervilage={userPervilage} />
+          </View>
+        )}
         <Text
           style={{
             fontSize: 16,
@@ -205,13 +262,6 @@ function HomeIndex() {
               animation="pulse"
               width={Dimensions.get('window').width / 1 - 20}
               height={Dimensions.get('window').height / 3}
-            />
-
-            <Skeleton
-              LinearGradientComponent={LinearGradient}
-              animation="wave"
-              width={80}
-              height={40}
             />
           </View>
         )}

@@ -9,7 +9,7 @@ import { Text, useTheme } from '@rneui/themed';
 import generateText from '../../../api/lastPageText';
 
 function LowPerformance({ text, completionPercentage }) {
-  console.log('completionPercentage', generateText(completionPercentage));
+  // console.log('completionPercentage', generateText(completionPercentage));
   const { theme } = useTheme();
   return (
     <View style={{}}>
@@ -41,7 +41,7 @@ function LowPerformance({ text, completionPercentage }) {
           top: Dimensions.get('window').height / 2.7,
           zIndex: 1,
         }}>
-        <Text
+        {/* <Text
           style={{
             fontSize: 20,
             fontWeight: '500',
@@ -49,7 +49,7 @@ function LowPerformance({ text, completionPercentage }) {
             textAlign: 'center',
           }}>
           {generateText(completionPercentage)}
-        </Text>
+        </Text> */}
       </View>
     </View>
   );

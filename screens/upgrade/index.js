@@ -116,7 +116,9 @@ function Upgrade() {
         <BackgroundImage
           source={require('../../assets/img/paymentbg.jpeg')}
           style={styles.background}>
-          <Text style={styles.textHeader}>{i18n.t('upgradeHeaderText')}</Text>
+          <Text style={styles.textHeader}>
+            {i18n.t('upgradeHeaderTextIndex')}
+          </Text>
           <Text style={styles.textSubHeader}>
             {i18n.t('upgradeSubHeaderText')}
           </Text>
@@ -125,17 +127,18 @@ function Upgrade() {
           </Text>
           {!userPrivilege && (
             <View style={styles.textWarning}>
-              <IconWarning color={theme.colors.red} size={36} />
+              <IconWarning color={theme.colors.warning} size={36} />
               <Text
                 style={{
                   color: theme.colors.info,
-                  fontSize: 14,
-                  fontWeight: '400',
+                  fontSize: 10,
+                  fontWeight: '200',
                   marginVertical: 10,
                   marginHorizontal: 10,
                   justifyContent: 'center',
                   bottom: 10,
                   flexWrap: 'wrap',
+                  textAlign: RTL ? 'left' : 'right',
                 }}>
                 {i18n.t('trialExpired')}
               </Text>
@@ -159,10 +162,13 @@ function Upgrade() {
                 style={{
                   color: theme.colors.secondary,
                   fontSize: 14,
-                  fontWeight: '500',
+                  fontWeight: '400',
                   marginVertical: 10,
                   marginHorizontal: 20,
-                  textAlign: RTL ? 'left' : 'right',
+                  width: Dimensions.get('window').width / 1.2,
+                  flexWrap: 'wrap',
+
+                  textAlign: RTL ? 'right' : 'left',
                 }}>
                 {i18n.t('upgradeLocationText')}
               </Text>
@@ -276,10 +282,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontSize: 24,
     top: Dimensions.get('window').height / 5 - 30,
-    fontWeight: '500',
+    fontWeight: '400',
     color: '#17124A',
     textAlign: 'center',
     margin: 10,
+
     zIndex: 10,
   },
   textSmallHeader: {
@@ -288,8 +295,8 @@ const styles = StyleSheet.create({
     top: Dimensions.get('window').height / 5 - 0,
     fontWeight: '500',
     color: '#17124A',
-    textAlign: 'center',
-    margin: 10,
+    // textAlign: 'center',
+    margin: 20,
     zIndex: 10,
   },
   textWarning: {
@@ -300,9 +307,10 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#17124A',
     textAlign: 'center',
-    margin: 10,
+    marginHorizontal: 10,
+    top: Dimensions.get('window').height / 3.5,
     zIndex: 10,
-    width: Dimensions.get('window').width / 1.1,
+    width: Dimensions.get('window').width / 1.3,
   },
   button: {
     padding: 15,

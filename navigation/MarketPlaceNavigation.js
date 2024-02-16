@@ -3,6 +3,7 @@ import WorkoutListIndex from '../screens/marketplace/ListOfworkouts/WorkoutListI
 import MarketPlaceIndex from '../screens/marketplace/MarketPlaceIndex';
 import { createStackNavigator } from '@react-navigation/stack';
 import PlanItem from '../screens/marketplace/ListOfworkouts/PlanItem';
+import IndexLeaderBoard from '../screens/leaderBoard/IndexLeaderBoard';
 const Stack = createStackNavigator();
 
 function MarketPlaceNavigation() {

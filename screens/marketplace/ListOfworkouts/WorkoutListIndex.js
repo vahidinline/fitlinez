@@ -1,17 +1,12 @@
 import React from 'react';
-import { Dimensions, FlatList } from 'react-native';
-import { SafeAreaView } from 'react-native';
-import WorkoutListItems from './ListItems';
-import { Icon, useTheme } from '@rneui/themed';
-import { Text } from '@rneui/base';
-import { useNavigation } from '@react-navigation/native';
+import { FlatList } from 'react-native';
+import { useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import CardItem from './CardItem';
 import Header from '../../../components/header';
 
-function WorkoutListIndex({ route, navigation }) {
+function WorkoutListIndex({ route }) {
   const { theme } = useTheme();
-  //const navigation = useNavigation();
   const { packages, name } = route.params;
 
   return (
@@ -21,7 +16,7 @@ function WorkoutListIndex({ route, navigation }) {
       <FlatList
         data={packages}
         renderItem={({ item }) => <CardItem item={item} />}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.name}
         showsVerticalScrollIndicator={false}
       />
     </View>

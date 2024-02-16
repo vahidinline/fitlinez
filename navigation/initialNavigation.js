@@ -13,12 +13,15 @@ const InitialNavigation = () => {
         name="Login"
         component={LoginIndex}
         options={{
+          cardStyle: {
+            backgroundColor: '#FCF8FF',
+          },
           headerShown: false,
           title: 'Login',
           headerStyle: {
-            backgroundColor: '#3F3B6C',
+            backgroundColor: '#FCF8FF',
           },
-          headerTintColor: '#fff',
+          headerTintColor: '#FCF8FF',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
@@ -32,9 +35,9 @@ const InitialNavigation = () => {
           title: 'Register',
           headerShown: false,
           headerStyle: {
-            backgroundColor: '#3F3B6C',
+            backgroundColor: '#FCF8FF',
           },
-          headerTintColor: '#fff',
+          headerTintColor: '#FCF8FF',
           headerTitleStyle: {
             fontWeight: 'bold',
           },

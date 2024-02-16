@@ -37,7 +37,8 @@ function ListItems({ packages, name, navigation }) {
       {packages?.length === 0 && (
         <View
           style={{
-            justifyContent: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             alignContent: 'center',
             alignItems: 'center',
             marginTop: 20,
@@ -49,19 +50,26 @@ function ListItems({ packages, name, navigation }) {
             skeletonStyle={{
               backgroundColor: theme.colors.primary,
               borderRadius: 20,
-              borderWidth: 0.5,
+              // borderWidth: 0.5,
               borderColor: theme.colors.border,
+              marginHorizontal: 30,
             }}
             animation="pulse"
-            width={Dimensions.get('window').width / 1.7}
+            width={Dimensions.get('window').width / 2.5}
             height={Dimensions.get('window').height / 3}
           />
 
           <Skeleton
-            LinearGradientComponent={LinearGradient}
-            animation="wave"
-            width={80}
-            height={40}
+            skeletonStyle={{
+              backgroundColor: theme.colors.primary,
+              borderRadius: 20,
+              //borderWidth: 0.5,
+              //borderColor: theme.colors.border,
+              marginHorizontal: 30,
+            }}
+            animation="pulse"
+            width={Dimensions.get('window').width / 2.5}
+            height={Dimensions.get('window').height / 3}
           />
         </View>
       )}
@@ -114,7 +122,7 @@ function ListItems({ packages, name, navigation }) {
           horizontal
           data={packages}
           renderItem={({ item }) => <CardItem item={item} />}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.name}
         />
       </View>
     </View>

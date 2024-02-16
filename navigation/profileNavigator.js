@@ -5,6 +5,7 @@ import IndexOnBoarding from '../screens/onBoarding/IndexOnBoarding';
 import UnitSelector from '../screens/profile/unitSelector';
 import Aboutme from '../screens/profile/Aboutme';
 import Upgrade from '../screens/upgrade';
+import IndexLeaderBoard from '../screens/leaderBoard/IndexLeaderBoard';
 const Stack = createStackNavigator();
 function ProfileNavigator() {
   return (
@@ -41,6 +42,13 @@ function ProfileNavigator() {
       <Stack.Screen
         name="Upgrade"
         component={Upgrade}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="IndexLeaderBoard"
+        component={IndexLeaderBoard}
         options={{
           headerShown: false,
         }}

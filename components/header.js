@@ -42,7 +42,7 @@ function Header({ title, rightIconPress }) {
             position: 'absolute',
             alignSelf: 'center',
             left: 0,
-            right: 0,
+            right: 20,
             textAlign: 'center',
 
             color: theme.colors.secondary,

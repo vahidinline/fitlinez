@@ -3,7 +3,8 @@ import { Text, View } from 'react-native';
 import { Icon } from '@rneui/themed';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
 import { useTheme } from '@rneui/themed';
-const SessionTimer = ({ stoptimer }) => {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const SessionTimer = ({ stoptimer, saveTimer, setSaveTimer }) => {
   const [timeSpentLocal, setTimeSpentLocal] = useState(0);
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
   const { theme } = useTheme();
@@ -25,6 +26,23 @@ const SessionTimer = ({ stoptimer }) => {
       setTimeSpent(timeSpentLocal);
     }
   }, [stoptimer]);
+
+  useEffect(() => {
+    if (saveTimer) {
+      storeTimeSpend(timeSpentLocal);
+      setTimeSpent(timeSpentLocal);
+      setSaveTimer(!saveTimer);
+    }
+  }, [saveTimer]);
+
+  const storeTimeSpend = async (timeSpentLocal) => {
+    try {
+      await AsyncStorage.setItem('@time_spend', JSON.stringify(timeSpentLocal));
+      console.log('time_spend stored', JSON.stringify(timeSpentLocal));
+    } catch (error) {
+      console.error('Error saving time spend', error);
+    }
+  };
 
   const formatTime = (totalSeconds) => {
     const hours = Math.floor(totalSeconds / 3600);

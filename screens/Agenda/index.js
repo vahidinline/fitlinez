@@ -198,7 +198,7 @@ function WorkoutAgenda(props) {
     <FlatList
       data={getWeekData()}
       renderItem={({ item }) => <ButtonTitle item={item} />}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.day}
       horizontal
       showsHorizontalScrollIndicator={false}
     />

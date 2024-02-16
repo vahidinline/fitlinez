@@ -1,6 +1,13 @@
 import { Button, Text, useTheme } from '@rneui/themed';
 import React, { useState } from 'react';
-import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Touchable,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Card } from 'react-native-paper';
 
 function ListComponent({ data, isSelected, onSelect }) {
@@ -11,7 +18,7 @@ function ListComponent({ data, isSelected, onSelect }) {
     <FlatList
       data={data}
       renderItem={({ item }) => (
-        <Card
+        <TouchableOpacity
           style={[
             {
               backgroundColor: theme.colors.white,
@@ -55,7 +62,7 @@ function ListComponent({ data, isSelected, onSelect }) {
             </View>
             <Text style={styles.text}>{item.title}</Text>
           </View>
-        </Card>
+        </TouchableOpacity>
       )}
       keyExtractor={(item) => item.id}
     />

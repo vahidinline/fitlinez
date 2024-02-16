@@ -8,6 +8,7 @@ import {
   Dimensions,
   Linking,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { Button, Chip, useTheme } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
@@ -115,135 +116,146 @@ function LoginIndex(props) {
   };
 
   return (
-    <View
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? '' : 'height'}
       style={{
         backgroundColor: theme.colors.background,
         flex: 1,
+        // position: 'absolute',
+        // top: -10,
+        // left: 0,
+        // right: 0,
+        // bottom: 0,
+        backgroundColor: theme.colors.background,
+        width: Dimensions.get('window').width,
+        // height: Dimensions.get('window').height,
       }}>
-      <View>
-        <StatusBar style="auto" />
+      <View style={{ backgroundColor: theme.colors.background }}>
+        <View>
+          <StatusBar style="auto" />
+          <View
+            style={{
+              width: '100%',
+              height: Dimensions.get('window').height / 3,
+            }}>
+            <Image
+              style={{
+                width: 200,
+                height: 100,
+                marginTop: 100,
+                resizeMode: 'cover',
+                alignSelf: 'center',
+                borderRadius: 10,
+              }}
+              source={require('../../assets/logo.png')}
+            />
+          </View>
+        </View>
+
         <View
           style={{
-            width: '100%',
-            height: Dimensions.get('window').height / 3,
+            width: '90%',
+            height: 100,
+            alignSelf: 'center',
           }}>
-          <Image
-            style={{
-              width: 200,
-              height: 100,
-              marginTop: 100,
-              resizeMode: 'cover',
-              alignSelf: 'center',
-              borderRadius: 10,
-            }}
-            source={require('../../assets/logo.png')}
+          <FloatingPlaceholderInput
+            placeholder={i18n.t('email')}
+            onChange={(e) => setEmail(e)}
+            onChangeText={(text) => emailValidate(text)}
+            type="email"
           />
+          <FloatingPlaceholderInput
+            placeholder={i18n.t('password')}
+            onChange={(e) => setPassword(e)}
+            onChangeText={(text) => passwordValidate(text)}
+            onShowPassword={() => setShowPass(!showPass)}
+            showPass={showPass}
+            type="password"
+          />
+
+          <View>
+            <Text
+              onPress={() =>
+                Linking.openURL('https://www.fitlinez.com/forgot-password')
+              }
+              //onPress={() => navigation.navigate('ForgotPassIndex')}
+              style={{
+                color: theme.colors.secondary,
+                alignSelf: 'flex-end',
+                marginTop: -10,
+              }}>
+              {i18n.t('ForgotPassword')}
+            </Text>
+          </View>
+          <Button
+            type="outline"
+            disabled={btnDisable}
+            onPress={handleSubmit}
+            buttonStyle={[
+              {
+                marginTop: 20,
+                borderRadius: 8,
+                backgroundColor: theme.colors.button,
+              },
+              btnDisable && { backgroundColor: 'lightgrey' },
+            ]}
+            titleStyle={[
+              {
+                color: theme.colors.primary,
+                fontSize: 16,
+              },
+              btnDisable && { color: '#fff' },
+            ]}
+            title={i18n.t('login')}
+          />
+          {errorMessage && (
+            <Chip
+              title={errorMessage}
+              icon={{
+                name: 'alert-circle',
+                type: 'material-community',
+                size: 20,
+                color: theme.colors.primary,
+              }}
+              titleStyle={{
+                color: theme.colors.primary,
+                fontSize: 14,
+                fontWeight: 'bold',
+              }}
+              type="outline"
+              containerStyle={{
+                marginVertical: 15,
+                backgroundColor: theme.colors.error,
+              }}
+            />
+          )}
         </View>
-      </View>
+        <View
+          style={{
+            position: 'absolute',
 
-      <View
-        style={{
-          width: '90%',
-          height: 100,
-          alignSelf: 'center',
-        }}>
-        <FloatingPlaceholderInput
-          placeholder={i18n.t('email')}
-          onChange={(e) => setEmail(e)}
-          onChangeText={(text) => emailValidate(text)}
-          type="email"
-        />
-        <FloatingPlaceholderInput
-          placeholder={i18n.t('password')}
-          onChange={(e) => setPassword(e)}
-          onChangeText={(text) => passwordValidate(text)}
-          onShowPassword={() => setShowPass(!showPass)}
-          showPass={showPass}
-          type="password"
-        />
-
-        <View>
+            alignSelf: 'center',
+            bottom: 100,
+          }}>
           <Text
-            onPress={() =>
-              Linking.openURL('https://www.fitlinez.com/forgot-password')
-            }
-            //onPress={() => navigation.navigate('ForgotPassIndex')}
             style={{
               color: theme.colors.secondary,
-              alignSelf: 'flex-end',
-              marginTop: -10,
+              alignSelf: 'center',
+              marginTop: 20,
             }}>
-            {i18n.t('ForgotPassword')}
+            {i18n.t('loginFooterText')}
+            <Text
+              onPress={() => navigation.navigate('Register')}
+              style={{
+                color: theme.colors.button,
+              }}>
+              {' '}
+              {i18n.t('loginFooterText2')}
+            </Text>
           </Text>
         </View>
-        <Button
-          type="outline"
-          disabled={btnDisable}
-          onPress={handleSubmit}
-          buttonStyle={[
-            {
-              marginTop: 20,
-              borderRadius: 8,
-              backgroundColor: theme.colors.button,
-            },
-            btnDisable && { backgroundColor: 'lightgrey' },
-          ]}
-          titleStyle={[
-            {
-              color: theme.colors.primary,
-              fontSize: 16,
-            },
-            btnDisable && { color: '#fff' },
-          ]}
-          title={i18n.t('login')}
-        />
-        {errorMessage && (
-          <Chip
-            title={errorMessage}
-            icon={{
-              name: 'alert-circle',
-              type: 'material-community',
-              size: 20,
-              color: theme.colors.primary,
-            }}
-            titleStyle={{
-              color: theme.colors.primary,
-              fontSize: 14,
-              fontWeight: 'bold',
-            }}
-            type="outline"
-            containerStyle={{
-              marginVertical: 15,
-              backgroundColor: theme.colors.error,
-            }}
-          />
-        )}
       </View>
-      <View
-        style={{
-          position: 'absolute',
-
-          alignSelf: 'center',
-          bottom: 100,
-        }}>
-        <Text
-          style={{
-            color: theme.colors.secondary,
-            alignSelf: 'center',
-            marginTop: 20,
-          }}>
-          {i18n.t('loginFooterText')}
-          <Text
-            onPress={() => navigation.navigate('Register')}
-            style={{
-              color: theme.colors.button,
-            }}>
-            {' '}
-            {i18n.t('loginFooterText2')}
-          </Text>
-        </Text>
-      </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

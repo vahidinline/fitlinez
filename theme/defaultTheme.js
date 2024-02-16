@@ -3,6 +3,7 @@ import { createTheme } from '@rneui/themed';
 const DefaultTheme = createTheme({
   name: 'default',
   colors: {
+    secondBackground: '#FFF3DA',
     background: '#FCF8FF',
     warning: '#FFA500',
     error: '#FF0000',
@@ -34,7 +35,7 @@ const DefaultTheme = createTheme({
     purple: '#800080',
     pink: '#FFC0CB',
     brown: '#A52A2A',
-    gold: '#ffd700',
+    gold: '#FEA800',
   },
 
   Button: {

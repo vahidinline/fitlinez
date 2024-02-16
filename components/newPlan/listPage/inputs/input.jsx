@@ -5,66 +5,24 @@ import { Text } from '@rneui/themed';
 import { I18n } from 'i18n-js';
 import i18nt from '../../../../locales/index';
 import LanguageContext from '../../../../api/langcontext';
-import RestCounter from './counter';
 import InputSpinner from 'react-native-input-spinner';
 import * as SQLite from 'expo-sqlite';
-import { Button, Overlay, useTheme } from '@rneui/themed';
-import { SessionContext } from '../../../../api/sessionContext';
-import RestCounterComponent from './counter';
-import { saveSetsData } from '../../../../api/inputApis';
+import { useTheme } from '@rneui/themed';
+
 const db = SQLite.openDatabase('totalWeight.db');
 
 export default function WeightAndSetsInput(props) {
+  const { index, setIndex, title, category, exerciseId, onStoreData } = props;
   const { theme } = useTheme();
   const styles = getStyles(theme);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisible(false);
-    }, 60000); // 60 seconds
-
-    return () => clearTimeout(timer); // Cleanup the timer
-  }, []);
-
-  const { index, setIndex, title, category, exerciseId, onStoreData } = props;
-
-  const { setSessionData } = useContext(SessionContext);
   const [weight, setWeight] = useState();
   const [reps, setReps] = useState(1);
-  const today = new Date().toISOString().substring(0, 10);
   const { userLanguage } = useContext(LanguageContext);
-  const [defaultWeight, setDefaultWeight] = useState('');
-  const [defaultReps, setDefaultReps] = useState('');
   const [setDone, setSetDone] = useState(false);
   const i18n = new I18n(i18nt);
   const timestamp = new Date().toISOString();
-  const [timeoutId, setTimeoutId] = useState(null);
-  const weightRef = useRef();
-  const repsRef = useRef();
+
   i18n.locale = userLanguage;
-
-  useEffect(() => {
-    weightRef.current = weight;
-  }, [weight]);
-
-  useEffect(() => {
-    repsRef.current = reps;
-  }, [reps]);
-  useEffect(() => {
-    // Only set the timeout if both weight and reps are not undefined and not null
-    if (
-      weight !== undefined &&
-      reps !== undefined &&
-      weight !== null &&
-      reps !== null
-    ) {
-      // If there's an existing timeout, clear it
-      if (timeoutId !== null) {
-        clearTimeout(timeoutId);
-      }
-    }
-  }, [weight, reps]);
 
   const handleInputChange = (inputName, inputValue) => {
     if (inputName === 'weight') {
@@ -76,30 +34,14 @@ export default function WeightAndSetsInput(props) {
 
   useEffect(() => {
     AsyncStorage.getItem(`${exerciseId}-${setIndex}`).then((res) => {
+      // console.log('res and weight in async get input', res);
       if (res !== null) {
         const { weight, reps } = JSON.parse(res);
-
-        setDefaultWeight(weight);
-        setDefaultReps(reps);
         setWeight(weight);
         setReps(reps);
       }
     });
   }, []);
-
-  const handleAddPress = async () => {
-    setSessionData((prevState) => [
-      ...prevState,
-      { setIndex: prevState.length + 1, exerciseId: exerciseId },
-    ]);
-    // setVisible(!visible);
-    //saveUserData();
-
-    await AsyncStorage.setItem(
-      `${exerciseId}-${setIndex}`,
-      JSON.stringify({ weight: weightRef.current, reps: repsRef.current })
-    );
-  };
 
   const postfixkg = 'kg';
   const postfixrep = 'rep';
@@ -113,6 +55,7 @@ export default function WeightAndSetsInput(props) {
       totalWeight: isNaN(weight) || isNaN(reps) ? 0 : weight * reps,
       title,
       itemIndex: index,
+      setIndex,
       timestamp,
     });
     setSetDone(true);

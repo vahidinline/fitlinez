@@ -34,6 +34,7 @@ const PlanPlus = ({ route }) => {
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
   //console.log('timeSpent in index new plan', timeSpent);
   const [workoutPlan, setWorkoutPlan] = useState([]);
+
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   const [timestamp, setTimestamp] = useState([]);
@@ -52,12 +53,15 @@ const PlanPlus = ({ route }) => {
   const RTL = userLanguage === 'fa';
   //console.log('timeSpent in index new plan', timeSpent);
   const saveWorkoutsList = async () => {
-    //console.log('saveWorkoutsList');
+    console.log('saveWorkoutsList');
     await AsyncStorage.getItem('workoutsList').then((value) => {
       if (value !== null) {
-        const workoutsList = JSON.parse(value);
+        // console.log('value in index from async', JSON.parse(value).data.data);
+        const workoutsList = JSON.parse(value).data.data;
         // console.log('workoutsList', workoutsList[0].data);
         setWorkoutPlan(workoutsList);
+      } else {
+        console.log('doesnt have value');
       }
     });
   };
@@ -188,7 +192,7 @@ const PlanPlus = ({ route }) => {
       data: item.data,
       title: item.title,
       day: item.day,
-      category: item.data[0].category,
+      category: item.data[0]?.category,
     });
   };
 

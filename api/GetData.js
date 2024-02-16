@@ -2,17 +2,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { Alert, Linking } from 'react-native';
 
-const updateWorkoutPlan = async ({ data, userId }) => {
+const updateWorkoutPlan = async (data, addedDateTime, userId) => {
+  //console.log('updateWorkoutPlan by asyncstorage', data, userId);
   try {
-    await AsyncStorage.setItem('workoutsList', JSON.stringify(data.data)).then(
-      () => {
-        //setShowCustomAlert(true);
-        const res = axios.post(`https://jobitta.com/newplan/usage/`, {
-          userId: userId,
-          packageId: data._id,
-        });
-      }
-    );
+    await AsyncStorage.setItem(
+      'workoutsList',
+      JSON.stringify({ data, addedDateTime })
+    ).then(() => {
+      console.log('stored into async updateWorkoutPlan');
+      //setShowCustomAlert(true);
+      const res = axios.post(`https://jobitta.com/newplan/usage/`, {
+        userId: userId,
+        packageId: data._id,
+      });
+    });
   } catch (error) {
     console.log(error);
     // Possible AsyncStorage error (e.g., storage limit reached)
@@ -20,12 +23,14 @@ const updateWorkoutPlan = async ({ data, userId }) => {
 };
 
 const getWorkOutData = async (userId) => {
+  console.log('what are you doing getWorkOutData');
   try {
     const response = await axios
       .get('https://jobitta.com/newplan/prebuild')
       .then(async (res) => {
         await updateWorkoutPlan({ data: res.data[2], userId: userId });
       });
+    //console.log('response', response);
     return true;
   } catch (error) {
     console.log(error);
@@ -67,12 +72,12 @@ const getSubWorkOutData = async (
         },
       })
       .then(async (res) => {
-        console.log('res', res.data.length);
+        //console.log('res', res.data.length);
         return res.data;
       });
     return response; // <-- This is the missing return statement
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return false;
     // Possible 404 error (e.g., endpoint not found)
   }
@@ -122,7 +127,7 @@ const userStatusCheck = async (userAuth, setUserAuth) => {
 };
 
 const userLevelCheck = async (userAuth, setUserAuth) => {
-  console.log('userAuth', userAuth);
+  //console.log('userAuth', userAuth);
 
   const key = 'fitlinez-session';
 
@@ -142,7 +147,7 @@ const userLevelCheck = async (userAuth, setUserAuth) => {
           setUserAuth(null);
         } else {
           const { level } = response.data;
-          console.log('level', level);
+          //cconsole.log('level', level);
           if (level === 4) {
             const updatedUserAuth = {
               ...userAuth,
@@ -164,7 +169,7 @@ const userLevelCheck = async (userAuth, setUserAuth) => {
         }
         res(userAuth);
       } catch (error) {
-        console.log('error getting userId', error);
+        //console.log('error getting userId', error);
       }
     };
 
@@ -330,7 +335,7 @@ const updateExpiredUser = async (userAuth, setUserAuth) => {
 const getPackages = async () => {
   //setLoading(true);
   return new Promise(async (resolve) => {
-    await axios.get('http://192.168.1.40:8080/newplan/prebuild').then((res) => {
+    await axios.get('https://jobitta.com/newplan/prebuild').then((res) => {
       resolve(res.data);
     });
   });

@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Alert,
   FlatList,
+  Linking,
   SafeAreaView,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Svg, Path } from 'react-native-svg';
 import UserImagePicker from '../../components/userData/userImage';
 import { useState } from 'react';
 import Box from './Box';
-import { ListItem, Text, ThemeContext, useTheme } from '@rneui/themed';
+import { Text, ThemeContext, useTheme } from '@rneui/themed';
 import AuthStorage from '../../api/storage';
 import { useNavigation } from '@react-navigation/native';
 import LanguageContext from '../../api/langcontext';
@@ -21,44 +21,21 @@ import { I18n } from 'i18n-js';
 import { List } from 'react-native-paper';
 import {
   IconProfile,
-  IconUnit,
   IconArrow,
-  IconWeight,
   IconReport,
-  IconTrash,
   IconLogOut,
   IconInbox,
   IconLeaderboard,
 } from '../marketplace/filters/icons';
 import { UnitContext } from '../../api/unitContext';
-
-const deleteAccount = () => {
-  Alert.alert(
-    'Delete Account  ',
-    'Are you sure you want to Delete your account?',
-    [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {
-        text: 'OK',
-        onPress: () =>
-          Alert.alert(
-            'Account Deletion request has been recieved. Your account will be removed within 2 business days'
-          ) + console.log(userAuth.id),
-      },
-    ],
-    { cancelable: false }
-  );
-};
+import moment from 'moment';
 
 function ProfileIndex() {
   const key = 'fitlinez-session';
   const { unit, setUnit } = useContext(UnitContext);
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState(null);
+  const [dayLeft, setDayLeft] = useState(0);
   const navigation = useNavigation();
   const { userLanguage, setUserLanguage } = useContext(LanguageContext);
   const { userAuth, setUserAuth } = useContext(AuthContext);
@@ -68,11 +45,34 @@ function ProfileIndex() {
   const [avatar, setAvatar] = useState(null);
   const { theme } = useTheme();
   const userLevel = userAuth.level;
-  console;
+  const ExpireDate = userAuth.ExpireDate ? userAuth.ExpireDate : null;
+  const DayLeftPremium = moment(ExpireDate).diff(moment(), 'days');
+
   const handleLogOut = () => {
     setUserAuth(null);
     AuthStorage.removeToken();
   };
+
+  const FreeTrialLeft = (userAuth) => {
+    const { date } = userAuth;
+    const today = new Date();
+    const start = new Date(date);
+    const diffTime = Math.abs(today - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const daysLeft = 14 - diffDays;
+    setDayLeft(daysLeft);
+    const result = daysLeft > 0 ? true : false;
+
+    return result;
+  };
+
+  useEffect(() => {
+    if (userLevel !== 4) {
+      FreeTrialLeft(userAuth);
+    } else {
+      setDayLeft(10);
+    }
+  }, [userAuth]);
 
   const exitAlert = () => {
     Alert.alert(
@@ -113,12 +113,12 @@ function ProfileIndex() {
       },
     },
 
-    // {
-    //   id: 6,
-    //   name: 'Reset Plan',
-    //   icon: IconProfile,
-    //   func: () => dropDatabases(),
-    // },
+    {
+      id: 6,
+      name: i18n.t('tutorialVideo'),
+      icon: IconProfile,
+      func: () => nabigateToVideo(),
+    },
     {
       id: 5,
       name: i18n.t('logout'),
@@ -127,6 +127,9 @@ function ProfileIndex() {
     },
   ];
 
+  const nabigateToVideo = () => {
+    Linking.openURL(`https://fitlinez.com/video/`);
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <View
@@ -172,7 +175,8 @@ function ProfileIndex() {
           <UserImagePicker setAvatar={setAvatar} />
         </View>
 
-        <View
+        <TouchableOpacity
+          onPress={() => navigation.navigate('IndexLeaderBoard')}
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -190,7 +194,7 @@ function ProfileIndex() {
             justifyContent: 'center',
           }}>
           <IconLeaderboard />
-        </View>
+        </TouchableOpacity>
       </View>
       <View
         style={{
@@ -205,8 +209,20 @@ function ProfileIndex() {
         {userLevel !== 4 && (
           <TouchableOpacity onPress={() => navigation.navigate('Upgrade')}>
             <Box
-              title={i18n.t('upgradeHeaderText')}
+              type="free"
+              dayLeft={dayLeft}
+              title={i18n.t('upgradeHeaderText', { dayLeft: dayLeft })}
               subTitle={i18n.t('upgradeSmallText')}
+            />
+          </TouchableOpacity>
+        )}
+        {userLevel === 4 && (
+          <TouchableOpacity onPress={() => navigation.navigate('Upgrade')}>
+            <Box
+              type="premium"
+              dayLeft={DayLeftPremium}
+              title={i18n.t('PremiumHeaderText', { dayLeft: DayLeftPremium })}
+              subTitle={i18n.t('PremiumSubHeaderText')}
             />
           </TouchableOpacity>
         )}

@@ -16,7 +16,6 @@ import i18nt from '../../../locales';
 import LanguageContext from '../../../api/langcontext';
 import { useContext } from 'react';
 import { I18n } from 'i18n-js';
-import Logo from '../../../assets/logo.png';
 import AuthContext from '../../../api/context';
 import * as SQLite from 'expo-sqlite';
 import { useEffect } from 'react';
@@ -103,12 +102,16 @@ function PlanItem({ route }) {
   const savePackages = () => {
     try {
       const jsonString = JSON.stringify({ item, addedDateTime });
-      //console.log('jsonString', jsonString);
+      updateWorkoutPlan(item, addedDateTime, userId);
       db.transaction((tx) => {
         tx.executeSql('INSERT INTO packeges (data) VALUES (?);', [jsonString]);
       });
 
       console.log('new package saved');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
     } catch (error) {
       console.log(error);
     }
@@ -156,12 +159,12 @@ function PlanItem({ route }) {
 
   const updateWorkoutForPremium = (data) => {
     if (userLevel === 4) {
-      updateWorkoutPlan(data);
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
       savePackages();
+
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{ name: 'Home' }],
+      // });
     } else {
       UpgradeAlert();
     }
@@ -175,11 +178,11 @@ function PlanItem({ route }) {
       );
       UpgradeAlert();
     } else {
-      updateWorkoutPlan(data);
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
+      updateWorkoutPlan(data, addedDateTime, userId);
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{ name: 'Home' }],
+      // });
 
       savePackages();
     }
@@ -396,9 +399,9 @@ function PlanItem({ route }) {
                               fontSize: 16,
                               fontWeight: '500',
                             }}>
-                            {exercise.name}
+                            {exercise?.name}
                           </Text>
-                          <Text>{exercise.bodyPart}</Text>
+                          <Text>{exercise?.bodyPart}</Text>
                         </View>
                         {/* <View
                           style={{
@@ -438,14 +441,14 @@ function PlanItem({ route }) {
           color={theme.colors.button}
           title={i18n.t('addtoyourplan')}
           type="solid"
-          onPress={() =>
-            premium
-              ? updateWorkoutForPremium({ data: item, userId: userId })
-              : updateWorkoutForTrial({
-                  data: item,
-                  userId: userId,
-                })
-          }
+          onPress={() => savePackages(item, userId)}
+          //   premium
+          //     ? updateWorkoutForPremium({ data: item, userId: userId })
+          //     : updateWorkoutForTrial({
+          //         data: item,
+          //         userId: userId,
+          //       })
+          // }
         />
       </View>
     </View>

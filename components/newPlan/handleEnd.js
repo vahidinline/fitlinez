@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   PixelRatio,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
@@ -26,15 +27,15 @@ import MidPerformance from './finishPage/midPerformance';
 import HighPerformance from './finishPage/highPerformance';
 import TopPerformance from './finishPage/topPerformance';
 import formatTime from '../../api/timeFormat';
-import { Iconshare } from '../../screens/marketplace/filters/icons';
+import { IconDelete, Iconshare } from '../../screens/marketplace/filters/icons';
 import { retrieveAndCalculatePerformance } from '../../api/SaveData';
 import { saveUserData } from '../../api/SaveData';
 import * as SQLite from 'expo-sqlite';
+import storeDataDB from '../../api/storedata';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const UserWorkOutSessionDB = SQLite.openDatabase('userWorkOutSession.db');
 const performanceDB = SQLite.openDatabase('performance.db');
 const Handleend = (props) => {
-  // Replace with your actual database name
-
   useEffect(() => {
     UserWorkOutSessionDB.transaction((tx) => {
       tx.executeSql(
@@ -54,12 +55,12 @@ const Handleend = (props) => {
   }, []);
 
   const [userWorkoutData, setUserWorkoutData] = useState([]);
-  const { category, location, completionPercentage } = props.route.params;
-
+  const { category, location } = props.route.params;
   const [totalWeightSum, setToalWeightSum] = useState(0);
   const today = new Date().toISOString().slice(0, 10);
   const { userLanguage } = useContext(LanguageContext);
-  const { timeSpent } = useContext(TimeSpentContext);
+  const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
+  const [completionPercentage, setCompletionPercentage] = useState(0);
   const { userAuth } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
@@ -68,6 +69,7 @@ const Handleend = (props) => {
   const userId = userAuth.id;
   const { theme } = useTheme();
   const styles = getStyle(theme, PixelRatio);
+  const numericCompletionPercentage = parseFloat(completionPercentage);
 
   const getUserWorkoutData = async () => {
     currentPalnPercentage().then((data) => {
@@ -80,24 +82,26 @@ const Handleend = (props) => {
   }, []);
 
   const getData = async () => {
+    console.log('inside get data');
     try {
       const data = await readWorkoutData();
       console.log('inside get data', data);
       calculateWorkoutPercentage(
-        data?.totalSessions,
-        data?.dataObject.addedDateTime,
+        data?.totalSession,
+        data?.addedDateTime,
         userWorkoutData?.data,
-        data?.dataObject.item.name
+        data?.workoutPlanData.name
       );
     } catch (error) {
-      return false;
+      console.log(error);
     }
   };
 
   const goShare = () => {
-    console.log('inside go share');
-    getData();
+    storeDataDB();
 
+    getData();
+    deleteSessiondata();
     navigation.navigate('FinishWorkOut', {
       timeSpent: timeSpent,
       totalWeightSum: totalWeightSum,
@@ -107,9 +111,52 @@ const Handleend = (props) => {
     });
   };
 
-  const goHome = () => {
-    getData();
+  useEffect(() => {
+    const getTempTotalWeight = async () => {
+      const value = await AsyncStorage.getItem(`@total_weight`);
+      if (value !== null) {
+        console.log('value of async totalWeight', value);
+        setToalWeightSum(value);
+      } else {
+        console.log('value of async totalWeight s', value);
+        // setToalWeightSum(0);
+      }
+    };
+    getTempTotalWeight();
+  }, []);
 
+  useEffect(() => {
+    const getTempTimeSpend = async () => {
+      const value = await AsyncStorage.getItem(`@time_spend`);
+      if (value !== null) {
+        console.log('value of async time spend', value);
+        setTimeSpent(value);
+      } else {
+        console.log('value of async time spend s', value);
+        setTimeSpent(0);
+      }
+    };
+    getTempTimeSpend();
+  }, []);
+
+  useEffect(() => {
+    const getTempPerformance = async () => {
+      const value = await AsyncStorage.getItem(`@SessionPerformance`);
+      if (value !== null) {
+        console.log('value of async temp performance', value);
+        setCompletionPercentage(value);
+      } else {
+        console.log('value of async temp performance s', value);
+        setCompletionPercentage(0);
+      }
+    };
+    getTempPerformance();
+  }, []);
+
+  const goHome = () => {
+    storeDataDB();
+    getData();
+    deleteSessiondata();
     navigation.reset({
       index: 0,
       routes: [{ name: 'Home' }],
@@ -132,21 +179,9 @@ const Handleend = (props) => {
       today
     );
   }, []);
-  // Function to retrieve and calculate the sum
-
-  const getSumTotalWeight = async () => {
-    try {
-      const sum = await getTotalWeight({ category, today });
-      setToalWeightSum(sum === null ? 0 : sum);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     try {
-      //console.log('inside useEffect');
-      getSumTotalWeight();
       retrieveAndCalculatePerformance();
       sendData();
       sendPerformanceData();
@@ -196,12 +231,19 @@ const Handleend = (props) => {
     }
   };
 
+  const deleteSessiondata = async () => {
+    await AsyncStorage.removeItem('@current_exercise_state');
+    await AsyncStorage.removeItem('@total_weight');
+    await AsyncStorage.removeItem('@time_spend');
+    await AsyncStorage.removeItem('@SessionPerformance');
+  };
+
   return (
     <View>
       <View
         style={{
-          height: Dimensions.get('window').height,
-          marginTop: 40,
+          height: Dimensions.get('window').height / 1.5,
+          paddingTop: 40,
         }}>
         <View
           style={{
@@ -223,37 +265,42 @@ const Handleend = (props) => {
             }}>
             <Iconshare />
           </TouchableOpacity>
-          {completionPercentage && (
-            <View
-              style={{
-                height: Dimensions.get('window').height / 2.2,
-              }}>
-              {completionPercentage < 50 && (
-                <LowPerformance
-                  completionPercentage={completionPercentage}
-                  text={i18n.t('lowerPerformanceText')}
-                />
+          <View
+            style={{
+              height: Dimensions.get('window').height / 2.2,
+            }}>
+            {typeof numericCompletionPercentage === 'number' &&
+              !isNaN(numericCompletionPercentage) && (
+                <>
+                  {numericCompletionPercentage < 50 && (
+                    <LowPerformance
+                      completionPercentage={numericCompletionPercentage}
+                      text={i18n.t('lowerPerformanceText')}
+                    />
+                  )}
+                  {numericCompletionPercentage >= 50 &&
+                    numericCompletionPercentage < 70 && (
+                      <MidPerformance
+                        completionPercentage={numericCompletionPercentage}
+                        text={i18n.t('midPerformanceText')}
+                      />
+                    )}
+                  {numericCompletionPercentage >= 70 &&
+                    numericCompletionPercentage < 90 && (
+                      <HighPerformance
+                        completionPercentage={numericCompletionPercentage}
+                        text={i18n.t('highPerformanceText')}
+                      />
+                    )}
+                  {numericCompletionPercentage >= 90 && (
+                    <TopPerformance
+                      completionPercentage={numericCompletionPercentage}
+                      text={i18n.t('hiestPerformanceText')}
+                    />
+                  )}
+                </>
               )}
-              {completionPercentage >= 50 && completionPercentage < 70 && (
-                <MidPerformance
-                  completionPercentage={completionPercentage}
-                  text={18n.t('midPerformanceText')}
-                />
-              )}
-              {completionPercentage >= 70 && completionPercentage < 90 && (
-                <HighPerformance
-                  completionPercentage={completionPercentage}
-                  text={i18n.t('highPerformanceText')}
-                />
-              )}
-              {completionPercentage >= 90 && (
-                <TopPerformance
-                  completionPercentage={completionPercentage}
-                  text={i18n.t('hiestPerformanceText')}
-                />
-              )}
-            </View>
-          )}
+          </View>
 
           <View
             style={{
@@ -272,7 +319,7 @@ const Handleend = (props) => {
                 <View style={styles.view}>
                   <Text style={styles.title}>
                     {totalWeightSum}
-                    <Text style={styles.subtitle}> {i18n.t('kg')}</Text>
+                    <Text style={styles.subtitle}>{i18n.t('kg')}</Text>
                   </Text>
                   <Text style={styles.subtitle}>{i18n.t('liftedweight')}</Text>
                 </View>
@@ -295,17 +342,36 @@ const Handleend = (props) => {
         style={{
           position: 'absolute',
           bottom: 0,
-          width: Dimensions.get('window').width,
+          top: Dimensions.get('window').height / 1.1,
+          width: Dimensions.get('window').width / 1.2,
+          // alignSelf: 'center',
           height: 100,
-          marginBottom: 40,
+          marginBottom: 100,
           flexDirection: 'row',
         }}>
+        {/* <TouchableOpacity
+          onPress={() => deleteSessiondata()}
+          style={{
+            //width: Dimensions.get('window').width / 6,
+            // marginLeft: 10,
+            marginHorizontal: 10,
+            height: 50,
+            borderRadius: 12,
+          }}
+          titleStyle={{
+            color: theme.colors.text,
+            fontSize: 15,
+            fontWeight: '400',
+            color: '#fff',
+          }}>
+          <IconDelete />
+        </TouchableOpacity> */}
         <Button
           onPress={() => goHome()}
           buttonStyle={{
             backgroundColor: theme.colors.button,
-            width: Dimensions.get('window').width - 20,
-            marginHorizontal: 10,
+            width: Dimensions.get('window').width / 1.1,
+            marginHorizontal: 20,
             height: 50,
             borderRadius: 12,
           }}

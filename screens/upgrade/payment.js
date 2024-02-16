@@ -25,7 +25,7 @@ function ConfirmPayment() {
     const interval = setInterval(() => {
       // Your logic here
       userLevelCheck(userAuth, setUserAuth);
-      console.log('userAuth level at upgrade', userAuth?.level);
+      // console.log('userAuth level at upgrade', userAuth?.level);
 
       // Increment the count
       setCount((prevCount) => prevCount + 1);

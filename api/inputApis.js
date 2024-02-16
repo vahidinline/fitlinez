@@ -21,10 +21,10 @@ const saveSetsData = (dataToSave) => {
         ],
 
         (_, results) => {
-          //console.log('results', results);
+          console.log('results', results);
 
           if (results.rowsAffected > 0) {
-            // console.log('Data saved successfully');
+            console.log('Data saved successfully');
 
             // After saving, retrieve the saved data
             tx.executeSql(
