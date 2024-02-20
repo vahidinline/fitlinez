@@ -286,7 +286,7 @@ const i18nt = {
     bothlocation: 'Home & Gym',
     gymlocation: 'Gym',
     homelocation: 'Home',
-
+    alertEndOfList: 'End of session',
     loseFat: 'Lose Fat',
     gainMuscle: 'Gain Muscle',
     stayFit: 'Stay Fit',
@@ -342,6 +342,7 @@ const i18nt = {
   },
 
   fa: {
+    alertEndOfList: ' آخرین تمرین',
     PremiumHeaderText: '{{dayLeft}} روز باقی مانده از حساب کاربری پریمیوم شما',
     PremiumSubHeaderText: 'حساب کاربری خود را به روز نگه دارید',
     upgradeHeaderTextIndex: 'اشتراک پریمیوم',

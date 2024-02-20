@@ -84,7 +84,7 @@ function CurrentCard({
           <Card.Content>
             <Text
               style={{
-                fontSize: PixelRatio.get() < 3 ? 10 : 16,
+                fontSize: PixelRatio.get() < 3 ? 10 : 14,
                 fontWeight: 'bold',
 
                 alignSelf: 'center',

@@ -66,6 +66,7 @@ function TabNavigator() {
             focused ? <IconSettingsFocused /> : <IconSettingsUnFocused />,
         }}
       />
+
       <Tab.Screen
         swipEnabled={false}
         name="CustomReport"
@@ -77,6 +78,17 @@ function TabNavigator() {
             !focused ? <IconStatsUnFocused /> : <IconStatsFocused />,
         }}
       />
+      {/* <Tab.Screen
+        swipEnabled={false}
+        name="CustomReport"
+        component={ReportIndex}
+        options={{
+          headerShown: false,
+          title: i18n.t('CalendarView'),
+          tabBarIcon: ({ focused }) =>
+            !focused ? <IconStatsUnFocused /> : <IconStatsFocused />,
+        }}
+      /> */}
       <Tab.Screen
         name="HomePage"
         component={HomeIndex}

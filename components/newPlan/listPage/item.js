@@ -17,7 +17,6 @@ import i18nt from '../../../locales';
 import LanguageContext from '../../../api/langcontext';
 import TimerInput from './inputs/timerInput';
 import Subs from './subs';
-import Recomand from './recomand';
 import Instruction from './instruction';
 import ImageLoader from './image';
 import {
@@ -72,7 +71,6 @@ function Item(props) {
     goToIndex,
     dataLength,
   } = props;
-  const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
   const [showDrawer, setShowDrawer] = useState(false);
   const [visible, setVisible] = useState(false);
   const [numberOfSets, setNumberOfSets] = useState(3);
@@ -80,7 +78,7 @@ function Item(props) {
   const [showRest, setShowRest] = useState(false);
   const RTL = userLanguage === 'fa';
   const { sessionData, setSessionData } = useContext(SessionContext);
-  const [buttondisabled, setButtonDisabled] = useState(false);
+
   let buttonVisible = true;
   if (index >= dataLength - 1) {
     buttonVisible = false;
@@ -111,19 +109,22 @@ function Item(props) {
   };
 
   useEffect(() => {
-    AsyncStorage.setItem(
-      `${exerciseId}-${childDataMap.setIndex}`,
-      JSON.stringify({
-        weight: childDataMap.weight,
-        reps: childDataMap.reps,
-      })
-    );
+    try {
+      AsyncStorage.setItem(
+        `${exerciseId}-${childDataMap.setIndex}`,
+        JSON.stringify({
+          weight: childDataMap.weight,
+          reps: childDataMap.reps,
+        })
+      );
+    } catch (e) {
+      console.log('error', e);
+    }
   }, [childDataMap]);
 
   const updateTotalWeight = async (weight) => {
     try {
       let oldValue = await AsyncStorage.getItem('@total_weight');
-      console.log('oldValue', oldValue);
 
       // Check if oldValue is null, undefined or NaN and assign 0 if true
       if (oldValue === null || oldValue === undefined || isNaN(oldValue)) {
@@ -139,31 +140,9 @@ function Item(props) {
     }
   };
 
-  const resumeTimeSpend = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@time_spend');
-      if (value !== null) {
-        console.log('time_spend', value);
-      }
-    } catch (error) {
-      console.error('Error getting time spend', error);
-    }
-  };
-
-  const storeTimeSpend = async () => {
-    console.log(timeSpent);
-    try {
-      await AsyncStorage.setItem('@time_spend', JSON.stringify(timeSpent));
-      console.log('time_spend stored', JSON.stringify(timeSpent));
-    } catch (error) {
-      console.error('Error saving time spend', error);
-    }
-  };
-
   useEffect(() => {
     if (saveCount + 1 >= adjustedNumberOfSets) {
       if (index >= dataLength - 1) {
-        console.log('into index >= dataLength - 1');
         // setButtonDisabled(!buttonVisible);
         //setButtonTitle(i18n.t('finishWorkout'));
       } else {
@@ -206,7 +185,6 @@ function Item(props) {
       if (count >= adjustedNumberOfSets) {
         console.log('into count >= adjustedNumberOfSets');
         if (index >= dataLength - 1) {
-          console.log('into index >= dataLength - 1');
           // setFinish(true);
         } else {
           console.log('into else');

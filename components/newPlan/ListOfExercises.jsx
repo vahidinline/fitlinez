@@ -5,8 +5,8 @@ import {
   Dimensions,
   StyleSheet,
   SafeAreaView,
-  Alert,
   Platform,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
@@ -29,13 +29,11 @@ const ListOfExercises = (props) => {
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-  const [scrollEnabled, setScrollEnabled] = useState(true);
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [finish, setFinish] = useState(false);
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
-  const [numberOfSets, setNumberOfSets] = useState(3);
   const { workouts, category, location, catTname } = props.route.params;
   const [data, setData] = useState(workouts);
   const flatListRef = useRef(null);
@@ -43,7 +41,8 @@ const ListOfExercises = (props) => {
   const [progress, setProgress] = useState(1);
   const { sessionData } = useContext(SessionContext);
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
-  console.log('timeSpent in List', timeSpent);
+  const scrollEnabled = true;
+
   const completionPercentage = calculateTaskCompletionPercentage(
     sessionData,
     data.length
@@ -65,7 +64,11 @@ const ListOfExercises = (props) => {
   }, [scrollEnabled]);
 
   const goToIndex = (index) => {
-    flatListRef.current.scrollToIndex({ index: index, animated: true });
+    if (index) {
+      flatListRef.current.scrollToIndex({ index: index, animated: true });
+    } else {
+      flatListRef.current.scrollToIndex({ index: 0, animated: true });
+    }
   };
   const doneItem = (index) => {
     try {
@@ -80,6 +83,8 @@ const ListOfExercises = (props) => {
 
       // Scroll to the next item if it exists
       if (index < data.length - 1) {
+        console.log('Index to scroll to:', index + 1);
+
         flatListRef.current.scrollToIndex({ index: index + 1, animated: true });
       }
     } catch (error) {
@@ -93,30 +98,6 @@ const ListOfExercises = (props) => {
       flatListRef.current.scrollToIndex({ index: index - 1, animated: true });
       setProgress(progress - 1);
     }
-  };
-
-  const handleErrorReport = () => {
-    const error = new Error('User Error');
-    error.name = 'User Error';
-
-    // Create a metadata object with the custom data
-    const metadata = {
-      category: category,
-      location: location,
-      userLanguage: userLanguage,
-      user: user,
-    };
-
-    // Trigger Bugsnag error report with custom data as metadata
-    Bugsnag.notify(error, {
-      metadata: metadata,
-    });
-    Alert.alert(
-      'Error Report',
-      'An error report has been sent to the developer. Thank you for your help!',
-      [{ text: 'OK', onPress: () => setErrorReport(true) }],
-      { cancelable: false }
-    );
   };
 
   const handleSubsitute = (exerciseId, item) => {
@@ -151,19 +132,22 @@ const ListOfExercises = (props) => {
         //alert(i18n.t('alertUnfinishSession'));
         // Add a delay to ensure FlatList is fully loaded.
         setTimeout(() => {
-          if (itemIndex < data.length - 1) {
-            // Call the goToIndex function with the next index
-            goToIndex(itemIndex + 1);
-          } else {
-            // Optionally, you can handle the case when it is the last index
-            goToIndex(itemIndex);
-          }
+          // if (itemIndex < data.length - 1) {
+          //   // Call the goToIndex function with the next index
+          //   goToIndex(itemIndex + 1);
+          // } else {
+          // Optionally, you can handle the case when it is the last index
+          goToIndex(itemIndex);
         }, 500); // Adjust delay as needed.
 
         // Dispatch action or call function to resume set. Depends on your implementation.
       }
     } catch (error) {
       console.error('Error loading exercise state', error);
+      Alert.alert(i18n.t('alertUnfinishSession'));
+
+      //go tho the last index
+      goToIndex(1);
     }
   };
 
@@ -224,6 +208,9 @@ const ListOfExercises = (props) => {
       <View style={styles.container}>
         {sortedData.length > 0 ? (
           <FlatList
+            onEndReached={() => {
+              Alert.alert(i18n.t('alertEndOfList'));
+            }}
             removeClippedSubviews={true}
             horizontal
             ref={flatListRef}
@@ -264,7 +251,6 @@ const ListOfExercises = (props) => {
                   handleSubsitute={handleSubsitute}
                   doneItem={doneItem}
                   undoneItem={undoneItem}
-                  numberOfSets={numberOfSets}
                   userId={userId}
                   bodyPart={item.bodyPart}
                   allExcerciesIds={sortedData.map((item) => item._id)}

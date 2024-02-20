@@ -193,7 +193,7 @@ const Handleend = (props) => {
 
   const sendData = async () => {
     const data = await readSavedData(userId);
-
+    console1.log('data', data);
     try {
       const response = await axios
         .post('https://jobitta.com/workouthistory', {

@@ -40,25 +40,34 @@ function HomeHeader({ planStartDate, data, title }) {
   const userLevel = userAuth.level;
   const Userplatform = Platform.OS;
   const { userPrivilege } = useContext(UserPrivilegeContext);
-
+  const [backgroundColor, setBackgroundColor] = useState(
+    theme.colors.lightPrimary
+  );
+  console.log('userPervilage in header', userPrivilege);
   useEffect(() => {
     const res = generateHeaderText(planStartDate, data, i18n, title);
     activeAccount && setTextMessage(res.message);
-    setStatus(res.status);
+    //setStatus(res.status);
   }, [planStartDate, data, i18n, title]);
   //console.log('userPervilage in header', userPervilage);
   const BACKGROUND_FETCH_TASK = 'background-fetch';
+
+  useEffect(() => {
+    checkUserPervilage();
+  }, [userPrivilege]);
 
   const checkUserPervilage = () => {
     if (userLevel === 4) {
       //setTextMessage('1message.message');
       //console.log('user is premium');
-    } else if (userPrivilege) {
-      // setTextMessage('2');
+    } else if (userPrivilege === true) {
+      setTextMessage('');
+      setBackgroundColor(theme.colors.lightPrimary);
       //console.log('user is free with valid days');
     } else {
       // condition 2
       setTextMessage(`${i18n.t('trialExpired')}`);
+      setBackgroundColor(theme.colors.warning);
       setActiveAccount(false);
     }
   };
@@ -85,16 +94,31 @@ function HomeHeader({ planStartDate, data, title }) {
   }, []);
 
   useFocusEffect(
-    useCallback(() => {
-      userLevelCheck(userAuth, setUserAuth);
-      userStatusCheck(userAuth, setUserAuth);
-      checkVersion(currentVersion, Userplatform, userLocation, i18n);
+    useCallback(async () => {
+      await userLevelCheck(userAuth, setUserAuth);
+      await userStatusCheck(userAuth, setUserAuth);
+      await checkVersion(currentVersion, Userplatform, userLocation, i18n);
+
       checkUserPervilage();
+
       checkFirstTimeUser();
       return () => {
         // alert('Screen was unfocused');
       };
     }, [])
+  );
+
+  useEffect(
+    () => {
+      // Your other async operations
+      // ...
+
+      // After completing async operations, call checkUserPervilage
+      checkUserPervilage();
+    },
+    [
+      /* dependencies of your async operations */
+    ]
   );
 
   const messageLength = textMessage.length;
@@ -164,10 +188,7 @@ function HomeHeader({ planStartDate, data, title }) {
         </View>
         <Chip
           style={{
-            backgroundColor:
-              status === 'bad' && !activeAccount
-                ? theme.colors.warning
-                : theme.colors.lightPrimary,
+            backgroundColor: backgroundColor,
             marginHorizontal: 10,
             marginTop: 5,
             height: 50,

@@ -1,6 +1,12 @@
 import { Button, Text } from '@rneui/themed';
 import React, { useContext, useEffect } from 'react';
-import { Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useTheme } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
@@ -101,12 +107,14 @@ function Upgrade() {
       <View
         style={{
           position: 'absolute',
-          top: 20,
-          left: 0,
+          top: 30,
+          left: 10,
           margin: 10,
           zIndex: 10,
         }}>
-        <Iconclose size={24} color={theme.colors.secondary} />
+        <TouchableOpacity onPress={() => navigator.goBack()}>
+          <Iconclose size={32} color={theme.colors.secondary} />
+        </TouchableOpacity>
       </View>
 
       <View
@@ -125,7 +133,7 @@ function Upgrade() {
           <Text style={styles.textSmallHeader}>
             {i18n.t('upgradeSmallText')}
           </Text>
-          {!userPrivilege && (
+          {!userPrivilege && userLevel !== 4 && (
             <View style={styles.textWarning}>
               <IconWarning color={theme.colors.warning} size={36} />
               <Text

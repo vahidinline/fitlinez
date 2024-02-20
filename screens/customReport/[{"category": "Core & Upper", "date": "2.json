@@ -1,0 +1,18 @@
+[
+  {
+    "category": "Core & Upper",
+    "date": "2024-02-15",
+    "id": 1,
+    "location": "Gym",
+    "performance": 15.15,
+    "timeSpent": 631
+  },
+  {
+    "category": "Lower Body",
+    "date": "2024-02-15",
+    "id": 3,
+    "location": "Gym",
+    "performance": 95.83,
+    "timeSpent": 299
+  }
+]

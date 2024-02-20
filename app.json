@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "fitlinez-android",
-    "slug": "fitlinez-android",
-    "version": "40.0.0",
+    "name": "fitlinez",
+    "slug": "fitlinez",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
@@ -11,14 +11,20 @@
       "resizeMode": "contain",
       "backgroundColor": "#5B5891"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "bundleIdentifier": "com.fitlinez.eu",
-      "buildNumber": "3.6.7",
+      "bundleIdentifier": "ee.fitlinez.eu",
+      "buildNumber": "0.0.1",
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["fetch"],
-        "LSApplicationQueriesSchemes": ["instagram"]
+        "UIBackgroundModes": [
+          "fetch"
+        ],
+        "LSApplicationQueriesSchemes": [
+          "instagram"
+        ]
       }
     },
     "android": {
@@ -28,7 +34,7 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#5B5891"
       },
-      "package": "com.fitlinez.eu",
+      "package": "ee.fitlinez.eu",
       "runtimeVersion": "1.0.0"
     },
     "web": {
@@ -36,14 +42,17 @@
     },
     "extra": {
       "eas": {
-        "projectId": "98959ab2-921b-4268-bd1f-6b169090214b"
+        "projectId": "f50d7cee-19a0-467a-b2ac-2e721b81f89d"
       },
       "bugsnag": {
         "apiKey": "47b625050059f2f5da5eed9ac8a07d60"
       }
     },
-    "owner": "vahidafshari",
-    "plugins": ["expo-localization", "@bugsnag/plugin-expo-eas-sourcemaps"],
+    "owner": "vahidinline",
+    "plugins": [
+      "expo-localization",
+      "@bugsnag/plugin-expo-eas-sourcemaps"
+    ],
     "updates": {
       "url": "https://u.expo.dev/98959ab2-921b-4268-bd1f-6b169090214b"
     },

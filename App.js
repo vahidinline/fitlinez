@@ -1,9 +1,10 @@
 import Bugsnag from '@bugsnag/expo';
 Bugsnag.start();
 import { NavigationContainer } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AuthContext from './api/context';
 import AuthStorage from './api/storage';
+import ErrorBoundary from 'react-native-error-boundary';
 import InitialNavigation from './navigation/initialNavigation';
 import MsgContext from './api/messageContext';
 import { StatusBar } from 'expo-status-bar';
@@ -14,10 +15,10 @@ import { TimeSpentProvider } from './api/TimeSpentContext';
 import HomeNavigator from './navigation/HomeNavigator';
 import initDB from './api/db';
 import * as SQLite from 'expo-sqlite';
-import { Button, Text, ThemeProvider } from '@rneui/themed';
+import { Button, Text, ThemeProvider, useTheme } from '@rneui/themed';
 import * as Notifications from 'expo-notifications';
 import React from 'react';
-import { Linking, SafeAreaView, View } from 'react-native';
+import { Dimensions, Linking, SafeAreaView, View } from 'react-native';
 import { userLevelCheck } from './api/GetData';
 import { ThemeContext } from './api/themeContext';
 import 'react-native-gesture-handler';
@@ -28,6 +29,7 @@ import UserPrivilegeContext from './api/userPrivilegeContext';
 import checkFreeTrial from './api/checkFreeTrial';
 import { init } from '@amplitude/analytics-react-native';
 import { logEvent } from '@amplitude/analytics-react-native';
+import { forceSolveError, clearAllAsyncCache } from './api/forceSolveError';
 
 // wherever you want to log an event
 logEvent('using app');
@@ -39,46 +41,13 @@ const setupAmplitude = async () => {
 
 setupAmplitude();
 
-const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
-
-const ErrorView = ({ error, clearError }) => {
-  return (
-    <SafeAreaView>
-      <View
-        style={{
-          //flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-
-          marginTop: 50,
-        }}>
-        <Text>
-          An error occurred. Please restart the app and try again. If the
-          problem persists, please contact support.
-        </Text>
-        <Button
-          style={{
-            marginTop: 20,
-          }}
-          onPress={clearError}
-          title="Reset"
-        />
-        <Button
-          buttonStyle={{
-            marginTop: 20,
-          }}
-          color="primary"
-          onPress={() => Linking.openURL('https://t.me/fitlinezsupport')}
-          size="lg">
-          Contact Support
-        </Button>
-      </View>
-    </SafeAreaView>
-  );
-};
-
-const onError = (event) => {
-  Bugsnag.notify(event);
+const errorHandler = (error, stackTrace) => {
+  /* Log the error to an error reporting service */
+  Bugsnag.notify(error);
+  Bugsnag.notify(stackTrace);
+  console.log('error', error);
+  console.log('stackTrace', stackTrace);
+  //console.log('error', error);
 };
 
 const db = SQLite.openDatabase('totalWeight.db');
@@ -92,7 +61,7 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
   const [initialState, setInitialState] = useState();
   const [routeNamesHistory, setRouteNamesHistory] = useState([]);
-
+  const { theme } = useTheme();
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === DefaultTheme ? SecondTheme : DefaultTheme);
   };
@@ -117,17 +86,6 @@ export default function App() {
   useEffect(() => {
     Notifications.setBadgeCountAsync(msg);
   }, [msg]);
-
-  // useEffect(() => {
-  //   registerForPushNotificationsAsync();
-  // }, []);
-
-  // async function registerForPushNotificationsAsync() {
-  //   const { status } = await Notifications.requestPermissionsAsync();
-  //   if (status !== 'granted') {
-  //     Alert.alert('Sorry, we need notification permissions to make this work!');
-  //   }
-  // }
 
   useEffect(() => {
     const getStoredLanguage = async () => {
@@ -215,8 +173,52 @@ export default function App() {
   if (!isReady) {
     return null;
   }
+
+  const ErrorFallback = () => (
+    <SafeAreaView>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          textAlign: 'center',
+          marginTop: 200,
+        }}>
+        Something happened!
+      </Text>
+
+      <Button
+        buttonStyle={{
+          marginTop: 20,
+          marginHorizontal: 20,
+          width: Dimensions.get('window').width - 40,
+          borderRadius: 10,
+          justifyContent: 'center',
+        }}
+        color="primary"
+        onPress={() => forceSolveError(setUserAuth)}
+        size="lg">
+        Log out
+      </Button>
+      <Button
+        buttonStyle={{
+          marginTop: 20,
+          marginHorizontal: 20,
+          width: Dimensions.get('window').width - 40,
+          borderRadius: 10,
+          justifyContent: 'center',
+          backgroundColor: '#FFF3DA',
+        }}
+        titleStyle={{ color: '#5B5891' }}
+        color="primary"
+        onPress={() => clearAllAsyncCache()}
+        size="lg">
+        clear cache
+      </Button>
+    </SafeAreaView>
+  );
+
   return (
-    <ErrorBoundary FallbackComponent={ErrorView} onError={onError}>
+    <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
       <ThemeContext.Provider value={{ currentTheme, toggleTheme }}>
         <AuthContext.Provider value={{ userAuth, setUserAuth }}>
           <MsgContext.Provider value={{ msg, setMsg }}>

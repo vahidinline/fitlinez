@@ -415,6 +415,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = fitlinez/fitlinez.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NDMZ7X8ZR4;
 				INFOPLIST_FILE = fitlinez/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -428,7 +429,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fitlinez.eu;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.fitlinez.eu;
 				PRODUCT_NAME = fitlinez;
 				SWIFT_OBJC_BRIDGING_HEADER = "fitlinez/fitlinez-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

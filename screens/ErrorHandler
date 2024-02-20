@@ -1,0 +1,17 @@
+const ErrorFallback = (setUserAuth, props) => (
+  <SafeAreaView>
+    <Text>Something happened!</Text>
+    <Text>{props.error.toString()}</Text>
+    <Button
+      buttonStyle={{
+        marginTop: 20,
+      }}
+      color="primary"
+      onPress={() => forceSolveError(setUserAuth)}
+      size="lg">
+      Log out
+    </Button>
+  </SafeAreaView>
+);
+
+export default ErrorFallback();
