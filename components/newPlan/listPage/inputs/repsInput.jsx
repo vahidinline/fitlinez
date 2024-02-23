@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, memo } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -9,15 +9,12 @@ import InputSpinner from 'react-native-input-spinner';
 import { useTheme } from '@rneui/themed';
 import RestCounterComponent from './counter';
 
-export default function RepsInput(props) {
+function RepsInput(props) {
   const { index, setIndex, title, category, exerciseId, onStoreData } = props;
   const { theme } = useTheme();
-  //const styles = getStyles(theme);
   const [visible, setVisible] = useState(false);
   const [reps, setReps] = useState();
-  //const today = new Date().toISOString().substring(0, 10);
   const { userLanguage } = useContext(LanguageContext);
-  //const [defaultReps, setDefaultReps] = useState('');
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const timestamp = new Date().toISOString();
@@ -34,7 +31,6 @@ export default function RepsInput(props) {
       setIndex,
       timestamp,
     });
-    //handleAddPress();
   }, [reps]);
 
   useEffect(() => {
@@ -151,29 +147,4 @@ export default function RepsInput(props) {
   );
 }
 
-const getStyles = (theme) =>
-  StyleSheet.create({
-    input: {
-      // backgroundColor: '#fff',
-      //height: 40,
-      // flex: 1,
-      // marginRight: 10,
-    },
-    inputWrapper: {
-      flexDirection: 'row',
-      // width: '100%',
-    },
-    label: {
-      // backgroundColor: theme.colors.black,
-      height: 30,
-      top: 6,
-      right: 60,
-      // color: 'gray',
-    },
-    button: {
-      // backgroundColor: '#fff',
-      height: 30,
-      top: 20,
-      color: 'gray',
-    },
-  });
+export default memo(RepsInput);

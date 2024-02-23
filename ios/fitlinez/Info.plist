@@ -27,7 +27,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ee.fitlinez.eu</string>
+				<string>com.fitlinez.eu</string>
 			</array>
 		</dict>
 		<dict>

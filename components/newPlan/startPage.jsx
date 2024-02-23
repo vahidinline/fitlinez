@@ -226,28 +226,28 @@ const StartPlan = (props) => {
   //   }
   // }, []);
 
-  useEffect(() => {
-    const getSubs = async () => {
-      await AsyncStorage.getItem('workoutsList').then((value) => {
-        if (value !== null) {
-          const workoutsList = JSON.parse(value);
-          //filter by category and location
+  // useEffect(() => {
+  //   const getSubs = async () => {
+  //     await AsyncStorage.getItem('workoutsList').then((value) => {
+  //       if (value !== null) {
+  //         const workoutsList = JSON.parse(value);
+  //         //filter by category and location
 
-          const filteredWorkoutsList =
-            workoutsList.filter(
-              (workout) =>
-                workout.active === false &&
-                workout.category === category &&
-                (workout.loc === locSelector || workout.loc === 'Both')
-            ) || [];
+  //         const filteredWorkoutsList =
+  //           workoutsList.filter(
+  //             (workout) =>
+  //               workout.active === false &&
+  //               workout.category === category &&
+  //               (workout.loc === locSelector || workout.loc === 'Both')
+  //           ) || [];
 
-          setSubs(filteredWorkoutsList);
-          setIsLoading(false);
-        }
-      });
-    };
-    getSubs();
-  }, [category, locSelector]);
+  //         setSubs(filteredWorkoutsList);
+  //         setIsLoading(false);
+  //       }
+  //     });
+  //   };
+  //   getSubs();
+  // }, [category, locSelector]);
 
   const sortedData = [...filteredWorkoutsList].sort((a, b) => {
     if (a.type === 'warmup' && b.type !== 'warmup') {

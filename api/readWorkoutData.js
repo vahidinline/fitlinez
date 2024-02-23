@@ -409,10 +409,10 @@ const calculateWorkoutPercentage = async (total, startDate, done, planName) => {
 const readWorkoutPercentageData = async (planName) => {
   try {
     const storedData = await AsyncStorage.getItem('workoutDataPercentage');
-    console.log(
-      'Stored data from AsyncStorage readWorkoutPercentageData:',
-      storedData
-    );
+    // console.log(
+    //   'Stored data from AsyncStorage readWorkoutPercentageData:',
+    //   storedData
+    // );
     if (storedData !== null) {
       const workoutData = JSON.parse(storedData);
 

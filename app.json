@@ -11,20 +11,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#5B5891"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "ee.fitlinez.eu",
+      "bundleIdentifier": "com.fitlinez.eu",
       "buildNumber": "0.0.1",
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": [
-          "fetch"
-        ],
-        "LSApplicationQueriesSchemes": [
-          "instagram"
-        ]
+        "UIBackgroundModes": ["fetch"],
+        "LSApplicationQueriesSchemes": ["instagram"]
       }
     },
     "android": {
@@ -34,7 +28,7 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#5B5891"
       },
-      "package": "ee.fitlinez.eu",
+      "package": "com.fitlinez.eu",
       "runtimeVersion": "1.0.0"
     },
     "web": {
@@ -42,17 +36,14 @@
     },
     "extra": {
       "eas": {
-        "projectId": "f50d7cee-19a0-467a-b2ac-2e721b81f89d"
+        "projectId": "7819d490-9761-46a4-93c9-1c969843df38"
       },
       "bugsnag": {
         "apiKey": "47b625050059f2f5da5eed9ac8a07d60"
       }
     },
-    "owner": "vahidinline",
-    "plugins": [
-      "expo-localization",
-      "@bugsnag/plugin-expo-eas-sourcemaps"
-    ],
+    "owner": "fitlinez",
+    "plugins": ["expo-localization", "@bugsnag/plugin-expo-eas-sourcemaps"],
     "updates": {
       "url": "https://u.expo.dev/98959ab2-921b-4268-bd1f-6b169090214b"
     },

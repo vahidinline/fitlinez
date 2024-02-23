@@ -82,10 +82,10 @@ const Handleend = (props) => {
   }, []);
 
   const getData = async () => {
-    console.log('inside get data');
+    // console.log('inside get data');
     try {
       const data = await readWorkoutData();
-      console.log('inside get data', data);
+
       calculateWorkoutPercentage(
         data?.totalSession,
         data?.addedDateTime,
@@ -193,7 +193,7 @@ const Handleend = (props) => {
 
   const sendData = async () => {
     const data = await readSavedData(userId);
-    console1.log('data', data);
+    console.log('data', data);
     try {
       const response = await axios
         .post('https://jobitta.com/workouthistory', {

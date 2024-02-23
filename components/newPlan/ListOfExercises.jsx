@@ -60,14 +60,16 @@ const ListOfExercises = (props) => {
   useEffect(() => {
     if (flatListRef.current) {
       flatListRef.current.setNativeProps({ scrollEnabled: false });
+    } else {
+      console.log('flatListRef.current is null');
     }
   }, [scrollEnabled]);
 
   const goToIndex = (index) => {
     if (index) {
-      flatListRef.current.scrollToIndex({ index: index, animated: true });
+      flatListRef.current.scrollToIndex({ index: index, animated: false });
     } else {
-      flatListRef.current.scrollToIndex({ index: 0, animated: true });
+      flatListRef.current.scrollToIndex({ index: 0, animated: false });
     }
   };
   const doneItem = (index) => {
@@ -85,18 +87,25 @@ const ListOfExercises = (props) => {
       if (index < data.length - 1) {
         console.log('Index to scroll to:', index + 1);
 
-        flatListRef.current.scrollToIndex({ index: index + 1, animated: true });
+        flatListRef.current.scrollToIndex({
+          index: index + 1,
+          animated: false,
+        });
       }
     } catch (error) {
       console.log(new Error(error));
+      alert('Error updating exercise state');
     }
   };
   const undoneItem = (index) => {
     // Scroll to the previous item if it exists
     if (index >= 1) {
       //console.log('iside undoneItem', index);
-      flatListRef.current.scrollToIndex({ index: index - 1, animated: true });
+      flatListRef.current.scrollToIndex({ index: index - 1, animated: false });
       setProgress(progress - 1);
+    } else {
+      flatListRef.current.scrollToIndex({ index: 0, animated: false });
+      setProgress(1);
     }
   };
 
@@ -115,6 +124,8 @@ const ListOfExercises = (props) => {
           gifUrl: gifUrl,
           inputType: inputType,
         };
+      } else {
+        console.log('item._id', item._id);
       }
 
       return item;
@@ -206,67 +217,73 @@ const ListOfExercises = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        {sortedData.length > 0 ? (
-          <FlatList
-            onEndReached={() => {
-              Alert.alert(i18n.t('alertEndOfList'));
-            }}
-            removeClippedSubviews={true}
-            horizontal
-            ref={flatListRef}
-            keyExtractor={(item) => item.name}
-            renderItem={({ item, index }) => (
-              <View style={style}>
-                <Item
-                  goToIndex={goToIndex}
-                  userLevel={userLevel}
-                  sortedData={sortedData}
-                  navigation={navigation}
-                  stoptimer={stoptimer}
-                  setFinish={setFinish}
-                  length={data.length}
-                  exerciseId={item._id}
-                  title={item.name}
-                  index={index}
-                  gifUrl={item.gifUrl}
-                  isDone={item.isDone}
-                  description={item.description}
-                  instructor={item.instructor}
-                  subsitute={item.subsitute}
-                  inputType={item.inputType}
-                  sets={item.sets}
-                  type={item.type}
-                  level={item.level}
-                  isLiked={item.isLiked}
-                  sub={item.subsitute}
-                  faInstructor={item.faInstructor}
-                  faDescription={item.faDescription}
-                  video={item.video}
-                  loc={item.loc}
-                  progress={progress}
-                  dataLength={data.length}
-                  visible={visible}
-                  hideDialog={hideDialog}
-                  category={category}
-                  handleSubsitute={handleSubsitute}
-                  doneItem={doneItem}
-                  undoneItem={undoneItem}
-                  userId={userId}
-                  bodyPart={item.bodyPart}
-                  allExcerciesIds={sortedData.map((item) => item._id)}
-                  mainTarget={item.mainTarget}
-                  otherTarget={item.otherTarget}
-                  target={item.target}
-                  userLocation={location}
-                />
-              </View>
-            )}
-            data={sortedData}
-            pagingEnabled
-          />
-        ) : (
-          <Text>No data to display</Text>
-        )}
+        <FlatList
+          onEndReached={() => {
+            Alert.alert(i18n.t('alertEndOfList'));
+          }}
+          removeClippedSubviews={true}
+          horizontal
+          ref={flatListRef}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item, index }) => (
+            <View style={style}>
+              <Item
+                goToIndex={goToIndex}
+                userLevel={userLevel}
+                sortedData={sortedData}
+                navigation={navigation}
+                stoptimer={stoptimer}
+                setFinish={setFinish}
+                length={data.length}
+                exerciseId={item._id}
+                title={item.name}
+                index={index}
+                gifUrl={item.gifUrl}
+                isDone={item.isDone}
+                description={item.description}
+                instructor={item.instructor}
+                subsitute={item.subsitute}
+                inputType={item.inputType}
+                sets={item.sets}
+                type={item.type}
+                level={item.level}
+                isLiked={item.isLiked}
+                sub={item.subsitute}
+                faInstructor={item.faInstructor}
+                faDescription={item.faDescription}
+                video={item.video}
+                loc={item.loc}
+                progress={progress}
+                dataLength={data.length}
+                visible={visible}
+                hideDialog={hideDialog}
+                category={category}
+                handleSubsitute={handleSubsitute}
+                doneItem={doneItem}
+                undoneItem={undoneItem}
+                userId={userId}
+                bodyPart={item.bodyPart}
+                allExcerciesIds={sortedData.map((item) => item._id)}
+                mainTarget={item.mainTarget}
+                otherTarget={item.otherTarget}
+                target={item.target}
+                userLocation={location}
+              />
+            </View>
+          )}
+          data={sortedData}
+          pagingEnabled
+          ListEmptyComponent={
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 20,
+                color: theme.colors.primary,
+              }}>
+              {i18n.t('noExercises')}
+            </Text>
+          }
+        />
 
         <BottomSheet isVisible={finish}>
           <View

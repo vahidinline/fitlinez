@@ -43,7 +43,7 @@ function HomeHeader({ planStartDate, data, title }) {
   const [backgroundColor, setBackgroundColor] = useState(
     theme.colors.lightPrimary
   );
-  console.log('userPervilage in header', userPrivilege);
+  //console.log('userPervilage in header', userPrivilege);
   useEffect(() => {
     const res = generateHeaderText(planStartDate, data, i18n, title);
     activeAccount && setTextMessage(res.message);
@@ -93,19 +93,43 @@ function HomeHeader({ planStartDate, data, title }) {
     registerBackgroundFetchAsync();
   }, []);
 
+  // useFocusEffect(
+  //   useCallback(async () => {
+  //     await userLevelCheck(userAuth, setUserAuth);
+  //     await userStatusCheck(userAuth, setUserAuth);
+  //     await checkVersion(currentVersion, Userplatform, userLocation, i18n);
+
+  //     checkUserPervilage();
+
+  //     checkFirstTimeUser();
+  //     return () => {
+  //       // alert('Screen was unfocused');
+  //     };
+  //   }, [])
+  // );
+
   useFocusEffect(
-    useCallback(async () => {
-      await userLevelCheck(userAuth, setUserAuth);
-      await userStatusCheck(userAuth, setUserAuth);
-      await checkVersion(currentVersion, Userplatform, userLocation, i18n);
+    useCallback(
+      () => {
+        async function fetchData() {
+          await userLevelCheck(userAuth, setUserAuth);
+          await userStatusCheck(userAuth, setUserAuth);
+          await checkVersion(currentVersion, Userplatform, userLocation, i18n);
+        }
+        fetchData();
 
-      checkUserPervilage();
+        checkFirstTimeUser();
 
-      checkFirstTimeUser();
-      return () => {
-        // alert('Screen was unfocused');
-      };
-    }, [])
+        // Your other async operations
+        // ...
+
+        // After completing async operations, call checkUserPervilage
+        checkUserPervilage();
+      },
+      [
+        /* dependencies of your async operations */
+      ]
+    )
   );
 
   useEffect(

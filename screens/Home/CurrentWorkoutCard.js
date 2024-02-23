@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import AuthContext from '../../api/context';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
+import { t } from 'i18n-js';
 
 function CurrentWorkoutCard({ title, trainer, location }) {
   const [percentage, setPercentage] = useState(0);
@@ -70,6 +71,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
           // justifyContent: 'space-between',
           marginHorizontal: 20,
           top: 10,
+
           //alignItems: 'center',
           width: Dimensions.get('window').width / 1.1,
           height:
@@ -80,7 +82,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
         }}>
         <Text
           style={[styles.text, { fontSize: PixelRatio.get() < 3 ? 14 : 18 }]}>
-          {i18n.t('currentPlan')}
+          {title}
         </Text>
       </View>
       <View
@@ -90,6 +92,29 @@ function CurrentWorkoutCard({ title, trainer, location }) {
           right: 5,
           flexDirection: 'row',
         }}>
+        <CurrentCard
+          index={1}
+          title={trainer}
+          subtitle={i18n.t('progress')}
+          icon={<IconTrainer />}
+          component={
+            <View>
+              <Text
+                style={{
+                  fontSize: PixelRatio.get() < 3 ? 14 : 16,
+                  fontWeight: 'bold',
+                  alignSelf: 'center',
+                  color: theme.colors.secondary,
+                }}>
+                {`${isNaN(percentage) ? 0 : percentage}`} %
+              </Text>
+              <LinearProgress
+                value={isNaN(percentage) ? 0 : percentage / 100}
+                style={{ marginTop: 10 }}
+              />
+            </View>
+          }
+        />
         <CurrentCard
           index={2}
           title={title}
@@ -113,29 +138,6 @@ function CurrentWorkoutCard({ title, trainer, location }) {
               }}>
               {i18n.t('letsstart')}
             </Button>
-          }
-        />
-        <CurrentCard
-          index={1}
-          title={trainer}
-          subtitle={i18n.t('progress')}
-          icon={<IconTrainer />}
-          component={
-            <View>
-              <Text
-                style={{
-                  fontSize: PixelRatio.get() < 3 ? 14 : 16,
-                  fontWeight: 'bold',
-                  alignSelf: 'center',
-                  color: theme.colors.secondary,
-                }}>
-                {`${isNaN(percentage) ? 0 : percentage}`} %
-              </Text>
-              <LinearProgress
-                value={isNaN(percentage) ? 0 : percentage / 100}
-                style={{ marginTop: 10 }}
-              />
-            </View>
           }
         />
       </View>

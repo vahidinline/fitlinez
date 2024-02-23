@@ -123,18 +123,28 @@ function Item(props) {
   }, [childDataMap]);
 
   const updateTotalWeight = async (weight) => {
+    console.log('weight', weight);
     try {
       let oldValue = await AsyncStorage.getItem('@total_weight');
 
-      // Check if oldValue is null, undefined or NaN and assign 0 if true
-      if (oldValue === null || oldValue === undefined || isNaN(oldValue)) {
-        console.log('oldValue is null, undefined or NaN', oldValue);
+      // Parse the oldValue as a number, and if it's not a valid number, default to 0
+      oldValue = parseFloat(oldValue) || 0;
+
+      // Check if the parsed oldValue is NaN
+      if (isNaN(oldValue)) {
+        console.log('Parsed oldValue is NaN');
         oldValue = 0;
       }
 
-      const totalWeight = oldValue ? Number(oldValue) + weight : weight;
-      console.log('totalWeight', totalWeight);
-      await AsyncStorage.setItem('@total_weight', totalWeight.toString());
+      const totalWeight = oldValue + weight;
+
+      // Check if the totalWeight is NaN
+      if (!isNaN(totalWeight)) {
+        console.log('totalWeight', totalWeight);
+        await AsyncStorage.setItem('@total_weight', totalWeight.toString());
+      } else {
+        console.log('Error: totalWeight is NaN');
+      }
     } catch (error) {
       console.error('Error updating total weight', error);
     }
@@ -171,7 +181,6 @@ function Item(props) {
 
   const handleButton = async () => {
     saveExerciseState(childDataMap);
-
     updateTotalWeight(childDataMap.totalWeight); //use new function here
     setSaveTimer(true);
     setShowRest((prevShowRest) => !prevShowRest);

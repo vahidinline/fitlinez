@@ -91,7 +91,7 @@ function WorkoutAgenda(props) {
         <View
           style={{
             top: 10,
-            height: Dimensions.get('window').height / 12,
+            height: Dimensions.get('window').height / 10,
             width: Dimensions.get('window').width / 8.5,
             marginHorizontal: 5,
             marginVertical: 4,
@@ -168,31 +168,6 @@ function WorkoutAgenda(props) {
 
     return week;
   }
-
-  // function getWeekData() {
-  //   const weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  //   const today = new Date();
-  //   const currentDayOfWeek = today.getDay();
-
-  //   // Calculate the date of the most recent Monday
-  //   const mostRecentMonday = new Date(today);
-  //   console.log('mostRecentMonday', mostRecentMonday);
-  //   mostRecentMonday.setDate(
-  //     today.getDate() - (currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1)
-  //   );
-
-  //   const week = Array.from({ length: 7 }, (_, i) => {
-  //     const dayOfWeek = (mostRecentMonday.getDay() + i) % 7;
-  //     const date = new Date(mostRecentMonday);
-  //     date.setDate(mostRecentMonday.getDate() + i);
-  //     return {
-  //       day: String(date.getDate()).padStart(2, '0'),
-  //       title: weekDays[dayOfWeek],
-  //     };
-  //   });
-
-  //   return week;
-  // }
 
   return (
     <FlatList

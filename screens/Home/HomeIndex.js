@@ -156,7 +156,7 @@ function HomeIndex() {
       )}
       <View
         style={{
-          marginTop: Dimensions.get('window').height / 12,
+          marginTop: Dimensions.get('window').height / 10,
           marginBottom: 0,
           zIndex: 100,
         }}>
@@ -169,7 +169,7 @@ function HomeIndex() {
         {currentPlan && (
           <View
             style={{
-              height: Dimensions.get('window').height / 9,
+              height: Dimensions.get('window').height / 7,
               marginTop: 20,
             }}>
             <WorkoutAgenda
