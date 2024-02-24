@@ -38,7 +38,7 @@ function IndexOnBoarding() {
   const [userData, setUserData] = useState([]);
   const { userLanguage } = useContext(LanguageContext);
   const { userAuth } = useContext(AuthContext);
-  const userId = userAuth._id;
+  const userId = userAuth.id;
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
 
@@ -115,14 +115,21 @@ function IndexOnBoarding() {
       onNext();
     }
   };
-  console.log('currentStep', currentStep);
   const submitUserDataToCloud = async () => {
     console.log('sending data to cloud');
-    const res = await api.post('/userdata/firstassessment', {
-      data: userData,
+    //add user id to the data
+    const allUserData = {
       userId: userId,
-    });
-    console.log('res', res);
+      data: userData,
+    };
+    try {
+      const res = await api.post('/userdata/firstassessment', allUserData);
+      console.log('res', res);
+    } catch (error) {
+      console.log('error', error);
+    } finally {
+      AsyncStorage.setItem('userBasicData', JSON.stringify(userData));
+    }
   };
 
   const steps = [
@@ -231,7 +238,7 @@ function IndexOnBoarding() {
           //flexDirection: 'row',
           // justifyContent: 'space-between',
           position: 'absolute',
-          bottom: 100,
+          bottom: 10,
           width: Dimensions.get('window').width - 40,
           marginLeft: 20,
           marginRight: 20,

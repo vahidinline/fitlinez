@@ -101,7 +101,11 @@ function CardItem({ item }) {
   i18n.locale = userLanguage;
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('MarketPlace')}
+      onPress={() =>
+        navigation.navigate('PlanItem', {
+          item: item,
+        })
+      }
       style={{
         borderRadius: 16,
         marginHorizontal: 20,

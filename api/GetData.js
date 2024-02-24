@@ -337,6 +337,12 @@ const getPackages = async () => {
   return new Promise(async (resolve) => {
     await axios.get('https://jobitta.com/newplan/prebuild').then((res) => {
       resolve(res.data);
+      try {
+        //add to asyncstorage
+        AsyncStorage.setItem('Allpackages', JSON.stringify(res.data));
+      } catch (error) {
+        //console.log('error', error);
+      }
     });
   });
 };

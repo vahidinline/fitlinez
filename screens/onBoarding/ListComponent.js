@@ -16,6 +16,7 @@ function ListComponent({ data, isSelected, onSelect }) {
   const [selectedIds, setSelectedIds] = useState([]);
   return (
     <FlatList
+      scrollEnabled={true}
       data={data}
       renderItem={({ item }) => (
         <TouchableOpacity
@@ -38,7 +39,9 @@ function ListComponent({ data, isSelected, onSelect }) {
             },
             isSelected(item.id) && styles.selectedItem,
           ]}
-          onPress={() => onSelect({ id: item.id, title: item.title })}>
+          onPress={() =>
+            onSelect({ id: item.id, title: item.value || item.title })
+          }>
           <View
             style={{
               flexDirection: 'row',

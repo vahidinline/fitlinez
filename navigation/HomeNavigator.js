@@ -86,13 +86,13 @@ const HomeNavigator = () => {
           headerShown: false,
         }}
       />
-      {/* <Stack.Screen
-        name="UserLevelSelector"
-        component={UserLevelSelector}
+      <Stack.Screen
+        name="PlanItem"
+        component={PlanItem}
         options={{
           headerShown: false,
         }}
-      /> */}
+      />
       <Stack.Screen
         name="TrainersNavigator"
         component={TrainersNavigator}

@@ -27,7 +27,7 @@ function LastPageOnboarding() {
 
   const handlePress = () => {
     if (userLevel === 4) {
-      navigator.navigate('Home');
+      navigator.navigate('WorkoutListIndex');
     } else {
       navigator.navigate('Upgrade');
     }

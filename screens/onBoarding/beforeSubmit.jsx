@@ -48,14 +48,14 @@ function BeforeSubmit({ onBeforeSubmitSelect, data }) {
           <Text style={styles.title}>{i18n.t('height')}</Text>
           <Text style={styles.value}>
             {data[2]?.height}
-            <Text style={styles.unit}>{data[2]?.unit}</Text>
+            <Text style={styles.unit}> {data[2]?.unit}</Text>
           </Text>
         </View>
         <View style={styles.halfBox}>
           <Text style={styles.title}>{i18n.t('weight')}</Text>
           <Text style={styles.value}>
             {data[3]?.weight}
-            <Text style={styles.unit}>{data[3]?.unit}</Text>
+            <Text style={styles.unit}> {data[3]?.unit}</Text>
           </Text>
         </View>
       </View>
@@ -102,7 +102,7 @@ const getStyles = (theme) =>
     },
     text: {
       color: theme.colors.secondary,
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: 'bold',
       justifyContent: 'flex-start',
     },
@@ -120,7 +120,7 @@ const getStyles = (theme) =>
       color: theme.colors.grey0,
     },
     value: {
-      fontSize: 16,
+      fontSize: 14,
       fontWeight: '500',
       //marginHorizontal: 20,
       marginTop: 10,

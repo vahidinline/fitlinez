@@ -13,7 +13,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import AuthContext from '../../api/context';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
-import { t } from 'i18n-js';
 
 function CurrentWorkoutCard({ title, trainer, location }) {
   const [percentage, setPercentage] = useState(0);

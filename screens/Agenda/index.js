@@ -91,9 +91,9 @@ function WorkoutAgenda(props) {
         <View
           style={{
             top: 10,
-            height: Dimensions.get('window').height / 10,
-            width: Dimensions.get('window').width / 8.5,
-            marginHorizontal: 5,
+            height: Dimensions.get('window').height / 9,
+            width: Dimensions.get('window').width / 9,
+            marginHorizontal: 6,
             marginVertical: 4,
             borderRadius: 16,
             backgroundColor: isPastDay
@@ -108,7 +108,7 @@ function WorkoutAgenda(props) {
             stlye={{
               fontSize: 14,
               fontSize: 10,
-              fontWeight: 'bold',
+              fontWeight: '700',
               color: theme.colors.text,
             }}>
             {item.day}

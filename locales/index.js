@@ -339,9 +339,11 @@ const i18nt = {
     showAllPlans: 'Show All Plans',
     tutorialVideo: 'Tutorial Video',
     upgradeHeaderTextIndex: 'Upgrade to Premium',
+    restday: 'Rest Day',
   },
 
   fa: {
+    restday: 'روز استراحت',
     alertEndOfList: ' آخرین تمرین',
     PremiumHeaderText: '{{dayLeft}} روز باقی مانده از حساب کاربری پریمیوم شما',
     PremiumSubHeaderText: 'حساب کاربری خود را به روز نگه دارید',
