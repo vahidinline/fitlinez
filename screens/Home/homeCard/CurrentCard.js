@@ -34,7 +34,7 @@ function CurrentCard({
       <View
         style={{
           //position: 'absolute',
-          top: 0,
+          top: 10,
           right: index === 1 ? 0 : Dimensions.get('window').width / 22,
           flexDirection: 'row',
           //justifyContent: 'flex-start',

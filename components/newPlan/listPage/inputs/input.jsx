@@ -123,7 +123,7 @@ export default function WeightAndSetsInput(props) {
         }}
         skin="clean"
         //rounded={false}
-        returnKeyType="done">
+      >
         <Text style={styles.label}>{postfixkg}</Text>
       </InputSpinner>
 
@@ -157,7 +157,7 @@ export default function WeightAndSetsInput(props) {
         }}
         skin="clean"
         //rounded={false}
-        returnKeyType="done">
+      >
         <Text style={styles.label}>{postfixrep}</Text>
       </InputSpinner>
       {/* {visible && (

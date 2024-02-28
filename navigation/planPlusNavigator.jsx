@@ -5,6 +5,7 @@ import StartPlan from '../components/newPlan/startPage';
 import ListOfExercises from '../components/newPlan/ListOfExercises';
 import FinishWorkOut from '../components/newPlan/finishWorkout';
 import Handleend from '../components/newPlan/handleEnd';
+import Item from '../components/newPlan/listPage/item';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,14 @@ const PlanPlusNavigator = () => {
       <Stack.Screen
         name="ListOfExercises"
         component={ListOfExercises}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="Item"
+        component={Item}
         options={{
           headerShown: false,
           gestureEnabled: false,

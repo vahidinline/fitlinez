@@ -21,6 +21,8 @@ import PlanItem from '../screens/marketplace/ListOfworkouts/PlanItem';
 import LastPageOnboarding from '../screens/onBoarding/LastPage';
 import Upgrade from '../screens/upgrade';
 import ConfirmPayment from '../screens/upgrade/payment';
+import PlanDetailsIndex from '../screens/planDetails/planDetailsIndex';
+import SessionNavigator from './SessionNavigator';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +43,23 @@ const HomeNavigator = () => {
             fontWeight: 'bold',
           },
           tabBarVisible: true, // Hide the tab bar for this screen
+        }}
+      />
+
+      <Stack.Screen
+        name="SessionNavigator"
+        component={SessionNavigator}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+          title: 'HPage',
+          headerStyle: {
+            backgroundColor: '#3F3B6C',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         }}
       />
       <Stack.Screen
@@ -93,6 +112,14 @@ const HomeNavigator = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="PlanDetailsIndex"
+        component={PlanDetailsIndex}
+        options={{
+          headerShown: false,
+        }}
+      />
+
       <Stack.Screen
         name="TrainersNavigator"
         component={TrainersNavigator}

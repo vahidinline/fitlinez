@@ -1,10 +1,20 @@
 import { Button, LinearProgress, Text, useTheme } from '@rneui/themed';
 import React, { useContext } from 'react';
-import { View, StyleSheet, Dimensions, PixelRatio } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  PixelRatio,
+  Pressable,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import CurrentCard from './homeCard/CurrentCard';
 import { useNavigation } from '@react-navigation/native';
-import { IconBlackDumbbell, IconTrainer } from '../marketplace/filters/icons';
+import {
+  IconArrow,
+  IconBlackDumbbell,
+  IconTrainer,
+} from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
@@ -34,8 +44,8 @@ function CurrentWorkoutCard({ title, trainer, location }) {
   const handleNextStep = () => {
     if (userLevel === 4) {
       // condition 1
-      navigation.navigate('PlanPlus', {
-        screen: 'planPlusIndex',
+      navigation.navigate('SessionNavigator', {
+        screen: 'StartSessionIndex',
         params: { title: title, location: location },
       });
     } else if (userPrivilege) {
@@ -67,12 +77,12 @@ function CurrentWorkoutCard({ title, trainer, location }) {
       <View
         style={{
           flexDirection: 'row',
-          // justifyContent: 'space-between',
+          justifyContent: 'space-between',
           marginHorizontal: 20,
           top: 10,
 
           //alignItems: 'center',
-          width: Dimensions.get('window').width / 1.1,
+          width: Dimensions.get('window').width / 1.2,
           height:
             PixelRatio.get() < 3
               ? Dimensions.get('window').height / 12
@@ -83,16 +93,19 @@ function CurrentWorkoutCard({ title, trainer, location }) {
           style={[styles.text, { fontSize: PixelRatio.get() < 3 ? 14 : 18 }]}>
           {title}
         </Text>
+        <Pressable onPress={() => navigation.navigate('PlanDetailsIndex')}>
+          <IconArrow size={24} color={theme.colors.white} />
+        </Pressable>
       </View>
       <View
         style={{
           position: 'absolute',
-          top: 30,
+          top: 20,
           right: 5,
           flexDirection: 'row',
         }}>
         <CurrentCard
-          index={1}
+          index={2}
           title={trainer}
           subtitle={i18n.t('progress')}
           icon={<IconTrainer />}
@@ -101,7 +114,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
               <Text
                 style={{
                   fontSize: PixelRatio.get() < 3 ? 14 : 16,
-                  fontWeight: 'bold',
+                  fontWeight: '600',
                   alignSelf: 'center',
                   color: theme.colors.secondary,
                 }}>
@@ -115,7 +128,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
           }
         />
         <CurrentCard
-          index={2}
+          index={1}
           title={title}
           icon={<IconBlackDumbbell />}
           subtitle={i18n.t('todaysactivity')}

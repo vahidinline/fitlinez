@@ -6,17 +6,14 @@ import {
   Dimensions,
   TouchableOpacity,
   PixelRatio,
-  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
-import axios from 'axios';
 import AuthContext from '../../api/context';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import { Button, useTheme } from '@rneui/themed';
-import getTotalWeight from '../../api/getTotalWeight';
 import { PerformanceRead } from '../../api/readWorkoutData';
 import { calculateWorkoutPercentage } from '../../api/readWorkoutData';
 import { currentPalnPercentage } from '../../api/readWorkoutData';
@@ -27,14 +24,16 @@ import MidPerformance from './finishPage/midPerformance';
 import HighPerformance from './finishPage/highPerformance';
 import TopPerformance from './finishPage/topPerformance';
 import formatTime from '../../api/timeFormat';
-import { IconDelete, Iconshare } from '../../screens/marketplace/filters/icons';
+import { Iconshare } from '../../screens/marketplace/filters/icons';
 import { retrieveAndCalculatePerformance } from '../../api/SaveData';
 import { saveUserData } from '../../api/SaveData';
 import * as SQLite from 'expo-sqlite';
 import storeDataDB from '../../api/storedata';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../../api/api';
 const UserWorkOutSessionDB = SQLite.openDatabase('userWorkOutSession.db');
 const performanceDB = SQLite.openDatabase('performance.db');
+
 const Handleend = (props) => {
   useEffect(() => {
     UserWorkOutSessionDB.transaction((tx) => {
@@ -195,8 +194,8 @@ const Handleend = (props) => {
     const data = await readSavedData(userId);
     console.log('data', data);
     try {
-      const response = await axios
-        .post('https://jobitta.com/workouthistory', {
+      const response = await api
+        .post('/workouthistory', {
           data,
         })
         .then((response) => {
@@ -215,8 +214,8 @@ const Handleend = (props) => {
     const data = await PerformanceRead(userId);
     setLoading(false);
     try {
-      const response = await axios
-        .post('https://jobitta.com/performancethistory', {
+      const response = await api
+        .post('/performancethistory', {
           data,
         })
         .then((res) => {
@@ -319,7 +318,7 @@ const Handleend = (props) => {
                 <View style={styles.view}>
                   <Text style={styles.title}>
                     {totalWeightSum}
-                    <Text style={styles.subtitle}>{i18n.t('kg')}</Text>
+                    <Text style={styles.subtitle}> {i18n.t('kg')}</Text>
                   </Text>
                   <Text style={styles.subtitle}>{i18n.t('liftedweight')}</Text>
                 </View>
@@ -424,7 +423,7 @@ const getStyle = (theme, PixelRatio) =>
     },
 
     subtitle: {
-      fontSize: PixelRatio.get() < 3 ? 10 : 14,
+      fontSize: PixelRatio.get() < 3 ? 10 : 12,
       fontWeight: '400',
       color: theme.colors.secondary,
       textAlign: 'center',
@@ -432,7 +431,7 @@ const getStyle = (theme, PixelRatio) =>
       marginHorizontal: 5,
     },
     category: {
-      fontSize: PixelRatio.get() < 3 ? 10 : 20,
+      fontSize: PixelRatio.get() < 3 ? 10 : 16,
       fontWeight: 'bold',
       color: '#3F3B6C',
       textAlign: 'center',
@@ -446,7 +445,7 @@ const getStyle = (theme, PixelRatio) =>
       marginTop: 20,
     },
     title: {
-      fontSize: PixelRatio.get() < 3 ? 14 : 18,
+      fontSize: PixelRatio.get() < 3 ? 14 : 16,
       fontWeight: 'bold',
       color: theme.colors.secondary,
       textAlign: 'center',

@@ -30,10 +30,11 @@ import DrawerList from './drawer';
 import RestCounterComponent from './inputs/counter';
 import { SessionContext } from '../../../api/sessionContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TimeSpentContext } from '../../../api/TimeSpentContext';
 const { width, height } = Dimensions.get('window');
 
 function Item(props) {
+  //log the number of times this component is rendered
+  console.log('Item rendered', props.index);
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   const [showInstruction, setShowInstruction] = useState(false);
@@ -333,6 +334,7 @@ function Item(props) {
           marginHorizontal: 20,
         }}>
         <ImageLoader
+          i18n={i18n}
           uri={gifUrl}
           width={Dimensions.get('window').width / 2.2}
           height={Dimensions.get('window').height / 4.1}

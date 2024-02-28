@@ -18,7 +18,6 @@ import { getWorkOutData } from '../../api/GetData';
 import * as SQLite from 'expo-sqlite';
 import Header from '../header';
 import { useTheme } from '@rneui/themed';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SessionContext } from '../../api/sessionContext';
 import RadioButtonfitlinez from '../RadioButtonFitlinez';
 
@@ -194,60 +193,22 @@ const StartPlan = (props) => {
   }, [navigation, filteredWorkoutsList, locSelector]);
 
   const saveWorkoutsList = async () => {
-    const filteredWorkoutsList =
-      data.filter(
-        (workout) => workout.loc === locSelector || workout.loc === 'Both'
-      ) || [];
+    try {
+      const filteredWorkoutsList =
+        data?.filter(
+          (workout) =>
+            workout.loc === locSelector || workout.loc.toLowerCase() === 'both'
+        ) || [];
 
-    setFilteredWorkoutsList(filteredWorkoutsList);
-    setIsLoading(false);
+      setFilteredWorkoutsList(filteredWorkoutsList);
+      setIsLoading(false);
+    } catch (error) {
+      alert(error);
+    }
   };
-
   const updateWorkoutData = useCallback(async () => {
     getWorkOutData();
   }, []);
-
-  // useEffect(() => {
-  //   if (reloadComponent === true) {
-  //     // Reload the component
-  //     updateWorkoutData();
-  //     saveWorkoutsList();
-  //     console.log('update');
-  //   } else {
-  //     console.log('no update');
-  //   }
-  // }, [reloadComponent]);
-
-  // useEffect(() => {
-  //   if (confirmEating) {
-  //     setTimeout(() => {
-  //       dosomeThing();
-  //     }, 3000);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   const getSubs = async () => {
-  //     await AsyncStorage.getItem('workoutsList').then((value) => {
-  //       if (value !== null) {
-  //         const workoutsList = JSON.parse(value);
-  //         //filter by category and location
-
-  //         const filteredWorkoutsList =
-  //           workoutsList.filter(
-  //             (workout) =>
-  //               workout.active === false &&
-  //               workout.category === category &&
-  //               (workout.loc === locSelector || workout.loc === 'Both')
-  //           ) || [];
-
-  //         setSubs(filteredWorkoutsList);
-  //         setIsLoading(false);
-  //       }
-  //     });
-  //   };
-  //   getSubs();
-  // }, [category, locSelector]);
 
   const sortedData = [...filteredWorkoutsList].sort((a, b) => {
     if (a.type === 'warmup' && b.type !== 'warmup') {
@@ -273,27 +234,6 @@ const StartPlan = (props) => {
   // console.log(workoutsList);
   const navigation = useNavigation();
 
-  // if (isLoading) {
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-  //       <ActivityIndicator size="large" color="#3F3B6C" />
-  //     </View>
-  //   );
-  // }
-
-  //add refreshing
-
-  // useEffect(() => {
-  //   if (confirmEating) {
-  //     const timer = setTimeout(() => {
-  //       dosomeThing();
-  //     }, 2000); // 3 seconds delay
-
-  //     // Cleanup function to clear the timeout if the component is unmounted
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [confirmEating]);
-
   return (
     <SafeAreaView
       style={{
@@ -309,7 +249,7 @@ const StartPlan = (props) => {
         <View
           style={{
             backgroundColor: theme.colors.background,
-            borderColor: theme.colors.grey,
+            borderColor: theme.colors.border,
             borderWidth: 1,
             borderRadius: 16,
             justifyContent: 'center',
@@ -344,7 +284,7 @@ const StartPlan = (props) => {
         <View
           style={{
             backgroundColor: theme.colors.background,
-            borderColor: theme.colors.grey,
+            borderColor: theme.colors.border,
             borderWidth: 1,
             borderRadius: 16,
             justifyContent: 'flex-start',
@@ -396,7 +336,7 @@ const StartPlan = (props) => {
                   marginHorizontal: 10,
                   height: 60,
                   borderRadius: 16,
-                  borderColor: theme.colors.grey,
+                  borderColor: theme.colors.border,
                   borderWidth: 1,
                 }}>
                 <View

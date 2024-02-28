@@ -53,7 +53,6 @@ const PlanPlus = ({ route }) => {
   const RTL = userLanguage === 'fa';
   //console.log('timeSpent in index new plan', timeSpent);
   const saveWorkoutsList = async () => {
-    console.log('saveWorkoutsList');
     await AsyncStorage.getItem('workoutsList').then((value) => {
       if (value !== null) {
         // console.log('value in index from async', JSON.parse(value).data.data);

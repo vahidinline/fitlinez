@@ -3,6 +3,7 @@ import React from 'react';
 import SettingIndex from '../screens/settings/IndexSettings';
 import ChangeLanguage from '../screens/settings/changeLanguage';
 import SupportIndex from '../screens/settings/supportIndex';
+import CustomPlan from '../screens/settings/customPlan';
 const Stack = createStackNavigator();
 function SettingNavigator() {
   return (
@@ -10,6 +11,14 @@ function SettingNavigator() {
       <Stack.Screen
         name="SettingIndex"
         component={SettingIndex}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="CustomPlan"
+        component={CustomPlan}
         options={{
           headerShown: false,
         }}

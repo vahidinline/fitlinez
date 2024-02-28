@@ -340,9 +340,11 @@ const i18nt = {
     tutorialVideo: 'Tutorial Video',
     upgradeHeaderTextIndex: 'Upgrade to Premium',
     restday: 'Rest Day',
+    Retry: 'Retry',
   },
 
   fa: {
+    Retry: 'تلاش مجدد',
     restday: 'روز استراحت',
     alertEndOfList: ' آخرین تمرین',
     PremiumHeaderText: '{{dayLeft}} روز باقی مانده از حساب کاربری پریمیوم شما',

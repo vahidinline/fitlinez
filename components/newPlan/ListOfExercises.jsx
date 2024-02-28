@@ -187,8 +187,8 @@ const ListOfExercises = (props) => {
       setTimeout(() => {
         navigation.navigate('Handleend', {
           // duration: timeSpentParent,
-          category: category,
-          location: location,
+          category: category || '',
+          location: location || '',
           completionPercentage:
             category === 'Cardio' ? 100 : completionPercentage,
         });

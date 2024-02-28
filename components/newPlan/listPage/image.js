@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Image, Button, StyleSheet, Dimensions } from 'react-native';
+import { View, Button, StyleSheet, Dimensions } from 'react-native';
+import { Image } from 'react-native-expo-image-cache';
 
-const ImageLoader = ({ uri, width, height }) => {
+const ImageLoader = ({ uri, width, height, i18n }) => {
   const [imageLoaded, setImageLoaded] = useState(true);
   const [key, setKey] = useState(0); // Used to force re-render
   const [dimensions, setDimensions] = useState({ width: 200, height: 200 }); // Default dimensions
@@ -32,15 +33,16 @@ const ImageLoader = ({ uri, width, height }) => {
   return (
     <View style={styles.container}>
       {imageLoaded ? (
-        <Image
-          key={key}
-          source={{ uri: uri }}
-          style={{ width: width, height: height }}
-          onLoad={handleImageLoad}
-          onError={handleImageError}
-        />
+        // <Image
+        //   key={key}
+        //   source={{ uri: uri }}
+        //   style={{ width: width, height: height }}
+        //   onLoad={handleImageLoad}
+        //   onError={handleImageError}
+        // />
+        <Image style={{ height: height, width: width }} {...{ uri }} />
       ) : (
-        <Button title="Retry" onPress={retryLoadingImage} />
+        <Button title={i18n.t('Retry')} onPress={retryLoadingImage} />
       )}
       {/* <View style={styles.buttonsContainer}>
         <Button title="Zoom In" onPress={zoomIn} />

@@ -1,9 +1,22 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { Alert, Linking } from 'react-native';
+import api from './api';
+
+const getPlanUsage = async (userId) => {
+  console.log('getPlanUsage', userId);
+  try {
+    const response = await api.get(`/newplan/usage/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return false;
+    // Possible 404 error (e.g., endpoint not found)
+  }
+};
 
 const updateWorkoutPlan = async (data, addedDateTime, userId) => {
-  //console.log('updateWorkoutPlan by asyncstorage', data, userId);
+  console.log('updateWorkoutPlan by asyncstorage', data, addedDateTime);
   try {
     await AsyncStorage.setItem(
       'workoutsList',
@@ -11,7 +24,7 @@ const updateWorkoutPlan = async (data, addedDateTime, userId) => {
     ).then(() => {
       console.log('stored into async updateWorkoutPlan');
       //setShowCustomAlert(true);
-      const res = axios.post(`https://jobitta.com/newplan/usage/`, {
+      const res = api.post(`/newplan/usage/`, {
         userId: userId,
         packageId: data._id,
       });
@@ -25,11 +38,9 @@ const updateWorkoutPlan = async (data, addedDateTime, userId) => {
 const getWorkOutData = async (userId) => {
   console.log('what are you doing getWorkOutData');
   try {
-    const response = await axios
-      .get('https://jobitta.com/newplan/prebuild')
-      .then(async (res) => {
-        await updateWorkoutPlan({ data: res.data[2], userId: userId });
-      });
+    const response = await api.get('/newplan/prebuild').then(async (res) => {
+      await updateWorkoutPlan({ data: res.data[2], userId: userId });
+    });
     //console.log('response', response);
     return true;
   } catch (error) {
@@ -54,8 +65,8 @@ const getSubWorkOutData = async (
   userLocation
 ) => {
   try {
-    const response = await axios
-      .get('https://jobitta.com/workout/subworkout', {
+    const response = await api
+      .get('/workout/subworkout', {
         params: {
           userId: userId,
           exerciseId: exerciseId,
@@ -134,14 +145,11 @@ const userLevelCheck = async (userAuth, setUserAuth) => {
   return new Promise((res, rej) => {
     const fetchData = async () => {
       try {
-        let response = await axios.get(
-          `https://jobitta.com/api/userupdate/${userAuth.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${userAuth}`,
-            },
-          }
-        );
+        let response = await api.get(`/api/userupdate/${userAuth.id}`, {
+          headers: {
+            Authorization: `Bearer ${userAuth}`,
+          },
+        });
 
         if (!response.data) {
           setUserAuth(null);
@@ -184,7 +192,7 @@ const checkVersion = async (
   i18n
 ) => {
   try {
-    const value = await axios.get('https://jobitta.com/api/checkNewVersion');
+    const value = await api.get('/api/checkNewVersion');
     const {
       version,
       status,
@@ -308,15 +316,12 @@ const checkVersion = async (
 
 const updateExpiredUser = async (userAuth, setUserAuth) => {
   try {
-    await axios
-      .put(
-        `https://jobitta.com/api/updateUserLevelAfterExpire/${userAuth.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${userAuth}`,
-          },
-        }
-      )
+    await api
+      .put(`/api/updateUserLevelAfterExpire/${userAuth.id}`, {
+        headers: {
+          Authorization: `Bearer ${userAuth}`,
+        },
+      })
       .then((res) => {
         // if (!res.data) {
         //   setUserAuth(null);
@@ -332,10 +337,10 @@ const updateExpiredUser = async (userAuth, setUserAuth) => {
   }
 };
 
-const getPackages = async () => {
+const getPackages = async (userId) => {
   //setLoading(true);
   return new Promise(async (resolve) => {
-    await axios.get('https://jobitta.com/newplan/prebuild').then((res) => {
+    await api.get('/newplan/prebuild').then((res) => {
       resolve(res.data);
       try {
         //add to asyncstorage
@@ -356,4 +361,5 @@ export {
   getSubWorkOutData,
   createGoogleCalendarEvent,
   getPackages,
+  getPlanUsage,
 };

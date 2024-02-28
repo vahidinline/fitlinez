@@ -30,6 +30,7 @@ import {
   IconRanking,
   IconSupport,
   IconTrash,
+  IconWeight,
   Iconshare,
 } from '../marketplace/filters/icons';
 
@@ -55,28 +56,6 @@ const onShare = async () => {
   } catch (error) {
     Alert.alert(error.message);
   }
-};
-
-const deleteAccount = () => {
-  Alert.alert(
-    'Delete Account  ',
-    'Are you sure you want to Delete your account?',
-    [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {
-        text: 'OK',
-        onPress: () =>
-          Alert.alert(
-            'Account Deletion request has been recieved. Your account will be removed within 2 business days'
-          ) + console.log(userAuth.id),
-      },
-    ],
-    { cancelable: false }
-  );
 };
 
 function SettingIndex() {
@@ -132,6 +111,12 @@ function SettingIndex() {
       func: () => deleteAccount(),
     },
     {
+      id: 8,
+      name: 'Select Specific Workout',
+      icon: IconWeight,
+      func: () => navigation.navigate('CustomPlan'),
+    },
+    {
       id: 9,
       name: i18n.t('pushNotification'),
       icon: IconInfo,
@@ -139,6 +124,28 @@ function SettingIndex() {
       sub: true,
     },
   ];
+
+  const deleteAccount = () => {
+    Alert.alert(
+      'Delete Account  ',
+      'Are you sure you want to Delete your account?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () =>
+            Alert.alert(
+              'Account Deletion request has been recieved. Your account will be removed within 2 business days'
+            ) + console.log(userAuth.id),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
   async function registerForPushNotificationsAsync() {
     const { status } = await Notifications.requestPermissionsAsync();

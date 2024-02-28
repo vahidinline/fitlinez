@@ -395,7 +395,7 @@ const getStyle = (theme) =>
     },
 
     subtitle: {
-      fontSize: 13,
+      fontSize: 10,
       fontWeight: '400',
       color: theme.colors.grey1,
       textAlign: 'center',

@@ -44,6 +44,15 @@ const SessionTimer = ({ stoptimer, saveTimer, setSaveTimer }) => {
     }
   };
 
+  //trigger storeTimeSpend after each minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      storeTimeSpend(timeSpentLocal);
+      console.log('time_spend interval stored', JSON.stringify(timeSpentLocal));
+    }, 60000);
+    return () => clearInterval(interval);
+  }, [timeSpentLocal]);
+
   const formatTime = (totalSeconds) => {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);

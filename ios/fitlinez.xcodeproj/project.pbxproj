@@ -431,7 +431,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = ee.fitlinez.eu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fitlinez.eu;
 				PRODUCT_NAME = fitlinez;
 				SWIFT_OBJC_BRIDGING_HEADER = "fitlinez/fitlinez-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
