@@ -107,7 +107,7 @@ const FinishSession = (props) => {
 
     getData();
     deleteSessiondata();
-    navigation.navigate('FinishWorkOut', {
+    navigation.navigate('SahreResult', {
       timeSpent: timeSpent,
       totalWeightSum: totalWeightSum,
       category: category,

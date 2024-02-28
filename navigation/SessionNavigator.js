@@ -4,6 +4,7 @@ import StartSessionIndex from '../screens/Sessions/StartSessionIndex';
 import WeeklyPlan from '../screens/Sessions/WeeklyPlan';
 import SessionMainPage from '../screens/Sessions/SessionMainPage';
 import FinishSession from '../screens/Sessions/FinishSession';
+import SahreResult from '../screens/Sessions/SahreResult';
 
 const Stack = createStackNavigator();
 
@@ -41,13 +42,13 @@ const SessionNavigator = () => {
           gestureEnabled: false,
         }}
       /> */}
-      {/* <Stack.Screen
-        name="ShareResult"
-        component={FinishWorkOut}
+      <Stack.Screen
+        name="SahreResult"
+        component={SahreResult}
         options={{
           headerShown: false,
         }}
-      /> */}
+      />
       <Stack.Screen
         name="FinishSession"
         component={FinishSession}

@@ -6,20 +6,25 @@
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
-
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#5B5891"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "bundleIdentifier": "com.fitlinez.eu",
       "buildNumber": "0.0.1",
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["fetch"],
-        "LSApplicationQueriesSchemes": ["instagram"]
+        "UIBackgroundModes": [
+          "fetch"
+        ],
+        "LSApplicationQueriesSchemes": [
+          "instagram"
+        ]
       }
     },
     "android": {
@@ -44,9 +49,19 @@
       }
     },
     "owner": "fitlinez",
-    "plugins": ["expo-localization", "@bugsnag/plugin-expo-eas-sourcemaps"],
+    "plugins": [
+      "expo-localization",
+      "@bugsnag/plugin-expo-eas-sourcemaps",
+      "expo-updates",
+      [
+        "expo-updates",
+        {
+          "username": "fitlinez"
+        }
+      ]
+    ],
     "updates": {
-      "url": "https://u.expo.dev/98959ab2-921b-4268-bd1f-6b169090214b"
+      "url": "https://u.expo.dev/7819d490-9761-46a4-93c9-1c969843df38"
     },
     "runtimeVersion": "exposdk:49.0.0"
   }

@@ -15,6 +15,7 @@ import { TimeSpentProvider } from './api/TimeSpentContext';
 import HomeNavigator from './navigation/HomeNavigator';
 import initDB from './api/db';
 import * as SQLite from 'expo-sqlite';
+import * as Updates from 'expo-updates';
 import { Button, Text, ThemeProvider, useTheme } from '@rneui/themed';
 import * as Notifications from 'expo-notifications';
 import React from 'react';
@@ -65,6 +66,25 @@ export default function App() {
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === DefaultTheme ? SecondTheme : DefaultTheme);
   };
+
+  async function onFetchUpdateAsync() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      } else {
+        console.log('No updates available');
+      }
+    } catch (error) {
+      // You can also add an alert() here if needed for your purposes
+      console.log(`Error fetching latest Expo update: ${error}`);
+    }
+  }
+
+  useEffect(() => {
+    onFetchUpdateAsync();
+  }, []);
 
   useEffect(() => {
     userLevelCheck(userAuth, setUserAuth);

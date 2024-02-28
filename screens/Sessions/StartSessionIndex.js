@@ -21,7 +21,7 @@ import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { IconArrowRight } from '../marketplace/filters/icons';
 import Header from '../../components/header';
-import { userLevelCheck } from '../../api/GetData';
+import { userLevelCheck, userStatusCheck } from '../../api/GetData';
 
 require('moment/locale/fa');
 require('moment/locale/en-gb');

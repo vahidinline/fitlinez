@@ -84,6 +84,7 @@ function Subs({
         containerStyle={
           {
             //marginTop: 20,
+            //height: Dimensions.get('window').height / 1.5,
           }
         }>
         <View
@@ -117,8 +118,8 @@ function Subs({
                   borderWidth: 2,
                   borderColor:
                     selected && selectedItem._id === l._id
-                      ? theme.colors.secondary
-                      : theme.colors.grey,
+                      ? theme.colors.primary
+                      : theme.colors.border,
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginHorizontal: 10,
@@ -173,7 +174,7 @@ function Subs({
                 width: Dimensions.get('window').width / 2.5,
                 height: Dimensions.get('window').height / 20,
                 backgroundColor: theme.colors.white,
-                borderColor: theme.colors.secondary,
+                borderColor: theme.colors.border,
                 borderWidth: 1,
                 borderRadius: 12,
                 marginBottom: 20,
@@ -186,14 +187,21 @@ function Subs({
                 setVisible(false);
               }}
               title={'Done'}
+              titleStyle={{
+                color: theme.colors.primary,
+              }}
               buttonStyle={{
                 marginHorizontal: 10,
                 borderRadius: 12,
+                borderColor: theme.colors.border,
+                borderWidth: 1,
+
                 width: Dimensions.get('window').width / 2.5,
                 height: Dimensions.get('window').height / 20,
                 backgroundColor: theme.colors.button,
                 borderRadius: 12,
                 marginBottom: 20,
+                // color: theme.colors.primary,
               }}
             />
           </View>

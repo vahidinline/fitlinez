@@ -218,6 +218,7 @@ function Subs({
               }}
             />
             <Button
+              disabled={!selected}
               onPress={() => {
                 handleSubsitute(exerciseId, selectedItem);
                 setVisible(false);

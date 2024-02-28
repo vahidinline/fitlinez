@@ -19,19 +19,16 @@ import { Button, Text, useTheme } from '@rneui/themed';
 import { Divider } from 'react-native-paper';
 import formatTime from '../../api/timeFormat';
 import {
-  IconHomeFocused,
   IconImage,
   IconLogo,
-  IconSelect,
   Iconshare,
   IxonArrow3,
-} from '../../screens/marketplace/filters/icons';
+} from '../marketplace/filters/icons';
 import Header from '../../components/header';
 import { TouchableOpacity } from 'react-native';
 
-const FinishWorkOut = ({ route }) => {
+const SahreResult = ({ route }) => {
   const [open, setOpen] = useState(false);
-  const [opacity, setOpacity] = useState(1);
   const [screenShot, setScreenShot] = useState(true);
   const [newRecord, setNewRecord] = useState([]);
   const [status, requestPermission] = MediaLibrary.usePermissions();
@@ -453,4 +450,4 @@ const getStyle = (theme) =>
     },
   });
 
-export default FinishWorkOut;
+export default SahreResult;
