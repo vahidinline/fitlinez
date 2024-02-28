@@ -34,7 +34,6 @@ function Subs({
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-
   const styles = getStyles(theme); // Call the function inside the component
   const subListGetter = async () => {
     const subList = await getSubWorkOutData(
@@ -140,44 +139,7 @@ function Subs({
                 }}>
                 {l.name}
               </Text>
-              {/* <Text
-                    //numberOfLines={2}
-                    style={{
-                      fontSize: 15,
-                      // fontWeight: 'bold',
-                      color: theme.colors.secondary,
-                      //marginTop: 50,
-                      //alignContent: 'center',
-                      //textAlign: 'center',
-                    }}>
-                    {l?.bodyPart}
-                  </Text> */}
-              {/* <Text
-                    numberOfLines={2}
-                    style={{
-                      fontSize: 15,
-                      // fontWeight: 'bold',
-                      color: theme.colors.secondary,
-                      //marginTop: 50,
-                      //alignContent: 'center',
-                      //textAlign: 'center',
-                    }}>
-                    {l?.equipment}
-                  </Text> */}
-              {/* <Text
-                    //numberOfLines={2}
-                    style={{
-                      fontSize: 15,
-                      // fontWeight: 'bold',
-                      color: theme.colors.secondary,
-                      //marginTop: 50,
-                      //alignContent: 'center',
-                      //textAlign: 'center',
-                      // borderLeftColor: theme.colors.grey0,
-                      // borderRightWidth: 1,
-                    }}>
-                    {l.loc === 'Both' ? 'Home & Gym' : `${l.loc} edition`}
-                  </Text> */}
+
               <Image
                 source={{ uri: l.gifUrl }}
                 style={{
@@ -218,6 +180,7 @@ function Subs({
               }}
             />
             <Button
+              disabled={!selected}
               onPress={() => {
                 handleSubsitute(exerciseId, selectedItem);
                 setVisible(false);

@@ -122,7 +122,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
               </Text>
               <LinearProgress
                 value={isNaN(percentage) ? 0 : percentage / 100}
-                style={{ marginTop: 10 }}
+                style={{ marginTop: 10, height: 10, borderRadius: 8 }}
               />
             </View>
           }

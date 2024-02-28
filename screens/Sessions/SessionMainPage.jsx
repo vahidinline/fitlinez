@@ -224,7 +224,6 @@ const SessionMainPage = (props) => {
           }}
           removeClippedSubviews={true}
           maxToRenderPerBatch={2}
-          updateCellsBatchingPeriod={30}
           horizontal
           ref={flatListRef}
           keyExtractor={(item) => item._id}
