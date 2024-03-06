@@ -20,6 +20,8 @@ import AuthContext from '../../api/context';
 import { ActivityIndicator } from 'react-native-paper';
 import NoWorkoutCard from './noWorkout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ChatBotIndex from '../chatBot/chatBotIndex';
+import { checkUserAccess } from '../../api/checkTestAccess';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -37,7 +39,9 @@ function HomeIndex() {
   const isRTL = userLanguage === 'fa';
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
-
+  const [userTestAccess, setUserTestAccess] = useState(
+    checkUserAccess(userAuth.id)
+  );
   const BACKGROUND_FETCH_TASK = 'background-fetch';
   TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     try {
@@ -193,9 +197,11 @@ function HomeIndex() {
             style={{
               width: Dimensions.get('window').width,
               marginTop: 10,
+              height: Dimensions.get('window').height / 15,
+              //zIndex: 100,
               marginBottom: Dimensions.get('window').height / 6,
             }}>
-            <Text
+            {/* <Text
               style={{
                 fontSize: 16,
                 fontWeight: '500',
@@ -205,7 +211,7 @@ function HomeIndex() {
                 textAlign: isRTL ? 'right' : 'left',
               }}>
               {i18n.t('currentPlan')}
-            </Text>
+            </Text> */}
 
             <CurrentWorkoutCard
               title={currentPlan?.name || ''}
@@ -221,6 +227,7 @@ function HomeIndex() {
             style={{
               width: Dimensions.get('window').width,
               marginTop: 10,
+
               marginBottom: Dimensions.get('window').height / 6,
             }}>
             <NoWorkoutCard packages={packages} userPervilage={userPervilage} />
@@ -241,33 +248,48 @@ function HomeIndex() {
           }}>
           {i18n.t('recomandedworkout')}
         </Text>
-        {packages?.length === 0 && (
+        {/* {userTestAccess ? (
           <View
             style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
-              marginTop: 20,
-              marginHorizontal: 30,
-              marginBottom: 20,
-              borderRadius: 20,
+              position: 'absolute',
+              top: 200,
+              left: 0,
+              right: 0,
+              bottom: 0,
             }}>
-            <Skeleton
-              skeletonStyle={{
-                backgroundColor: theme.colors.primary,
-                borderRadius: 20,
-                borderWidth: 0.5,
-                borderColor: theme.colors.border,
-              }}
-              animation="pulse"
-              width={Dimensions.get('window').width / 1 - 20}
-              height={Dimensions.get('window').height / 3}
-            />
+            <ChatBotIndex isRTL={isRTL} theme={theme} />
           </View>
-        )}
-        {packages.map((item) => (
-          <CardItem key={item._id} item={item} />
-        ))}
+        ) : ( */}
+        <>
+          {packages?.length === 0 && (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignContent: 'center',
+                alignItems: 'center',
+                marginTop: 20,
+                marginHorizontal: 30,
+                marginBottom: 20,
+                borderRadius: 20,
+              }}>
+              <Skeleton
+                skeletonStyle={{
+                  backgroundColor: theme.colors.primary,
+                  borderRadius: 20,
+                  borderWidth: 0.5,
+                  borderColor: theme.colors.border,
+                }}
+                animation="pulse"
+                width={Dimensions.get('window').width / 1 - 20}
+                height={Dimensions.get('window').height / 3}
+              />
+            </View>
+          )}
+          {packages.map((item) => (
+            <CardItem key={item._id} item={item} />
+          ))}
+        </>
+        {/* )} */}
       </ScrollView>
     </View>
   );

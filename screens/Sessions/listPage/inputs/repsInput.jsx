@@ -104,7 +104,7 @@ function RepsInput(props) {
     <View
       style={{
         sflex: 1,
-        flexDirection: 'row',
+        flexDirection: 'column',
         //paddingRight: 10,
         height: 70,
       }}>

@@ -11,20 +11,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#5B5891"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.fitlinez.eu",
       "buildNumber": "0.0.1",
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": [
-          "fetch"
-        ],
-        "LSApplicationQueriesSchemes": [
-          "instagram"
-        ]
+        "UIBackgroundModes": ["fetch"],
+        "LSApplicationQueriesSchemes": ["instagram"]
       }
     },
     "android": {
@@ -41,6 +35,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
+      "supportsRTL": true,
       "eas": {
         "projectId": "7819d490-9761-46a4-93c9-1c969843df38"
       },
@@ -53,6 +48,7 @@
       "expo-localization",
       "@bugsnag/plugin-expo-eas-sourcemaps",
       "expo-updates",
+
       [
         "expo-updates",
         {

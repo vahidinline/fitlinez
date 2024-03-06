@@ -125,7 +125,7 @@ function TimerInput({
       }}>
       <View
         style={{
-          width: Dimensions.get('window').width / 1.1,
+          width: Dimensions.get('window').width / 1.13,
           flexDirection: 'row',
           height: 90,
           justifyContent: 'space-between',

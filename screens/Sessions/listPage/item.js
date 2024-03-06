@@ -25,7 +25,8 @@ import RestCounterComponent from './inputs/counter';
 import Instruction from './instruction';
 import Subs from './subs';
 import * as Icons from '../../marketplace/filters/icons';
-
+import AiAskHelpIndex from '../../AiAskHelp/AiAskHelpIndex';
+import { checkUserAccess } from '../../../api/checkTestAccess';
 const { width, height } = Dimensions.get('window');
 
 function Item({
@@ -73,7 +74,7 @@ function Item({
   const [showRest, setShowRest] = useState(false);
   const RTL = userLanguage === 'fa';
   const { sessionData, setSessionData } = useContext(SessionContext);
-
+  const [userTestAccess, setUserTestAccess] = useState(checkUserAccess(userId));
   let buttonVisible = true;
   if (index >= dataLength - 1) {
     buttonVisible = false;
@@ -334,17 +335,35 @@ function Item({
           width={Dimensions.get('window').width / 2.2}
           height={Dimensions.get('window').height / 4.1}
         />
+        {userTestAccess && (
+          <View
+            style={{
+              position: 'absolute',
+              top: 0,
+
+              //backgroundColor: theme.colors.green,
+              marginHorizontal: 10,
+              marginVertical: 10,
+            }}>
+            <AiAskHelpIndex
+              title={title}
+              category={category}
+              userLanguage={userLanguage}
+            />
+          </View>
+        )}
       </View>
 
       {/* {inputType !== 'timer' && inputType !== 'rep' && <Recomand />} */}
       <View
         style={{
-          flexDirection: 'row',
+          flexDirection: 'column',
         }}>
+        <View></View>
         <ScrollView
           style={{
-            marginTop: 15,
-            marginHorizontal: 15,
+            marginTop: 5,
+            marginHorizontal: 10,
             width: Dimensions.get('window').width - 20,
           }}>
           {inputType === 'timer' ? (
@@ -412,6 +431,7 @@ function Item({
           />
         )}
       </View>
+
       {showInstruction ? (
         <Instruction
           title={i18n.t('instructions')}

@@ -1,4 +1,4 @@
-import { BottomSheet, Button, Image, Text, useTheme } from '@rneui/themed';
+import { BottomSheet, Button, Text, useTheme } from '@rneui/themed';
 import React, { useEffect, useState } from 'react';
 import { Alert, Dimensions, TouchableOpacity, View } from 'react-native';
 import { getSubWorkOutData } from '../../../api/GetData';
@@ -6,6 +6,7 @@ import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import i18nt from '../../../locales';
 import LanguageContext from '../../../api/langcontext';
+import { Image } from 'react-native-expo-image-cache';
 import { useContext } from 'react';
 import { I18n } from 'i18n-js';
 
@@ -142,7 +143,7 @@ function Subs({
               </Text>
 
               <Image
-                source={{ uri: l.gifUrl }}
+                {...{ uri: l.gifUrl }}
                 style={{
                   width: 60,
                   height: 60,

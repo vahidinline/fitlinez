@@ -92,7 +92,7 @@ function ListItems({ packages, name, navigation }) {
           {name}
         </Text>
 
-        <Text
+        {/* <Text
           onPress={() => {
             //console.log('see all');
             navigation.navigate('WorkoutListIndex', {
@@ -109,7 +109,7 @@ function ListItems({ packages, name, navigation }) {
             color: theme.colors.secondary,
           }}>
           {i18n.t('seeAll')}
-        </Text>
+        </Text> */}
       </View>
       <View
         style={{

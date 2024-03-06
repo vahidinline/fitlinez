@@ -8,6 +8,7 @@ import i18nt from '../../../locales';
 import { I18n } from 'i18n-js';
 import { Iconstar } from '../filters/icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Image } from 'react-native-expo-image-cache';
 
 const SingleItem = ({ title, sub, level, star, mainTitle }) => {
   const { theme } = useTheme();
@@ -120,7 +121,7 @@ function CardItem({ item }) {
         style={{
           flexDirection: 'row',
         }}>
-        <Card.Cover
+        {/* <Card.Cover
           style={{
             width: Dimensions.get('window').width / 3,
             height: Dimensions.get('window').height / 3.5,
@@ -129,6 +130,19 @@ function CardItem({ item }) {
             marginVertical: 10,
           }}
           source={{ uri: item.image }}
+        /> */}
+        <Image
+          style={{
+            width: Dimensions.get('window').width / 3,
+            height: Dimensions.get('window').height / 3.3,
+            resizeMode: 'cover',
+            marginLeft: 10,
+            marginVertical: 10,
+            borderRadius: 16,
+          }}
+          {...{
+            uri: item.image,
+          }}
         />
 
         <View

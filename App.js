@@ -19,7 +19,7 @@ import * as Updates from 'expo-updates';
 import { Button, Text, ThemeProvider, useTheme } from '@rneui/themed';
 import * as Notifications from 'expo-notifications';
 import React from 'react';
-import { Dimensions, Linking, SafeAreaView, View } from 'react-native';
+import { Alert, Dimensions, Linking, SafeAreaView, View } from 'react-native';
 import { userLevelCheck } from './api/GetData';
 import { ThemeContext } from './api/themeContext';
 import 'react-native-gesture-handler';
@@ -73,6 +73,7 @@ export default function App() {
       if (update.isAvailable) {
         await Updates.fetchUpdateAsync();
         await Updates.reloadAsync();
+        Alert.alert('Update', 'App is updated');
       } else {
         console.log('No updates available');
       }
