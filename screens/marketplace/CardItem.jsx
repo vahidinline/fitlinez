@@ -120,7 +120,7 @@ function CardItem({ item, showSkeleton }) {
         marginTop: 0,
         backgroundColor: theme.colors.background,
         shadowOpacity: 0,
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderColor: theme.colors.border,
         //height: Dimensions.get('window').height / 2,
       }}>

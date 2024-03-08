@@ -349,6 +349,7 @@ function Item({
               title={title}
               category={category}
               userLanguage={userLanguage}
+              exerciseId={exerciseId}
             />
           </View>
         )}

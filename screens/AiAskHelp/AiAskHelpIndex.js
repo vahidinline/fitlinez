@@ -11,12 +11,20 @@ import InputChat from './inputChat';
 import Usage from './usage';
 import { IconAi } from '../marketplace/filters/icons';
 import ErrorIndex from './error';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function AiAskHelpIndex({ title, category, userLanguage }) {
+function AiAskHelpIndex({ title, category, userLanguage, exerciseId }) {
   const { userAuth } = useContext(AuthContext);
   const userId = userAuth.id;
   const { theme } = useTheme();
-  let message = `Please help me to perform ${title} exercise in ${category} category. your response should be in ${userLanguage} language. I am 41 years old man with feeling pain in my shoulder and doing workout for build muscle. I am 78 kg and 183 cm tall`;
+  const [userPain, setUserPain] = useState(null);
+  //let message = `Help me perform ${title} exercise in ${category} and suggest the weight and reps, my 1rm is 40kg. Response in ${userLanguage}. I'm a 41-year-old man, 78 kg, 183 cm tall, with ${userPain}. Doing muscle-building workout.`;
+  let message = `Please provide short, lest than 1000 token in ${
+    userLanguage === 'en' ? 'in english' : 'به فارسی'
+  }, detailed step-by-step instructions on how to perform the ${title} exercise with  ${
+    userPain === null ? 'no pain' : `special attention to reducing ${userPain}`
+  }`;
+
   const [response, setResponse] = useState(''); // , response, setResponse
   const [status, setStatus] = useState('notstarted'); // , status, setStatus
   const [usage, setUsage] = useState(null); // , usage, setUsage
@@ -24,8 +32,9 @@ function AiAskHelpIndex({ title, category, userLanguage }) {
   const [userLimitExceeded, setUserLimitExceeded] = useState(false); // , userLimitExceeded, setUserLimitExceeded
   const [responseId, setResponseId] = useState(null); // , responseId, setResponseId
   const sendMessage = () => {
+    getUserPain();
     setStatus('loading');
-    sendChatBotMessage(message, userId)
+    sendChatBotMessage(message, userId, exerciseId, title, userLanguage)
       .then((response) => {
         setResponse(response.data.output);
 
@@ -38,9 +47,10 @@ function AiAskHelpIndex({ title, category, userLanguage }) {
       });
   };
 
+  //console.log('message', message);
   const fetchUsage = () => {
     getUserUsage(userId).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setUsage(response.data.dailyUsage);
       setUsagePercentage(response.data.usagePercentage);
       setUserLimitExceeded(response.data.userLimitExceeded);
@@ -49,7 +59,20 @@ function AiAskHelpIndex({ title, category, userLanguage }) {
 
   useEffect(() => {
     fetchUsage();
+    getUserPain();
   }, []);
+
+  const getUserPain = async () => {
+    try {
+      const value = await AsyncStorage.getItem('userPain');
+      //console.log('value', value);
+      if (value !== null) {
+        setUserPain(value);
+      }
+    } catch (e) {
+      console.log('error', e);
+    }
+  };
 
   return (
     <View

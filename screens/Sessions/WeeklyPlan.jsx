@@ -19,6 +19,7 @@ import { SessionContext } from '../../api/sessionContext';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import Header from '../../components/header';
+import AdditionalIndex from '../additionalData/AdditionalIndex';
 
 const db = SQLite.openDatabase('totalWeight.db');
 
@@ -32,6 +33,7 @@ const ButtonsheetComponent = ({
   i18n,
 }) => {
   const { theme } = useTheme();
+  let [painStatus, setPainStatus] = useState('hide');
   return (
     <BottomSheet modalProps={{}} isVisible={isVisible}>
       <View
@@ -92,7 +94,11 @@ const ButtonsheetComponent = ({
             />
           )}
         </View>
-
+        {painStatus !== 'hide' && (
+          <View>
+            <AdditionalIndex />
+          </View>
+        )}
         <Button
           onPress={() => dosomeThing(setIsVisible(!isVisible))}
           title={'Done'}
@@ -107,6 +113,24 @@ const ButtonsheetComponent = ({
             marginBottom: 20,
           }}
         />
+        {painStatus === 'hide' && (
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              width: Dimensions.get('window').width,
+              marginBottom: 20,
+              borderRadius: 10,
+            }}>
+            <Text>Do you feel any pain today? </Text>
+            <Text
+              onPress={() => {
+                setPainStatus(painStatus === 'hide' ? 'show' : 'hide');
+              }}>
+              Press here
+            </Text>
+          </View>
+        )}
       </View>
     </BottomSheet>
   );

@@ -1,8 +1,17 @@
 import api from './api';
 
-const sendChatBotMessage = (message, userId) => {
+const sendChatBotMessage = (
+  message,
+  userId,
+  exerciseId,
+  title,
+  userLanguage
+) => {
   const messages = {
     userId: userId,
+    exerciseId: exerciseId,
+    title: title,
+    userLanguage: userLanguage,
     messages: [
       {
         role: 'user',
@@ -18,7 +27,7 @@ const sendChatBotMessage = (message, userId) => {
   try {
     return api.post('/fitlinez-chat-bot', messages);
   } catch (e) {
-    console.log(e);
+    console.log('ddd');
   }
 };
 

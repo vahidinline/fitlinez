@@ -7013,7 +7013,7 @@ const IconDislike = ({ color, size }) => {
 
 const IconLoading = ({ color, size }) => {
   return (
-    <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
       <Rect
         fill="#5B5891"
         stroke="#5B5891"
@@ -7021,23 +7021,23 @@ const IconLoading = ({ color, size }) => {
         width={size || 30}
         height={size || 30}
         x={25}
-        y={85}></Rect>
+        y={5}></Rect>
       <Rect
         fill="#5B5891"
         stroke="#5B5891"
         strokeWidth={15}
         width={30}
         height={30}
-        x={85}
-        y={85}></Rect>
+        x={5}
+        y={5}></Rect>
       <Rect
         fill="#5B5891"
         stroke="#5B5891"
         strokeWidth={15}
         width={30}
         height={30}
-        x={145}
-        y={85}></Rect>
+        x={5}
+        y={5}></Rect>
     </Svg>
   );
 };

@@ -5,6 +5,7 @@ import {
   IconAi,
   IconDislike,
   IconLike,
+  IconLoading,
   IconMinimize,
   Iconclose,
 } from '../marketplace/filters/icons';
@@ -51,6 +52,7 @@ function ChatResponse({ response, isRTL, theme, setStatus, responseId }) {
             marginTop: 0,
           }}>
           <IconAi name="robot" size={24} color={theme.colors.secondary} />
+
           <Text
             style={{
               fontSize: 12,
