@@ -285,9 +285,11 @@ function HomeIndex() {
               />
             </View>
           )}
-          {packages.map((item) => (
-            <CardItem key={item._id} item={item} />
-          ))}
+          {packages
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .map((item) => (
+              <CardItem key={item._id} item={item} />
+            ))}
         </>
         {/* )} */}
       </ScrollView>

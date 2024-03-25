@@ -50,8 +50,8 @@ function CurrentWorkoutCard({ title, trainer, location }) {
       });
     } else if (userPrivilege) {
       // condition 1
-      navigation.navigate('PlanPlus', {
-        screen: 'planPlusIndex',
+      navigation.navigate('SessionNavigator', {
+        screen: 'StartSessionIndex',
         params: { title: title, location: location },
       });
     } else {

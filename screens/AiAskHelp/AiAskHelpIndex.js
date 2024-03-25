@@ -9,15 +9,17 @@ import Loading from './loading';
 import ChatResponse from './response';
 import InputChat from './inputChat';
 import Usage from './usage';
-import { IconAi } from '../marketplace/filters/icons';
+import { IconAi, IconLoading } from '../marketplace/filters/icons';
 import ErrorIndex from './error';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ActivityIndicator } from 'react-native-paper';
 
-function AiAskHelpIndex({ title, category, userLanguage, exerciseId }) {
+function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId }) {
   const { userAuth } = useContext(AuthContext);
   const userId = userAuth.id;
   const { theme } = useTheme();
   const [userPain, setUserPain] = useState(null);
+  let isRTl = userLanguage === 'fa' ? true : false;
   //let message = `Help me perform ${title} exercise in ${category} and suggest the weight and reps, my 1rm is 40kg. Response in ${userLanguage}. I'm a 41-year-old man, 78 kg, 183 cm tall, with ${userPain}. Doing muscle-building workout.`;
   let message = `Please provide short, lest than 1000 token in ${
     userLanguage === 'en' ? 'in english' : 'به فارسی'
@@ -84,13 +86,17 @@ function AiAskHelpIndex({ title, category, userLanguage, exerciseId }) {
         }
       }>
       <View>
-        {status === 'loading' && <Loading />}
+        {status === 'loading' && (
+          <ActivityIndicator size="small" color="#5B5891" />
+        )}
         {status === 'done' && (
           <ChatResponse
+            isRTl={isRTl}
             responseId={responseId}
             response={response}
             theme={theme}
             setStatus={setStatus}
+            i18n={i18n}
           />
         )}
         {status === 'error' && <ErrorIndex response={response} theme={theme} />}

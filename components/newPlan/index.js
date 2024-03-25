@@ -45,7 +45,7 @@ const PlanPlus = ({ route }) => {
   const [location, setLocation] = useState(
     route.params && route.params.location ? route.params.location : 'gym'
   );
-  //console.log('location in index newPlan', location);
+  console.log('location in index old newPlan', location);
   i18n.locale = userLanguage;
   const navigation = useNavigation();
   const appState = useRef(AppState.currentState);

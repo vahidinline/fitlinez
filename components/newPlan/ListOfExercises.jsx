@@ -57,6 +57,9 @@ const ListOfExercises = (props) => {
     backgroundColor: theme.colors.background,
   };
 
+  const ITEM_WIDTH = width;
+  const ITEM_HEIGHT = height;
+
   useEffect(() => {
     if (flatListRef.current) {
       flatListRef.current.setNativeProps({ scrollEnabled: false });
@@ -224,6 +227,10 @@ const ListOfExercises = (props) => {
           removeClippedSubviews={true}
           horizontal
           ref={flatListRef}
+          getItemLayout={(data, index) =>
+            // It might be different for your case, please calculate them correctly.
+            ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })
+          }
           keyExtractor={(item) => item._id}
           renderItem={({ item, index }) => (
             <View style={style}>

@@ -38,7 +38,7 @@ function LoginIndex(props) {
   const [password, setPassword] = useState(null);
   const [btnDisable, setBtnDisable] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-
+  const [status, setStatus] = useState(null);
   const buttonDisabled = () => {
     if (email !== null && password !== null) {
       setBtnDisable(false);
@@ -52,6 +52,7 @@ function LoginIndex(props) {
   }, [email, password]);
 
   const handleSubmit = async () => {
+    setStatus('loading');
     setIsLoading(true);
     console.log('Sending request with data:'); // Log the request data
     axios
@@ -64,19 +65,22 @@ function LoginIndex(props) {
       .then((res) => {
         if (res.data) {
           setErrorMessage(res.data.error);
-
+          setStatus('error');
           try {
             const user = jwtDecode(res.data.data);
 
             if (user) {
               setIsLoading(false);
+              setStatus('success');
               authContext.setUserAuth(user);
               authStorage.storeToken(user);
             } else {
               setIsLoading(false);
+              setStatus('error');
             }
           } catch (decodeError) {
             setIsLoading(false);
+            setStatus('error');
           }
         } else {
           setErrorMessage(res.data.error);
@@ -188,6 +192,7 @@ function LoginIndex(props) {
             </Text>
           </View>
           <Button
+            loading={status === 'loading' ? true : false}
             type="outline"
             disabled={btnDisable}
             onPress={handleSubmit}

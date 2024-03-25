@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { BottomSheet, Button } from '@rneui/themed';
+import { BottomSheet, Button, Divider } from '@rneui/themed';
 import { I18n } from 'i18n-js';
 import * as SQLite from 'expo-sqlite';
 import { useTheme } from '@rneui/themed';
@@ -31,8 +31,10 @@ const ButtonsheetComponent = ({
   dosomeThing,
   baseLocation,
   i18n,
+  isRTL,
 }) => {
   const { theme } = useTheme();
+  console.log('baseLocation', baseLocation);
   let [painStatus, setPainStatus] = useState('hide');
   return (
     <BottomSheet modalProps={{}} isVisible={isVisible}>
@@ -81,7 +83,7 @@ const ButtonsheetComponent = ({
           {baseLocation === 'gym' && (
             <RadioButtonfitlinez
               label="Gym Workout"
-              selected={locSelector === 'Gym'}
+              selected={locSelector === 'gym'}
               onSelect={() => setLocSelector('Gym')}
             />
           )}
@@ -89,16 +91,17 @@ const ButtonsheetComponent = ({
           {baseLocation === 'home' && (
             <RadioButtonfitlinez
               label="Home Workout"
-              selected={locSelector === 'Home'}
+              selected={locSelector === 'home'}
               onSelect={() => setLocSelector('Home')}
             />
           )}
         </View>
-        {painStatus !== 'hide' && (
+
+        {/* {painStatus !== 'hide' && (
           <View>
-            <AdditionalIndex />
+            <AdditionalIndex i18n={i18n} isRTL={isRTL} />
           </View>
-        )}
+        )} */}
         <Button
           onPress={() => dosomeThing(setIsVisible(!isVisible))}
           title={'Done'}
@@ -113,24 +116,39 @@ const ButtonsheetComponent = ({
             marginBottom: 20,
           }}
         />
-        {painStatus === 'hide' && (
+        <Divider
+          style={{
+            marginVertical: 20,
+            backgroundColor: theme.colors.border,
+          }}
+        />
+        {/* {painStatus === 'hide' && (
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              width: Dimensions.get('window').width,
+              flexDirection: 'column',
+              justifyContent: 'center',
+              width: Dimensions.get('window').width / 1.1,
               marginBottom: 20,
               borderRadius: 10,
             }}>
-            <Text>Do you feel any pain today? </Text>
             <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '500',
+                color: theme.colors.secondary,
+                marginBottom: 0,
+                marginTop: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+              }}
               onPress={() => {
                 setPainStatus(painStatus === 'hide' ? 'show' : 'hide');
               }}>
-              Press here
+              {i18n.t('painGetterTitle')}
             </Text>
           </View>
-        )}
+        )} */}
       </View>
     </BottomSheet>
   );
@@ -171,7 +189,8 @@ const WeeklyPlan = (props) => {
   const { setSessionData } = useContext(SessionContext);
   const { userLanguage } = useContext(LanguageContext);
   const { data, title, day, category, baseLocation } = props.route.params;
-
+  console.log('baseLocation', baseLocation);
+  let isRTL = userLanguage === 'fa' ? true : false;
   const { theme } = useTheme();
   const [refreshing, setRefreshing] = useState(false);
   const [reloadComponent, setReloadComponent] = useState(false); // State variable for reloading the component
@@ -180,9 +199,14 @@ const WeeklyPlan = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [filteredWorkoutsList, setFilteredWorkoutsList] = useState([]);
   const [confirmEating, setConfirmEating] = useState(false);
-  const [locSelector, setLocSelector] = useState('Gym');
+  const [locSelector, setLocSelector] = useState('');
+
   const estimatedTime = filteredWorkoutsList?.length * 6;
   const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setLocSelector(baseLocation);
+  }, [baseLocation]);
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     // getWorkOutData();
@@ -206,12 +230,12 @@ const WeeklyPlan = (props) => {
     navigation.navigate('SessionMainPage', {
       category: title,
       catTname: title,
-      workouts: filteredWorkoutsList,
+      workouts: data,
       location: locSelector,
       day: day,
     });
     // timeContext.setWorkoutDuration(newDate);
-  }, [navigation, filteredWorkoutsList, locSelector]);
+  }, [navigation, data, locSelector]);
 
   const saveWorkoutsList = async () => {
     try {
@@ -231,7 +255,7 @@ const WeeklyPlan = (props) => {
     getWorkOutData();
   }, []);
 
-  const sortedData = [...filteredWorkoutsList].sort((a, b) => {
+  const sortedData = [...data].sort((a, b) => {
     if (a.type === 'warmup' && b.type !== 'warmup') {
       return -1; // "warmup" appears before other types
     } else if (a.type !== 'warmup' && b.type === 'warmup') {
@@ -267,7 +291,7 @@ const WeeklyPlan = (props) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
-        <View
+        {/* <View
           style={{
             backgroundColor: theme.colors.background,
             borderColor: theme.colors.border,
@@ -301,7 +325,7 @@ const WeeklyPlan = (props) => {
               ? i18n.t('gymWorkout')
               : i18n.t('homeWorkout')}
           </Text>
-        </View>
+        </View> */}
         <View
           style={{
             backgroundColor: theme.colors.background,
@@ -311,7 +335,7 @@ const WeeklyPlan = (props) => {
             justifyContent: 'flex-start',
             margin: 10,
 
-            width: Dimensions.get('window').width / 2 - 20,
+            width: Dimensions.get('window').width / 1 - 20,
           }}>
           <Text
             style={{
@@ -425,6 +449,7 @@ const WeeklyPlan = (props) => {
       </View>
       {isVisible && (
         <ButtonsheetComponent
+          isRTL={isRTL}
           i18n={i18n}
           baseLocation={baseLocation}
           isVisible={isVisible}

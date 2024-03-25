@@ -41,6 +41,7 @@ function SignUpIndex(props) {
   const [showPass, setShowPass] = useState(false);
   const [checked, setChecked] = React.useState(false);
   const toggleCheckbox = () => setChecked(!checked);
+  const [status, setStatus] = useState(null);
 
   const buttonDisabled = () => {
     if (email !== null && password !== null && name !== null && checked) {
@@ -76,7 +77,7 @@ function SignUpIndex(props) {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-
+    setStatus('loading');
     axios
       .post('https://jobitta.com/api/register', {
         email,
@@ -89,6 +90,7 @@ function SignUpIndex(props) {
         console.log('res', res.data);
         if (res.data.status === 'ok') {
           setIsLoading(false);
+          setStatus('success');
           try {
             const user = jwtDecode(res.data.data);
             console.log('user', user);
@@ -100,15 +102,18 @@ function SignUpIndex(props) {
             } else {
               console.error('Decoded user data is empty or invalid');
               setIsLoading(false);
+              setStatus('error');
             }
           } catch (decodeError) {
             console.error(decodeError, 'JWT Decoding Error:');
             setIsLoading(false);
+            setStatus('error');
           }
           //Redirect(email, password);
         } else {
           setIsLoading(false);
           alert(res.data.error);
+          setStatus('error');
         }
         // } else {
         //   setIsLoading(false);
@@ -235,6 +240,7 @@ function SignUpIndex(props) {
             />
           </View>
           <Button
+            loading={status === 'loading' ? true : false}
             disabled={btnDisable}
             type="outline"
             onPress={handleSubmit}

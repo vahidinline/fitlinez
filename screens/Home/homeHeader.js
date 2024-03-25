@@ -15,6 +15,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 import {
   IconHeaderNotStarted,
+  IconNowruz,
   IconStarted,
 } from '../marketplace/filters/icons';
 import {
@@ -209,7 +210,36 @@ function HomeHeader({ planStartDate, data, title }) {
               {userAuth?.name}!
             </Text>
           </Text>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              top: 0,
+              // justifyContent: 'space-around',
+              alignItems: 'center',
+              // backgroundColor: { backgroundColor },
+              flexWrap: 'wrap',
+              //  width: '80%',
+            }}>
+            <Text
+              onPress={() => !activeAccount && navigation.navigate('Upgrade')}
+              style={{
+                color: theme.colors.secondary,
+                fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 12 : 14,
+                //paddingHorizontal: 10,
+                flexWrap: 'wrap',
+                flex: 1,
+                fontWeight: '400',
+                marginHorizontal: 5,
+                //direction: RTL ? 'rtl' : 'ltr',
+                textAlign: RTL ? 'right' : 'left',
+              }}>
+              {/* {i18n.t('happyNoruwz')}
+              <IconNowruz /> */}
+            </Text>
+          </View>
         </View>
+
         <Chip
           style={{
             backgroundColor: backgroundColor,

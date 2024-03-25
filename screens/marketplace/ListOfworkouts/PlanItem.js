@@ -6,6 +6,7 @@ import { Alert, Dimensions, ScrollView, View } from 'react-native';
 import { Card } from 'react-native-paper';
 import {
   IconClock,
+  IconHomeFocused,
   IconLevel,
   IconLogo,
   IconTimer,
@@ -309,10 +310,15 @@ function PlanItem({ route }) {
               sub={moment(date).format('DD/MM/YYYY')}
               icon={<IconTimer />}
             />
-            <SingleItem
+            {/* <SingleItem
               title={i18n.t('rate')}
               sub={`${item.star} `}
               icon={<Iconstar size={32} color={theme.colors.gold} />}
+            /> */}
+            <SingleItem
+              title={i18n.t('location')}
+              sub={`${item.location === 'both' ? 'Home/Gym' : item.location} `}
+              icon={<IconHomeFocused size={32} color={theme.colors.gold} />}
             />
           </View>
         </View>

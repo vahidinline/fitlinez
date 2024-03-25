@@ -10,7 +10,7 @@ import { Iconstar } from '../filters/icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'react-native-expo-image-cache';
 
-const SingleItem = ({ title, sub, level, star, mainTitle }) => {
+const SingleItem = ({ title, sub, level, location, mainTitle }) => {
   const { theme } = useTheme();
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
@@ -58,15 +58,15 @@ const SingleItem = ({ title, sub, level, star, mainTitle }) => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <Iconstar size={32} color={theme.colors.gold} />
+            {/* <Iconstar size={32} color={theme.colors.gold} /> */}
             <Text
               style={{
                 color: theme.colors.text,
-                fontSize: 16,
+                fontSize: 12,
                 fontWeight: '500',
                 marginHorizontal: 0,
               }}>
-              {star}
+              {location === 'both' ? 'Gym/Home' : location}
             </Text>
           </View>
           <Chip
@@ -153,8 +153,8 @@ function CardItem({ item }) {
           <SingleItem title={item.name} mainTitle={true} />
           <SingleItem title={i18n.t('trainer')} sub={item.creator} />
           <SingleItem
-            title={i18n.t('duration')}
-            sub={`${item.duration} ${i18n.t('week')}`}
+            title="At"
+            sub={item.location === 'both' ? 'Gym/Home' : item.location}
           />
           <SingleItem title={i18n.t('target')} sub={item.target} />
           <SingleItem
@@ -165,7 +165,7 @@ function CardItem({ item }) {
             title={i18n.t('daysperweek')}
             sub={`${item.DaysPerWeek} ${i18n.t('daysinweek')}`}
           />
-          <SingleItem level={item.level} star={item.star} />
+          <SingleItem level={item.level} location={item.location} />
         </View>
       </View>
     </TouchableOpacity>

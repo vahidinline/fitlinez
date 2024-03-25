@@ -11,7 +11,7 @@ import { I18n } from 'i18n-js';
 import { Iconstar } from './filters/icons';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const SingleItem = ({ title, sub, level, star, mainTitle }) => {
+const SingleItem = ({ title, sub, level, location, mainTitle }) => {
   const { theme } = useTheme();
   const navigation = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
@@ -67,15 +67,15 @@ const SingleItem = ({ title, sub, level, star, mainTitle }) => {
               alignItems: 'center',
               //marginLeft: 10,
             }}>
-            <Iconstar size={32} color={theme.colors.gold} />
+            {/* <Iconstar size={32} color={theme.colors.gold} /> */}
             <Text
               style={{
                 color: theme.colors.text,
-                fontSize: 16,
+                fontSize: 12,
                 fontWeight: '500',
                 marginHorizontal: 5,
               }}>
-              {star} / 5
+              {location}
             </Text>
           </View>
           <Chip
@@ -151,15 +151,16 @@ function CardItem({ item, showSkeleton }) {
             sub={`${item.duration} ${i18n.t('week')}`}
           />
           <SingleItem title={i18n.t('target')} sub={item.target} />
-          <SingleItem
-            title={i18n.t('duration')}
-            sub={`${item.duration} ${i18n.t('week')}`}
-          />
+
           <SingleItem
             title={i18n.t('daysperweek')}
             sub={`${item.DaysPerWeek} ${i18n.t('daysinweek')}`}
           />
-          <SingleItem level={item.level} star={item.star} />
+          <SingleItem
+            level={item.level}
+            // star={item.star}
+            location={item.locarion}
+          />
         </View>
       </View>
     </TouchableOpacity>

@@ -12,7 +12,15 @@ import {
 import { useState } from 'react';
 import { setAiResponseRate } from '../../api/chatBotApi';
 
-function ChatResponse({ response, isRTL, theme, setStatus, responseId }) {
+function ChatResponse({
+  response,
+  isRTL,
+  theme,
+  setStatus,
+  responseId,
+  isRTl,
+  i18n,
+}) {
   const [isHide, setIsHide] = useState(false);
   const [hideFeedback, setHideFeedback] = useState(false);
 
@@ -33,6 +41,7 @@ function ChatResponse({ response, isRTL, theme, setStatus, responseId }) {
         borderRadius: 12,
         borderColor: theme.colors.border,
         borderWidth: 1,
+        direction: isRTl ? 'rtl' : 'ltr',
       }}>
       <View
         style={{
@@ -62,7 +71,7 @@ function ChatResponse({ response, isRTL, theme, setStatus, responseId }) {
               marginHorizontal: 10,
               //textAlign: !isRTL ? 'right' : 'left',
             }}>
-            AI Response
+            {i18n.t('aiResponse')}
           </Text>
         </View>
         <View
@@ -126,7 +135,7 @@ function ChatResponse({ response, isRTL, theme, setStatus, responseId }) {
               marginHorizontal: 10,
               //textAlign: !isRTL ? 'right' : 'left',
             }}>
-            How was the response?
+            {i18n.t('aiResponseRate')}
           </Text>
           <TouchableOpacity onPress={() => setUserRateAi(true)}>
             <IconLike size={24} color={theme.colors.secondary} />

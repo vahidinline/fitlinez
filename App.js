@@ -218,9 +218,9 @@ export default function App() {
         color="primary"
         onPress={() => forceSolveError(setUserAuth)}
         size="lg">
-        Log out
+        Reset the app
       </Button>
-      <Button
+      {/* <Button
         buttonStyle={{
           marginTop: 20,
           marginHorizontal: 20,
@@ -234,7 +234,7 @@ export default function App() {
         onPress={() => clearAllAsyncCache()}
         size="lg">
         clear cache
-      </Button>
+      </Button> */}
     </SafeAreaView>
   );
 

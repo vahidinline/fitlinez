@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   PixelRatio,
   Platform,
-  ScrollView,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -223,6 +222,8 @@ function Item({
       }}>
       {showDrawer && (
         <DrawerList
+          exerciseId={exerciseId}
+          sessionData={sessionData}
           showDrawer={showDrawer}
           setShowDrawer={setShowDrawer}
           title={title}
@@ -350,6 +351,7 @@ function Item({
               category={category}
               userLanguage={userLanguage}
               exerciseId={exerciseId}
+              i18n={i18n}
             />
           </View>
         )}
@@ -359,70 +361,72 @@ function Item({
       <View
         style={{
           flexDirection: 'column',
+          marginHorizontal: 15,
+          marginTop: 5,
+          width: Dimensions.get('window').width - 25,
         }}>
-        <View></View>
-        <ScrollView
+        {/* <ScrollView
           style={{
             marginTop: 5,
             marginHorizontal: 10,
             width: Dimensions.get('window').width - 20,
-          }}>
-          {inputType === 'timer' ? (
-            <TimerInput
-              key={0}
-              index={index}
-              setIndex={0}
-              title={title}
-              exerciseId={exerciseId}
-              category={category}
-              type={type}
-              doneItem={doneItem}
-              inputType={inputType}
-              setFinish={setFinish}
-              numberOfSets={adjustedNumberOfSets}
-              onStoreData={handleStoreData}
-              currentIndex={currentIndex}
-            />
-          ) : (
-            Array.from(Array(adjustedNumberOfSets), (e, i) => {
-              if (inputType === 'rep' && type !== 'cooldown') {
-                return (
-                  <RepsInput
-                    key={i}
-                    index={index}
-                    setIndex={i}
-                    title={title}
-                    exerciseId={exerciseId}
-                    category={category}
-                    type={type}
-                    doneItem={doneItem}
-                    inputType={inputType}
-                    numberOfSets={adjustedNumberOfSets}
-                    onStoreData={handleStoreData}
-                    currentIndex={currentIndex}
-                  />
-                );
-              } else if (type !== 'cooldown') {
-                return (
-                  <WeightAndSetsInput
-                    key={i}
-                    index={index}
-                    setIndex={i}
-                    title={title}
-                    exerciseId={exerciseId}
-                    category={category}
-                    type={type}
-                    doneItem={doneItem}
-                    inputType={inputType}
-                    numberOfSets={adjustedNumberOfSets}
-                    onStoreData={handleStoreData}
-                    currentIndex={currentIndex}
-                  />
-                );
-              }
-            })
-          )}
-        </ScrollView>
+          }}> */}
+        {inputType === 'timer' ? (
+          <TimerInput
+            key={0}
+            index={index}
+            setIndex={0}
+            title={title}
+            exerciseId={exerciseId}
+            category={category}
+            type={type}
+            doneItem={doneItem}
+            inputType={inputType}
+            setFinish={setFinish}
+            numberOfSets={adjustedNumberOfSets}
+            onStoreData={handleStoreData}
+            currentIndex={currentIndex}
+          />
+        ) : (
+          Array.from(Array(adjustedNumberOfSets), (e, i) => {
+            if (inputType === 'rep' && type !== 'cooldown') {
+              return (
+                <RepsInput
+                  key={i}
+                  index={index}
+                  setIndex={i}
+                  title={title}
+                  exerciseId={exerciseId}
+                  category={category}
+                  type={type}
+                  doneItem={doneItem}
+                  inputType={inputType}
+                  numberOfSets={adjustedNumberOfSets}
+                  onStoreData={handleStoreData}
+                  currentIndex={currentIndex}
+                />
+              );
+            } else if (type !== 'cooldown') {
+              return (
+                <WeightAndSetsInput
+                  key={i}
+                  index={index}
+                  setIndex={i}
+                  title={title}
+                  exerciseId={exerciseId}
+                  category={category}
+                  type={type}
+                  doneItem={doneItem}
+                  inputType={inputType}
+                  numberOfSets={adjustedNumberOfSets}
+                  onStoreData={handleStoreData}
+                  currentIndex={currentIndex}
+                />
+              );
+            }
+          })
+        )}
+        {/* </ScrollView> */}
 
         {showRest && (
           <RestCounterComponent

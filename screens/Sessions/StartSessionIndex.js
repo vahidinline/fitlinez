@@ -46,6 +46,8 @@ const StartSessionIndex = ({ route }) => {
   const [location, setLocation] = useState(
     route.params && route.params.location ? route.params.location : 'gym'
   );
+  //console.log('route in index newPlan', route);
+  console.log('location in index newPlan', location);
   //console.log('location in index newPlan', location);
   i18n.locale = userLanguage;
   const navigation = useNavigation();
@@ -263,7 +265,7 @@ const StartSessionIndex = ({ route }) => {
       style={{
         flex: 1,
         backgroundColor: theme.colors.background,
-        TextAlign: RTL ? 'right' : 'left',
+        direction: RTL ? 'rtl' : 'ltr',
       }}>
       <Header title={title} />
       <ScrollView>
@@ -279,7 +281,11 @@ const StartSessionIndex = ({ route }) => {
           .map((item, i) => {
             return (
               <TouchableOpacity
-                disabled={item.title === 'Rest' ? true : false}
+                disabled={
+                  item.title === 'Rest' || item.title === 'walking'
+                    ? true
+                    : false
+                }
                 onPress={() => {
                   item.title === 'Rest' ? null : goToWorkOut(item);
                 }}
