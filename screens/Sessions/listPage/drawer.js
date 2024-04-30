@@ -14,6 +14,7 @@ import {
   IconArrowLeft,
   IconArrowRight,
   IconTick,
+  Iconclose,
 } from '../../../screens/marketplace/filters/icons';
 
 const screenWidth = Dimensions.get('window').width;
@@ -30,7 +31,7 @@ function DrawerList({
   img,
   exerciseId,
 }) {
-  console.log('sessionData in DrawerList:', sessionData);
+  // console.log('sessionData in DrawerList:', sessionData);
   const { theme } = useTheme();
   const styles = getStyles(theme); // Call the function inside the component
   return (
@@ -42,22 +43,11 @@ function DrawerList({
         <View style={styles.backdrop} />
       </TouchableWithoutFeedback>
       <View style={styles.drawerStyle}>
-        <TouchableOpacity
-          style={{
-            position: 'absolute',
-            top: 20,
-            right: 20,
-            zIndex: 1000,
-          }}
-          onPress={() => {
-            setShowDrawer(!showDrawer);
-          }}>
-          {userLanguages === 'fa' ? <IconArrowLeft /> : <IconArrowRight />}
-        </TouchableOpacity>
         <View style={{ flex: 1 }}>
           <FlatList
+            scrollEnabled={true}
             style={{
-              marginTop: 50,
+              marginTop: 10,
             }}
             data={sortedData}
             keyExtractor={(item, index) => index.toString()}
@@ -70,7 +60,7 @@ function DrawerList({
                 <TouchableOpacity
                   onPress={() => {
                     goToIndex(index);
-                    //setShowDrawer(!showDrawer);
+                    setShowDrawer(!showDrawer);
                   }}>
                   <View
                     key={index}
@@ -83,24 +73,37 @@ function DrawerList({
                       marginHorizontal: 10,
                       height: 60,
                       borderRadius: 16,
-                      borderColor: theme.colors.grey,
+                      borderColor: theme.colors.border,
                       borderWidth: 1,
                     }}>
                     <View
                       style={{
                         width: 35,
                         height: 35,
-                        backgroundColor:
-                          ecerciseId !== index
-                            ? theme.colors.lightPrimary
-                            : theme.colors.background,
-                        borderRadius: 4,
+                        backgroundColor: theme.colors.white,
+                        borderRadius: 20,
                         justifyContent: 'center',
                         alignItems: 'center',
                         marginVertical: 10,
                         marginLeft: 10,
+                        borderColor: theme.colors.border,
                       }}>
-                      <Text
+                      <View
+                        style={{
+                          //position: 'absolute',
+                          //bottom: 20,
+                          //left: 20,
+
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          //backgroundColor: theme.colors.background,
+                        }}>
+                        {isInSession && (
+                          <IconTick size={32} color={theme.colors.green} />
+                        )}
+                      </View>
+
+                      {/* <Text
                         style={{
                           fontSize: 16,
                           fontWeight: '500',
@@ -108,12 +111,13 @@ function DrawerList({
                           //padding: 10,
                         }}>
                         {index + 1}
-                      </Text>
+                      </Text> */}
                     </View>
                     <View
                       style={{
                         borderRadius: 4,
-                        // justifyContent: 'center',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
                         //alignItems: 'center',
                         marginVertical: 10,
                         width: screenWidth / 1.4 - 100,
@@ -128,23 +132,16 @@ function DrawerList({
                           paddingVertical: 10,
                           justifyContent: 'flex-start',
 
-                          fontSize: 14,
+                          fontSize: 12,
                           fontWeight: '500',
                           color: theme.colors.secondary,
                         }}>
                         {item.name}
                       </Text>
-                    </View>
-                    <View
-                      style={{
-                        width: 60,
-                        height: 60,
-                        overflow: 'hidden',
-                        marginVertical: 10,
-                      }}>
-                      {isInSession && (
-                        <IconTick size={32} color={theme.colors.green} />
-                      )}
+                      <Image
+                        source={{ uri: item.gifUrl }}
+                        style={{ width: 40, height: 40 }}
+                      />
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -166,6 +163,7 @@ const getStyles = (theme) =>
       height: Dimensions.get('window').height,
       zIndex: 1000,
       borderWidth: 1,
+      //  backgroundColor: theme.colors.white,
       borderColor: theme.colors.border,
     },
     drawerStyle: {

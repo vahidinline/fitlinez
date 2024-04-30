@@ -47,7 +47,7 @@ const StartSessionIndex = ({ route }) => {
     route.params && route.params.location ? route.params.location : 'gym'
   );
   //console.log('route in index newPlan', route);
-  console.log('location in index newPlan', location);
+  //console.log('location in index newPlan', location);
   //console.log('location in index newPlan', location);
   i18n.locale = userLanguage;
   const navigation = useNavigation();
@@ -282,7 +282,10 @@ const StartSessionIndex = ({ route }) => {
             return (
               <TouchableOpacity
                 disabled={
-                  item.title === 'Rest' || item.title === 'walking'
+                  item.title === 'Rest' ||
+                  //lower case walking and running
+                  item.title.toLowerCase() === 'walking' ||
+                  item.title.toLowerCase() === 'running'
                     ? true
                     : false
                 }

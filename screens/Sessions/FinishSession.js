@@ -331,14 +331,14 @@ const FinishSession = (props) => {
                 <Divider style={styles.divider} />
               </>
             )}
-            <View style={styles.view}>
+            {/* <View style={styles.view}>
               <Text style={styles.title}>{completionPercentage}</Text>
               <Text style={styles.subtitle}>{i18n.t('performance')}</Text>
-            </View>
-            <Divider style={styles.divider} />
+            </View> 
+            <Divider style={styles.divider} />*/}
             <View style={styles.view}>
               <Text style={styles.title}>{formatTime(timeSpent)}</Text>
-              <Text style={styles.subtitle}>{i18n.t('duration')}</Text>
+              <Text style={styles.subtitle}>{i18n.t('sessionDuration')}</Text>
             </View>
           </View>
         </View>
@@ -401,7 +401,7 @@ const getStyle = (theme, PixelRatio) =>
     view: {
       height: 70,
       //borderEndWidth: 1,
-      width: Dimensions.get('window').width / 4,
+      width: Dimensions.get('window').width / 3,
       justifyContent: 'space-between',
       alignItems: 'center',
 

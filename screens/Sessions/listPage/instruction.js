@@ -27,7 +27,7 @@ function Instruction({
         onBackdropPress={() => setOpenInstruction(false)}
         overlayStyle={{
           width: Dimensions.get('window').width / 1.2,
-          height: Dimensions.get('window').height / 1.5,
+          height: Dimensions.get('window').height / 4,
           padding: 0,
           margin: 0,
           borderRadius: 16,

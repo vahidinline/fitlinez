@@ -42,7 +42,7 @@ const SessionMainPage = (props) => {
   const { sessionData } = useContext(SessionContext);
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
   const scrollEnabled = true;
-
+  const ITEM_HEIGHT = Dimensions.get('window').height;
   const completionPercentage = calculateTaskCompletionPercentage(
     sessionData,
     data.length
@@ -89,7 +89,7 @@ const SessionMainPage = (props) => {
 
         flatListRef.current.scrollToIndex({
           index: index + 1,
-          animated: false,
+          animated: true,
         });
       }
     } catch (error) {
@@ -101,10 +101,10 @@ const SessionMainPage = (props) => {
     // Scroll to the previous item if it exists
     if (index >= 1) {
       //console.log('iside undoneItem', index);
-      flatListRef.current.scrollToIndex({ index: index - 1, animated: false });
+      flatListRef.current.scrollToIndex({ index: index - 1, animated: true });
       setProgress(progress - 1);
     } else {
-      flatListRef.current.scrollToIndex({ index: 0, animated: false });
+      flatListRef.current.scrollToIndex({ index: 0, animated: true });
       setProgress(1);
     }
   };
@@ -166,7 +166,7 @@ const SessionMainPage = (props) => {
     try {
       const value = await AsyncStorage.getItem('@time_spend');
       if (value !== null) {
-        console.log('time_spend recovered', value);
+        //console.log('time_spend recovered', value);
         setTimeSpent(value);
       }
     } catch (error) {
@@ -213,7 +213,11 @@ const SessionMainPage = (props) => {
   });
 
   //console.log('sortedData', sortedData.length);
-
+  const getItemLayout = (data, index) => ({
+    length: ITEM_HEIGHT,
+    offset: ITEM_HEIGHT * index,
+    index,
+  });
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
@@ -224,7 +228,8 @@ const SessionMainPage = (props) => {
           }}
           removeClippedSubviews={true}
           maxToRenderPerBatch={2}
-          horizontal
+          //horizontal
+          getItemLayout={getItemLayout}
           ref={flatListRef}
           keyExtractor={(item) => item._id}
           renderItem={({ item, index }) => (

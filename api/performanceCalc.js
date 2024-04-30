@@ -20,7 +20,7 @@ async function calculateTaskCompletionPercentage(tasks, totalTaskCount) {
   try {
     // Retrieve existing value from AsyncStorage
     const existingValue = await AsyncStorage.getItem('@SessionPerformance');
-    console.log('existingValue', parseFloat(existingValue));
+    //console.log('existingValue', parseFloat(existingValue));
     // If existing value is NaN, null, or undefined, assign 0
     const baseValue =
       existingValue !== null && !isNaN(parseFloat(existingValue))
@@ -38,7 +38,7 @@ async function calculateTaskCompletionPercentage(tasks, totalTaskCount) {
       '@SessionPerformance',
       completionPercentage.toFixed(2)
     );
-    console.log('Store Performance done ', completionPercentage.toFixed(2));
+    //console.log('Store Performance done ', completionPercentage.toFixed(2));
   } catch (error) {
     console.error('Error storing performance:', error.message);
   }

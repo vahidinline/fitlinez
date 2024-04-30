@@ -26,6 +26,7 @@ import Subs from './subs';
 import * as Icons from '../../marketplace/filters/icons';
 import AiAskHelpIndex from '../../AiAskHelp/AiAskHelpIndex';
 import { checkUserAccess } from '../../../api/checkTestAccess';
+import Recommand from './recomand';
 const { width, height } = Dimensions.get('window');
 
 function Item({
@@ -53,7 +54,9 @@ function Item({
   sortedData,
   goToIndex,
   dataLength,
+  description,
 }) {
+  console.log('description', description);
   const { userLanguage } = useContext(LanguageContext);
   const { IconArrowRight, IconInfo, IconMenu, IconSub } = Icons;
   const i18n = new I18n(i18nt);
@@ -73,11 +76,20 @@ function Item({
   const [showRest, setShowRest] = useState(false);
   const RTL = userLanguage === 'fa';
   const { sessionData, setSessionData } = useContext(SessionContext);
-  const [userTestAccess, setUserTestAccess] = useState(checkUserAccess(userId));
+  const [userTestAccess, setUserTestAccess] = useState(false);
   let buttonVisible = true;
+
+  console.log('userTestAccess', userTestAccess);
   if (index >= dataLength - 1) {
     buttonVisible = false;
   }
+  const handleAccess = async () => {
+    const status = await checkUserAccess(userId);
+    setUserTestAccess(status);
+  };
+  useEffect(() => {
+    handleAccess();
+  }, []);
 
   const handleStoreData = ({
     weight,
@@ -206,7 +218,7 @@ function Item({
       return count;
     });
   };
-
+  console.log('bodyPart in item', bodyPart);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'position' : 'height'}
@@ -356,8 +368,28 @@ function Item({
           </View>
         )}
       </View>
-
-      {/* {inputType !== 'timer' && inputType !== 'rep' && <Recomand />} */}
+      {/* {description && (
+        <View
+          style={{
+            flexDirection: 'column',
+            marginHorizontal: 15,
+            marginTop: 5,
+            width: Dimensions.get('window').width - 25,
+          }}>
+          <Text
+            style={{
+              color: theme.colors.text,
+              fontSize: 14,
+              fontWeight: '400',
+              textAlign: 'left',
+              //alignItems: 'left',
+              marginLeft: 10,
+            }}>
+            {i18n.t('description')} : {description}
+          </Text>
+        </View>
+      )} */}
+      {inputType !== 'timer' && inputType !== 'rep' && <Recommand />}
       <View
         style={{
           flexDirection: 'column',
@@ -409,6 +441,7 @@ function Item({
             } else if (type !== 'cooldown') {
               return (
                 <WeightAndSetsInput
+                  sessionData={sessionData}
                   key={i}
                   index={index}
                   setIndex={i}
@@ -439,11 +472,11 @@ function Item({
 
       {showInstruction ? (
         <Instruction
-          title={i18n.t('instructions')}
+          title={i18n.t('description')}
           openInstruction={showInstruction}
           setOpenInstruction={setShowInstruction}
           userLanguage={userLanguage}
-          instructor={instructor}
+          instructor={description}
           faInstructor={faInstructor}
         />
       ) : null}

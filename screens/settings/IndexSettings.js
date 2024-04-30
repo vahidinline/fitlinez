@@ -264,6 +264,7 @@ function SettingIndex() {
             )}
           />
         </View>
+        <Text>v.1.26.4</Text>
       </View>
     </SafeAreaView>
   );

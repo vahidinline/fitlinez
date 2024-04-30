@@ -169,7 +169,7 @@ const ListOfExercises = (props) => {
     try {
       const value = await AsyncStorage.getItem('@time_spend');
       if (value !== null) {
-        console.log('time_spend recovered', value);
+        // console.log('time_spend recovered', value);
         setTimeSpent(value);
       }
     } catch (error) {

@@ -82,7 +82,7 @@ const ButtonsheetComponent = ({
 
           {baseLocation === 'gym' && (
             <RadioButtonfitlinez
-              label="Gym Workout"
+              label={i18n.t('gymWorkout')}
               selected={locSelector === 'gym'}
               onSelect={() => setLocSelector('Gym')}
             />
@@ -90,21 +90,20 @@ const ButtonsheetComponent = ({
 
           {baseLocation === 'home' && (
             <RadioButtonfitlinez
-              label="Home Workout"
+              label={i18n.t('homeWorkout')}
               selected={locSelector === 'home'}
               onSelect={() => setLocSelector('Home')}
             />
           )}
         </View>
-
         {/* {painStatus !== 'hide' && (
           <View>
             <AdditionalIndex i18n={i18n} isRTL={isRTL} />
           </View>
-        )} */}
+        )}  */}
         <Button
           onPress={() => dosomeThing(setIsVisible(!isVisible))}
-          title={'Done'}
+          title={i18n.t('startWorkout')}
           buttonStyle={{
             marginHorizontal: 10,
 
@@ -189,7 +188,6 @@ const WeeklyPlan = (props) => {
   const { setSessionData } = useContext(SessionContext);
   const { userLanguage } = useContext(LanguageContext);
   const { data, title, day, category, baseLocation } = props.route.params;
-  console.log('baseLocation', baseLocation);
   let isRTL = userLanguage === 'fa' ? true : false;
   const { theme } = useTheme();
   const [refreshing, setRefreshing] = useState(false);
@@ -201,7 +199,7 @@ const WeeklyPlan = (props) => {
   const [confirmEating, setConfirmEating] = useState(false);
   const [locSelector, setLocSelector] = useState('');
 
-  const estimatedTime = filteredWorkoutsList?.length * 6;
+  const estimatedTime = data?.length * 6;
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

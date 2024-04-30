@@ -355,9 +355,13 @@ const i18nt = {
     happyNoruwz: 'Happy Noruz',
     noSubs: 'No Subs Available',
     selectSubs: 'Select Subs Exercise',
+    startWorkout: 'Start Workout',
+    sessionDuration: 'Session Duration',
   },
 
   fa: {
+    sessionDuration: 'مدت زمان جلسه',
+    startWorkout: 'شروع تمرین',
     selectSubs: 'انتخاب حرکت جایگزین',
     noSubs: 'حرکت جایگزین موجود نیست',
     happyNoruwz: 'نوروز مبارک',

@@ -13,7 +13,15 @@ import i18nt from '../../../../locales';
 const db = SQLite.openDatabase('totalWeight.db');
 
 function WeightAndSetsInput(props) {
-  const { index, setIndex, title, category, exerciseId, onStoreData } = props;
+  const {
+    index,
+    setIndex,
+    title,
+    category,
+    exerciseId,
+    onStoreData,
+    sessionData,
+  } = props;
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [weight, setWeight] = useState();
@@ -23,7 +31,19 @@ function WeightAndSetsInput(props) {
   const i18n = new I18n(i18nt);
   const timestamp = new Date().toISOString();
 
+  const [sessionDone, setSessionDone] = useState(false);
+
+  useEffect(() => {
+    const done = sessionData.some(
+      (sessionItem) =>
+        sessionItem.exerciseId === exerciseId &&
+        Number(sessionItem.setIndex) === setIndex
+    );
+    setSessionDone(done);
+  }, [setIndex]);
+
   i18n.locale = userLanguage;
+  //console.log('sessionData in WeightAndSetsInput:', sessionData);
 
   const handleInputChange = (inputName, inputValue) => {
     if (inputName === 'weight') {
@@ -32,6 +52,10 @@ function WeightAndSetsInput(props) {
       setReps(inputValue);
     }
   };
+
+  useEffect(() => {
+    console.log('sessionDone:', sessionDone);
+  }, []);
 
   useEffect(() => {
     AsyncStorage.getItem(`${exerciseId}-${setIndex}`).then((res) => {
