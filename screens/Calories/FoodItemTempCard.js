@@ -58,7 +58,7 @@ const FoodItemCard = ({
                   borderWidth: 0.1,
                   fontSize: 18,
                   fontWeight: 'bold',
-                  color: theme.colors.text,
+                  color: theme.colors.primary,
                   borderBottomColor: theme.colors.border,
                   borderBottomWidth: 0.3,
                 },
@@ -69,8 +69,14 @@ const FoodItemCard = ({
               }
             />
             <Button
+              type="outline"
               buttonStyle={styles.button}
               title="Add"
+              titleStyle={{
+                color: theme.colors.primary,
+                fontSize: 16,
+                fontWeight: 'bold',
+              }}
               onPress={() => {
                 handleSendFoodItemReq();
               }}
@@ -92,13 +98,14 @@ const FoodItemCard = ({
               padding: 20,
             }}>
             <TextInput
+              style={styles.input}
               value={item.amount.toString()}
               onChangeText={(value) =>
                 handleInputChange(index, 'amount', value)
               }
             />
             <TextInput
-              //style={styles.input}
+              style={styles.input}
               value={item.unit}
               onChangeText={(value) => handleInputChange(index, 'unit', value)}
             />
@@ -106,7 +113,7 @@ const FoodItemCard = ({
         </View>
       )}
       {status === 'loading' && (
-        <ActivityIndicator size="large" color={theme.colors.greyOutline} />
+        <ActivityIndicator size="large" color={theme.colors.white} />
       )}
       {status === 'idle' && (
         <View
@@ -118,10 +125,8 @@ const FoodItemCard = ({
       )}
       {status === 'dataLoaded' && (
         <View style={styles.card}>
-          <View style={styles.list}>
-            <Text style={styles.itemTitle}>Food Item:</Text>
-            <Text style={styles.itemValue}>
-              {' '}
+          <View style={styles.listTitle}>
+            <Text style={styles.itemTitle}>
               {nutritionData.food_item && nutritionData.food_item}
             </Text>
           </View>
@@ -249,6 +254,17 @@ const getStyles = (theme) =>
       flexDirection: 'row',
       justifyContent: 'center',
     },
+    listTitle: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      margin: 10,
+      borderWidth: 0.2,
+      padding: 10,
+      borderRadius: 5,
+      borderColor: theme.colors.border,
+      top: 10,
+      backgroundColor: theme.colors.grey2,
+    },
     list: {
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -259,21 +275,16 @@ const getStyles = (theme) =>
     },
     input: {
       height: 40,
-      width: '30%',
-      margin: 10,
-      borderWidth: 0.3,
-      borderRadius: 5,
-      padding: 10,
-      borderColor: theme.colors.border,
+      color: theme.colors.primary,
       fontSize: 14,
     },
     button: {
       margin: 10,
       padding: 10,
       width: 60,
-      height: 40,
-      borderRadius: 5,
-      backgroundColor: '#5B5891',
+      height: 60,
+      borderRadius: 30,
+      borderColor: theme.colors.primary,
     },
     itemText: {
       color: theme.colors.white,

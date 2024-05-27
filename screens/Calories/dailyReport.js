@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { getDailyCalorieInTake } from '../../api/dailyCalorieInTake';
 import { useTheme } from '@rneui/themed';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function DailyReport({ userId }) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [status, setStatus] = useState('idle');
   const [result, setResult] = useState(null);
+  const [dailyCalories, setDailyCalories] = useState(null);
   const getDailyReport = async () => {
     setStatus('loading');
     if (!userId) {
@@ -30,51 +32,78 @@ function DailyReport({ userId }) {
     getDailyReport();
   }, [userId]);
 
+  useEffect(() => {
+    const getDailyCaloriesGoals = async () => {
+      const dailyCaloriesGoals = await AsyncStorage.getItem(
+        'dailyCaloriesGaols'
+      );
+      console.log('dailyCaloriesGaols', dailyCaloriesGoals);
+      if (dailyCaloriesGoals) {
+        const parsedDailyCaloriesGoals = JSON.parse(dailyCaloriesGoals);
+        setDailyCalories(parsedDailyCaloriesGoals.dailyCalories);
+        // setFatPercentage(parsedDailyCaloriesGoals.fatPercentage);
+        // setProteinPercentage(parsedDailyCaloriesGoals.proteinPercentage);
+        // setCarbsPercentage(parsedDailyCaloriesGoals.carbsPercentage);
+      }
+    };
+    getDailyCaloriesGoals();
+  }, []);
+  console.log('dailyCalories', dailyCalories);
   return (
     <View style={styles.container}>
-      {status === 'success' && (
-        <View style={styles.baseContainer}>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 30,
-              textAlign: 'center',
-              fontWeight: 'bold',
-              margin: 10,
-            }}>
-            {result ? 1750 - result[0]?.totalCalories : 1750}
-          </Text>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 15,
-              textAlign: 'center',
-              fontWeight: 'bold',
-              margin: 10,
-            }}>
-            Remaining
-          </Text>
-        </View>
-      )}
-      {status === 'success' && (
-        <View style={styles.nutrientContainer}>
-          <Text style={styles.nutrientText}>
-            Calories: {result && result[0]?.totalCalories} g
-          </Text>
-          <Text style={styles.nutrientText}>
-            Protein: {result && result[0]?.totalProtein} g
-          </Text>
-          <Text style={styles.nutrientText}>
-            Fats: {result && result[0]?.totalFat} g
-          </Text>
-          <Text style={styles.nutrientText}>
-            Carbs: {result && result[0]?.totalCarbs} g
-          </Text>
-          <Text style={styles.nutrientText}>
-            Fiber: {result && result[0]?.totalFiber} g
-          </Text>
-        </View>
-      )}
+      {/* {status === 'success' && ( */}
+      <View style={styles.baseContainer}>
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 30,
+            textAlign: 'center',
+            fontWeight: 'bold',
+            margin: 10,
+          }}>
+          {result
+            ? dailyCalories - result[0]?.totalCalories.toFixed(0)
+            : dailyCalories}
+        </Text>
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 16,
+            textAlign: 'center',
+          }}>
+          kcal
+        </Text>
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 15,
+            textAlign: 'center',
+            fontWeight: 'bold',
+            margin: 10,
+          }}>
+          Remaining
+        </Text>
+      </View>
+      {/* )} */}
+      {/* {status === 'success' && ( */}
+      <View style={styles.nutrientContainer}>
+        <Text style={styles.nutrientText}>
+          Calories: {result && result[0]?.totalCalories.toFixed(0)} g
+        </Text>
+        <Text style={styles.nutrientText}>
+          Protein: {result && result[0]?.totalProtein.toFixed(0)} g
+        </Text>
+        <Text style={styles.nutrientText}>
+          Fats: {result && result[0]?.totalFat.toFixed(0)} g
+        </Text>
+        <Text style={styles.nutrientText}>
+          Carbs: {result && result[0]?.totalCarbs.toFixed(0)} g
+        </Text>
+        <Text style={styles.nutrientText}>
+          Fiber: {result && result[0]?.totalFiber.toFixed(0)} g
+        </Text>
+      </View>
+      {/* )} */}
     </View>
   );
 }

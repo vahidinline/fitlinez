@@ -12,6 +12,8 @@ import AuthContext from '../../api/context';
 import { ActivityIndicator } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '@rneui/themed';
+import CalorieMenu from './CalorieMenu';
+import SetDailyCalories from './config/SetDailyCalories';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -52,6 +54,19 @@ function CaloriesIndex() {
           )}
         </ScrollView>
         {status === 'idle' && (
+          <View
+            style={{
+              //flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginVertical: 20,
+              marginHorizontal: 20,
+            }}>
+            <CalorieMenu status={status} setStatus={setStatus} />
+          </View>
+        )}
+        {status === 'addFood' && (
           <MealSection
             userId={userId}
             setStatus={setStatus}
@@ -85,6 +100,17 @@ function CaloriesIndex() {
             setStatus={setStatus}
             userInput={userInput}
             setUserInput={setUserInput}
+          />
+        )}
+        {status === 'setDailyCalories' && (
+          <SetDailyCalories setStatus={setStatus} userId={userId} />
+        )}
+        {status === 'dataLoaded' && (
+          <NutritionChart
+            data={data}
+            foodItems={foodItems}
+            setStatus={setStatus}
+            userId={userId}
           />
         )}
       </View>
