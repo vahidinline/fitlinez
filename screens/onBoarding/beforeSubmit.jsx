@@ -2,7 +2,7 @@ import { Button, Text, useTheme } from '@rneui/themed';
 import React, { useContext, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import { Card } from 'react-native-paper';
-import { IconOnBoardingLast } from '../marketplace/filters/icons';
+import { IconOnBoardingLast } from '../marketplace/filters/icons-';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';

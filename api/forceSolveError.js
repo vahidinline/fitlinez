@@ -4,7 +4,7 @@ import * as Updates from 'expo-updates';
 
 const forceSolveError = async (setUserAuth) => {
   setUserAuth(null);
-  //AuthStorage.removeToken();
+  AuthStorage.removeToken();
   Updates.reloadAsync();
 };
 

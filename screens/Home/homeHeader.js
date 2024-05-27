@@ -17,7 +17,7 @@ import {
   IconHeaderNotStarted,
   IconNowruz,
   IconStarted,
-} from '../marketplace/filters/icons';
+} from '../marketplace/filters/icons-';
 import {
   checkVersion,
   userLevelCheck,

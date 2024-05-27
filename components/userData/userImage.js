@@ -9,7 +9,7 @@ import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Path, Svg } from 'react-native-svg';
-import { IconCamera } from '../../screens/marketplace/filters/icons';
+import { IconCamera } from '../../screens/marketplace/filters/icons-';
 
 export default function UserImagePicker({ setAvatar }) {
   const [image, setImage] = useState(null);

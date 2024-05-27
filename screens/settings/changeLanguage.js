@@ -11,6 +11,7 @@ import AuthContext from '../../api/context';
 import i18nt from '../../locales';
 import Header from '../../components/header';
 import RadioButtonfitlinez from '../../components/RadioButtonFitlinez';
+import { FlagPT, FlagUK, FlagIR } from '../marketplace/filters/icons';
 
 function ChangeLanguage() {
   const key = 'fitlinez-session';
@@ -30,12 +31,19 @@ function ChangeLanguage() {
       id: 1,
       name: 'English',
       icon: '🇺🇸',
+      flag: FlagUK,
       value: 'en',
     },
     {
       id: 2,
+      name: 'Portuguese',
+      flag: FlagPT,
+      value: 'pt',
+    },
+    {
+      id: 3,
       name: 'Persian',
-      icon: '🇮🇷',
+      flag: FlagIR,
       value: 'fa',
     },
   ];
@@ -70,6 +78,7 @@ function ChangeLanguage() {
                 <RadioButtonfitlinez
                   selected={userLanguage === item.value}
                   label={item.name}
+                  Flag={item.flag}
                   onSelect={() => setUserLanguage(item.value)}
                 />
               </View>

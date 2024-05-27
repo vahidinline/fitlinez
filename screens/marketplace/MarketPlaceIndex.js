@@ -16,7 +16,7 @@ import FilterIndex from './filters/FilterIndex';
 import { useNavigation } from '@react-navigation/native';
 import { trainersList } from './data/data';
 import { getPackages } from '../../api/GetData';
-import { IconFilter, IconSearch } from './filters/icons';
+import { IconFilter, IconSearch } from './filters/icons-';
 import { Tab } from '../../navigation/newBottomNavigator';
 
 function MarketPlaceIndex() {

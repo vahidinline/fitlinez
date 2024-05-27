@@ -4,7 +4,7 @@ import { View, StyleSheet, Dimensions, PixelRatio } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import CurrentCard from './homeCard/CurrentCard';
 import { useNavigation } from '@react-navigation/native';
-import { IconBlackDumbbell, IconTrainer } from '../marketplace/filters/icons';
+import { IconBlackDumbbell, IconTrainer } from '../marketplace/filters/icons-';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';

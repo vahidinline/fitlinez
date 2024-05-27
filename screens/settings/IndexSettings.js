@@ -32,7 +32,7 @@ import {
   IconTrash,
   IconWeight,
   Iconshare,
-} from '../marketplace/filters/icons';
+} from '../marketplace/filters/icons-';
 
 const message =
   //'https://fitlinez.com/application?utm_source=fitlinezApp&utm_medium=share&utm_campaign=sharetoFriendWithInApp';

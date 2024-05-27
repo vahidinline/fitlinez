@@ -3,8 +3,14 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // You may need to install this package
 
-const RadioButtonfitlinez = ({ label, selected, onSelect, img, disabled }) => {
-  //console.log(`disabled for ${label}, ${disabled}`);
+const RadioButtonfitlinez = ({
+  label,
+  selected,
+  onSelect,
+  img,
+  disabled,
+  Flag,
+}) => {
   const { theme } = useTheme();
   return (
     <TouchableOpacity
@@ -45,6 +51,19 @@ const RadioButtonfitlinez = ({ label, selected, onSelect, img, disabled }) => {
         {/* Use the checkmark icon or customize as needed */}
       </View>
       <Text>{label}</Text>
+      {Flag && (
+        <View
+          style={{
+            position: 'absolute',
+            borderRadius: 12,
+            right: 0,
+            justifyContent: 'flex-end',
+
+            marginHorizontal: 10,
+          }}>
+          <Flag />
+        </View>
+      )}
       {img && (
         <View
           style={{

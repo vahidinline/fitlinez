@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { Path, Svg } from 'react-native-svg';
 import { Text } from '@rneui/themed';
 import LanguageContext from '../../api/langcontext';
-import { IconPremium } from '../marketplace/filters/icons';
+import { IconPremium } from '../marketplace/filters/icons-';
 
 function Box({ title, subTitle, dayLeft, type }) {
   const { userLanguage } = React.useContext(LanguageContext);

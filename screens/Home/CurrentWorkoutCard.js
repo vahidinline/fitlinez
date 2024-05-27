@@ -14,7 +14,7 @@ import {
   IconArrow,
   IconBlackDumbbell,
   IconTrainer,
-} from '../marketplace/filters/icons';
+} from '../marketplace/filters/icons-';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';

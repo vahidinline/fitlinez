@@ -1,7 +1,7 @@
 import { Text, useTheme } from '@rneui/themed';
 import React, { useContext } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
-import { IconVerfyBig } from '../marketplace/filters/icons';
+import { IconVerfyBig } from '../marketplace/filters/icons-';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';

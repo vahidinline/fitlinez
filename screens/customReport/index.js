@@ -20,7 +20,7 @@ import Header from '../../components/header';
 import { captureRef } from 'react-native-view-shot';
 import * as MediaLibrary from 'expo-media-library';
 import { filterByDates } from '../../api/readWorkoutData';
-import { Iconshare } from '../marketplace/filters/icons';
+import { Iconshare } from '../marketplace/filters/icons-';
 
 const db = SQLite.openDatabase('performance.db');
 const CustomReport = () => {

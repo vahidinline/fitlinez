@@ -539,7 +539,7 @@ const IconStatsFocused = () => {
   );
 };
 
-const IconHomeFocused = () => {
+const IconHomeUnFocused = () => {
   return (
     <Svg
       width="24"
@@ -559,7 +559,7 @@ const IconHomeFocused = () => {
   );
 };
 
-const IconHomeUnFocused = () => {
+const IconHomeFocused = () => {
   return (
     <Svg
       width="24"
@@ -703,7 +703,7 @@ const IconStatsUnFocused = () => {
   );
 };
 
-const IconArrowLeft = () => {
+const IconArrowLeft = ({ color }) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -713,7 +713,7 @@ const IconArrowLeft = () => {
       fill="none">
       <Path
         d="M17.0023 21.0147C16.5123 21.5047 15.7223 21.5047 15.2323 21.0147L6.92233 12.7047C6.53233 12.3147 6.53233 11.6847 6.92233 11.2947L15.2323 2.98469C15.7223 2.49469 16.5123 2.49469 17.0023 2.98469C17.4923 3.47469 17.4923 4.26469 17.0023 4.75469L9.76233 12.0047L17.0123 19.2547C17.4923 19.7347 17.4923 20.5347 17.0023 21.0147Z"
-        fill="#787680"
+        fill={color}
       />
     </Svg>
   );
@@ -954,31 +954,31 @@ const IconTimer = () => {
   );
 };
 
-const IconCloseCircle = () => {
+const IconCloseCircle = ({ color, size }) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none">
       <Path
         d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
-        stroke="#292D32"
+        stroke={color}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M9.16992 14.8299L14.8299 9.16992"
-        stroke="#292D32"
+        stroke={color}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M14.8299 14.8299L9.16992 9.16992"
-        stroke="#292D32"
+        stroke={color}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -6709,21 +6709,21 @@ const Iconclose = ({ color, size }) => {
       xmlns="http://www.w3.org/2000/svg">
       <Path
         d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
-        stroke="#292D32"
+        stroke={color}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M9.16998 14.83L14.83 9.17004"
-        stroke="#292D32"
+        stroke={color}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M14.83 14.83L9.16998 9.17004"
-        stroke="#292D32"
+        stroke={color}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -7267,7 +7267,350 @@ const IconTick = ({ size, color }) => {
     </Svg>
   );
 };
+
+const IconMic = ({ size, color }) => {
+  return (
+    <Svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M12 15.5C14.21 15.5 16 13.71 16 11.5V6C16 3.79 14.21 2 12 2C9.79 2 8 3.79 8 6V11.5C8 13.71 9.79 15.5 12 15.5Z"
+        stroke={color}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M4.3501 9.6499V11.3499C4.3501 15.5699 7.7801 18.9999 12.0001 18.9999C16.2201 18.9999 19.6501 15.5699 19.6501 11.3499V9.6499"
+        stroke={color}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M10.6101 6.43012C11.5101 6.10012 12.4901 6.10012 13.3901 6.43012"
+        stroke={color}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M11.2 8.55007C11.73 8.41007 12.28 8.41007 12.81 8.55007"
+        stroke={color}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M12 19V22"
+        stroke={color}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+};
+
+const IconType = ({ size, color }) => {
+  return (
+    <Svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M2.66992 7.17003V5.35003C2.66992 4.20003 3.59992 3.28003 4.73992 3.28003H19.2599C20.4099 3.28003 21.3299 4.21003 21.3299 5.35003V7.17003"
+        stroke={color}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M12 20.7201V4.11011"
+        stroke={color}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M8.06006 20.72H15.9401"
+        stroke={color}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+};
+
+const IconCakeUnFocused = ({ size, color }) => {
+  return (
+    <Svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M2 22H22"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M3.10999 22V13C3.10999 11.34 4.59999 10 6.43999 10H17.55C19.39 10 20.88 11.34 20.88 13V22"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M5.56006 10V7.17C5.56006 5.97 6.64006 5 7.98006 5H16.0301C17.3601 5 18.4401 5.97 18.4401 7.17V10"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M3.53003 13.98L3.90003 13.99C4.64003 14 5.23003 14.6 5.23003 15.34V15.67C5.23003 16.41 5.83003 17.02 6.58003 17.02C7.32003 17.02 7.93003 16.42 7.93003 15.67V15.36C7.93003 14.62 8.53003 14.01 9.28003 14.01C10.02 14.01 10.63 14.61 10.63 15.36V15.67C10.63 16.41 11.23 17.02 11.98 17.02C12.72 17.02 13.33 16.42 13.33 15.67V15.36C13.33 14.62 13.93 14.01 14.68 14.01C15.42 14.01 16.03 14.61 16.03 15.36V15.67C16.03 16.41 16.63 17.02 17.38 17.02C18.12 17.02 18.73 16.42 18.73 15.67V15.36C18.73 14.62 19.33 14.01 20.08 14.01H20.53"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M8 5V3"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M16 5V3"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M12 5V2"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+};
+
+const IconCakeFocused = ({ size, color }) => {
+  return (
+    <Svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M2 22H22"
+        stroke="#292D32"
+        fill="#5B5891"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M3.10999 22V13C3.10999 11.34 4.59999 10 6.43999 10H17.55C19.39 10 20.88 11.34 20.88 13V22"
+        stroke="#292D32"
+        fill="#5B5891"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M5.56006 10V7.17C5.56006 5.97 6.64006 5 7.98006 5H16.0301C17.3601 5 18.4401 5.97 18.4401 7.17V10"
+        stroke="#292D32"
+        fill="#5B5891"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M3.53003 13.98L3.90003 13.99C4.64003 14 5.23003 14.6 5.23003 15.34V15.67C5.23003 16.41 5.83003 17.02 6.58003 17.02C7.32003 17.02 7.93003 16.42 7.93003 15.67V15.36C7.93003 14.62 8.53003 14.01 9.28003 14.01C10.02 14.01 10.63 14.61 10.63 15.36V15.67C10.63 16.41 11.23 17.02 11.98 17.02C12.72 17.02 13.33 16.42 13.33 15.67V15.36C13.33 14.62 13.93 14.01 14.68 14.01C15.42 14.01 16.03 14.61 16.03 15.36V15.67C16.03 16.41 16.63 17.02 17.38 17.02C18.12 17.02 18.73 16.42 18.73 15.67V15.36C18.73 14.62 19.33 14.01 20.08 14.01H20.53"
+        stroke="#292D32"
+        fill="#5B5891"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M8 5V3"
+        stroke="#292D32"
+        fill="#5B5891"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M16 5V3"
+        stroke="#292D32"
+        fill="#5B5891"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M12 5V2"
+        stroke="#292D32"
+        fill="#5B5891"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+};
+
+const FlagPT = ({ size, color }) => {
+  return (
+    <Svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32">
+      <Path
+        d="M5,4H13V28H5c-2.208,0-4-1.792-4-4V8c0-2.208,1.792-4,4-4Z"
+        fill="#2b6519"
+      />
+      <Path
+        d="M16,4h15V28h-15c-2.208,0-4-1.792-4-4V8c0-2.208,1.792-4,4-4Z"
+        transform="rotate(180 21.5 16)"
+        fill="#ea3323"
+      />
+      <Path
+        d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z"
+        opacity=".15"
+      />
+      <Path
+        d="M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z"
+        fill="#fff"
+        opacity=".2"
+      />
+      <Circle cx="12" cy="16" r="5" fill="#ff5" />
+      <Path
+        d="M14.562,13.529l-5.125-.006v3.431h0c.004,.672,.271,1.307,.753,1.787,.491,.489,1.132,.759,1.805,.759,.684,0,1.328-.267,1.813-.75,.485-.484,.753-1.126,.753-1.808v-3.413Z"
+        fill="#ea3323"
+      />
+    </Svg>
+  );
+};
+
+const FlagUK = ({ size, color }) => {
+  return (
+    <Svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32">
+      <Rect
+        x="1"
+        y="4"
+        width="30"
+        height="24"
+        rx="4"
+        ry="4"
+        fill="#071b65"></Rect>
+      <Path
+        d="M5.101,4h-.101c-1.981,0-3.615,1.444-3.933,3.334L26.899,28h.101c1.981,0,3.615-1.444,3.933-3.334L5.101,4Z"
+        fill="#fff"></Path>
+      <Path
+        d="M22.25,19h-2.5l9.934,7.947c.387-.353,.704-.777,.929-1.257l-8.363-6.691Z"
+        fill="#b92932"></Path>
+      <Path
+        d="M1.387,6.309l8.363,6.691h2.5L2.316,5.053c-.387,.353-.704,.777-.929,1.257Z"
+        fill="#b92932"></Path>
+      <Path
+        d="M5,28h.101L30.933,7.334c-.318-1.891-1.952-3.334-3.933-3.334h-.101L1.067,24.666c.318,1.891,1.952,3.334,3.933,3.334Z"
+        fill="#fff"></Path>
+      <Rect x="13" y="4" width="6" height="24" fill="#fff"></Rect>
+      <Rect x="1" y="13" width="30" height="6" fill="#fff"></Rect>
+      <Rect x="14" y="4" width="4" height="24" fill="#b92932"></Rect>
+      <Rect
+        x="14"
+        y="1"
+        width="4"
+        height="30"
+        transform="translate(32) rotate(90)"
+        fill="#b92932"></Rect>
+      <Path
+        d="M28.222,4.21l-9.222,7.376v1.414h.75l9.943-7.94c-.419-.384-.918-.671-1.471-.85Z"
+        fill="#b92932"></Path>
+      <Path
+        d="M2.328,26.957c.414,.374,.904,.656,1.447,.832l9.225-7.38v-1.408h-.75L2.328,26.957Z"
+        fill="#b92932"></Path>
+      <Path
+        d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z"
+        opacity=".15"></Path>
+      <Path
+        d="M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z"
+        fill="#fff"
+        opacity=".2"></Path>
+    </Svg>
+  );
+};
+
+const FlagIR = ({ size, color }) => {
+  return (
+    <Svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32">
+      <Path fill="#fff" d="M1 11H31V21H1z"></Path>
+      <Path
+        d="M5,4H27c2.208,0,4,1.792,4,4v4H1v-4c0-2.208,1.792-4,4-4Z"
+        fill="#4d9e4a"></Path>
+      <Path
+        d="M5,20H27c2.208,0,4,1.792,4,4v4H1v-4c0-2.208,1.792-4,4-4Z"
+        transform="rotate(180 16 24)"
+        fill="#c92a1d"></Path>
+      <Path
+        d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z"
+        opacity=".15"></Path>
+      <Path
+        d="M18.061,16.805c.39-1.199,.021-2.514-.934-3.337,1.038,1.536,.664,3.611-.825,4.692l.104-2.56v-2.015c-.161-.077-.301-.194-.405-.34-.104,.145-.243,.262-.405,.34v2.015l.104,2.56c-1.489-1.081-1.864-3.156-.825-4.692-.956,.822-1.324,2.138-.934,3.337,.263,.809,.825,1.437,1.523,1.803-.427,.156-.883,.227-1.342,.204,.539,.175,1.091,.195,1.608,.086l.004,.108,.267,.367,.267-.367,.004-.108c.517,.109,1.069,.089,1.608-.086-.459,.022-.915-.049-1.342-.204,.699-.366,1.26-.994,1.523-1.803Z"
+        fill="#c92a1d"></Path>
+      <Path
+        d="M19.077,14.634c-.355-.614-.943-1.058-1.631-1.23,1.513,1.138,1.818,3.287,.68,4.801-.002,.003-.004,.005-.006,.008,1.252-.724,1.681-2.326,.957-3.578Z"
+        fill="#c92a1d"></Path>
+      <Path
+        d="M14.554,13.404c-.688,.172-1.277,.616-1.631,1.23-.724,1.252-.295,2.854,.957,3.578-.002-.003-.004-.005-.006-.008-1.138-1.513-.833-3.663,.68-4.801Z"
+        fill="#c92a1d"></Path>
+      <Path
+        d="M15.311,13.215c.223,.157,.532,.103,.689-.12,.157,.223,.466,.277,.689,.12,.187-.132,.26-.375,.175-.588-.048,.254-.292,.421-.546,.373-.134-.025-.25-.107-.318-.225-.068,.118-.184,.2-.318,.225-.254,.048-.498-.119-.546-.373-.085,.213-.013,.456,.175,.588Z"
+        fill="#c92a1d"></Path>
+      <Path
+        d="M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z"
+        fill="#fff"
+        opacity=".2"></Path>
+    </Svg>
+  );
+};
+
 export {
+  FlagIR,
+  FlagUK,
+  FlagPT,
+  IconCakeFocused,
+  IconCakeUnFocused,
+  IconType,
+  IconMic,
   IconTick,
   IconNowruz,
   IconLoading,

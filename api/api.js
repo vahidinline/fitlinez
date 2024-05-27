@@ -2,8 +2,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://jobitta.com',
-  //baseURL: 'http://192.168.1.18:8080',
+  //baseURL: 'https://jobitta.com',
+  baseURL: 'http://10.10.177.210:8080',
   timeout: 20000,
   headers: {
     'Content-Type': 'application/json',

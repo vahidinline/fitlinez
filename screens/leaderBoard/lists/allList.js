@@ -1,6 +1,6 @@
 import { Text, useTheme } from '@rneui/themed';
 import { StyleSheet, View } from 'react-native';
-import { IconMedal } from '../../marketplace/filters/icons';
+import { IconMedal } from '../../marketplace/filters/icons-';
 
 const ListItems = ({ user, index }) => {
   const { theme } = useTheme();

@@ -12,7 +12,7 @@ import LocationSelection from './locationSelection';
 import BeforeSubmit from './beforeSubmit';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { IconArrowLeft } from '../marketplace/filters/icons';
+import { IconArrowLeft } from '../marketplace/filters/icons-';
 import FitnessLevel from './fitnessLevel';
 import DayPreferences from './DayPreferences';
 import { saveUserWeight } from '../../api/readWorkoutData';

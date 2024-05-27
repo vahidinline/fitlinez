@@ -6,7 +6,7 @@ import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { useNavigation } from '@react-navigation/native';
-import { IconRest, IconWeight } from '../marketplace/filters/icons';
+import { IconRest, IconWeight } from '../marketplace/filters/icons-';
 
 function WorkoutAgenda(props) {
   const { durationWeeks, sessionPerWeek, workoutData } = props;

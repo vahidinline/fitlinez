@@ -22,6 +22,7 @@ import NoWorkoutCard from './noWorkout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChatBotIndex from '../chatBot/chatBotIndex';
 import { checkUserAccess } from '../../api/checkTestAccess';
+import StartSessionIndexHome from '../Sessions/StartSessionIndexHome';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -233,21 +234,7 @@ function HomeIndex() {
             <NoWorkoutCard packages={packages} userPervilage={userPervilage} />
           </View>
         )}
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: '500',
-            color: theme.colors.secondary,
-            justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-            marginTop: 20,
-            marginHorizontal: 20,
-            marginBottom: 20,
-            textAlign: isRTL ? 'right' : 'left', // Here
-          }}>
-          {i18n.t('recomandedworkout')}
-        </Text>
+
         {/* {userTestAccess ? (
           <View
             style={{
@@ -260,7 +247,7 @@ function HomeIndex() {
             <ChatBotIndex isRTL={isRTL} theme={theme} />
           </View>
         ) : ( */}
-        <>
+        {/* <>
           {packages?.length === 0 && (
             <View
               style={{
@@ -290,8 +277,16 @@ function HomeIndex() {
             .map((item) => (
               <CardItem key={item._id} item={item} />
             ))}
-        </>
+        </> */}
         {/* )} */}
+
+        <StartSessionIndexHome
+          title={currentPlan?.name || ''}
+          trainer={currentPlan?.creator || ''}
+          totalSessions={totalSessions || 0}
+          location={currentPlan?.location || ''}
+          userPervilage={userPervilage}
+        />
       </ScrollView>
     </View>
   );

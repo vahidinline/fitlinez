@@ -28,7 +28,7 @@ import {
   IconClock,
   IconWarning,
   Iconclose,
-} from '../marketplace/filters/icons';
+} from '../marketplace/filters/icons-';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 
 function Upgrade() {

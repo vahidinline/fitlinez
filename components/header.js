@@ -5,7 +5,7 @@ import { Dimensions, Touchable, TouchableOpacity, View } from 'react-native';
 import { Button, Icon, Text } from '@rneui/themed';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@rneui/themed';
-import { IconArrowLeft } from '../screens/marketplace/filters/icons';
+import { IconArrowLeft } from '../screens/marketplace/filters/icons-';
 
 function Header({ title, rightIconPress }) {
   const insets = useSafeAreaInsets();

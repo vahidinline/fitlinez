@@ -2,7 +2,7 @@ import { Button, Text, useTheme } from '@rneui/themed';
 import React, { useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import { Card } from 'react-native-paper';
-import { IconFemale, IconMale } from '../marketplace/filters/icons';
+import { IconFemale, IconMale } from '../marketplace/filters/icons-';
 
 function GenderSelection({ onGenderSelect, i18n }) {
   const { theme } = useTheme();

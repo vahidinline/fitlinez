@@ -22,11 +22,16 @@ import {
   IconSettingsUnFocused,
   IconStatsFocused,
   IconStatsUnFocused,
-} from '../screens/marketplace/filters/icons';
+} from '../screens/marketplace/filters/icons-';
 import StatisticsIndex from '../screens/customReport/statistics';
 import ReportIndex from '../screens/Report/ReportIndex';
 import { LinearGradient } from 'expo-linear-gradient';
 import { View } from 'react-native';
+import CaloriesIndex from '../screens/Calories/CaloriesIndex';
+import {
+  IconCakeFocused,
+  IconCakeUnFocused,
+} from '../screens/marketplace/filters/icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -103,12 +108,12 @@ function TabNavigator() {
       <Tab.Screen
         swipEnabled={false}
         name="MarketPlace"
-        component={MarketPlaceNavigation}
+        component={CaloriesIndex}
         options={{
           headerShown: false,
-          title: i18n.t('marketplace'),
+          title: i18n.t('calorieCounter'),
           tabBarIcon: ({ focused }) =>
-            !focused ? <IconMarketUnFocused /> : <IconMarketFocused />,
+            !focused ? <IconCakeUnFocused /> : <IconCakeFocused />,
         }}
       />
       <Tab.Screen
