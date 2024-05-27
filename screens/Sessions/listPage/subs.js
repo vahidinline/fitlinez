@@ -1,6 +1,12 @@
 import { BottomSheet, Button, Image, Text, useTheme } from '@rneui/themed';
 import React, { useEffect, useState } from 'react';
-import { Alert, Dimensions, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  Pressable,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { getSubWorkOutData } from '../../../api/GetData';
 import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -8,6 +14,7 @@ import i18nt from '../../../locales';
 import LanguageContext from '../../../api/langcontext';
 import { useContext } from 'react';
 import { I18n } from 'i18n-js';
+import { IconRefersh } from '../../marketplace/filters/icons';
 
 function Subs({
   userId,
@@ -95,6 +102,18 @@ function Subs({
             //marginVertical: 10,
             paddingVertical: 10,
           }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: 5,
+            }}>
+            <Text style={styles.titleStyle}>{i18n.t('substitute')}</Text>
+            <TouchableOpacity onPress={() => subListGetter()}>
+              <IconRefersh color={theme.colors.secondary} size={30} />
+            </TouchableOpacity>
+          </View>
           {subList.map((l, i) => (
             <View
               key={i}
@@ -243,10 +262,13 @@ function Subs({
 const getStyles = (theme) =>
   StyleSheet.create({
     titleStyle: {
-      color: 'white',
+      color: theme.colors.secondary,
       textAlign: 'center',
       alignItems: 'center',
-      top: 10,
+      //top: 10,
+      marginHorizontal: 10,
+      fontSize: 20,
+      fontWeight: 'bold',
     },
   });
 

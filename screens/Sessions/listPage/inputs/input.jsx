@@ -45,17 +45,15 @@ function WeightAndSetsInput(props) {
   i18n.locale = userLanguage;
   //console.log('sessionData in WeightAndSetsInput:', sessionData);
 
-  const handleInputChange = (inputName, inputValue) => {
+  const handleInputChange = async (inputName, inputValue) => {
     if (inputName === 'weight') {
       setWeight(inputValue);
+      await AsyncStorage.setItem('weight', JSON.stringify(inputValue));
     } else if (inputName === 'reps') {
       setReps(inputValue);
+      await AsyncStorage.setItem('reps', JSON.stringify(inputValue));
     }
   };
-
-  useEffect(() => {
-    console.log('sessionDone:', sessionDone);
-  }, []);
 
   useEffect(() => {
     AsyncStorage.getItem(`${exerciseId}-${setIndex}`).then((res) => {
@@ -68,8 +66,25 @@ function WeightAndSetsInput(props) {
     });
   }, []);
 
-  const postfixkg = 'kg';
-  const postfixrep = 'rep';
+  useEffect(() => {
+    getDefaultValue();
+  }, []);
+
+  const getDefaultValue = async () => {
+    AsyncStorage.getItem(`${exerciseId}weight`).then((res) => {
+      if (res !== null) {
+        setWeight(JSON.parse(res));
+      }
+    });
+    AsyncStorage.getItem(`${exerciseId}reps`).then((res) => {
+      if (res !== null) {
+        setReps(JSON.parse(res));
+      }
+    });
+  };
+
+  const postfixkg = i18n.t('kg');
+  const postfixrep = i18n.t('reps');
 
   useEffect(() => {
     onStoreData({

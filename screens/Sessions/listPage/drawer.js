@@ -10,12 +10,7 @@ import {
   Text,
   Image,
 } from 'react-native';
-import {
-  IconArrowLeft,
-  IconArrowRight,
-  IconTick,
-  Iconclose,
-} from '../../../screens/marketplace/filters/icons';
+import { IconTick } from '../../../screens/marketplace/filters/icons';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -43,7 +38,7 @@ function DrawerList({
         <View style={styles.backdrop} />
       </TouchableWithoutFeedback>
       <View style={styles.drawerStyle}>
-        <View style={{ flex: 1 }}>
+        <View>
           <FlatList
             scrollEnabled={true}
             style={{
@@ -66,20 +61,20 @@ function DrawerList({
                     key={index}
                     style={{
                       flexDirection: 'row',
-
+                      backgroundColor: theme.colors.white,
                       //borderRadius: 20,
                       marginBottom: 10,
                       //width: Dimensions.get('window').width - 20,
                       marginHorizontal: 10,
-                      height: 60,
+                      height: 45,
                       borderRadius: 16,
                       borderColor: theme.colors.border,
                       borderWidth: 1,
                     }}>
                     <View
                       style={{
-                        width: 35,
-                        height: 35,
+                        width: 30,
+                        height: 30,
                         backgroundColor: theme.colors.white,
                         borderRadius: 20,
                         justifyContent: 'center',
@@ -119,9 +114,10 @@ function DrawerList({
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         //alignItems: 'center',
-                        marginVertical: 10,
+                        marginVertical: 5,
                         width: screenWidth / 1.4 - 100,
                         marginLeft: 10,
+                        backgroundColor: theme.colors.white,
                       }}>
                       <Text
                         multiline // Add this
@@ -140,7 +136,7 @@ function DrawerList({
                       </Text>
                       <Image
                         source={{ uri: item.gifUrl }}
-                        style={{ width: 40, height: 40 }}
+                        style={{ width: 30, height: 30 }}
                       />
                     </View>
                   </View>

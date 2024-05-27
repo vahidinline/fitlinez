@@ -56,7 +56,6 @@ function Item({
   dataLength,
   description,
 }) {
-  console.log('description', description);
   const { userLanguage } = useContext(LanguageContext);
   const { IconArrowRight, IconInfo, IconMenu, IconSub } = Icons;
   const i18n = new I18n(i18nt);
@@ -79,7 +78,6 @@ function Item({
   const [userTestAccess, setUserTestAccess] = useState(false);
   let buttonVisible = true;
 
-  console.log('userTestAccess', userTestAccess);
   if (index >= dataLength - 1) {
     buttonVisible = false;
   }
@@ -130,7 +128,6 @@ function Item({
   }, [childDataMap]);
 
   const updateTotalWeight = async (weight) => {
-    console.log('weight', weight);
     try {
       let oldValue = await AsyncStorage.getItem('@total_weight');
 
@@ -147,7 +144,6 @@ function Item({
 
       // Check if the totalWeight is NaN
       if (!isNaN(totalWeight)) {
-        console.log('totalWeight', totalWeight);
         await AsyncStorage.setItem('@total_weight', totalWeight.toString());
       } else {
         console.log('Error: totalWeight is NaN');
@@ -199,18 +195,15 @@ function Item({
     setSaveCount((prevCount) => {
       let count = prevCount + 1;
       if (count >= adjustedNumberOfSets) {
-        console.log('into count >= adjustedNumberOfSets');
         if (index >= dataLength - 1) {
           // setFinish(true);
         } else {
-          console.log('into else');
           doneItem(index);
         }
       } else {
         setCurrentIndex((prevIndex) => prevIndex + 1);
       }
       if (count >= adjustedNumberOfSets && index >= dataLength - 1) {
-        console.log('into count >= adjustedNumberOfSets');
         // doneItem(index);
         setFinish(true);
       }
@@ -218,7 +211,6 @@ function Item({
       return count;
     });
   };
-  console.log('bodyPart in item', bodyPart);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'position' : 'height'}

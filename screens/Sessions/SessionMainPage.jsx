@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Platform,
   Alert,
+  Pressable,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
@@ -19,6 +20,8 @@ import LanguageContext from '../../api/langcontext';
 import AuthContext from '../../api/context';
 import calculateTaskCompletionPercentage from '../../api/performanceCalc';
 import Item from './listPage/item';
+import { Icon } from 'react-native-paper';
+import { Iconclose } from '../marketplace/filters/icons';
 const { width, height } = Dimensions.get('window');
 
 const SessionMainPage = (props) => {

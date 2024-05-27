@@ -263,11 +263,11 @@ const SahreResult = ({ route }) => {
                   <Divider style={styles.divider} />
                 </>
               )}
-              <View style={styles.view}>
+              {/* <View style={styles.view}>
                 <Text style={styles.title}>{performance}%</Text>
                 <Text style={styles.subtitle}>{i18n.t('performance')}</Text>
-              </View>
-              <Divider style={styles.divider} />
+              </View> 
+              <Divider style={styles.divider} />*/}
               <View style={styles.view}>
                 <Text style={styles.title}>{formatTime(timeSpent)}</Text>
                 <Text style={styles.subtitle}>{i18n.t('duration')}</Text>

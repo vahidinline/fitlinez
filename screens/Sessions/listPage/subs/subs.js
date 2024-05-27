@@ -68,9 +68,6 @@ function Subs({
   return (
     <View>
       <BottomSheet modalProps={{}} isVisible={visible}>
-        <View>
-          <Text style={styles.titleStyle}>Subsitute</Text>
-        </View>
         <ListItem.Content
           style={{
             //position: 'absolute',
