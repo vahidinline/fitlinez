@@ -1,12 +1,6 @@
 import { BottomSheet, Button, Image, Text, useTheme } from '@rneui/themed';
 import React, { useEffect, useState } from 'react';
-import {
-  Alert,
-  Dimensions,
-  Pressable,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Alert, Dimensions, TouchableOpacity, View } from 'react-native';
 import { getSubWorkOutData } from '../../../api/GetData';
 import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -75,7 +69,7 @@ function Subs({
   }, []);
 
   const handleSingleSelect = (exerciseId, item) => {
-    //console.log('id', exerciseId, item._id);
+    console.log('id', exerciseId, item._id);
     setSelectedItem(item);
     setSelected(true);
   };

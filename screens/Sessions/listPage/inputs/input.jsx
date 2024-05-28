@@ -66,22 +66,23 @@ function WeightAndSetsInput(props) {
     });
   }, []);
 
-  useEffect(() => {
-    getDefaultValue();
-  }, []);
+  // useEffect(() => {
+  //   getDefaultValue();
+  // }, []);
 
-  const getDefaultValue = async () => {
-    AsyncStorage.getItem(`${exerciseId}weight`).then((res) => {
-      if (res !== null) {
-        setWeight(JSON.parse(res));
-      }
-    });
-    AsyncStorage.getItem(`${exerciseId}reps`).then((res) => {
-      if (res !== null) {
-        setReps(JSON.parse(res));
-      }
-    });
-  };
+  // const getDefaultValue = async () => {
+  //   AsyncStorage.getItem(`${exerciseId}weight`).then((res) => {
+  //     console.log('res in getDefaultValue', res);
+  //     if (res !== null) {
+  //       setWeight(JSON.parse(res));
+  //     }
+  //   });
+  //   AsyncStorage.getItem(`${exerciseId}reps`).then((res) => {
+  //     if (res !== null) {
+  //       setReps(JSON.parse(res));
+  //     }
+  //   });
+  // };
 
   const postfixkg = i18n.t('kg');
   const postfixrep = i18n.t('reps');

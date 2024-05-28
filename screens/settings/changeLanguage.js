@@ -11,7 +11,7 @@ import AuthContext from '../../api/context';
 import i18nt from '../../locales';
 import Header from '../../components/header';
 import RadioButtonfitlinez from '../../components/RadioButtonFitlinez';
-import { FlagPT, FlagUK, FlagIR } from '../marketplace/filters/icons';
+import langs from '../../data/langs';
 
 function ChangeLanguage() {
   const key = 'fitlinez-session';
@@ -25,28 +25,6 @@ function ChangeLanguage() {
   const { toggleTheme } = useContext(ThemeContext);
   const [avatar, setAvatar] = useState(null);
   const { theme } = useTheme();
-
-  const langs = [
-    {
-      id: 1,
-      name: 'English',
-      icon: '🇺🇸',
-      flag: FlagUK,
-      value: 'en',
-    },
-    {
-      id: 2,
-      name: 'Portuguese',
-      flag: FlagPT,
-      value: 'pt',
-    },
-    {
-      id: 3,
-      name: 'Persian',
-      flag: FlagIR,
-      value: 'fa',
-    },
-  ];
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
@@ -78,7 +56,7 @@ function ChangeLanguage() {
                 <RadioButtonfitlinez
                   selected={userLanguage === item.value}
                   label={item.name}
-                  Flag={item.flag}
+                  Flag={item.Flag}
                   onSelect={() => setUserLanguage(item.value)}
                 />
               </View>

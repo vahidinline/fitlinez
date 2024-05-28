@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, ListItem, Text } from '@rneui/base';
 import { useTheme } from '@rneui/themed';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, TextInput, View } from 'react-native';
 import { setDailyCaloriesGoals } from '../../../api/calculateCaloriesPercentage';
 
 function SetDailyCalories({ userId, setStatus }) {
@@ -18,7 +18,23 @@ function SetDailyCalories({ userId, setStatus }) {
   const [proteinGrams, setProteinGrams] = useState(0);
   const [fatGrams, setFatGrams] = useState(0);
 
+  const valuechecker = () => {
+    if (fatPercentage + proteinPercentage + carbsPercentage !== 100) {
+      Alert.alert(
+        'Error',
+        'The sum of fat, protein, and carbs percentages must be 100.'
+      );
+      return false;
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    valuechecker();
+  }, [fatPercentage, proteinPercentage, carbsPercentage]);
+
   const handleInput = (e) => {
+    if (!valuechecker()) return;
     setDailyCalories(parseInt(e.nativeEvent.text));
   };
 

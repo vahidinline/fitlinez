@@ -23,6 +23,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import authStorage from '../../api/storage';
+import api from '../../api/api';
 
 function LoginIndex(props) {
   const { userLanguage } = useContext(LanguageContext);
@@ -31,14 +32,14 @@ function LoginIndex(props) {
   const { theme } = useTheme();
   const navigation = useNavigation();
   const authContext = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState(null);
   const [showPass, setShowPass] = useState(false);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [btnDisable, setBtnDisable] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState('idle');
+
   const buttonDisabled = () => {
     if (email !== null && password !== null) {
       setBtnDisable(false);
@@ -53,10 +54,10 @@ function LoginIndex(props) {
 
   const handleSubmit = async () => {
     setStatus('loading');
-    setIsLoading(true);
+
     console.log('Sending request with data:'); // Log the request data
-    axios
-      .post('https://jobitta.com/api/login', {
+    api
+      .post('/api/login', {
         userEmail: email,
         password: password,
         deviceType: Platform.OS,
@@ -70,21 +71,17 @@ function LoginIndex(props) {
             const user = jwtDecode(res.data.data);
 
             if (user) {
-              setIsLoading(false);
               setStatus('success');
               authContext.setUserAuth(user);
               authStorage.storeToken(user);
             } else {
-              setIsLoading(false);
               setStatus('error');
             }
           } catch (decodeError) {
-            setIsLoading(false);
             setStatus('error');
           }
         } else {
           setErrorMessage(res.data.error);
-          setIsLoading(false);
         }
       })
       .catch((e) => {
@@ -93,7 +90,7 @@ function LoginIndex(props) {
         } else {
           setErrorMessage('An unexpected error occurred. Please try again.');
         }
-        setIsLoading(false);
+        setStatus('error');
       });
   };
 
@@ -105,7 +102,7 @@ function LoginIndex(props) {
       setEmail(null);
       return false;
     } else {
-      setEmail(text);
+      setEmail(text.trim().toLowerCase());
     }
   };
 
@@ -115,7 +112,7 @@ function LoginIndex(props) {
       setPassword(null);
       return false;
     } else {
-      setPassword(text);
+      setPassword(text.trim());
     }
   };
 
@@ -169,28 +166,17 @@ function LoginIndex(props) {
             type="email"
           />
           <FloatingPlaceholderInput
+            //hid the password
+            secureTextEntry={showPass}
+            icon="eye"
             placeholder={i18n.t('password')}
             onChange={(e) => setPassword(e)}
             onChangeText={(text) => passwordValidate(text)}
-            onShowPassword={() => setShowPass(!showPass)}
+            setShowPass={setShowPass}
             showPass={showPass}
             type="password"
           />
 
-          <View>
-            <Text
-              onPress={() =>
-                Linking.openURL('https://www.fitlinez.com/forgot-password')
-              }
-              //onPress={() => navigation.navigate('ForgotPassIndex')}
-              style={{
-                color: theme.colors.secondary,
-                alignSelf: 'flex-end',
-                marginTop: -10,
-              }}>
-              {i18n.t('ForgotPassword')}
-            </Text>
-          </View>
           <Button
             loading={status === 'loading' ? true : false}
             type="outline"
@@ -213,7 +199,24 @@ function LoginIndex(props) {
             ]}
             title={i18n.t('login')}
           />
-          {errorMessage && (
+          <View
+            style={{
+              marginTop: 30,
+            }}>
+            <Text
+              onPress={() =>
+                Linking.openURL('https://www.fitlinez.com/forgot-password')
+              }
+              //onPress={() => navigation.navigate('ForgotPassIndex')}
+              style={{
+                color: theme.colors.secondary,
+                alignSelf: 'flex-end',
+                marginTop: -10,
+              }}>
+              {i18n.t('ForgotPassword')}
+            </Text>
+          </View>
+          {status === 'error' && (
             <Chip
               title={errorMessage}
               icon={{
@@ -226,11 +229,14 @@ function LoginIndex(props) {
                 color: theme.colors.primary,
                 fontSize: 14,
                 fontWeight: 'bold',
+                textAlign: 'left',
               }}
               type="outline"
               containerStyle={{
                 marginVertical: 15,
-                backgroundColor: theme.colors.error,
+                backgroundColor: theme.colors.warning,
+                borderColor: theme.colors.error,
+                borderRadius: 8,
               }}
             />
           )}

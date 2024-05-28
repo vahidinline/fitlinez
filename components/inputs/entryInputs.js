@@ -25,14 +25,29 @@ const FloatingPlaceholderInput = (props) => {
 
   return (
     <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.input}
-        value={inputValue}
-        onChangeText={handleChangeText}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        placeholder={props.placeholder}
-      />
+      <View style={{ flexDirection: 'row' }}>
+        <TextInput
+          style={styles.input}
+          value={inputValue}
+          onChangeText={handleChangeText}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          placeholder={props.placeholder}
+          secureTextEntry={props.secureTextEntry}
+        />
+        {props.type === 'password' && (
+          <View style={styles.eyeIcon}>
+            <Icon
+              onPress={() => props.setShowPass((prev) => !prev)}
+              name={props.showPass ? 'eye' : 'eye-slash'}
+              type="font-awesome"
+              size={20}
+              color={theme.colors.secondary}
+            />
+          </View>
+        )}
+      </View>
+
       {(isFocused || inputValue === '') && (
         <Text
           type={props.type}
@@ -40,15 +55,6 @@ const FloatingPlaceholderInput = (props) => {
           {props.placeholder}
         </Text>
       )}
-      {/* {props.showPass && (
-        <Icon
-          onPress={() => props.onShowPassword()}
-          name={props.showPass ? 'eye' : 'eye-slash'}
-          type="font-awesome"
-          size={20}
-          color={theme.colors.secondary}
-        /> 
-      )}*/}
     </View>
   );
 };
@@ -65,6 +71,12 @@ const getStyles = (theme) =>
       borderWidth: 0.2,
       paddingLeft: 10,
       borderRadius: 8,
+      width: '100%',
+    },
+    eyeIcon: {
+      position: 'absolute',
+      right: 10,
+      top: 10,
     },
     placeholder: {
       position: 'absolute',
