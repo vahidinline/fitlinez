@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   RefreshControl,
   Dimensions,
+  FlatList,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
@@ -20,6 +21,7 @@ import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import Header from '../../components/header';
 import AdditionalIndex from '../additionalData/AdditionalIndex';
+import DailyWorkloutListComponent from './dailyWorkloutListComponent';
 
 const db = SQLite.openDatabase('totalWeight.db');
 
@@ -188,7 +190,8 @@ const WeeklyPlan = (props) => {
   }, []);
   const { setSessionData } = useContext(SessionContext);
   const { userLanguage } = useContext(LanguageContext);
-  const { data, title, day, category, baseLocation } = props.route.params;
+  const { data, title, day, category, baseLocation, planName } =
+    props.route.params;
   let isRTL = userLanguage === 'fa' ? true : false;
   const { theme } = useTheme();
   const [refreshing, setRefreshing] = useState(false);
@@ -290,41 +293,6 @@ const WeeklyPlan = (props) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
-        {/* <View
-          style={{
-            backgroundColor: theme.colors.background,
-            borderColor: theme.colors.border,
-            borderWidth: 1,
-            borderRadius: 16,
-            justifyContent: 'center',
-            justifyContent: 'flex-start',
-            margin: 10,
-
-            width: Dimensions.get('window').width / 2 - 20,
-          }}>
-          <Text
-            style={{
-              color: theme.colors.grey2,
-              fontSize: 14,
-              fontWeight: '500',
-              margin: 20,
-            }}>
-            {i18n.t('exercices')}
-          </Text>
-          <Text
-            style={{
-              color: '#3F3B6C',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginBottom: 20,
-              marginLeft: 10,
-            }}>
-            {filteredWorkoutsList.length}{' '}
-            {locSelector === 'Gym'
-              ? i18n.t('gymWorkout')
-              : i18n.t('homeWorkout')}
-          </Text>
-        </View> */}
         <View
           style={{
             backgroundColor: theme.colors.background,
@@ -361,91 +329,50 @@ const WeeklyPlan = (props) => {
         </View>
       </View>
 
-      <ScrollView
-        contentContainerStyle={styles.container}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        <View style={{ flexDirection: 'column' }}>
-          {sortedData.map((item, i) => {
+      <View
+        style={{
+          flexDirection: 'column',
+
+          flex: 1,
+          justifyContent: 'space-between',
+          backgroundColor: theme.colors.background,
+        }}>
+        <FlatList
+          style={{
+            backgroundColor: theme.colors.background,
+          }}
+          ListFooterComponent={() => {
             return (
-              <View
-                key={i}
-                style={{
-                  flexDirection: 'row',
-                  // backgroundColor: theme.colors.white,
-                  //borderRadius: 20,
-                  marginBottom: 10,
-                  width: Dimensions.get('window').width - 20,
-                  marginHorizontal: 10,
-                  height: 60,
-                  borderRadius: 16,
-                  borderColor: theme.colors.border,
-                  borderWidth: 1,
-                }}>
-                <View
-                  style={{
-                    width: 35,
-                    height: 35,
-                    backgroundColor: theme.colors.secondary2,
-                    borderRadius: 4,
-                    justifyContent: 'center',
-                    alignItems: 'center',
+              <View>
+                <Button
+                  onPress={() => {
+                    setIsVisible(!isVisible);
+                  }}
+                  title={i18n.t('start')}
+                  titleStyle={{
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                  }}
+                  buttonStyle={{
+                    height: 50,
+                    width: Dimensions.get('window').width - 20,
+                    marginHorizontal: 10,
                     marginVertical: 10,
-                    marginLeft: 10,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: '500',
-                      color: theme.colors.secondary,
-                      //padding: 10,
-                    }}>
-                    {i + 1}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    borderRadius: 4,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginVertical: 10,
-
-                    marginLeft: 10,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: '500',
-                      // marginBottom: 20,
-                      //justifyContent: 'flex-start',
-
-                      color: theme.colors.secondary,
-                      //padding: 10,
-                    }}>
-                    {item.name}
-                  </Text>
-                </View>
+                    borderRadius: 12,
+                    backgroundColor: theme.colors.button,
+                  }}
+                />
               </View>
             );
-          })}
-        </View>
-      </ScrollView>
-      <View>
-        <Button
-          onPress={() => {
-            setIsVisible(!isVisible);
           }}
-          title={i18n.t('start')}
-          buttonStyle={{
-            width: Dimensions.get('window').width - 20,
-            marginHorizontal: 10,
-            marginVertical: 10,
-            borderRadius: 12,
-            backgroundColor: theme.colors.button,
+          data={sortedData}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => {
+            return <DailyWorkloutListComponent item={item} i={index} />;
           }}
         />
       </View>
+
       {isVisible && (
         <ButtonsheetComponent
           isRTL={isRTL}

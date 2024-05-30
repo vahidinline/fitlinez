@@ -1,6 +1,6 @@
 import { Text, useTheme } from '@rneui/themed';
 import React from 'react';
-import { Dimensions, View, Animated, PixelRatio } from 'react-native';
+import { Dimensions, View, PixelRatio } from 'react-native';
 import { Card } from 'react-native-paper';
 
 function CurrentCard({
@@ -23,7 +23,7 @@ function CurrentCard({
         position: 'absolute',
         top: 0,
         right: index === 1 ? 0 : Dimensions.get('window').width / 2.6,
-        width: width ? width : Dimensions.get('window').width / 2.5,
+        width: width ? width : Dimensions.get('window').width / 1.2,
         flexDirection: 'column',
         justifyContent: 'space-between',
         // alignItems: 'center',

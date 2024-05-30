@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   Platform,
   Alert,
-  Pressable,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
@@ -18,10 +17,8 @@ import { TimeSpentContext } from '../../api/TimeSpentContext';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import AuthContext from '../../api/context';
-import calculateTaskCompletionPercentage from '../../api/performanceCalc';
 import Item from './listPage/item';
-import { Icon } from 'react-native-paper';
-import { Iconclose } from '../marketplace/filters/icons';
+
 const { width, height } = Dimensions.get('window');
 
 const SessionMainPage = (props) => {
@@ -37,26 +34,23 @@ const SessionMainPage = (props) => {
   const [finish, setFinish] = useState(false);
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
-  const { workouts, category, location, catTname } = props.route.params;
+  const { workouts, category, location, catTname, planName } =
+    props.route.params;
+  console.log('planName', planName);
   const [data, setData] = useState(workouts);
   const flatListRef = useRef(null);
   const hideDialog = () => setVisible(false);
   const [progress, setProgress] = useState(1);
-  const { sessionData } = useContext(SessionContext);
-  const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
+  const { setTimeSpent } = useContext(TimeSpentContext);
   const scrollEnabled = true;
   const ITEM_HEIGHT = Dimensions.get('window').height;
-  // const completionPercentage = calculateTaskCompletionPercentage(
-  //   sessionData,
-  //   data.length
-  // );
+
   const style = {
     textAlign: 'center',
     alignItems: 'center',
     width: width,
     height: height,
     flex: 1,
-    //borderWidth: 1,
     backgroundColor: theme.colors.background,
   };
 

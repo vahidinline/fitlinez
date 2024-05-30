@@ -5,7 +5,6 @@ import SessionTimer from '../../timer/sessionTimer';
 import { Dimensions, View } from 'react-native';
 
 function HeaderListPage({
-  navigation,
   stoptimer,
   setFinish,
   category,

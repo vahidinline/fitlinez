@@ -146,10 +146,12 @@ function Subs({
                 flexShrink={1}
                 width={Dimensions.get('window').width / 1.5}
                 style={{
-                  fontSize: 15,
+                  fontSize: 16,
                   fontWeight: '500',
                   color: theme.colors.secondary,
                   alignContent: 'center',
+                  flexWrap: 'wrap',
+                  width: Dimensions.get('window').width / 3,
                 }}>
                 {l.name}
               </Text>

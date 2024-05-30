@@ -207,18 +207,6 @@ function HomeIndex() {
               //zIndex: 100,
               marginBottom: Dimensions.get('window').height / 6,
             }}>
-            {/* <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '500',
-                color: theme.colors.text,
-                marginHorizontal: 30,
-                marginBottom: 20,
-                textAlign: isRTL ? 'right' : 'left',
-              }}>
-              {i18n.t('currentPlan')}
-            </Text> */}
-
             <CurrentWorkoutCard
               title={currentPlan?.name || ''}
               trainer={currentPlan?.creator || ''}

@@ -32,25 +32,19 @@ const StartSessionIndexHome = ({ title, trainer, location }) => {
   const { theme } = useTheme();
   const { userAuth, setUserAuth } = useContext(AuthContext);
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
-  //console.log('timeSpent in index new plan', timeSpent);
   const [workoutPlan, setWorkoutPlan] = useState([]);
-
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   const [timestamp, setTimestamp] = useState([]);
-
   i18n.locale = userLanguage;
   const navigation = useNavigation();
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const RTL = userLanguage === 'fa';
-  //console.log('timeSpent in index new plan', timeSpent);
   const saveWorkoutsList = async () => {
     await AsyncStorage.getItem('workoutsList').then((value) => {
       if (value !== null) {
-        // console.log('value in index from async', JSON.parse(value).data.data);
         const workoutsList = JSON.parse(value).data.data;
-        // console.log('workoutsList', workoutsList[0].data);
         setWorkoutPlan(workoutsList);
       } else {
         console.log('doesnt have value');
@@ -72,7 +66,6 @@ const StartSessionIndexHome = ({ title, trainer, location }) => {
 
   const retrieveTimestampsByCategory = (category) => {
     setTimestamp([]);
-    // console.log('category in retrieveTimestampsByCategory', category);
     db0.transaction(
       (tx) => {
         tx.executeSql(
@@ -163,7 +156,6 @@ const StartSessionIndexHome = ({ title, trainer, location }) => {
 
       appState.current = nextAppState;
       setAppStateVisible(appState.current);
-      //console.log('AppState', appState.current);
     });
 
     return () => {
@@ -175,6 +167,7 @@ const StartSessionIndexHome = ({ title, trainer, location }) => {
     navigation.navigate('SessionNavigator', {
       screen: 'WeeklyPlan',
       params: {
+        planName: title,
         baseLocation: location,
         data: item.data,
         title: item.title,
@@ -184,14 +177,11 @@ const StartSessionIndexHome = ({ title, trainer, location }) => {
     });
   };
 
-  //show timetamp value for each category
-
   const showDate = (category, userLanguage) => {
     moment.locale(userLanguage); // set the locale based on userLanguage
     for (let i = 0; i < timestamp.length; i++) {
       if (timestamp[i].category === category) {
         return moment(timestamp[i].timestamp).endOf('day').fromNow();
-        //return moment(timestamp[i].timestamp).format('DD/MM/YYYY');
       }
     }
   };
@@ -264,8 +254,6 @@ const StartSessionIndexHome = ({ title, trainer, location }) => {
           .filter((item, i) => {
             // Get today's day name
             const today = moment().format('dddd');
-
-            // Filter only the first two items and where item.day is equal to today's day
             return i == 2 && item.day === today;
           })
           .map((item, i) => {
@@ -273,7 +261,6 @@ const StartSessionIndexHome = ({ title, trainer, location }) => {
               <TouchableOpacity
                 disabled={
                   item.title === 'Rest' ||
-                  //lower case walking and running
                   item.title.toLowerCase() === 'walking' ||
                   item.title.toLowerCase() === 'running'
                     ? true
@@ -313,7 +300,6 @@ const StartSessionIndexHome = ({ title, trainer, location }) => {
                             : '#C7C4DC',
                         fontSize: 16,
                         fontWeight: '500',
-                        // marginHorizontal: 16,
                         marginTop: 16,
                       }}>
                       {findMatchingDay(item.day, daysOfWeek)}
@@ -325,7 +311,6 @@ const StartSessionIndexHome = ({ title, trainer, location }) => {
                         fontSize: 14,
                         fontWeight: '500',
                         marginTop: 8,
-                        //marginHorizontal: 16,
                       }}>
                       {item.title}
                     </Text>

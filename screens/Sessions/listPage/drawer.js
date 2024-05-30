@@ -1,5 +1,5 @@
 import { useTheme } from '@rneui/themed';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Dimensions,
@@ -16,19 +16,14 @@ const screenWidth = Dimensions.get('window').width;
 
 function DrawerList({
   setShowDrawer,
-  title,
   showDrawer,
   sortedData,
-  userLanguages,
-  goToIndex,
   index: ecerciseId,
   sessionData,
-  img,
-  exerciseId,
 }) {
-  // console.log('sessionData in DrawerList:', sessionData);
   const { theme } = useTheme();
   const styles = getStyles(theme); // Call the function inside the component
+  const [status, setStatus] = useState('idle');
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback
@@ -54,17 +49,14 @@ function DrawerList({
               return (
                 <TouchableOpacity
                   onPress={() => {
-                    goToIndex(index);
-                    setShowDrawer(!showDrawer);
+                    setStatus('modal');
                   }}>
                   <View
                     key={index}
                     style={{
                       flexDirection: 'row',
                       backgroundColor: theme.colors.white,
-                      //borderRadius: 20,
                       marginBottom: 10,
-                      //width: Dimensions.get('window').width - 20,
                       marginHorizontal: 10,
                       height: 45,
                       borderRadius: 16,
@@ -85,28 +77,13 @@ function DrawerList({
                       }}>
                       <View
                         style={{
-                          //position: 'absolute',
-                          //bottom: 20,
-                          //left: 20,
-
                           justifyContent: 'center',
                           alignItems: 'center',
-                          //backgroundColor: theme.colors.background,
                         }}>
                         {isInSession && (
                           <IconTick size={32} color={theme.colors.green} />
                         )}
                       </View>
-
-                      {/* <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: '500',
-                          color: theme.colors.secondary,
-                          //padding: 10,
-                        }}>
-                        {index + 1}
-                      </Text> */}
                     </View>
                     <View
                       style={{
@@ -116,24 +93,25 @@ function DrawerList({
                         //alignItems: 'center',
                         marginVertical: 5,
                         width: screenWidth / 1.4 - 100,
-                        marginLeft: 10,
+                        marginLeft: 5,
                         backgroundColor: theme.colors.white,
                       }}>
                       <Text
                         multiline // Add this
                         ellipsizeMode="tail" // And this
                         style={{
-                          flexShrink: 1,
-                          flexWrap: 'wrap',
-                          paddingVertical: 10,
-                          justifyContent: 'flex-start',
-
+                          paddingVertical: 2,
                           fontSize: 12,
-                          fontWeight: '500',
+
+                          alignSelf: 'center',
+                          fontWeight: 'bold',
                           color: theme.colors.secondary,
+                          flexWrap: 'wrap',
+                          width: Dimensions.get('window').width / 2.3,
                         }}>
                         {item.name}
                       </Text>
+
                       <Image
                         source={{ uri: item.gifUrl }}
                         style={{ width: 30, height: 30 }}

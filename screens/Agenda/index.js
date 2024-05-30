@@ -1,22 +1,16 @@
-import { Button, Text, useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Dimensions, FlatList } from 'react-native';
-import { Agenda } from 'react-native-calendars';
+import { View, Dimensions, FlatList, StyleSheet } from 'react-native';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
-import { useNavigation } from '@react-navigation/native';
-import { IconRest, IconWeight } from '../marketplace/filters/icons-';
+import { IconRest, IconWeight } from '../marketplace/filters/icons';
 
 function WorkoutAgenda(props) {
   const { durationWeeks, sessionPerWeek, workoutData } = props;
-  //console.log('workoutData', workoutData);
-  const navigation = useNavigation();
-  const { data } = props;
   const { theme } = useTheme();
   const { userLanguage } = useContext(LanguageContext);
   const [workDates, setWorkDates] = useState({});
-
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
 
@@ -65,11 +59,6 @@ function WorkoutAgenda(props) {
     return workDates;
   };
 
-  //console.log('workDates', workDates);
-  const currentDay = new Date().getDate();
-
-  //console.log('currentDay', currentDay);
-
   const ButtonTitle = ({ item }) => {
     // console.log('item', item);
     const itemDate = new Date(item.year, item.month, parseInt(item.day, 10));
@@ -106,13 +95,13 @@ function WorkoutAgenda(props) {
           }}>
           <Text
             stlye={{
-              fontSize: 14,
-              fontSize: 10,
-              fontWeight: '700',
+              fontSize: 28,
+              fontWeight: 'bold',
               color: theme.colors.text,
             }}>
             {item.day}
           </Text>
+
           <Text
             stlye={{
               fontSize: 24,
@@ -181,3 +170,36 @@ function WorkoutAgenda(props) {
 }
 
 export { WorkoutAgenda };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    flexDirection: 'column',
+  },
+  text: {
+    flexDirection: 'row',
+  },
+  tab: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  label: {
+    fontSize: 22,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    //marginRight: 8,
+  },
+  divider: {
+    borderRightWidth: 1,
+    borderRightColor: '#ddd',
+  },
+  animatedBorder: {
+    height: 8,
+    width: 64,
+    backgroundColor: 'tomato',
+    borderRadius: 20,
+  },
+});

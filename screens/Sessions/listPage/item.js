@@ -271,8 +271,12 @@ function Item({
           style={[
             styles.title,
             {
-              fontSize: PixelRatio.get() > 2 ? 14 : 18,
-              fontWeight: '500',
+              fontSize: PixelRatio.get() > 2 ? 20 : 22,
+              fontWeight: 'bold',
+              flexWrap: 'wrap',
+              width: Dimensions.get('window').width / 2,
+              textAlign: 'center',
+              top: 5,
             },
           ]}>
           {title}
