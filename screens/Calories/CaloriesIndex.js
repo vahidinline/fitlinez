@@ -1,19 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import MealSection from './MealSection';
-import NutritionChart from './NutritionChart';
-import { sendInitialReq } from '../../api/sendFoodQuery';
 import TempfoodItems from './TempfoodItems';
 import { IconArrowLeft } from '../marketplace/filters/icons';
 import DailyReport from './dailyReport';
-import FoodTextInput from './foodInput/FoodTextInput';
 import InputSelector from './foodInput/InputSelector';
 import AuthContext from '../../api/context';
-import { ActivityIndicator } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '@rneui/themed';
 import CalorieMenu from './CalorieMenu';
 import SetDailyCalories from './config/SetDailyCalories';
+import FitlinezLoading from '../../components/FitlinezLoading';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -24,7 +21,6 @@ function CaloriesIndex() {
   const [foodItems, setFoodItems] = useState([]);
   const userId = userAuth.id;
   const [selectedMeal, setSelectedMeal] = useState(null);
-  console.log('userId', userId);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#5B5891' }}>
@@ -49,7 +45,8 @@ function CaloriesIndex() {
           </View>
           {status === 'idle' && <DailyReport userId={userId} />}
           {status === 'loading' && (
-            <ActivityIndicator size="large" color="#0000ff" />
+            <FitlinezLoading />
+            // <ActivityIndicator size="large" color="#0000ff" />
             // <Image source={require('../../../assets/loading.gif')} />
           )}
         </ScrollView>
@@ -102,16 +99,9 @@ function CaloriesIndex() {
             setUserInput={setUserInput}
           />
         )}
+
         {status === 'setDailyCalories' && (
           <SetDailyCalories setStatus={setStatus} userId={userId} />
-        )}
-        {status === 'dataLoaded' && (
-          <NutritionChart
-            data={data}
-            foodItems={foodItems}
-            setStatus={setStatus}
-            userId={userId}
-          />
         )}
       </View>
     </SafeAreaView>

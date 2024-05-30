@@ -130,7 +130,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
         <CurrentCard
           index={1}
           title={title}
-          icon={<IconBlackDumbbell />}
+          icon={<IconBlackDumbbell color="#fff" />}
           subtitle={i18n.t('todaysactivity')}
           component={
             <Button

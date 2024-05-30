@@ -2,8 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, ListItem, Text } from '@rneui/base';
 import { useTheme } from '@rneui/themed';
 import React, { useState, useEffect } from 'react';
-import { Alert, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, Dimensions, StyleSheet, TextInput, View } from 'react-native';
 import { setDailyCaloriesGoals } from '../../../api/calculateCaloriesPercentage';
+import NutritionChart from '../NutritionChart';
 
 function SetDailyCalories({ userId, setStatus }) {
   // const [status, setStatus] = useState('idle');
@@ -11,10 +12,9 @@ function SetDailyCalories({ userId, setStatus }) {
   const styles = getStyles(theme);
   const [dailyCalories, setDailyCalories] = useState(0);
   console.log('dailyCalories in set', dailyCalories);
-  const [fatPercentage, setFatPercentage] = useState(0);
-  const [proteinPercentage, setProteinPercentage] = useState(0);
-  const [carbsPercentage, setCarbsPercentage] = useState(0);
-
+  const [fatPercentage, setFatPercentage] = useState(30);
+  const [proteinPercentage, setProteinPercentage] = useState(30);
+  const [carbsPercentage, setCarbsPercentage] = useState(40);
   const [carbsGrams, setCarbsGrams] = useState(0);
   const [proteinGrams, setProteinGrams] = useState(0);
   const [fatGrams, setFatGrams] = useState(0);
@@ -31,8 +31,9 @@ function SetDailyCalories({ userId, setStatus }) {
   };
 
   const handleInput = (e) => {
-    if (!valuechecker()) return;
-
+    //if (!valuechecker()) return;
+    console.log('e.nativeEvent.text', e.nativeEvent.text);
+    // return;
     setDailyCalories(parseInt(e.nativeEvent.text));
   };
 
@@ -85,8 +86,11 @@ function SetDailyCalories({ userId, setStatus }) {
       const dailyCaloriesGoals = await AsyncStorage.getItem(
         'dailyCaloriesGaols'
       );
-      console.log('dailyCaloriesGaols', dailyCaloriesGoals);
-      if (dailyCaloriesGoals) {
+      if (
+        dailyCaloriesGoals !== 0 &&
+        dailyCaloriesGoals !== null &&
+        dailyCaloriesGoals !== undefined
+      ) {
         const parsedDailyCaloriesGoals = JSON.parse(dailyCaloriesGoals);
         setDailyCalories(parsedDailyCaloriesGoals.dailyCalories);
         setFatPercentage(parsedDailyCaloriesGoals.fatPercentage);
@@ -108,7 +112,14 @@ function SetDailyCalories({ userId, setStatus }) {
             width: '100%',
           }}>
           <View style={{ flexDirection: 'row' }}>
-            <ListItem.Title>Set Daily Calories</ListItem.Title>
+            <ListItem.Title
+              style={{
+                color: theme.colors.text,
+                fontSize: 18,
+                fontWeight: 'bold',
+              }}>
+              Set Daily Calories
+            </ListItem.Title>
           </View>
           <TextInput
             returnKeyType="done"
@@ -117,6 +128,7 @@ function SetDailyCalories({ userId, setStatus }) {
             placeholder="Enter daily calories"
             defaultValue={dailyCalories.toString() || '0'}
             keyboardType="numeric"
+            onChangeText={(e) => setDailyCalories(parseInt(e))}
             onSubmitEditing={handleInput}
           />
         </ListItem.Content>
@@ -140,6 +152,7 @@ function SetDailyCalories({ userId, setStatus }) {
               placeholder="Enter percentage"
               defaultValue={carbsPercentage.toString()}
               keyboardType="numeric"
+              onChange={(e) => setCarbsPercentage(parseInt(e.nativeEvent.text))}
               onSubmitEditing={(e) =>
                 setCarbsPercentage(parseInt(e.nativeEvent.text))
               }
@@ -167,6 +180,9 @@ function SetDailyCalories({ userId, setStatus }) {
               placeholder="Enter percentage"
               defaultValue={proteinPercentage.toString()}
               keyboardType="numeric"
+              onChange={(e) =>
+                setProteinPercentage(parseInt(e.nativeEvent.text))
+              }
               onSubmitEditing={(e) =>
                 setProteinPercentage(parseInt(e.nativeEvent.text))
               }
@@ -194,6 +210,7 @@ function SetDailyCalories({ userId, setStatus }) {
               placeholder="Enter percentage"
               defaultValue={fatPercentage.toString()}
               keyboardType="numeric"
+              onChange={(e) => setFatPercentage(parseInt(e.nativeEvent.text))}
               onSubmitEditing={(e) =>
                 setFatPercentage(parseInt(e.nativeEvent.text))
               }
@@ -209,10 +226,18 @@ function SetDailyCalories({ userId, setStatus }) {
           margin: 20,
         }}>
         <Button
-          buttonStyle={styles.Button}
+          buttonStyle={[
+            styles.Button,
+            {
+              backgroundColor: theme.colors.buttonSecondary,
+              borderRadius: 5,
+              borderWidth: 1,
+              borderColor: theme.colors.border,
+            },
+          ]}
           title="Cancel"
-          titleStyle={styles.buttonTitle}
-          onPress={() => console.log('Cancel')}
+          titleStyle={[styles.buttonTitle, { color: theme.colors.text }]}
+          onPress={() => setStatus('idle')}
         />
         <Button
           buttonStyle={styles.Button}
@@ -236,7 +261,11 @@ const getStyles = (theme) =>
       borderRadius: 10,
       backgroundColor: theme.colors.background,
     },
-    buttonTitle: { color: theme.colors.text, fontWeight: 'bold', fontSize: 16 },
+    buttonTitle: {
+      color: theme.colors.primary,
+      fontWeight: 'bold',
+      fontSize: 16,
+    },
     input: {
       color: theme.colors.text,
       fontSize: 18,
@@ -256,5 +285,6 @@ const getStyles = (theme) =>
       borderRadius: 5,
       marginHorizontal: 5,
       marginBottom: 10,
+      backgroundColor: theme.colors.button,
     },
   });

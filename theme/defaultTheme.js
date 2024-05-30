@@ -4,6 +4,7 @@ const DefaultTheme = createTheme({
   name: 'default',
   colors: {
     secondBackground: '#FFF3DA',
+    success: '#228B22',
     background: '#FCF8FF',
     warning: '#FFA500',
     error: '#FF0000',

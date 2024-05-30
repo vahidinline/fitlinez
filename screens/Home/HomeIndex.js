@@ -23,6 +23,7 @@ import { checkUserAccess } from '../../api/checkTestAccess';
 import StartSessionIndexHome from '../Sessions/StartSessionIndexHome';
 import DailyReport from '../Calories/dailyReport';
 import { Button } from '@rneui/base';
+import FitlinezLoading from '../../components/FitlinezLoading';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -40,7 +41,7 @@ function HomeIndex() {
   const isRTL = userLanguage === 'fa';
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
-  const [status, setStatus] = useState('idle');
+  const [status, setStatus] = useState('loading');
   console.log('status', status);
   const navigator = useNavigation();
   const [userTestAccess, setUserTestAccess] = useState(
@@ -58,6 +59,7 @@ function HomeIndex() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
+      setStatus('loading');
       if (currentPlan === null) {
         setStatus('noPlan');
         setLoading(false);
@@ -152,18 +154,7 @@ function HomeIndex() {
         flex: 1,
         backgroundColor: theme.colors.background,
       }}>
-      {status === 'loading' && (
-        <View
-          style={{
-            position: 'absolute',
-            top: 400,
-            left: 0,
-            right: 0,
-            zIndex: 100,
-          }}>
-          <ActivityIndicator size="large" color={theme.colors.warning} />
-        </View>
-      )}
+      {status === 'loading' && <FitlinezLoading />}
       <View
         style={{
           marginTop: Dimensions.get('window').height / 10,
@@ -220,7 +211,7 @@ function HomeIndex() {
           <View
             style={{
               width: Dimensions.get('window').width,
-              marginTop: 10,
+              marginTop: 30,
 
               marginBottom: Dimensions.get('window').height / 6,
             }}>
@@ -280,32 +271,33 @@ function HomeIndex() {
           location={currentPlan?.location || ''}
           userPervilage={userPervilage}
         />
-        <DailyReport userId={userAuth.id} />
         <View
           style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 100,
-          }}></View>
-        <Button
-          buttonStyle={{
-            backgroundColor: theme.colors.secondary,
-            borderRadius: 12,
-            width: Dimensions.get('window').width / 2,
-            height: Dimensions.get('window').height / 20,
-            alignSelf: 'center',
-            marginBottom: 20,
-          }}
-          titleStyle={{
-            color: theme.colors.primary,
-          }}
-          onPress={() => {
-            navigator.navigate('Calories');
+            backgroundColor: theme.colors.background,
+            marginHorizontal: 20,
+            borderRadius: 14,
+            marginVertical: 10,
           }}>
-          {i18n.t('calorieTracker')}
-        </Button>
+          <DailyReport userId={userAuth.id} />
+
+          <Button
+            buttonStyle={{
+              backgroundColor: theme.colors.secondary,
+              borderRadius: 12,
+              width: Dimensions.get('window').width / 2,
+              height: Dimensions.get('window').height / 20,
+              alignSelf: 'center',
+              marginBottom: 20,
+            }}
+            titleStyle={{
+              color: theme.colors.primary,
+            }}
+            onPress={() => {
+              navigator.navigate('Calories');
+            }}>
+            {i18n.t('calorieTracker')}
+          </Button>
+        </View>
       </ScrollView>
     </View>
   );

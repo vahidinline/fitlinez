@@ -13,6 +13,7 @@ import { IconAi, IconLoading } from '../marketplace/filters/icons';
 import ErrorIndex from './error';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
+import AnimatedLottieView from 'lottie-react-native';
 
 function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId }) {
   const { userAuth } = useContext(AuthContext);
@@ -110,7 +111,7 @@ function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId }) {
         )} */}
         {status === 'notstarted' && (
           <TouchableOpacity onPress={() => sendMessage()}>
-            <IconAi name="robot" size={24} color={theme.colors.secondary} />
+            <IconAi name="robot" size={48} color={theme.colors.secondary} />
           </TouchableOpacity>
         )}
 

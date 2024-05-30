@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-// import { PieChart } from 'react-native-gifted-charts';
+import { PieChart } from 'react-native-gifted-charts';
 
 function NutritionChart() {
   const pieData = [
@@ -15,7 +15,7 @@ function NutritionChart() {
         alignItems: 'center',
         marginTop: 20,
       }}>
-      {/* <PieChart
+      <PieChart
         donut
         showText
         textColor="black"
@@ -24,7 +24,7 @@ function NutritionChart() {
         textBackgroundColor="white"
         textBackgroundRadius={22}
         data={pieData}
-      /> */}
+      />
     </View>
   );
 }

@@ -48,11 +48,10 @@ function CalorieMenu({ status, list, userId, setStatus, setSelectedMeal }) {
         position: 'absolute',
         bottom: 10,
         width: Dimensions.get('window').width,
-
+        height: Dimensions.get('window').height / 2.5,
         backgroundColor: '#fff',
         borderRadius: 10,
         padding: 10,
-        // marginHorizontal: 20,
         marginVertical: 10,
       }}
       modalProps={{}}

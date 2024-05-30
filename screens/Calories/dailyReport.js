@@ -11,8 +11,8 @@ function DailyReport({ userId }) {
   const [status, setStatus] = useState('idle');
   const [result, setResult] = useState([]);
   const [dailyCalories, setDailyCalories] = useState(0);
-  console.log('dailyCalories', typeof dailyCalories);
-  console.log('result', result);
+  console.log('dailyCalories in daily', dailyCalories);
+  console.log('result in daily', result);
   const getDailyReport = async () => {
     setStatus('loading');
     if (!userId) {
@@ -67,7 +67,7 @@ function DailyReport({ userId }) {
         <>
           <View style={styles.baseContainer}>
             <Text style={styles.caloriesText}>
-              {result
+              {result.length > 0
                 ? dailyCalories - result[0]?.totalCalories.toFixed(0)
                 : dailyCalories}
             </Text>
@@ -106,10 +106,10 @@ const getStyles = (theme) =>
       backgroundColor: '#5B5891',
       justifyContent: 'center',
       alignItems: 'center',
-      marginHorizontal: 20,
+      //marginHorizontal: 20,
       padding: 30,
       borderRadius: 14,
-      width: Dimensions.get('window').width / 1.1,
+      //width: Dimensions.get('window').width / 1.1,
       marginVertical: 10,
     },
     background: {
@@ -151,7 +151,7 @@ const getStyles = (theme) =>
       margin: 10,
     },
     nutrientContainer: {
-      alignItems: 'center',
+      alignItems: 'right',
     },
     nutrientText: {
       color: '#fff',

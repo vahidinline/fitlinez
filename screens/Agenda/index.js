@@ -20,11 +20,9 @@ function WorkoutAgenda(props) {
     );
   }, []);
 
-  const generateDates = (startDate, durationWeeks, daysPerWeek, taskData) => {
-    //console.log('taskData', startDate, durationWeeks, daysPerWeek, taskData);
+  const generateDates = (startDate, taskData) => {
     const workDates = {};
     let currentDate = new Date(startDate);
-    //console.log('taskData: ', taskData); // Debug log
 
     for (let week = 1; week <= 12; week++) {
       for (let day = 0; day < 7; day++) {
@@ -32,12 +30,9 @@ function WorkoutAgenda(props) {
           weekday: 'long',
         });
         const formattedDate = currentDate.toISOString().split('T')[0];
-        // console.log('Current Day: ', currentDayName); // Debug log
         const dayName = currentDayName.split(',')[0];
 
-        // Check if the current day is a workday according to taskData
         const task = taskData?.find((d) => d.day === dayName);
-        //  console.log('Task: ', task); // Debug log
         if (task) {
           if (!workDates[formattedDate]) {
             workDates[formattedDate] = [];
@@ -55,12 +50,10 @@ function WorkoutAgenda(props) {
         currentDate.setDate(currentDate.getDate() + 1);
       }
     }
-    // console.log('workDates', workDates);
     return workDates;
   };
 
   const ButtonTitle = ({ item }) => {
-    // console.log('item', item);
     const itemDate = new Date(item.year, item.month, parseInt(item.day, 10));
     itemDate.setHours(0, 0, 0, 0);
 
@@ -70,7 +63,6 @@ function WorkoutAgenda(props) {
     const isPastDay = itemDate < currentDate;
     const isToday = itemDate.getTime() === currentDate.getTime();
 
-    //console.log('day', day);
     return (
       <View
         key={item.id}
@@ -94,23 +86,27 @@ function WorkoutAgenda(props) {
             alignItems: 'center',
           }}>
           <Text
-            stlye={{
-              fontSize: 28,
+            style={{
+              fontSize: 18,
               fontWeight: 'bold',
-              color: theme.colors.text,
+              color: isToday ? theme.colors.secondary : theme.colors.text,
             }}>
             {item.day}
           </Text>
 
           <Text
-            stlye={{
-              fontSize: 24,
-              fontSize: 10,
-              color: theme.colors.grey1,
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+              color: isToday ? theme.colors.secondary : theme.colors.text,
             }}>
             {item.title}
           </Text>
-          {item.task !== 'Rest' ? <IconWeight /> : <IconRest />}
+          {item.task !== 'Rest' ? (
+            <IconWeight size={34} color={theme.colors.warning} />
+          ) : (
+            <IconRest size={34} color={theme.colors.secondary} />
+          )}
         </View>
       </View>
     );
@@ -190,7 +186,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
     fontWeight: 'bold',
-    //marginRight: 8,
   },
   divider: {
     borderRightWidth: 1,
