@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { Dimensions, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import FoodItemCard from './FoodItemTempCard';
 
 function TempfoodItems({ foodItems, userId, selectedMeal }) {

@@ -103,7 +103,7 @@ const FinishSession = (props) => {
   };
 
   const goShare = () => {
-    storeDataDB();
+    //storeDataDB();
 
     getData();
     deleteSessiondata();
@@ -144,19 +144,19 @@ const FinishSession = (props) => {
     getTempTimeSpend();
   }, []);
 
-  useEffect(() => {
-    const getTempPerformance = async () => {
-      const value = await AsyncStorage.getItem(`@SessionPerformance`);
-      if (value !== null) {
-        console.log('value of async temp performance', value);
-        setCompletionPercentage(value);
-      } else {
-        console.log('value of async temp performance s', value);
-        setCompletionPercentage(0);
-      }
-    };
-    getTempPerformance();
-  }, []);
+  // useEffect(() => {
+  //   const getTempPerformance = async () => {
+  //     const value = await AsyncStorage.getItem(`@SessionPerformance`);
+  //     if (value !== null) {
+  //       console.log('value of async temp performance', value);
+  //       setCompletionPercentage(value);
+  //     } else {
+  //       console.log('value of async temp performance s', value);
+  //       setCompletionPercentage(0);
+  //     }
+  //   };
+  //   getTempPerformance();
+  // }, []);
 
   const goHome = () => {
     storeDataDB();

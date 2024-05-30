@@ -6,7 +6,7 @@ const api = axios.create({
   //office local
   baseURL: 'http://10.10.177.210:8080',
   //home local
-  //baseURL: 'http://192.168.1.47:8080',
+  //baseURL: 'http://192.168.1.50:8080',
   timeout: 20000,
   headers: {
     'Content-Type': 'application/json',

@@ -46,10 +46,10 @@ const SessionMainPage = (props) => {
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
   const scrollEnabled = true;
   const ITEM_HEIGHT = Dimensions.get('window').height;
-  const completionPercentage = calculateTaskCompletionPercentage(
-    sessionData,
-    data.length
-  );
+  // const completionPercentage = calculateTaskCompletionPercentage(
+  //   sessionData,
+  //   data.length
+  // );
   const style = {
     textAlign: 'center',
     alignItems: 'center',
@@ -192,8 +192,8 @@ const SessionMainPage = (props) => {
           // duration: timeSpentParent,
           category: category,
           location: location,
-          completionPercentage:
-            category === 'Cardio' ? 100 : completionPercentage,
+          // completionPercentage:
+          //   category === 'Cardio' ? 100 : completionPercentage,
         });
       }, 1000);
     } catch (e) {

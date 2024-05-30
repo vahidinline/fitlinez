@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, memo } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 import { I18n } from 'i18n-js';
 import i18nt from '../../../../locales/index';
@@ -10,8 +10,18 @@ import { useTheme } from '@rneui/themed';
 import RestCounterComponent from './counter';
 
 function RepsInput(props) {
-  const { index, setIndex, title, category, exerciseId, onStoreData } = props;
+  const {
+    index,
+    setIndex,
+    title,
+    category,
+    exerciseId,
+    onStoreData,
+    currentIndex,
+  } = props;
+
   const { theme } = useTheme();
+  const styles = getStyles(theme);
   const [visible, setVisible] = useState(false);
   const [reps, setReps] = useState();
   const { userLanguage } = useContext(LanguageContext);
@@ -43,42 +53,6 @@ function RepsInput(props) {
     });
   }, []);
 
-  // const checkUserRecord = async () => {
-  //   if (defaultReps < reps) {
-  //     const result = await AsyncStorage.getItem(today);
-  //     if (result === null) {
-  //       AsyncStorage.setItem(
-  //         today,
-  //         JSON.stringify([
-  //           {
-  //             title,
-
-  //             repRecord: defaultReps - reps,
-  //           },
-  //         ])
-  //       );
-  //     } else {
-  //       let data = JSON.parse(result);
-  //       if (!Array.isArray(data)) {
-  //         data = [data];
-  //       }
-  //       const index = data.findIndex(function (item) {
-  //         return item.title === title;
-  //       });
-  //       if (index === -1) {
-  //         data.push({
-  //           title,
-
-  //           repRecord: defaultReps - reps,
-  //         });
-  //       } else {
-  //         data[exerciseId.$oid] = { reps, title, category };
-  //       }
-  //       AsyncStorage.setItem(today, JSON.stringify(data));
-  //     }
-  //   }
-  // };
-
   const handleInputChange = (inputName, inputValue) => {
     if (inputName === 'reps') {
       setReps(inputValue);
@@ -101,50 +75,116 @@ function RepsInput(props) {
   const postfixrep = 'rep';
 
   return (
-    <View
-      style={{
-        sflex: 1,
-        flexDirection: 'column',
-        //paddingRight: 10,
-        height: 70,
-      }}>
-      <InputSpinner
-        background={theme.colors.background}
-        typingTimeout={2000}
-        shadowOffset={0}
-        max={500}
-        min={0}
-        step={1}
-        inputStyle={{
-          fontSize: 20,
-          color: theme.colors.secondary,
-        }}
-        value={reps ? reps : 0}
-        onChange={(value) => handleInputChange('reps', value)}
-        style={{
-          flex: 1,
-          margin: 5,
-          justifyContent: 'center',
-          shadowOpacity: 0,
-          borderRadius: 16,
-          borderWidth: 1,
-          shadowColor: 'transparent',
-          borderColor: theme.colors.border,
-        }}
-        skin="clean"
-        //rounded={false}
-        returnKeyType="done"
-      />
+    <>
+      {currentIndex === setIndex && (
+        <View
+          style={{
+            flexDirection: 'row',
+            backgroundColor: theme.colors.background,
+            width: Dimensions.get('window').width / 1.1,
+            marginHorizontal: 5,
+          }}>
+          <View
+            style={{
+              borderRadius: 16,
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              marginTop: 5,
+              marginBottom: 5,
+              borderWidth: 1,
+              borderColor: theme.colors.border,
+            }}>
+            <Text
+              style={{
+                margin: 5,
+                color: '#787680',
+                fontSize: 14,
+                fontWeight: '500',
+                padding: 10,
+              }}>
+              {i18n.t('set')} {setIndex + 1}
+            </Text>
+          </View>
+          <InputSpinner
+            background={theme.colors.background}
+            typingTimeout={2000}
+            shadowOffset={0}
+            max={500}
+            min={0}
+            step={1}
+            inputStyle={{
+              fontSize: 20,
+              color: theme.colors.secondary,
+            }}
+            value={reps ? reps : 0}
+            onChange={(value) => handleInputChange('reps', value)}
+            style={{
+              flex: 1,
+              margin: 5,
+              marginEnd: 0,
+              marginStart: 0,
+              shadowColor: 'transparent',
+              justifyContent: 'center',
+              shadowOpacity: 0,
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              borderRadius: 0,
+              borderWidth: 1,
+              borderStartWidth: 0,
+              borderEndWidth: 1,
+              borderEndEndRadius: 16,
+              borderStartEndRadius: 16,
+              borderColor: theme.colors.border,
+              marginStart: 0,
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
+              marginTop: 5,
+              marginBottom: 5,
+            }}
+            skin="clean"
+            //rounded={false}
+            returnKeyType="done"
+          />
 
-      {visible && (
-        <RestCounterComponent
-          setVisible={setVisible}
-          visible={visible}
-          buttonTitle={i18n.t('skip')}
-        />
+          {visible && (
+            <RestCounterComponent
+              setVisible={setVisible}
+              visible={visible}
+              buttonTitle={i18n.t('skip')}
+            />
+          )}
+        </View>
       )}
-    </View>
+    </>
   );
 }
 
 export default memo(RepsInput);
+
+const getStyles = (theme) =>
+  StyleSheet.create({
+    input: {
+      height: 0,
+      flex: 1,
+      marginRight: 10,
+      width: '50%',
+    },
+    inputWrapper: {
+      flexDirection: 'row',
+      width: '100%',
+    },
+    label: {
+      fontSize: 10,
+      backgroundColor: '#fff',
+      height: 30,
+      top: 0,
+      left: 0,
+      backgroundColor: theme.colors.background,
+      color: 'gray',
+    },
+    button: {
+      backgroundColor: '#fff',
+      height: 30,
+      top: 20,
+    },
+  });

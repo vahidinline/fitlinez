@@ -157,7 +157,7 @@ function MarketPlaceIndex() {
           onChangeText={onChangeSearch}
           value={searchQuery}
         />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             marginHorizontal: 10,
             right: 10,
@@ -172,7 +172,7 @@ function MarketPlaceIndex() {
           }}
           onPress={() => setShowFilter(!showFilter)}>
           <IconFilter />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View
         style={{
@@ -208,11 +208,11 @@ function MarketPlaceIndex() {
             sections={sections}
             ListHeaderComponent={() => (
               <View>
-                <ListItems
+                {/* <ListItems
                   packages={filteredPackage}
                   name={i18n.t('searchResults')}
                   navigation={navigation}
-                />
+                /> */}
                 {/* <ListItems
                   packages={packages}
                   name={'Workouts'}

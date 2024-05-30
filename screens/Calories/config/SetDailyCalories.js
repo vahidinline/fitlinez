@@ -9,17 +9,18 @@ function SetDailyCalories({ userId, setStatus }) {
   // const [status, setStatus] = useState('idle');
   const { theme } = useTheme();
   const styles = getStyles(theme);
-  const [dailyCalories, setDailyCalories] = useState(1750);
-  const [fatPercentage, setFatPercentage] = useState(30);
-  const [proteinPercentage, setProteinPercentage] = useState(30);
-  const [carbsPercentage, setCarbsPercentage] = useState(40);
+  const [dailyCalories, setDailyCalories] = useState(0);
+  console.log('dailyCalories in set', dailyCalories);
+  const [fatPercentage, setFatPercentage] = useState(0);
+  const [proteinPercentage, setProteinPercentage] = useState(0);
+  const [carbsPercentage, setCarbsPercentage] = useState(0);
 
   const [carbsGrams, setCarbsGrams] = useState(0);
   const [proteinGrams, setProteinGrams] = useState(0);
   const [fatGrams, setFatGrams] = useState(0);
 
   const valuechecker = () => {
-    if (fatPercentage + proteinPercentage + carbsPercentage !== 100) {
+    if (fatPercentage + proteinPercentage + carbsPercentage != 100) {
       Alert.alert(
         'Error',
         'The sum of fat, protein, and carbs percentages must be 100.'
@@ -29,12 +30,9 @@ function SetDailyCalories({ userId, setStatus }) {
     return true;
   };
 
-  useEffect(() => {
-    valuechecker();
-  }, [fatPercentage, proteinPercentage, carbsPercentage]);
-
   const handleInput = (e) => {
     if (!valuechecker()) return;
+
     setDailyCalories(parseInt(e.nativeEvent.text));
   };
 
@@ -113,10 +111,11 @@ function SetDailyCalories({ userId, setStatus }) {
             <ListItem.Title>Set Daily Calories</ListItem.Title>
           </View>
           <TextInput
+            returnKeyType="done"
             style={styles.input}
             name="dailyCalories"
             placeholder="Enter daily calories"
-            defaultValue={dailyCalories.toString()}
+            defaultValue={dailyCalories.toString() || '0'}
             keyboardType="numeric"
             onSubmitEditing={handleInput}
           />

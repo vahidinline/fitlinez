@@ -1,5 +1,13 @@
-import React from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import {
+  Dimensions,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import { sendInitialReq } from '../../../api/sendFoodQuery';
 import { Button } from '@rneui/base';
 import { Iconclose } from '../../marketplace/filters/icons';
@@ -13,6 +21,8 @@ function FoodTextInput({
   setInputStatus,
 }) {
   const { theme } = useTheme();
+  const [typeStatus, setTypeStatus] = useState('idle');
+
   const handleInput = async (e) => {
     setStatus('loading');
     const res = await sendInitialReq(e);
@@ -23,7 +33,15 @@ function FoodTextInput({
   };
 
   return (
-    <View style={styles.footerContainer}>
+    <View
+      style={[
+        styles.footerContainer,
+
+        {
+          bottom:
+            typeStatus === 'focused' ? Dimensions.get('window').height / 3 : 0,
+        },
+      ]}>
       <Pressable
         onPress={() => setInputStatus('idle')}
         style={{
@@ -38,6 +56,9 @@ function FoodTextInput({
         <Iconclose size={30} color={theme.colors.grey2} />
       </Pressable>
       <TextInput
+        returnKeyType="done"
+        returnKeyLabel="Done"
+        onFocus={() => setTypeStatus('focused')}
         multiline={true}
         numberOfLines={4}
         onChangeText={setUserInput}
@@ -72,12 +93,8 @@ function FoodTextInput({
 export default FoodTextInput;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-  },
   footerContainer: {
+    // bottom: typeStatus === 'focused' ? 0 : 0,
     padding: 20,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -87,6 +104,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0.3,
     borderColor: 'grey',
+    height: 200,
   },
   verticallySpaced: {
     marginVertical: 10,

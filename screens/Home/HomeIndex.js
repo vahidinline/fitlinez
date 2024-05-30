@@ -8,21 +8,21 @@ import { currentPalnPercentage } from '../../api/readWorkoutData';
 import { readWorkoutData } from '../../api/readWorkoutData';
 import CurrentWorkoutCard from './CurrentWorkoutCard';
 import { getPackages } from '../../api/GetData';
-import CardItem from '../marketplace/ListOfworkouts/CardItem';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
 import { ActivityIndicator } from 'react-native-paper';
 import NoWorkoutCard from './noWorkout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ChatBotIndex from '../chatBot/chatBotIndex';
 import { checkUserAccess } from '../../api/checkTestAccess';
 import StartSessionIndexHome from '../Sessions/StartSessionIndexHome';
+import DailyReport from '../Calories/dailyReport';
+import { Button } from '@rneui/base';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -40,6 +40,9 @@ function HomeIndex() {
   const isRTL = userLanguage === 'fa';
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
+  const [status, setStatus] = useState('idle');
+  console.log('status', status);
+  const navigator = useNavigation();
   const [userTestAccess, setUserTestAccess] = useState(
     checkUserAccess(userAuth.id)
   );
@@ -56,9 +59,11 @@ function HomeIndex() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (currentPlan === null) {
+        setStatus('noPlan');
         setLoading(false);
         setIsPlanAssigned(false);
       } else {
+        setStatus('hasPlan');
         setLoading(false);
         setIsPlanAssigned(true);
       }
@@ -147,7 +152,7 @@ function HomeIndex() {
         flex: 1,
         backgroundColor: theme.colors.background,
       }}>
-      {loading && (
+      {status === 'loading' && (
         <View
           style={{
             position: 'absolute',
@@ -171,7 +176,7 @@ function HomeIndex() {
           i18n={i18n}
           title={currentPlan?.name}
         />
-        {currentPlan && (
+        {status === 'hasPlan' && (
           <View
             style={{
               height: Dimensions.get('window').height / 7,
@@ -193,7 +198,7 @@ function HomeIndex() {
           flex: 1,
           // marginTop: currentPlan ? Dimensions.get('window').height / 7 : 0,
         }}>
-        {currentPlan && (
+        {status === 'hasPlan' && (
           <View
             style={{
               width: Dimensions.get('window').width,
@@ -223,7 +228,7 @@ function HomeIndex() {
             />
           </View>
         )}
-        {!isPlanAssigned && !currentPlan && (
+        {status === 'noPlan' && (
           <View
             style={{
               width: Dimensions.get('window').width,
@@ -287,6 +292,32 @@ function HomeIndex() {
           location={currentPlan?.location || ''}
           userPervilage={userPervilage}
         />
+        <DailyReport userId={userAuth.id} />
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 100,
+          }}></View>
+        <Button
+          buttonStyle={{
+            backgroundColor: theme.colors.secondary,
+            borderRadius: 12,
+            width: Dimensions.get('window').width / 2,
+            height: Dimensions.get('window').height / 20,
+            alignSelf: 'center',
+            marginBottom: 20,
+          }}
+          titleStyle={{
+            color: theme.colors.primary,
+          }}
+          onPress={() => {
+            navigator.navigate('Calories');
+          }}>
+          {i18n.t('calorieTracker')}
+        </Button>
       </ScrollView>
     </View>
   );

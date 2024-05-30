@@ -105,15 +105,26 @@ function TabNavigator() {
         }}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         swipEnabled={false}
-        name="MarketPlace"
+        name="Calories"
         component={CaloriesIndex}
         options={{
           headerShown: false,
           title: i18n.t('calorieCounter'),
           tabBarIcon: ({ focused }) =>
             !focused ? <IconCakeUnFocused /> : <IconCakeFocused />,
+        }}
+      /> */}
+      <Tab.Screen
+        swipEnabled={false}
+        name="MarketPlace"
+        component={MarketPlaceNavigation}
+        options={{
+          headerShown: false,
+          title: i18n.t('marketplace'),
+          tabBarIcon: ({ focused }) =>
+            !focused ? <IconMarketUnFocused /> : <IconMarketFocused />,
         }}
       />
       <Tab.Screen

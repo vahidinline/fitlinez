@@ -1,8 +1,9 @@
 import * as SQLite from 'expo-sqlite';
+import api from './api';
 const UserWorkOutSessionDB = SQLite.openDatabase('userWorkOutSession.db');
 const performanceDB = SQLite.openDatabase('performance.db'); // Replace with your actual database name
 
-const saveUserData = (
+const saveUserData = async (
   category,
   location,
   timeSpent,
@@ -18,6 +19,16 @@ const saveUserData = (
     performance: completionPercentage,
   };
   try {
+    const response = await api
+      .post('/workouthistory', {
+        dataToSave,
+      })
+      .then((response) => {
+        setLoading(false);
+      });
+
+    console.log('response', response);
+    return;
     UserWorkOutSessionDB.transaction((tx) => {
       tx.executeSql(
         'INSERT INTO userWorkOutSession (data) VALUES (?);',

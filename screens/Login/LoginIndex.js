@@ -88,8 +88,10 @@ function LoginIndex(props) {
         if (e.response && e.response.data && e.response.data.error) {
           setErrorMessage(e.response.data.error);
         } else {
+          setStatus('error');
           setErrorMessage('An unexpected error occurred. Please try again.');
         }
+
         setStatus('error');
       });
   };

@@ -323,6 +323,7 @@ const i18nt = {
     pushNotification: 'Push Notifications',
     searchResults: 'Search Results',
     updateProfile: 'Update Profile',
+    calorieTracker: 'Calorie Tracker',
     loginFooterText: 'Don’t have an account? ',
     loginFooterText2: 'Register',
     signupFooterText: 'Already have an account? ',
@@ -720,6 +721,7 @@ const i18nt = {
     midPerformanceText: 'تمرین خوبی بود! توی جلسه بعدی هدفت رو بالاتر بگذار',
     highPerformanceText: 'عالی بودی، نزدیک به اوج هستی!',
     hiestPerformanceText: ' فوق العاده! بریم برای رکوردهای جدید ',
+    calorieTracker: 'ردیاب کالری',
   },
 
   pt: {
@@ -975,6 +977,7 @@ const i18nt = {
     addWorkout: 'Adicionar Treino',
     AiSelect: 'Deixe a IA selecionar por mim',
     updateprofile: 'Atualizar Perfil',
+    calorieTracker: 'Rastreador de Calorias',
     newPlanText:
       '        Ainda não tem nenhum plano de treino. Por favor, adicione um',
     marketplace: 'Marketplace',

@@ -34,7 +34,7 @@ const ButtonsheetComponent = ({
   isRTL,
 }) => {
   const { theme } = useTheme();
-  console.log('baseLocation', baseLocation);
+  console.log('baseLocation', locSelector);
   let [painStatus, setPainStatus] = useState('hide');
   return (
     <BottomSheet modalProps={{}} isVisible={isVisible}>
@@ -102,6 +102,7 @@ const ButtonsheetComponent = ({
           </View>
         )}  */}
         <Button
+          disabled={locSelector === '' || locSelector === 'both'}
           onPress={() => dosomeThing(setIsVisible(!isVisible))}
           title={i18n.t('startWorkout')}
           buttonStyle={{

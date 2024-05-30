@@ -15,7 +15,6 @@ import { useFocusEffect } from '@react-navigation/native';
 
 import {
   IconHeaderNotStarted,
-  IconNowruz,
   IconStarted,
 } from '../marketplace/filters/icons-';
 import {
@@ -44,13 +43,10 @@ function HomeHeader({ planStartDate, data, title }) {
   const [backgroundColor, setBackgroundColor] = useState(
     theme.colors.lightPrimary
   );
-  //console.log('userPervilage in header', userPrivilege);
   useEffect(() => {
     const res = generateHeaderText(planStartDate, data, i18n, title);
     activeAccount && setTextMessage(res.message);
-    //setStatus(res.status);
   }, [planStartDate, data, i18n, title]);
-  //console.log('userPervilage in header', userPervilage);
   const BACKGROUND_FETCH_TASK = 'background-fetch';
 
   useEffect(() => {
@@ -59,14 +55,10 @@ function HomeHeader({ planStartDate, data, title }) {
 
   const checkUserPervilage = () => {
     if (userLevel === 4) {
-      //setTextMessage('1message.message');
-      //console.log('user is premium');
     } else if (userPrivilege === true) {
       setTextMessage('');
       setBackgroundColor(theme.colors.lightPrimary);
-      //console.log('user is free with valid days');
     } else {
-      // condition 2
       setTextMessage(`${i18n.t('trialExpired')}`);
       setBackgroundColor(theme.colors.warning);
       setActiveAccount(false);
@@ -94,57 +86,22 @@ function HomeHeader({ planStartDate, data, title }) {
     registerBackgroundFetchAsync();
   }, []);
 
-  // useFocusEffect(
-  //   useCallback(async () => {
-  //     await userLevelCheck(userAuth, setUserAuth);
-  //     await userStatusCheck(userAuth, setUserAuth);
-  //     await checkVersion(currentVersion, Userplatform, userLocation, i18n);
-
-  //     checkUserPervilage();
-
-  //     checkFirstTimeUser();
-  //     return () => {
-  //       // alert('Screen was unfocused');
-  //     };
-  //   }, [])
-  // );
-
   useFocusEffect(
-    useCallback(
-      () => {
-        async function fetchData() {
-          await userLevelCheck(userAuth, setUserAuth);
-          await userStatusCheck(userAuth, setUserAuth);
-          await checkVersion(currentVersion, Userplatform, userLocation, i18n);
-        }
-        fetchData();
-
-        checkFirstTimeUser();
-
-        // Your other async operations
-        // ...
-
-        // After completing async operations, call checkUserPervilage
-        checkUserPervilage();
-      },
-      [
-        /* dependencies of your async operations */
-      ]
-    )
-  );
-
-  useEffect(
-    () => {
-      // Your other async operations
-      // ...
-
-      // After completing async operations, call checkUserPervilage
+    useCallback(() => {
+      async function fetchData() {
+        await userLevelCheck(userAuth, setUserAuth);
+        await userStatusCheck(userAuth, setUserAuth);
+        await checkVersion(currentVersion, Userplatform, userLocation, i18n);
+      }
+      fetchData();
+      checkFirstTimeUser();
       checkUserPervilage();
-    },
-    [
-      /* dependencies of your async operations */
-    ]
+    }, [])
   );
+
+  useEffect(() => {
+    checkUserPervilage();
+  }, []);
 
   const messageLength = textMessage.length;
 
@@ -154,23 +111,16 @@ function HomeHeader({ planStartDate, data, title }) {
     try {
       const value = await AsyncStorage.getItem('@firstUsage');
       if (value === null) {
-        // First time user, set a flag in AsyncStorage
         await AsyncStorage.setItem('@firstUsage', 'true');
         navigation.navigate('IndexOnBoarding');
-        //console.log('first time');
       } else {
-        // Returning user, set the flag to false
         await AsyncStorage.setItem('@firstUsage', 'false');
-        // console.log('not first time');
       }
-    } catch (error) {
-      // Handle AsyncStorage errors if needed
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
     checkFirstTimeUser();
-    //AsyncStorage.removeItem('@firstUsage');
   }, []);
 
   useEffect(() => {
@@ -215,28 +165,20 @@ function HomeHeader({ planStartDate, data, title }) {
             style={{
               flexDirection: 'row',
               top: 0,
-              // justifyContent: 'space-around',
               alignItems: 'center',
-              // backgroundColor: { backgroundColor },
               flexWrap: 'wrap',
-              //  width: '80%',
             }}>
             <Text
               onPress={() => !activeAccount && navigation.navigate('Upgrade')}
               style={{
                 color: theme.colors.secondary,
                 fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 12 : 14,
-                //paddingHorizontal: 10,
                 flexWrap: 'wrap',
                 flex: 1,
                 fontWeight: '400',
                 marginHorizontal: 5,
-                //direction: RTL ? 'rtl' : 'ltr',
                 textAlign: RTL ? 'right' : 'left',
-              }}>
-              {/* {i18n.t('happyNoruwz')}
-              <IconNowruz /> */}
-            </Text>
+              }}></Text>
           </View>
         </View>
 
@@ -248,7 +190,6 @@ function HomeHeader({ planStartDate, data, title }) {
             height: 50,
             padding: 5,
             width: Dimensions.get('window').width - 20,
-            //direction: RTL ? 'rtl' : 'ltr',
             justifyContent: 'center',
           }}>
           <View
@@ -257,7 +198,6 @@ function HomeHeader({ planStartDate, data, title }) {
               top: 0,
               justifyContent: 'space-between',
               alignItems: 'center',
-              // backgroundColor: { backgroundColor },
               flexWrap: 'wrap',
               width: '100%',
             }}>
@@ -266,12 +206,10 @@ function HomeHeader({ planStartDate, data, title }) {
               style={{
                 color: theme.colors.secondary,
                 fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 12 : 14,
-                //paddingHorizontal: 10,
                 flexWrap: 'wrap',
                 flex: 1,
                 fontWeight: '400',
                 marginHorizontal: 5,
-                //direction: RTL ? 'rtl' : 'ltr',
                 textAlign: RTL ? 'right' : 'left',
               }}>
               {textMessage}
@@ -283,8 +221,6 @@ function HomeHeader({ planStartDate, data, title }) {
             )}
           </View>
         </Chip>
-
-        {/* <Greeting /> */}
       </View>
     </View>
   );

@@ -23,6 +23,7 @@ import Upgrade from '../screens/upgrade';
 import ConfirmPayment from '../screens/upgrade/payment';
 import PlanDetailsIndex from '../screens/planDetails/planDetailsIndex';
 import SessionNavigator from './SessionNavigator';
+import CaloriesIndex from '../screens/Calories/CaloriesIndex';
 
 const Stack = createStackNavigator();
 
@@ -93,6 +94,13 @@ const HomeNavigator = () => {
       <Stack.Screen
         name="IndexOnBoarding"
         component={IndexOnBoarding}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Calories"
+        component={CaloriesIndex}
         options={{
           headerShown: false,
         }}

@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View } from 'react-native';
 import { Text } from '@rneui/themed';
 import { I18n } from 'i18n-js';
-
 import InputSpinner from 'react-native-input-spinner';
 import * as SQLite from 'expo-sqlite';
 import { useTheme } from '@rneui/themed';
@@ -21,6 +20,7 @@ function WeightAndSetsInput(props) {
     exerciseId,
     onStoreData,
     sessionData,
+    currentIndex,
   } = props;
   const { theme } = useTheme();
   const styles = getStyles(theme);
@@ -66,24 +66,6 @@ function WeightAndSetsInput(props) {
     });
   }, []);
 
-  // useEffect(() => {
-  //   getDefaultValue();
-  // }, []);
-
-  // const getDefaultValue = async () => {
-  //   AsyncStorage.getItem(`${exerciseId}weight`).then((res) => {
-  //     console.log('res in getDefaultValue', res);
-  //     if (res !== null) {
-  //       setWeight(JSON.parse(res));
-  //     }
-  //   });
-  //   AsyncStorage.getItem(`${exerciseId}reps`).then((res) => {
-  //     if (res !== null) {
-  //       setReps(JSON.parse(res));
-  //     }
-  //   });
-  // };
-
   const postfixkg = i18n.t('kg');
   const postfixrep = i18n.t('reps');
 
@@ -103,112 +85,109 @@ function WeightAndSetsInput(props) {
   }, [weight, reps]);
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        backgroundColor: theme.colors.background,
-      }}>
-      <View
-        style={{
-          borderRadius: 16,
-          borderTopRightRadius: 0,
-          borderBottomRightRadius: 0,
-          marginTop: 5,
-          marginBottom: 5,
-          borderWidth: 1,
-          borderColor: theme.colors.border,
-        }}>
-        <Text
+    <>
+      {currentIndex === setIndex && (
+        <View
           style={{
-            margin: 5,
-            color: '#787680',
-            fontSize: 14,
-            fontWeight: '500',
-            padding: 10,
+            flexDirection: 'row',
+            backgroundColor: theme.colors.background,
           }}>
-          Set {setIndex + 1}
-        </Text>
-      </View>
-      <InputSpinner
-        name="weight"
-        type="float"
-        max={200}
-        min={0}
-        step={0.5}
-        background={theme.colors.background}
-        typingTimeout={2000}
-        shadow={false}
-        shadowOffset={0}
-        inputStyle={{
-          fontSize: 20,
-          color: theme.colors.secondary,
-          backgroundColor: setDone ? theme.colors.background : theme.colors.red,
-        }}
-        value={weight ? weight : 0}
-        onChange={(value) => handleInputChange('weight', value)}
-        style={{
-          flex: 1,
-          margin: 5,
-          marginEnd: 0,
-          marginStart: 0,
-          shadowColor: 'transparent',
-          justifyContent: 'center',
-          shadowOpacity: 0,
-          borderTopRightRadius: 0,
-          borderBottomRightRadius: 0,
-          borderRadius: 0,
-          borderWidth: 1,
-          borderStartWidth: 0,
-          borderEndWidth: 0,
-          borderColor: theme.colors.border,
-        }}
-        skin="clean"
-        //rounded={false}
-      >
-        <Text style={styles.label}>{postfixkg}</Text>
-      </InputSpinner>
+          <View
+            style={{
+              borderRadius: 16,
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              marginTop: 5,
+              marginBottom: 5,
+              borderWidth: 1,
+              borderColor: theme.colors.border,
+            }}>
+            <Text
+              style={{
+                margin: 5,
+                color: '#787680',
+                fontSize: 14,
+                fontWeight: '500',
+                padding: 10,
+              }}>
+              {i18n.t('set')} {setIndex + 1}
+            </Text>
+          </View>
+          <InputSpinner
+            name="weight"
+            type="float"
+            max={200}
+            min={0}
+            step={0.5}
+            background={theme.colors.background}
+            typingTimeout={2000}
+            shadow={false}
+            shadowOffset={0}
+            inputStyle={{
+              fontSize: 20,
+              color: theme.colors.secondary,
+              backgroundColor: setDone
+                ? theme.colors.background
+                : theme.colors.red,
+            }}
+            value={weight ? weight : 0}
+            onChange={(value) => handleInputChange('weight', value)}
+            style={{
+              flex: 1,
+              margin: 5,
+              marginEnd: 0,
+              marginStart: 0,
+              shadowColor: 'transparent',
+              justifyContent: 'center',
+              shadowOpacity: 0,
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              borderRadius: 0,
+              borderWidth: 1,
+              borderStartWidth: 0,
+              borderEndWidth: 0,
+              borderColor: theme.colors.border,
+            }}
+            skin="clean"
+            //rounded={false}
+          >
+            <Text style={styles.label}>{postfixkg}</Text>
+          </InputSpinner>
 
-      <InputSpinner
-        background={theme.colors.background}
-        typingTimeout={2000}
-        shadow={false}
-        shadowOffset={0}
-        max={500}
-        min={0}
-        step={1}
-        inputStyle={{
-          fontSize: 20,
-          color: theme.colors.secondary,
-        }}
-        value={reps ? reps : 0}
-        onChange={(value) => handleInputChange('reps', value)}
-        style={{
-          flex: 1,
-          margin: 5,
-          justifyContent: 'center',
-          shadowColor: 'transparent',
-          shadowOpacity: 0,
-          borderRadius: 16,
-          borderTopLeftRadius: 0,
-          borderBottomLeftRadius: 0,
-          borderStartWidth: 1,
-          borderWidth: 1,
-          borderColor: theme.colors.border,
-          marginStart: 0,
-        }}
-        skin="clean"
-        //rounded={false}
-      >
-        <Text style={styles.label}>{postfixrep}</Text>
-      </InputSpinner>
-      {/* {visible && (
-        <RestCounterComponent
-          setVisible={setVisible}
-          visible={visible}
-          buttonTitle={i18n.t('skip')}
-        />
-      )} */}
-    </View>
+          <InputSpinner
+            background={theme.colors.background}
+            typingTimeout={2000}
+            shadow={false}
+            shadowOffset={0}
+            max={500}
+            min={0}
+            step={1}
+            inputStyle={{
+              fontSize: 20,
+              color: theme.colors.secondary,
+            }}
+            value={reps ? reps : 0}
+            onChange={(value) => handleInputChange('reps', value)}
+            style={{
+              flex: 1,
+              margin: 5,
+              justifyContent: 'center',
+              shadowColor: 'transparent',
+              shadowOpacity: 0,
+              borderRadius: 16,
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
+              borderStartWidth: 1,
+              borderWidth: 1,
+              borderColor: theme.colors.border,
+              marginStart: 0,
+            }}
+            skin="clean">
+            <Text style={styles.label}>{postfixrep}</Text>
+          </InputSpinner>
+        </View>
+      )}
+    </>
   );
 }
 

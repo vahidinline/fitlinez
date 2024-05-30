@@ -96,9 +96,11 @@ const readSavedData = (userId) => {
   return new Promise((resolve, reject) => {
     db.transaction(
       (tx) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
         tx.executeSql(
-          'SELECT * FROM totalWeight;',
-          [],
+          'SELECT * FROM totalWeight WHERE timestamp >= ?;',
+          [today.getTime()],
           (tx, results) => {
             const rows = results.rows;
 
@@ -106,6 +108,7 @@ const readSavedData = (userId) => {
 
             for (let i = 0; i < rows.length; i++) {
               let row = rows.item(i);
+
               data.push({
                 ...row,
                 userId: userId,

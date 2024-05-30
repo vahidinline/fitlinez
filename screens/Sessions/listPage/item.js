@@ -27,6 +27,7 @@ import * as Icons from '../../marketplace/filters/icons';
 import AiAskHelpIndex from '../../AiAskHelp/AiAskHelpIndex';
 import { checkUserAccess } from '../../../api/checkTestAccess';
 import Recommand from './recomand';
+import api from '../../../api/api';
 const { width, height } = Dimensions.get('window');
 
 function Item({
@@ -36,7 +37,6 @@ function Item({
   title,
   index,
   gifUrl,
-  instructor,
   faInstructor,
   inputType,
   setFinish,
@@ -70,10 +70,8 @@ function Item({
   const [saveTimer, setSaveTimer] = useState(false);
   const [showDrawer, setShowDrawer] = useState(false);
   const [visible, setVisible] = useState(false);
-  //const [numberOfSets, setNumberOfSets] = useState(1);
   let adjustedNumberOfSets = 3;
   const [showRest, setShowRest] = useState(false);
-  const RTL = userLanguage === 'fa';
   const { sessionData, setSessionData } = useContext(SessionContext);
   const [userTestAccess, setUserTestAccess] = useState(false);
   let buttonVisible = true;
@@ -89,7 +87,7 @@ function Item({
     handleAccess();
   }, []);
 
-  const handleStoreData = ({
+  const handleStoreData = async ({
     weight,
     reps,
     category,
@@ -100,17 +98,34 @@ function Item({
     setIndex,
     timestamp,
   }) => {
-    setChildDataMap({
-      weight,
-      reps,
-      category,
-      exerciseId,
-      totalWeight,
-      title,
-      itemIndex,
-      setIndex,
-      timestamp,
-    });
+    try {
+      setChildDataMap({
+        weight,
+        reps,
+        category,
+        exerciseId,
+        totalWeight,
+        title,
+        itemIndex,
+        setIndex,
+        timestamp,
+      });
+    } catch (error) {
+      console.error('Error storing data', error);
+    }
+  };
+
+  const saveToCloud = async (childDataMap) => {
+    const response = await api
+      .post('/workouthistory', {
+        userId,
+        location: loc,
+        planId: 'plan id',
+        childDataMap,
+      })
+      .then((response) => {
+        console.log('saved to cloud');
+      });
   };
 
   useEffect(() => {
@@ -184,6 +199,7 @@ function Item({
 
   const handleButton = async () => {
     saveExerciseState(childDataMap);
+    saveToCloud(childDataMap);
     updateTotalWeight(childDataMap.totalWeight); //use new function here
     setSaveTimer(true);
     setShowRest((prevShowRest) => !prevShowRest);
@@ -340,47 +356,8 @@ function Item({
           width={Dimensions.get('window').width / 2.2}
           height={Dimensions.get('window').height / 4.1}
         />
-        {userTestAccess && (
-          <View
-            style={{
-              position: 'absolute',
-              top: 0,
-
-              //backgroundColor: theme.colors.green,
-              marginHorizontal: 10,
-              marginVertical: 10,
-            }}>
-            <AiAskHelpIndex
-              title={title}
-              category={category}
-              userLanguage={userLanguage}
-              exerciseId={exerciseId}
-              i18n={i18n}
-            />
-          </View>
-        )}
       </View>
-      {/* {description && (
-        <View
-          style={{
-            flexDirection: 'column',
-            marginHorizontal: 15,
-            marginTop: 5,
-            width: Dimensions.get('window').width - 25,
-          }}>
-          <Text
-            style={{
-              color: theme.colors.text,
-              fontSize: 14,
-              fontWeight: '400',
-              textAlign: 'left',
-              //alignItems: 'left',
-              marginLeft: 10,
-            }}>
-            {i18n.t('description')} : {description}
-          </Text>
-        </View>
-      )} */}
+
       {inputType !== 'timer' && inputType !== 'rep' && <Recommand />}
       <View
         style={{
@@ -451,6 +428,21 @@ function Item({
             }
           })
         )}
+
+        <View
+          style={{
+            marginHorizontal: 10,
+            marginVertical: 10,
+          }}>
+          <AiAskHelpIndex
+            title={title}
+            category={category}
+            userLanguage={userLanguage}
+            exerciseId={exerciseId}
+            i18n={i18n}
+          />
+        </View>
+
         {/* </ScrollView> */}
 
         {showRest && (
