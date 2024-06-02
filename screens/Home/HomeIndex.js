@@ -1,6 +1,6 @@
 import { Skeleton, Text, useTheme } from '@rneui/themed';
 import React, { useCallback, useContext } from 'react';
-import { Dimensions, ScrollView, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
 import HomeHeader from './homeHeader';
 import { WorkoutAgenda } from '../Agenda';
 import { useEffect, useState } from 'react';
@@ -24,6 +24,7 @@ import StartSessionIndexHome from '../Sessions/StartSessionIndexHome';
 import DailyReport from '../Calories/dailyReport';
 import { Button } from '@rneui/base';
 import FitlinezLoading from '../../components/FitlinezLoading';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -43,6 +44,8 @@ function HomeIndex() {
   const [message, setMessage] = useState(null);
   const [status, setStatus] = useState('loading');
   console.log('status', status);
+  const styles = getStyles(theme);
+
   const navigator = useNavigation();
   const [userTestAccess, setUserTestAccess] = useState(
     checkUserAccess(userAuth.id)
@@ -219,58 +222,6 @@ function HomeIndex() {
           </View>
         )}
 
-        {/* {userTestAccess ? (
-          <View
-            style={{
-              position: 'absolute',
-              top: 200,
-              left: 0,
-              right: 0,
-              bottom: 0,
-            }}>
-            <ChatBotIndex isRTL={isRTL} theme={theme} />
-          </View>
-        ) : ( */}
-        {/* <>
-          {packages?.length === 0 && (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-                marginTop: 20,
-                marginHorizontal: 30,
-                marginBottom: 20,
-                borderRadius: 20,
-              }}>
-              <Skeleton
-                skeletonStyle={{
-                  backgroundColor: theme.colors.primary,
-                  borderRadius: 20,
-                  borderWidth: 0.5,
-                  borderColor: theme.colors.border,
-                }}
-                animation="pulse"
-                width={Dimensions.get('window').width / 1 - 20}
-                height={Dimensions.get('window').height / 3}
-              />
-            </View>
-          )}
-          {packages
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .map((item) => (
-              <CardItem key={item._id} item={item} />
-            ))}
-        </> */}
-        {/* )} */}
-
-        <StartSessionIndexHome
-          title={currentPlan?.name || ''}
-          trainer={currentPlan?.creator || ''}
-          totalSessions={totalSessions || 0}
-          location={currentPlan?.location || ''}
-          userPervilage={userPervilage}
-        />
         <View
           style={{
             backgroundColor: theme.colors.background,
@@ -278,28 +229,61 @@ function HomeIndex() {
             borderRadius: 14,
             marginVertical: 10,
           }}>
-          <DailyReport userId={userAuth.id} />
-
-          <Button
-            buttonStyle={{
-              backgroundColor: theme.colors.secondary,
-              borderRadius: 12,
-              width: Dimensions.get('window').width / 2,
-              height: Dimensions.get('window').height / 20,
-              alignSelf: 'center',
-              marginBottom: 20,
-            }}
-            titleStyle={{
-              color: theme.colors.primary,
-            }}
-            onPress={() => {
-              navigator.navigate('Calories');
-            }}>
-            {i18n.t('calorieTracker')}
-          </Button>
+          <LinearGradient
+            colors={['#5B5891', '#3A366F', '#17124A']}
+            style={styles.background}
+          />
+          <View>
+            <View
+              style={{
+                posistion: 'absolute',
+                paddingTop: 10,
+              }}></View>
+            <Button
+              buttonStyle={{
+                backgroundColor: theme.colors.primary,
+                borderRadius: 12,
+                // top: 10,
+                width: Dimensions.get('window').width / 1.2,
+                height: Dimensions.get('window').height / 20,
+                alignSelf: 'center',
+                //marginBottom: 20,
+              }}
+              titleStyle={{
+                color: theme.colors.text,
+                fontSize: 16,
+                //sfontWeight: 'bold',
+              }}
+              onPress={() => {
+                navigator.navigate('Calories');
+              }}>
+              {i18n.t('calorieTracker')}
+            </Button>
+            <DailyReport userId={userAuth.id} />
+          </View>
         </View>
       </ScrollView>
     </View>
   );
 }
 export default HomeIndex;
+
+const getStyles = (theme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#5B5891',
+      justifyContent: 'center',
+      alignItems: 'center',
+      //marginHorizontal: 20,
+      padding: 30,
+      borderRadius: 14,
+      //width: Dimensions.get('window').width / 1.1,
+      marginVertical: 10,
+      // minHeight: Dimensions.get('window').height / 5,
+    },
+    background: {
+      ...StyleSheet.absoluteFillObject,
+      borderRadius: 14,
+    },
+  });

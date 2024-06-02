@@ -78,8 +78,8 @@ function WorkoutAgenda(props) {
             marginVertical: 4,
             borderRadius: 16,
             backgroundColor: isPastDay
-              ? theme.colors.lightPrimary
-              : theme.colors.background,
+              ? theme.colors.grey3
+              : theme.colors.lightPrimary,
             borderWidth: 1,
             borderColor: isToday ? theme.colors.secondary : theme.colors.border,
             justifyContent: 'space-around',
@@ -87,8 +87,8 @@ function WorkoutAgenda(props) {
           }}>
           <Text
             style={{
-              fontSize: 18,
-              fontWeight: 'bold',
+              fontSize: 15,
+              //fontWeight: 'bold',
               color: isToday ? theme.colors.secondary : theme.colors.text,
             }}>
             {item.day}
@@ -97,15 +97,15 @@ function WorkoutAgenda(props) {
           <Text
             style={{
               fontSize: 15,
-              fontWeight: 'bold',
+              // fontWeight: 'bold',
               color: isToday ? theme.colors.secondary : theme.colors.text,
             }}>
             {item.title}
           </Text>
           {item.task !== 'Rest' ? (
-            <IconWeight size={34} color={theme.colors.warning} />
+            <IconWeight size={24} />
           ) : (
-            <IconRest size={34} color={theme.colors.secondary} />
+            <IconRest size={24} color={theme.colors.secondary} />
           )}
         </View>
       </View>
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 22,
     textAlign: 'center',
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
   },
   divider: {
     borderRightWidth: 1,

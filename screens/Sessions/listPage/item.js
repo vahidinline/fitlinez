@@ -433,7 +433,7 @@ function Item({
           })
         )}
 
-        <View
+        {/* <View
           style={{
             marginHorizontal: 10,
             marginVertical: 10,
@@ -445,7 +445,7 @@ function Item({
             exerciseId={exerciseId}
             i18n={i18n}
           />
-        </View>
+        </View> */}
 
         {/* </ScrollView> */}
 

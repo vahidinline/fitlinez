@@ -22,6 +22,8 @@ import i18nt from '../../locales';
 import Header from '../../components/header';
 import AdditionalIndex from '../additionalData/AdditionalIndex';
 import DailyWorkloutListComponent from './dailyWorkloutListComponent';
+import { addSession } from '../../api/workoutSessionTracker';
+import AuthContext from '../../api/context';
 
 const db = SQLite.openDatabase('totalWeight.db');
 
@@ -202,10 +204,11 @@ const WeeklyPlan = (props) => {
   const [filteredWorkoutsList, setFilteredWorkoutsList] = useState([]);
   const [confirmEating, setConfirmEating] = useState(false);
   const [locSelector, setLocSelector] = useState('');
-
+  const planId = 1;
   const estimatedTime = data?.length * 6;
   const [isVisible, setIsVisible] = useState(false);
-
+  const { userAuth } = useContext(AuthContext);
+  const userId = userAuth.id;
   useEffect(() => {
     setLocSelector(baseLocation);
   }, [baseLocation]);
@@ -227,6 +230,7 @@ const WeeklyPlan = (props) => {
 
   const dosomeThing = useCallback(() => {
     setSessionData([]);
+    addSession(userId, planId, planName, title, locSelector);
     // saveUserData();
 
     navigation.navigate('SessionMainPage', {

@@ -2,6 +2,7 @@ import { Text, useTheme } from '@rneui/themed';
 import React from 'react';
 import { Dimensions, View, PixelRatio } from 'react-native';
 import { Card } from 'react-native-paper';
+import StartSessionIndexHome from '../../Sessions/StartSessionIndexHome';
 
 function CurrentCard({
   title,
@@ -20,16 +21,17 @@ function CurrentCard({
   return (
     <View
       style={{
-        position: 'absolute',
-        top: 0,
-        right: index === 1 ? 0 : Dimensions.get('window').width / 2.6,
-        width: width ? width : Dimensions.get('window').width / 1.2,
+        //position: 'absolute',
+        //top: 0,
+        //right: Dimensions.get('window').width,
+        width: Dimensions.get('window').width / 1.2,
         flexDirection: 'column',
         justifyContent: 'space-between',
         // alignItems: 'center',
         marginTop: 20,
         marginHorizontal: 10,
         height: Dimensions.get('window').height,
+        // backgroundColor: theme.colors.background,
       }}>
       <View
         style={{
@@ -56,10 +58,10 @@ function CurrentCard({
       </View>
       <View
         style={{
-          position: 'absolute',
-          top: PixelRatio.get() < 3 ? 0 : 10,
-          right: index === 1 ? 0 : Dimensions.get('window').width / 20,
-          width: Dimensions.get('window').width / 2.5,
+          // position: 'absolute',
+          //top: PixelRatio.get() < 3 ? 0 : 10,
+          //right: index === 1 ? 0 : Dimensions.get('window').width / 20,
+          width: Dimensions.get('window').width / 1.1,
           flexDirection: 'column',
           justifyContent: 'space-between',
           // alignItems: 'center',
@@ -73,13 +75,15 @@ function CurrentCard({
             borderRadius: 16,
             borderWidth: 1,
             borderColor: theme.colors.border,
-            marginTop: 10,
+            marginTop: 0,
             height:
               PixelRatio.get() < 3
                 ? Dimensions.get('window').height / 7.5
                 : Dimensions.get('window').height / 9,
-            width: Dimensions.get('window').width / 2.5,
+            width: Dimensions.get('window').width / 1.2,
             // width: '100%',
+            marginHorizontal: 0,
+            bottom: 5,
           }}>
           <Card.Content>
             <Text

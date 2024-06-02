@@ -10,11 +10,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import CurrentCard from './homeCard/CurrentCard';
 import { useNavigation } from '@react-navigation/native';
-import {
-  IconArrow,
-  IconBlackDumbbell,
-  IconTrainer,
-} from '../marketplace/filters/icons-';
+import { IconArrow, IconBlackDumbbell } from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
@@ -23,6 +19,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import AuthContext from '../../api/context';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
+import StartSessionIndexHome from '../Sessions/StartSessionIndexHome';
+import { IconTrainer } from '../marketplace/filters/icons';
 
 function CurrentWorkoutCard({ title, trainer, location }) {
   const [percentage, setPercentage] = useState(0);
@@ -104,7 +102,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
           right: 5,
           flexDirection: 'row',
         }}>
-        <CurrentCard
+        {/* <CurrentCard
           index={2}
           title={trainer}
           subtitle={i18n.t('progress')}
@@ -126,7 +124,7 @@ function CurrentWorkoutCard({ title, trainer, location }) {
               />
             </View>
           }
-        />
+        /> */}
         <CurrentCard
           index={1}
           title={title}

@@ -56,10 +56,10 @@ function DailyReport({ userId }) {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
+      {/* <LinearGradient
         colors={['#5B5891', '#3A366F', '#17124A']}
         style={styles.background}
-      />
+      /> */}
       {status === 'noData' && (
         <Text style={styles.noDataText}>No daily calories goals set</Text>
       )}
@@ -103,7 +103,7 @@ const getStyles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#5B5891',
+      //backgroundColor: '#5B5891',
       justifyContent: 'center',
       alignItems: 'center',
       //marginHorizontal: 20,
@@ -111,6 +111,7 @@ const getStyles = (theme) =>
       borderRadius: 14,
       //width: Dimensions.get('window').width / 1.1,
       marginVertical: 10,
+      // minHeight: Dimensions.get('window').height / 5,
     },
     background: {
       ...StyleSheet.absoluteFillObject,

@@ -25,6 +25,7 @@ import {
 import { useState } from 'react';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 import { generateHeaderText } from '../../api/readWorkoutData';
+import { getHeaderReport } from '../../api/headerReportAPI';
 
 function HomeHeader({ planStartDate, data, title }) {
   const { userAuth, setUserAuth } = useContext(AuthContext);
@@ -33,25 +34,39 @@ function HomeHeader({ planStartDate, data, title }) {
   i18n.locale = userLanguage;
   const { theme } = useTheme();
   const [textMessage, setTextMessage] = useState('');
+  console.log('textMessage', textMessage);
   const [activeAccount, setActiveAccount] = useState(true);
   const [status, setStatus] = useState('good');
   const currentVersion = '7.0.7.8';
   const userLocation = userAuth.location;
   const userLevel = userAuth.level;
+  const userId = userAuth.id;
   const Userplatform = Platform.OS;
   const { userPrivilege } = useContext(UserPrivilegeContext);
   const [backgroundColor, setBackgroundColor] = useState(
     theme.colors.lightPrimary
   );
-  useEffect(() => {
-    const res = generateHeaderText(planStartDate, data, i18n, title);
-    activeAccount && setTextMessage(res.message);
-  }, [planStartDate, data, i18n, title]);
+  // useEffect(() => {
+  //   const res = generateHeaderText(planStartDate, data, i18n, title);
+  //   activeAccount && setTextMessage(res.message);
+  // }, [planStartDate, data, i18n, title]);
   const BACKGROUND_FETCH_TASK = 'background-fetch';
 
   useEffect(() => {
     checkUserPervilage();
   }, [userPrivilege]);
+
+  const getHeaderData = async () => {
+    const res = await getHeaderReport(userId, userLanguage);
+
+    if (res) {
+      setTextMessage(res.message);
+    }
+  };
+
+  useEffect(() => {
+    getHeaderData();
+  }, [userAuth]);
 
   const checkUserPervilage = () => {
     if (userLevel === 4) {
@@ -94,7 +109,7 @@ function HomeHeader({ planStartDate, data, title }) {
         await checkVersion(currentVersion, Userplatform, userLocation, i18n);
       }
       fetchData();
-      checkFirstTimeUser();
+      //checkFirstTimeUser();
       checkUserPervilage();
     }, [])
   );
@@ -107,21 +122,21 @@ function HomeHeader({ planStartDate, data, title }) {
 
   const navigation = useNavigation();
   const RTL = userLanguage === 'fa';
-  const checkFirstTimeUser = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@firstUsage');
-      if (value === null) {
-        await AsyncStorage.setItem('@firstUsage', 'true');
-        navigation.navigate('IndexOnBoarding');
-      } else {
-        await AsyncStorage.setItem('@firstUsage', 'false');
-      }
-    } catch (error) {}
-  };
+  // const checkFirstTimeUser = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem('@firstUsage');
+  //     if (value === null) {
+  //       await AsyncStorage.setItem('@firstUsage', 'true');
+  //       navigation.navigate('IndexOnBoarding');
+  //     } else {
+  //       await AsyncStorage.setItem('@firstUsage', 'false');
+  //     }
+  //   } catch (error) {}
+  // };
 
-  useEffect(() => {
-    checkFirstTimeUser();
-  }, []);
+  // useEffect(() => {
+  //   checkFirstTimeUser();
+  // }, []);
 
   useEffect(() => {
     const getcurrentwotkout = async () => {

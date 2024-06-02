@@ -18,6 +18,7 @@ import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import AuthContext from '../../api/context';
 import Item from './listPage/item';
+import { updateSession } from '../../api/workoutSessionTracker';
 
 const { width, height } = Dimensions.get('window');
 
@@ -177,9 +178,15 @@ const SessionMainPage = (props) => {
     restoreTimeSpend();
   }, []);
 
-  const finishWorkout = () => {
+  const finishWorkout = async () => {
     try {
       setStoptimer(true);
+      const sessionId = await AsyncStorage.getItem('sessionId');
+      console.log('sessionId', sessionId);
+      await updateSession({
+        sessionId,
+        status: 'completed',
+      });
 
       setTimeout(() => {
         navigation.navigate('FinishSession', {

@@ -3,7 +3,7 @@ import NetInfo from '@react-native-community/netinfo';
 
 const foodapi = axios.create({
   //baseURL: 'http://10.10.177.210:8090',
-  baseURL: 'http://192.168.1.49:8090',
+  baseURL: 'https://aibackendfitlinez.azurewebsites.net',
 
   timeout: 20000,
   headers: {

@@ -6,6 +6,7 @@ import {
   ScrollView,
   AppState,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import { I18n } from 'i18n-js';
@@ -235,127 +236,126 @@ const StartSessionIndexHome = ({ title, trainer, location }) => {
   }
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
-        backgroundColor: theme.colors.background,
-        direction: RTL ? 'rtl' : 'ltr',
+        backgroundColor: 'transparent',
       }}>
-      <ScrollView>
-        {/* sort by day */}
+      {/* sort by day */}
 
-        {workoutPlan
-          ?.sort((a, b) => {
-            const indexA = daysOfWeek.findIndex((day) => day.name === a.day);
-            const indexB = daysOfWeek.findIndex((day) => day.name === b.day);
+      {workoutPlan
+        ?.sort((a, b) => {
+          const indexA = daysOfWeek.findIndex((day) => day.name === a.day);
+          const indexB = daysOfWeek.findIndex((day) => day.name === b.day);
 
-            return indexA - indexB;
-          })
-          .filter((item, i) => {
-            // Get today's day name
-            const today = moment().format('dddd');
-            return i == 2 && item.day === today;
-          })
-          .map((item, i) => {
-            return (
-              <TouchableOpacity
-                disabled={
-                  item.title === 'Rest' ||
-                  item.title.toLowerCase() === 'walking' ||
-                  item.title.toLowerCase() === 'running'
-                    ? true
-                    : false
-                }
-                onPress={() => {
-                  goToWorkOut(item);
-                }}
+          return indexA - indexB;
+        })
+        .filter((item, i) => {
+          // Get today's day name
+          const today = moment().format('dddd');
+          return i == 2 && item.day === today;
+        })
+        .map((item, i) => {
+          return (
+            <TouchableOpacity
+              disabled={
+                item.title === 'Rest' ||
+                item.title.toLowerCase() === 'walking' ||
+                item.title.toLowerCase() === 'running'
+                  ? true
+                  : false
+              }
+              onPress={() => {
+                goToWorkOut(item);
+              }}
+              style={{
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                backgroundColor:
+                  item.title !== 'Rest'
+                    ? theme.colors.background
+                    : theme.colors.disabled,
+                marginHorizontal: 20,
+                width: Dimensions.get('window').width / 1.2,
+
+                height: item.title !== 'Rest' ? 100 : 70,
+                marginVertical: 8,
+                borderRadius: 16,
+                borderColor: theme.colors.border,
+                borderWidth: 1,
+              }}
+              key={i}>
+              <View
                 style={{
-                  flexDirection: 'column',
+                  flexDirection: 'row',
                   justifyContent: 'space-between',
-                  backgroundColor:
-                    item.title !== 'Rest'
-                      ? theme.colors.background
-                      : theme.colors.disabled,
+                  alignItems: 'center',
                   marginHorizontal: 16,
-                  height: item.title !== 'Rest' ? 100 : 70,
-                  marginVertical: 8,
-                  borderRadius: 16,
-                  borderColor: theme.colors.border,
-                  borderWidth: 1,
-                }}
-                key={i}>
+                }}>
+                <View style={{}}>
+                  <Text
+                    style={{
+                      color:
+                        item.title !== 'Rest'
+                          ? theme.colors.secondary
+                          : '#C7C4DC',
+                      fontSize: 16,
+                      fontWeight: '500',
+                      marginTop: 16,
+                    }}>
+                    {findMatchingDay(item.day, daysOfWeek)}
+                  </Text>
+                  <Text
+                    style={{
+                      color:
+                        item.title !== 'Rest' ? theme.colors.text : '#C7C4DC',
+                      fontSize: 14,
+                      fontWeight: '500',
+                      marginTop: 8,
+                    }}>
+                    {item.title}
+                  </Text>
+                </View>
+
+                <View
+                  style={{
+                    marginLeft: 16,
+                    marginTop: 16,
+                  }}>
+                  {item.title !== 'Rest' && <IconArrowRight />}
+                </View>
+              </View>
+
+              {showDate(item.title) !== undefined && (
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    alignItems: 'center',
                     marginHorizontal: 16,
                   }}>
-                  <View style={{}}>
-                    <Text
-                      style={{
-                        color:
-                          item.title !== 'Rest'
-                            ? theme.colors.secondary
-                            : '#C7C4DC',
-                        fontSize: 16,
-                        fontWeight: '500',
-                        marginTop: 16,
-                      }}>
-                      {findMatchingDay(item.day, daysOfWeek)}
-                    </Text>
-                    <Text
-                      style={{
-                        color:
-                          item.title !== 'Rest' ? theme.colors.text : '#C7C4DC',
-                        fontSize: 14,
-                        fontWeight: '500',
-                        marginTop: 8,
-                      }}>
-                      {item.title}
-                    </Text>
-                  </View>
-
-                  <View
+                  <Text
                     style={{
-                      marginLeft: 16,
-                      marginTop: 16,
+                      borderRadius: 10,
+                      color: theme.colors.secondary,
+
+                      marginBottom: 16,
                     }}>
-                    {item.title !== 'Rest' && <IconArrowRight />}
-                  </View>
+                    {i18n.t('lastPerformance')}
+                  </Text>
+                  <Text
+                    style={{
+                      borderRadius: 10,
+                      color: theme.colors.secondary,
+                      marginBottom: 16,
+                    }}>
+                    {showDate(item.title, userLanguage)}
+                  </Text>
                 </View>
-
-                {showDate(item.title) !== undefined && (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      marginHorizontal: 16,
-                    }}>
-                    <Text
-                      style={{
-                        borderRadius: 10,
-                        color: theme.colors.secondary,
-
-                        marginBottom: 16,
-                      }}>
-                      {i18n.t('lastPerformance')}
-                    </Text>
-                    <Text
-                      style={{
-                        borderRadius: 10,
-                        color: theme.colors.secondary,
-                        marginBottom: 16,
-                      }}>
-                      {showDate(item.title, userLanguage)}
-                    </Text>
-                  </View>
-                )}
-              </TouchableOpacity>
-            );
-          })}
-      </ScrollView>
-    </SafeAreaView>
+              )}
+            </TouchableOpacity>
+          );
+        })}
+    </View>
   );
 };
 const styles = (theme) =>
