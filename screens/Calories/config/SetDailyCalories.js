@@ -38,9 +38,10 @@ function SetDailyCalories({ userId, setStatus, i18n }) {
   }, []);
 
   const handleInput = (e) => {
-    //if (!valuechecker()) return;
-    s; // return;
+    if (!valuechecker()) return;
+    // return;
     setDailyCalories(parseInt(e.nativeEvent.text));
+    setTypeStatus('idle');
   };
 
   const handleSetCalories = async () => {
@@ -115,19 +116,22 @@ function SetDailyCalories({ userId, setStatus, i18n }) {
       Alert.alert('Invalid input', 'Value cannot be 0 or empty');
       return;
     }
-
     switch (name) {
       case 'dailyCalories':
         setDailyCalories(parseInt(text));
+        setTypeStatus('idle');
         break;
       case 'carbohydrates':
         setCarbsPercentage(parseInt(text));
+        setTypeStatus('idle');
         break;
       case 'protein':
         setProteinPercentage(parseInt(text));
+        setTypeStatus('idle');
         break;
       case 'fat':
         setFatPercentage(parseInt(text));
+        setTypeStatus('idle');
         break;
       default:
         break;

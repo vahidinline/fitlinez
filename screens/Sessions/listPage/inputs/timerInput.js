@@ -9,6 +9,7 @@ import { useTheme } from '@rneui/themed';
 import { SessionContext } from '../../../../api/sessionContext';
 import CountDown from './countDown';
 import { saveSetsData } from '../../../../api/inputApis';
+import { duration } from 'moment';
 
 function TimerInput({
   index,
@@ -111,10 +112,27 @@ function TimerInput({
       totalWeight: 0,
       title,
       itemIndex: index,
-      timestamp: stopwatchTime,
+      exercideType: 'timer',
+      duration: stopwatchTime,
     };
     saveSetsData(dataToSave);
   };
+
+  useEffect(() => {
+    onStoreData({
+      weight: 0,
+      reps,
+      category,
+      exerciseId,
+      totalWeight: 0,
+      title,
+      itemIndex: index,
+      setIndex,
+      timestamp: new Date().toISOString(),
+      exerciseType: 'timer',
+      duration: stopwatchTime,
+    });
+  }, [stopwatchTime]);
 
   return (
     <View

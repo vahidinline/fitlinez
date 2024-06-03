@@ -40,6 +40,7 @@ function RepsInput(props) {
       itemIndex: index,
       setIndex,
       timestamp,
+      exerciseType: 'reps',
     });
   }, [reps]);
 

@@ -37,7 +37,7 @@ function CalorieMenu({
     {
       id: 3,
       name: i18n.t('report'),
-      onPress: () => setStatus('report'),
+      onPress: () => setStatus('CustomReport'),
       active: true,
     },
     {

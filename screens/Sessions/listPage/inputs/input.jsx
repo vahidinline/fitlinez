@@ -80,6 +80,7 @@ function WeightAndSetsInput(props) {
       itemIndex: index,
       setIndex,
       timestamp,
+      exerciseType: 'weight',
     });
     setSetDone(true);
   }, [weight, reps]);

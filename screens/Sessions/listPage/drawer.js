@@ -20,6 +20,7 @@ function DrawerList({
   sortedData,
   index: ecerciseId,
   sessionData,
+  goToIndex,
 }) {
   const { theme } = useTheme();
   const styles = getStyles(theme); // Call the function inside the component
@@ -49,7 +50,9 @@ function DrawerList({
               return (
                 <TouchableOpacity
                   onPress={() => {
+                    goToIndex(index);
                     setStatus('modal');
+                    setShowDrawer(!showDrawer);
                   }}>
                   <View
                     key={index}

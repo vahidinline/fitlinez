@@ -387,21 +387,8 @@ const StartPlan = (props) => {
           })}
         </View>
       </ScrollView>
-      <View>
-        <Button
-          onPress={() => {
-            setIsVisible(!isVisible);
-          }}
-          title={i18n.t('start')}
-          buttonStyle={{
-            width: Dimensions.get('window').width - 20,
-            marginHorizontal: 10,
-            marginVertical: 10,
-            borderRadius: 12,
-            backgroundColor: theme.colors.button,
-          }}
-        />
-      </View>
+
+      <View></View>
       {isVisible && (
         <ButtonsheetComponent
           i18n={i18n}

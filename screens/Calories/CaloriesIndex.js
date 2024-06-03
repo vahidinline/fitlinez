@@ -15,6 +15,7 @@ import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import NutritionChart from './NutritionChart';
+import CustomReport from './customReport';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -100,6 +101,9 @@ function CaloriesIndex() {
             setStatus={setStatus}
             userId={userId}
           />
+        )}
+        {status === 'CustomReport' && (
+          <CustomReport i18n={i18n} userId={userId} />
         )}
         {status === 'mealInitialized' && (
           <InputSelector

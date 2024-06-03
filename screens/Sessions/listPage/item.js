@@ -97,6 +97,8 @@ function Item({
     itemIndex,
     setIndex,
     timestamp,
+    exerciseType,
+    duration,
   }) => {
     try {
       setChildDataMap({
@@ -109,6 +111,8 @@ function Item({
         itemIndex,
         setIndex,
         timestamp,
+        exerciseType,
+        duration,
       });
     } catch (error) {
       console.error('Error storing data', error);
