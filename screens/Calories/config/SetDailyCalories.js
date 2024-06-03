@@ -6,6 +6,7 @@ import { Alert, Dimensions, StyleSheet, TextInput, View } from 'react-native';
 import { setDailyCaloriesGoals } from '../../../api/calculateCaloriesPercentage';
 import NutritionChart from '../NutritionChart';
 import { Picker } from '@react-native-picker/picker';
+import { schedulePushNotification } from '../../../api/notification';
 
 const pickerData = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 
@@ -46,6 +47,12 @@ function SetDailyCalories({ userId, setStatus, i18n }) {
 
   const handleSetCalories = async () => {
     setStatus('loading');
+
+    schedulePushNotification({
+      title: 'Daily Calories Goals',
+      body: `Daily calories goal is set to ${dailyCalories}`,
+      data: { dailyCalories },
+    });
     try {
       setDailyCaloriesGoals(
         dailyCalories,
@@ -69,6 +76,7 @@ function SetDailyCalories({ userId, setStatus, i18n }) {
           carbsGrams,
         })
       );
+
       setStatus('idle');
     } catch (error) {
       console.error('Failed to set data:', error);

@@ -39,10 +39,10 @@ function MessageCenter() {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
 
-  useEffect(() => {
-    // deleteTable('messages');
-    getMessages();
-  }, [deletedMsg]);
+  // useEffect(() => {
+  //   // deleteTable('messages');
+  //   getMessages();
+  // }, [deletedMsg]);
 
   const deleteMessages = async (item) => {
     try {
@@ -68,19 +68,19 @@ function MessageCenter() {
     }
   }, []);
 
-  const getMessages = async () => {
-    try {
-      const messages = await fetchMessages();
-      setMessages(messages);
-      setIsLoading(false);
-      setErrorMessage('');
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-      setIsError(true);
-      setErrorMessage('No messages found');
-    }
-  };
+  // const getMessages = async () => {
+  //   try {
+  //     const messages = await fetchMessages();
+  //     setMessages(messages);
+  //     setIsLoading(false);
+  //     setErrorMessage('');
+  //   } catch (error) {
+  //     console.log(error);
+  //     setIsLoading(false);
+  //     setIsError(true);
+  //     setErrorMessage('No messages found');
+  //   }
+  // };
 
   const renderRightActions = (item) => {
     return (
