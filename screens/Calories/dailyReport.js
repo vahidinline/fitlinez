@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Dimensions, PixelRatio, StyleSheet, Text, View } from 'react-native';
 import { getDailyCalorieInTake } from '../../api/dailyCalorieInTake';
 import { useTheme } from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
+import i18nt from '../../locales';
+import LanguageContext from '../../api/langcontext';
+import { I18n } from 'i18n-js';
 
 function DailyReport({ userId }) {
   const { theme } = useTheme();
@@ -11,6 +14,9 @@ function DailyReport({ userId }) {
   const [status, setStatus] = useState('idle');
   const [result, setResult] = useState([]);
   const [dailyCalories, setDailyCalories] = useState(0);
+  const { userLanguage } = useContext(LanguageContext);
+  const i18n = new I18n(i18nt);
+  i18n.locale = userLanguage;
   console.log('dailyCalories in daily', dailyCalories);
   console.log('result in daily', result);
   const getDailyReport = async () => {
@@ -72,23 +78,26 @@ function DailyReport({ userId }) {
                 : dailyCalories}
             </Text>
             <Text style={styles.kcalText}>kcal</Text>
-            <Text style={styles.remainingText}>Remaining</Text>
+            <Text style={styles.remainingText}>{i18n.t('remaining')}</Text>
           </View>
           <View style={styles.nutrientContainer}>
             <Text style={styles.nutrientText}>
-              Calories: {result && result[0]?.totalCalories.toFixed(0)} g
+              {i18n.t('calories')}:
+              {result && result[0]?.totalCalories.toFixed(0)} g
             </Text>
             <Text style={styles.nutrientText}>
-              Protein: {result && result[0]?.totalProtein.toFixed(0)} g
+              {i18n.t('carbs')}: {result && result[0]?.totalCarbs.toFixed(0)} g
             </Text>
             <Text style={styles.nutrientText}>
-              Fats: {result && result[0]?.totalFat.toFixed(0)} g
+              {i18n.t('protein')}:{result && result[0]?.totalProtein.toFixed(0)}
+              g
+            </Text>
+
+            <Text style={styles.nutrientText}>
+              {i18n.t('fats')}: {result && result[0]?.totalFat.toFixed(0)} g
             </Text>
             <Text style={styles.nutrientText}>
-              Carbs: {result && result[0]?.totalCarbs.toFixed(0)} g
-            </Text>
-            <Text style={styles.nutrientText}>
-              Fiber: {result && result[0]?.totalFiber.toFixed(0)} g
+              {i18n.t('fiber')}: {result && result[0]?.totalFiber.toFixed(0)} g
             </Text>
           </View>
         </>
@@ -107,11 +116,16 @@ const getStyles = (theme) =>
       justifyContent: 'center',
       alignItems: 'center',
       //marginHorizontal: 20,
+      flexDirection: 'row',
       padding: 30,
       borderRadius: 14,
       //width: Dimensions.get('window').width / 1.1,
       marginVertical: 10,
       // minHeight: Dimensions.get('window').height / 5,
+    },
+    row: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
     background: {
       ...StyleSheet.absoluteFillObject,

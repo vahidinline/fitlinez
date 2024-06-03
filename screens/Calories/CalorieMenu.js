@@ -3,7 +3,14 @@ import { BottomSheet, ListItem } from '@rneui/base';
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 
-function CalorieMenu({ status, list, userId, setStatus, setSelectedMeal }) {
+function CalorieMenu({
+  status,
+  list,
+  userId,
+  setStatus,
+  setSelectedMeal,
+  i18n,
+}) {
   const navigation = useNavigation();
 
   const handleHideMenu = () => {
@@ -17,27 +24,27 @@ function CalorieMenu({ status, list, userId, setStatus, setSelectedMeal }) {
   const menuList = [
     {
       id: 1,
-      name: 'Add Food',
+      name: i18n.t('addfood'),
       onPress: () => setStatus('addFood'),
     },
     {
       id: 2,
-      name: 'Set Daily Calories',
+      name: i18n.t('setdailycalories'),
       onPress: () => setStatus('setDailyCalories'),
     },
     {
       id: 3,
-      name: 'Report',
+      name: i18n.t('report'),
       onPress: () => setStatus('report'),
     },
     {
       id: 4,
-      name: 'Create Meal',
+      name: i18n.t('createmeal'),
       onPress: () => setStatus('createMeal'),
     },
     {
       id: 5,
-      name: 'Back',
+      name: i18n.t('back'),
       onPress: () => handleHideMenu(),
     },
   ];

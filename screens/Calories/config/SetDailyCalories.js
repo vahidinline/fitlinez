@@ -5,19 +5,22 @@ import React, { useState, useEffect } from 'react';
 import { Alert, Dimensions, StyleSheet, TextInput, View } from 'react-native';
 import { setDailyCaloriesGoals } from '../../../api/calculateCaloriesPercentage';
 import NutritionChart from '../NutritionChart';
+import { Picker } from '@react-native-picker/picker';
 
-function SetDailyCalories({ userId, setStatus }) {
+const pickerData = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+
+function SetDailyCalories({ userId, setStatus, i18n }) {
   // const [status, setStatus] = useState('idle');
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [dailyCalories, setDailyCalories] = useState(0);
-  console.log('dailyCalories in set', dailyCalories);
   const [fatPercentage, setFatPercentage] = useState(30);
   const [proteinPercentage, setProteinPercentage] = useState(30);
   const [carbsPercentage, setCarbsPercentage] = useState(40);
   const [carbsGrams, setCarbsGrams] = useState(0);
   const [proteinGrams, setProteinGrams] = useState(0);
   const [fatGrams, setFatGrams] = useState(0);
+  const [typeStatus, setTypeStatus] = useState('idle');
 
   const valuechecker = () => {
     if (fatPercentage + proteinPercentage + carbsPercentage != 100) {
@@ -30,10 +33,13 @@ function SetDailyCalories({ userId, setStatus }) {
     return true;
   };
 
+  useEffect(() => {
+    valuechecker();
+  }, []);
+
   const handleInput = (e) => {
     //if (!valuechecker()) return;
-    console.log('e.nativeEvent.text', e.nativeEvent.text);
-    // return;
+    s; // return;
     setDailyCalories(parseInt(e.nativeEvent.text));
   };
 
@@ -101,150 +107,202 @@ function SetDailyCalories({ userId, setStatus }) {
     getDailyCaloriesGoals();
   }, []);
 
+  const handlePercent = (e) => {
+    const { name, text } = e.nativeEvent;
+    const value = parseInt(text);
+
+    if (!value || value <= 0) {
+      Alert.alert('Invalid input', 'Value cannot be 0 or empty');
+      return;
+    }
+
+    switch (name) {
+      case 'dailyCalories':
+        setDailyCalories(parseInt(text));
+        break;
+      case 'carbohydrates':
+        setCarbsPercentage(parseInt(text));
+        break;
+      case 'protein':
+        setProteinPercentage(parseInt(text));
+        break;
+      case 'fat':
+        setFatPercentage(parseInt(text));
+        break;
+      default:
+        break;
+    }
+  };
   return (
-    <View style={styles.container}>
-      <ListItem>
-        <ListItem.Content
+    <View
+      style={{
+        height: '100%',
+
+        bottom:
+          typeStatus === 'focused' ? Dimensions.get('window').height / 4 : 0,
+      }}>
+      <NutritionChart
+        i18n={i18n}
+        dailyCalories={dailyCalories}
+        fatPercentage={fatPercentage}
+        proteinPercentage={proteinPercentage}
+        carbsPercentage={carbsPercentage}
+        fatGrams={fatGrams}
+        proteinGrams={proteinGrams}
+        carbsGrams={carbsGrams}
+      />
+      <View style={styles.container}>
+        <ListItem>
+          <ListItem.Content
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
+            }}>
+            <View style={{ flexDirection: 'row' }}>
+              <ListItem.Title
+                style={{
+                  color: theme.colors.text,
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                }}>
+                Set Daily Calories
+              </ListItem.Title>
+            </View>
+            <TextInput
+              returnKeyType="done"
+              style={styles.input}
+              name="dailyCalories"
+              placeholder="Enter daily calories"
+              defaultValue={dailyCalories.toString() || '0'}
+              keyboardType="numeric"
+              onChangeText={(e) => setDailyCalories(parseInt(e))}
+              onSubmitEditing={handleInput}
+              onFocus={() => setTypeStatus('focused')}
+            />
+          </ListItem.Content>
+        </ListItem>
+
+        <ListItem>
+          <ListItem.Content
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
+            }}>
+            <View style={{ flexDirection: 'row' }}>
+              <ListItem.Title>Carbohydrates</ListItem.Title>
+              <Text style={styles.subs}>{carbsGrams} g</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <TextInput
+                returnKeyType="done"
+                name="carbohydrates"
+                placeholder="Enter percentage"
+                defaultValue={carbsPercentage.toString()}
+                keyboardType="numeric"
+                onChangeText={(text) =>
+                  handlePercent({
+                    nativeEvent: { name: 'carbohydrates', text },
+                  })
+                }
+                onSubmitEditing={(e) => handlePercent(e)}
+                onFocus={() => setTypeStatus('focused')}
+              />
+              <Text style={styles.subs}>%</Text>
+            </View>
+          </ListItem.Content>
+        </ListItem>
+
+        <ListItem>
+          <ListItem.Content
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
+            }}>
+            <View style={{ flexDirection: 'row' }}>
+              <ListItem.Title>Protein</ListItem.Title>
+              <Text style={styles.subs}>{proteinGrams} g</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <TextInput
+                returnKeyType="done"
+                name="protein"
+                placeholder="Enter percentage"
+                defaultValue={proteinPercentage.toString()}
+                keyboardType="numeric"
+                onChangeText={(text) =>
+                  handlePercent({ nativeEvent: { name: 'protein', text } })
+                }
+                onSubmitEditing={(e) => handlePercent(e)}
+                onFocus={() => setTypeStatus('focused')}
+              />
+              <Text style={styles.subs}>%</Text>
+            </View>
+          </ListItem.Content>
+        </ListItem>
+
+        <ListItem>
+          <ListItem.Content
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
+            }}>
+            <View style={{ flexDirection: 'row' }}>
+              <ListItem.Title>Fat</ListItem.Title>
+              <Text style={styles.subs}>{fatGrams} g</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <TextInput
+                returnKeyType="done"
+                name="fat"
+                placeholder="Enter percentage"
+                defaultValue={fatPercentage.toString()}
+                keyboardType="numeric"
+                onChangeText={(text) =>
+                  handlePercent({ nativeEvent: { name: 'fat', text } })
+                }
+                onSubmitEditing={(e) => handlePercent(e)}
+                onFocus={() => setTypeStatus('focused')}
+              />
+
+              <Text style={styles.subs}>%</Text>
+            </View>
+          </ListItem.Content>
+        </ListItem>
+        <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
+            margin: 20,
           }}>
-          <View style={{ flexDirection: 'row' }}>
-            <ListItem.Title
-              style={{
-                color: theme.colors.text,
-                fontSize: 18,
-                fontWeight: 'bold',
-              }}>
-              Set Daily Calories
-            </ListItem.Title>
-          </View>
-          <TextInput
-            returnKeyType="done"
-            style={styles.input}
-            name="dailyCalories"
-            placeholder="Enter daily calories"
-            defaultValue={dailyCalories.toString() || '0'}
-            keyboardType="numeric"
-            onChangeText={(e) => setDailyCalories(parseInt(e))}
-            onSubmitEditing={handleInput}
+          <Button
+            buttonStyle={[
+              styles.Button,
+              {
+                backgroundColor: theme.colors.buttonSecondary,
+                borderRadius: 5,
+                borderWidth: 1,
+                borderColor: theme.colors.border,
+              },
+            ]}
+            title="Cancel"
+            titleStyle={[styles.buttonTitle, { color: theme.colors.text }]}
+            onPress={() => setStatus('idle')}
           />
-        </ListItem.Content>
-      </ListItem>
-
-      <ListItem>
-        <ListItem.Content
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
-          }}>
-          <View style={{ flexDirection: 'row' }}>
-            <ListItem.Title>Carbohydrates</ListItem.Title>
-            <Text style={styles.subs}>{carbsGrams} g</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <TextInput
-              name="carbohydrates"
-              placeholder="Enter percentage"
-              defaultValue={carbsPercentage.toString()}
-              keyboardType="numeric"
-              onChange={(e) => setCarbsPercentage(parseInt(e.nativeEvent.text))}
-              onSubmitEditing={(e) =>
-                setCarbsPercentage(parseInt(e.nativeEvent.text))
-              }
-            />
-            <Text style={styles.subs}>%</Text>
-          </View>
-        </ListItem.Content>
-      </ListItem>
-
-      <ListItem>
-        <ListItem.Content
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
-          }}>
-          <View style={{ flexDirection: 'row' }}>
-            <ListItem.Title>Protein</ListItem.Title>
-            <Text style={styles.subs}>{proteinGrams} g</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <TextInput
-              name="protein"
-              placeholder="Enter percentage"
-              defaultValue={proteinPercentage.toString()}
-              keyboardType="numeric"
-              onChange={(e) =>
-                setProteinPercentage(parseInt(e.nativeEvent.text))
-              }
-              onSubmitEditing={(e) =>
-                setProteinPercentage(parseInt(e.nativeEvent.text))
-              }
-            />
-            <Text style={styles.subs}>%</Text>
-          </View>
-        </ListItem.Content>
-      </ListItem>
-
-      <ListItem>
-        <ListItem.Content
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
-          }}>
-          <View style={{ flexDirection: 'row' }}>
-            <ListItem.Title>Fat</ListItem.Title>
-            <Text style={styles.subs}>{fatGrams} g</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <TextInput
-              name="fat"
-              placeholder="Enter percentage"
-              defaultValue={fatPercentage.toString()}
-              keyboardType="numeric"
-              onChange={(e) => setFatPercentage(parseInt(e.nativeEvent.text))}
-              onSubmitEditing={(e) =>
-                setFatPercentage(parseInt(e.nativeEvent.text))
-              }
-            />
-            <Text style={styles.subs}>%</Text>
-          </View>
-        </ListItem.Content>
-      </ListItem>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          margin: 20,
-        }}>
-        <Button
-          buttonStyle={[
-            styles.Button,
-            {
-              backgroundColor: theme.colors.buttonSecondary,
-              borderRadius: 5,
-              borderWidth: 1,
-              borderColor: theme.colors.border,
-            },
-          ]}
-          title="Cancel"
-          titleStyle={[styles.buttonTitle, { color: theme.colors.text }]}
-          onPress={() => setStatus('idle')}
-        />
-        <Button
-          buttonStyle={styles.Button}
-          title="Save"
-          titleStyle={styles.buttonTitle}
-          onPress={() => handleSetCalories()}
-        />
+          <Button
+            buttonStyle={styles.Button}
+            title="Save"
+            titleStyle={styles.buttonTitle}
+            onPress={() => handleSetCalories()}
+          />
+        </View>
       </View>
     </View>
   );

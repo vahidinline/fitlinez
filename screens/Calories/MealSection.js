@@ -3,41 +3,41 @@ import { View, Text } from 'react-native';
 import { selectMeal } from '../../api/AsyncTempSessionStorage';
 import { Image } from '@rneui/base';
 
-const meals = [
-  {
-    name: 'Breakfast',
-    color: 'primary',
-    img: require('../../assets/icons/breakfast.png'),
-  },
-  {
-    name: 'Lunch',
-    color: 'success',
-    img: require('../../assets/icons/lunch.png'),
-  },
-  {
-    name: 'Dinner',
-    color: 'success',
-    img: require('../../assets/icons/dinner.png'),
-  },
-  {
-    name: 'Snack',
-    color: 'warning',
-    img: require('../../assets/icons/snack.png'),
-  },
+function MealSection({ userId, setStatus, setSelectedMeal, i18n }) {
+  const meals = [
+    {
+      name: i18n.t('breakfast'), // i18n.t('breakfast'
+      color: 'primary',
+      img: require('../../assets/icons/breakfast.png'),
+    },
+    {
+      name: i18n.t('lunch'),
+      color: 'success',
+      img: require('../../assets/icons/lunch.png'),
+    },
+    {
+      name: i18n.t('dinner'),
+      color: 'success',
+      img: require('../../assets/icons/dinner.png'),
+    },
+    {
+      name: i18n.t('snack'),
+      color: 'warning',
+      img: require('../../assets/icons/snack.png'),
+    },
 
-  {
-    name: 'Dessert',
-    color: 'error',
-    img: require('../../assets/icons/dessert.png'),
-  },
-  {
-    name: 'Drink',
-    color: 'error',
-    img: require('../../assets/icons/drink.png'),
-  },
-];
+    {
+      name: i18n.t('desert'),
+      color: 'error',
+      img: require('../../assets/icons/dessert.png'),
+    },
+    {
+      name: i18n.t('drink'),
+      color: 'error',
+      img: require('../../assets/icons/drink.png'),
+    },
+  ];
 
-function MealSection({ userId, setStatus, setSelectedMeal }) {
   const [meal, setMeal] = useState(null);
   const handleMealSelection = async (meal) => {
     setStatus('loading');
@@ -63,13 +63,13 @@ function MealSection({ userId, setStatus, setSelectedMeal }) {
       <Text
         style={{
           textAlign: 'center',
-          fontSize: 30,
-          fontWeight: 'bold',
+          fontSize: 20,
+          //fontWeight: 'bold',
           color: 'white',
           margin: 20,
           marginBottom: 40,
         }}>
-        Please select a meal
+        {i18n.t('enteryourfood')}
       </Text>
 
       <View

@@ -11,6 +11,10 @@ import { useTheme } from '@rneui/themed';
 import CalorieMenu from './CalorieMenu';
 import SetDailyCalories from './config/SetDailyCalories';
 import FitlinezLoading from '../../components/FitlinezLoading';
+import i18nt from '../../locales';
+import LanguageContext from '../../api/langcontext';
+import { I18n } from 'i18n-js';
+import NutritionChart from './NutritionChart';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -21,6 +25,9 @@ function CaloriesIndex() {
   const [foodItems, setFoodItems] = useState([]);
   const userId = userAuth.id;
   const [selectedMeal, setSelectedMeal] = useState(null);
+  const { userLanguage } = useContext(LanguageContext);
+  const i18n = new I18n(i18nt);
+  i18n.locale = userLanguage;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#5B5891' }}>
@@ -43,7 +50,7 @@ function CaloriesIndex() {
             Welcome to the Nutrition Extractor
           </Text> */}
           </View>
-          {status === 'idle' && <DailyReport userId={userId} />}
+          {status === 'idle' && <DailyReport userId={userId} i18n={i18n} />}
           {status === 'loading' && (
             <FitlinezLoading />
             // <ActivityIndicator size="large" color="#0000ff" />
@@ -60,11 +67,12 @@ function CaloriesIndex() {
               marginVertical: 20,
               marginHorizontal: 20,
             }}>
-            <CalorieMenu status={status} setStatus={setStatus} />
+            <CalorieMenu i18n={i18n} status={status} setStatus={setStatus} />
           </View>
         )}
         {status === 'addFood' && (
           <MealSection
+            i18n={i18n}
             userId={userId}
             setStatus={setStatus}
             setSelectedMeal={setSelectedMeal}
@@ -80,11 +88,13 @@ function CaloriesIndex() {
               margin: 20,
               marginBottom: 10,
             }}>
-            Please tell me about your meal for {selectedMeal}
+            {i18n.t('insetmealtitle')}
+            {selectedMeal}
           </Text>
         )}
         {status === 'initialReqSent' && (
           <TempfoodItems
+            i18n={i18n}
             selectedMeal={selectedMeal}
             foodItems={foodItems}
             setStatus={setStatus}
@@ -93,6 +103,7 @@ function CaloriesIndex() {
         )}
         {status === 'mealInitialized' && (
           <InputSelector
+            i18n={i18n}
             setFoodItems={setFoodItems}
             setStatus={setStatus}
             userInput={userInput}
@@ -100,8 +111,10 @@ function CaloriesIndex() {
           />
         )}
 
+        {/* {status === 'setDailyCalories' &&} */}
+
         {status === 'setDailyCalories' && (
-          <SetDailyCalories setStatus={setStatus} userId={userId} />
+          <SetDailyCalories i18n={i18n} setStatus={setStatus} userId={userId} />
         )}
       </View>
     </SafeAreaView>
