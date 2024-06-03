@@ -26,26 +26,31 @@ function CalorieMenu({
       id: 1,
       name: i18n.t('addfood'),
       onPress: () => setStatus('addFood'),
+      active: true,
     },
     {
       id: 2,
       name: i18n.t('setdailycalories'),
       onPress: () => setStatus('setDailyCalories'),
+      active: true,
     },
     {
       id: 3,
       name: i18n.t('report'),
       onPress: () => setStatus('report'),
+      active: true,
     },
     {
       id: 4,
       name: i18n.t('createmeal'),
       onPress: () => setStatus('createMeal'),
+      active: false,
     },
     {
       id: 5,
       name: i18n.t('back'),
       onPress: () => handleHideMenu(),
+      active: true,
     },
   ];
 
@@ -67,9 +72,24 @@ function CalorieMenu({
         <ListItem
           key={i}
           containerStyle={styles.containerStyle}
-          onPress={l.onPress}>
-          <ListItem.Content>
-            <ListItem.Title style={styles.titleStyle}>{l.name}</ListItem.Title>
+          onPress={l.active ? l.onPress : () => {}}>
+          <ListItem.Content
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <ListItem.Title
+              style={[
+                styles.titleStyle,
+                { color: l.active ? '#000' : '#ccc' },
+                { borderBottomColor: l.active ? '#000' : '#ccc' },
+                { borderBottomWidth: l.active ? 1 : 0 },
+              ]}>
+              {l.name}
+            </ListItem.Title>
+            <ListItem.Subtitle style={{ color: l.active ? '#000' : '#ccc' }}>
+              {l.active ? '' : i18n.t('notActive')}
+            </ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>
       ))}

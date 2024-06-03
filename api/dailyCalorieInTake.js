@@ -13,4 +13,16 @@ const getDailyCalorieInTake = async (userId) => {
   }
 };
 
-export { getDailyCalorieInTake };
+const getCustomCalorieInTakeReport = async (userId, startDate, endDate) => {
+  try {
+    const response = await foodapi.get(
+      `/nutritionextractor/customreport/${userId}, ${startDate}, ${endDate}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to send data:', error);
+    // ... Implement proper error handling ...
+  }
+};
+
+export { getDailyCalorieInTake, getCustomCalorieInTakeReport };

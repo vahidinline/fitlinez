@@ -326,7 +326,7 @@ const getStyles = (theme) =>
     },
     input: {
       color: theme.colors.text,
-      fontSize: 18,
+      fontSize: 24,
       fontWeight: 'bold',
     },
     subs: {

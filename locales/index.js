@@ -171,6 +171,7 @@ const i18nt = {
     todaysactivity: 'Today`s Activity',
     leftArm: 'Left Arm',
     rightArm: 'Right Arm',
+    notActive: 'Not Active',
 
     hips: 'Hips',
     leftThigh: 'Left Thigh',
@@ -389,9 +390,11 @@ const i18nt = {
     carbohydrates: 'Carbohydrates',
     dietaryfiber: 'Dietary Fiber',
     sugars: 'Sugars',
+    notActive: 'Not Active',
   },
 
   fa: {
+    notActive: 'غیر فعال',
     protein: 'پروتئین',
     carbs: 'کربوهیدرات',
     fats: 'چربی',
@@ -827,7 +830,7 @@ const i18nt = {
     home: 'Página Inicial',
     todolist: 'Lista de Tarefas',
     workouts: 'Treinos',
-
+    notActive: 'Não Ativo',
     settings: 'Definições',
     removeuserData: 'Remover Dados do Utilizador',
     support: 'Suporte',
