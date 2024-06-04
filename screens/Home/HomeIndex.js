@@ -25,6 +25,7 @@ import DailyReport from '../Calories/dailyReport';
 import { Button } from '@rneui/base';
 import FitlinezLoading from '../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
+import PushApp from '../../components/push';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);

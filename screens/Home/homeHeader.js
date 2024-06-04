@@ -34,7 +34,7 @@ function HomeHeader({ planStartDate, data, title }) {
   i18n.locale = userLanguage;
   const { theme } = useTheme();
   const [textMessage, setTextMessage] = useState('');
-  console.log('textMessage', textMessage);
+  //console.log('textMessage', textMessage);
   const [activeAccount, setActiveAccount] = useState(true);
   const [status, setStatus] = useState('good');
   const currentVersion = '7.0.7.8';
@@ -142,7 +142,7 @@ function HomeHeader({ planStartDate, data, title }) {
     const getcurrentwotkout = async () => {
       const value = await AsyncStorage.getItem('currentWorkout');
 
-      console.log('current workout', value);
+      // Push notification responseconsole.log('current workout', value);
     };
 
     getcurrentwotkout();

@@ -1008,7 +1008,6 @@ const IconTrainer = () => {
 };
 
 const IconBlackDumbbell = ({ color, size }) => {
-  console.log('color', color);
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Alert,
   Dimensions,
@@ -21,6 +21,8 @@ import { List } from 'react-native-paper';
 import AuthContext from '../../api/context';
 import i18nt from '../../locales';
 import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
+import Constants from 'expo-constants';
 import {
   IconArrow,
   IconClear,
@@ -71,6 +73,51 @@ function SettingIndex() {
   const [avatar, setAvatar] = useState(null);
   const { theme } = useTheme();
   const RTL = userLanguage === 'fa' ? true : false;
+  const [expoPushToken, setExpoPushToken] = useState(null);
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    }),
+  });
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+    if (Platform.OS === 'android') {
+      await Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        Alert.alert('Failed to get push token for push notification!');
+        return null;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log('Expo push token:', token);
+    } else {
+      Alert.alert('Must use physical device for Push Notifications');
+    }
+
+    return token;
+  }
+
   const setting = [
     {
       id: 1,
@@ -149,14 +196,41 @@ function SettingIndex() {
 
   async function registerForPushNotificationsAsync() {
     const { status } = await Notifications.requestPermissionsAsync();
+    console.log('Notification permissions status:', status);
+
     if (status !== 'granted') {
       Alert.alert('Sorry, we need notification permissions to make this work!');
     } else {
-      const token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
-      Alert.alert('Push Notification has been enabled');
+      try {
+        const token = (await Notifications.getExpoPushTokenAsync()).data;
+        console.log('Expo push token:', token);
+        Alert.alert('Push Notification has been enabled');
+      } catch (error) {
+        console.error('Error getting push token:', error);
+      }
     }
   }
+
+  // useEffect(() => {
+  //   registerForPushNotificationsAsync().then((token) => setValue(token));
+
+  //   notificationListener.current =
+  //     Notifications.addNotificationReceivedListener((notification) => {
+  //       console.log('Notification received:', notification);
+  //     });
+
+  //   responseListener.current =
+  //     Notifications.addNotificationResponseReceivedListener((response) => {
+  //       console.log('Notification response received:', response);
+  //     });
+
+  //   return () => {
+  //     Notifications.removeNotificationSubscription(
+  //       notificationListener.current
+  //     );
+  //     Notifications.removeNotificationSubscription(responseListener.current);
+  //   };
+  // }, []);
 
   const review = () => {
     if (Platform.OS === 'ios') {

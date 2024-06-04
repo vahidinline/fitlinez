@@ -3,11 +3,10 @@ import {
   Text,
   StyleSheet,
   View,
-  ScrollView,
   SafeAreaView,
-  RefreshControl,
   Dimensions,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
@@ -20,10 +19,10 @@ import { SessionContext } from '../../api/sessionContext';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import Header from '../../components/header';
-import AdditionalIndex from '../additionalData/AdditionalIndex';
 import DailyWorkloutListComponent from './dailyWorkloutListComponent';
 import { addSession } from '../../api/workoutSessionTracker';
 import AuthContext from '../../api/context';
+import { IconCloseCircle } from '../marketplace/filters/icons-';
 
 const db = SQLite.openDatabase('totalWeight.db');
 
@@ -50,6 +49,15 @@ const ButtonsheetComponent = ({
           borderRadius: 16,
           paddingBottom: 20,
         }}>
+        <TouchableOpacity
+          onPress={() => setIsVisible(!isVisible)}
+          style={{
+            position: 'absolute',
+            right: 10,
+            top: 10,
+          }}>
+          <IconCloseCircle />
+        </TouchableOpacity>
         <View
           style={
             {
@@ -204,7 +212,7 @@ const WeeklyPlan = (props) => {
   const [filteredWorkoutsList, setFilteredWorkoutsList] = useState([]);
   const [confirmEating, setConfirmEating] = useState(false);
   const [locSelector, setLocSelector] = useState('');
-  const planId = 1;
+  const planId = planName;
   const estimatedTime = data?.length * 6;
   const [isVisible, setIsVisible] = useState(false);
   const { userAuth } = useContext(AuthContext);
@@ -306,7 +314,7 @@ const WeeklyPlan = (props) => {
             justifyContent: 'flex-start',
             margin: 10,
 
-            width: Dimensions.get('window').width / 1 - 20,
+            width: Dimensions.get('window').width / 2 - 20,
           }}>
           <Text
             style={{
@@ -331,6 +339,40 @@ const WeeklyPlan = (props) => {
             {estimatedTime} {i18n.t('minute')}
           </Text>
         </View>
+        <View
+          style={{
+            backgroundColor: theme.colors.background,
+            borderColor: theme.colors.border,
+            borderWidth: 1,
+            borderRadius: 16,
+            justifyContent: 'flex-end',
+            margin: 10,
+
+            width: Dimensions.get('window').width / 2 - 20,
+          }}>
+          <Text
+            style={{
+              color: theme.colors.grey2,
+
+              fontSize: 14,
+              fontWeight: '500',
+              marginBottom: 20,
+
+              margin: 20,
+            }}>
+            {i18n.t('currentPlan')}
+          </Text>
+          <Text
+            style={{
+              color: '#3F3B6C',
+              fontSize: 15,
+              fontWeight: 'bold',
+              marginBottom: 20,
+              marginLeft: 20,
+            }}>
+            {planName}
+          </Text>
+        </View>
       </View>
 
       <View
@@ -345,34 +387,28 @@ const WeeklyPlan = (props) => {
           style={{
             backgroundColor: theme.colors.background,
           }}
-          ListFooterComponent={() => {
-            return (
-              <View>
-                <Button
-                  onPress={() => {
-                    setIsVisible(!isVisible);
-                  }}
-                  title={i18n.t('start')}
-                  titleStyle={{
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                  }}
-                  buttonStyle={{
-                    height: 50,
-                    width: Dimensions.get('window').width - 20,
-                    marginHorizontal: 10,
-                    marginVertical: 10,
-                    borderRadius: 12,
-                    backgroundColor: theme.colors.button,
-                  }}
-                />
-              </View>
-            );
-          }}
           data={sortedData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => {
             return <DailyWorkloutListComponent item={item} i={index} />;
+          }}
+        />
+        <Button
+          onPress={() => {
+            setIsVisible(!isVisible);
+          }}
+          title={i18n.t('start')}
+          titleStyle={{
+            fontSize: 18,
+            fontWeight: 'bold',
+          }}
+          buttonStyle={{
+            height: 50,
+            width: Dimensions.get('window').width - 20,
+            marginHorizontal: 10,
+            marginVertical: 10,
+            borderRadius: 12,
+            backgroundColor: theme.colors.button,
           }}
         />
       </View>

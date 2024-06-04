@@ -2,8 +2,10 @@ import * as Notifications from 'expo-notifications';
 
 // Request permissions for notifications
 async function requestPermissions() {
+  console.log('Requesting permissions for notifications');
   const { status: existingStatus } = await Notifications.getPermissionsAsync();
   let finalStatus = existingStatus;
+  console.log('Existing status:', existingStatus);
 
   if (existingStatus !== 'granted') {
     const { status } = await Notifications.requestPermissionsAsync();

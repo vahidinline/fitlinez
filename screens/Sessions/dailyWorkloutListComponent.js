@@ -51,7 +51,7 @@ function DailyWorkloutListComponent({ item, i }) {
         }}>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: '500',
             // marginBottom: 20,
             //justifyContent: 'flex-start',

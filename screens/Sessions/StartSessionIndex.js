@@ -193,6 +193,7 @@ const StartSessionIndex = ({ route }) => {
       title: item.title,
       day: item.day,
       category: item.data[0]?.category,
+      planName: title,
     });
   };
 
