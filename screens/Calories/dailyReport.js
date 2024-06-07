@@ -17,8 +17,8 @@ function DailyReport({ userId }) {
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-  console.log('dailyCalories in daily', dailyCalories);
-  console.log('result in daily', result);
+  // console.log('dailyCalories in daily', dailyCalories);
+  //console.log('result in daily', result);
   const getDailyReport = async () => {
     setStatus('loading');
     if (!userId) {
@@ -80,26 +80,30 @@ function DailyReport({ userId }) {
             <Text style={styles.kcalText}>kcal</Text>
             <Text style={styles.remainingText}>{i18n.t('remaining')}</Text>
           </View>
-          <View style={styles.nutrientContainer}>
-            <Text style={styles.nutrientText}>
-              {i18n.t('calories')}:
-              {result && result[0]?.totalCalories.toFixed(0)} g
-            </Text>
-            <Text style={styles.nutrientText}>
-              {i18n.t('carbs')}: {result && result[0]?.totalCarbs.toFixed(0)} g
-            </Text>
-            <Text style={styles.nutrientText}>
-              {i18n.t('protein')}:{result && result[0]?.totalProtein.toFixed(0)}
-              g
-            </Text>
+          {result.length != 0 && (
+            <View style={styles.nutrientContainer}>
+              <Text style={styles.nutrientText}>
+                {i18n.t('calories')}:
+                {result && result[0]?.totalCalories.toFixed(0)} g
+              </Text>
+              <Text style={styles.nutrientText}>
+                {i18n.t('carbs')}: {result && result[0]?.totalCarbs.toFixed(0)}{' '}
+                g
+              </Text>
+              <Text style={styles.nutrientText}>
+                {i18n.t('protein')}:
+                {result && result[0]?.totalProtein.toFixed(0)}g
+              </Text>
 
-            <Text style={styles.nutrientText}>
-              {i18n.t('fats')}: {result && result[0]?.totalFat.toFixed(0)} g
-            </Text>
-            <Text style={styles.nutrientText}>
-              {i18n.t('fiber')}: {result && result[0]?.totalFiber.toFixed(0)} g
-            </Text>
-          </View>
+              <Text style={styles.nutrientText}>
+                {i18n.t('fats')}: {result && result[0]?.totalFat.toFixed(0)} g
+              </Text>
+              <Text style={styles.nutrientText}>
+                {i18n.t('fiber')}: {result && result[0]?.totalFiber.toFixed(0)}{' '}
+                g
+              </Text>
+            </View>
+          )}
         </>
       )}
     </View>

@@ -51,6 +51,11 @@ function HeaderListPage({
           marginRight: 20,
           borderRadius: 10,
         }}
+        titleStyle={{
+          color: theme.colors.primary,
+          fontSize: 15,
+          fontWeight: 'bold',
+        }}
         onPress={() => setFinish(true)}
       />
     </View>

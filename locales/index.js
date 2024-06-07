@@ -379,7 +379,7 @@ const i18nt = {
     snack: 'Snack',
     desert: 'Desert',
     drink: 'Drink',
-    foodinserttypetitle: 'Tell me about the food',
+    foodinserttypetitle: 'Describe your {{mealType}}',
     enteryourfood: 'Enter your food',
     foodsearch: 'Search for food',
     servingsize: 'Serving Size',
@@ -391,9 +391,15 @@ const i18nt = {
     dietaryfiber: 'Dietary Fiber',
     sugars: 'Sugars',
     notActive: 'Not Active',
+    seeNutrition: 'See Nutrition',
+    submitted: 'Submitted',
+    burnedCalories: 'Burned Calories',
   },
 
   fa: {
+    burnedCalories: 'کالری های سوزانده شده',
+    submitted: 'ثبت شد',
+    seeNutrition: 'مشاهده اطلاعات غذایی',
     notActive: 'غیر فعال',
     protein: 'پروتئین',
     carbs: 'کربوهیدرات',
@@ -412,7 +418,7 @@ const i18nt = {
     snack: 'میان وعده',
     desert: 'دسر',
     drink: 'نوشیدنی',
-    foodinserttypetitle: 'غذای خود را وارد کنید',
+    foodinserttypetitle: '{{mealType}} خود را توصیف کنید',
     enteryourfood: 'غذای خود را وارد کنید',
     foodsearch: 'جستجوی غذا',
     servingsize: 'اندازه سروینگ',
@@ -780,7 +786,7 @@ const i18nt = {
     midPerformanceText: 'تمرین خوبی بود! توی جلسه بعدی هدفت رو بالاتر بگذار',
     highPerformanceText: 'عالی بودی، نزدیک به اوج هستی!',
     hiestPerformanceText: ' فوق العاده! بریم برای رکوردهای جدید ',
-    calorieTracker: 'ردیاب کالری',
+    calorieTracker: ' کالری شمار',
   },
 
   pt: {

@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   PixelRatio,
+  Pressable,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
@@ -34,6 +35,7 @@ import {
   readSavedData,
   readWorkoutData,
 } from '../../api/readWorkoutData';
+import { getBurnedCalories } from '../../api/getBurnedCalories';
 
 const UserWorkOutSessionDB = SQLite.openDatabase('userWorkOutSession.db');
 const performanceDB = SQLite.openDatabase('performance.db');
@@ -64,6 +66,8 @@ const FinishSession = (props) => {
   const { userLanguage } = useContext(LanguageContext);
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
   const [completionPercentage, setCompletionPercentage] = useState(0);
+  const [burnedCalories, setBurnedCalories] = useState(null);
+  // console.log('burnedCalories', burnedCalories.totalCaloriesBurned.toFixed(0));
   const { userAuth } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
@@ -194,6 +198,17 @@ const FinishSession = (props) => {
     } catch (error) {
       console.log(error);
     }
+  }, []);
+
+  const handleShowBurnedCalories = async () => {
+    const sessionId = await AsyncStorage.getItem('sessionId');
+    const burnedCalories = await getBurnedCalories(userId, sessionId);
+
+    setBurnedCalories(burnedCalories);
+  };
+
+  useEffect(() => {
+    handleShowBurnedCalories();
   }, []);
 
   const sendData = async () => {
@@ -331,11 +346,19 @@ const FinishSession = (props) => {
                 <Divider style={styles.divider} />
               </>
             )}
-            {/* <View style={styles.view}>
-              <Text style={styles.title}>{completionPercentage}</Text>
-              <Text style={styles.subtitle}>{i18n.t('performance')}</Text>
-            </View> 
-            <Divider style={styles.divider} />*/}
+            {burnedCalories && (
+              <View style={styles.view}>
+                <Text style={styles.title}>
+                  {burnedCalories.totalCaloriesBurned.toFixed(0)} kcal
+                </Text>
+                <Pressable onPress={() => handleShowBurnedCalories()}>
+                  <Text style={styles.subtitle}>
+                    {i18n.t('burnedCalories')}
+                  </Text>
+                </Pressable>
+              </View>
+            )}
+            <Divider style={styles.divider} />
             <View style={styles.view}>
               <Text style={styles.title}>{formatTime(timeSpent)}</Text>
               <Text style={styles.subtitle}>{i18n.t('sessionDuration')}</Text>
@@ -401,7 +424,7 @@ const getStyle = (theme, PixelRatio) =>
     view: {
       height: 70,
       //borderEndWidth: 1,
-      width: Dimensions.get('window').width / 3,
+      width: Dimensions.get('window').width / 4,
       justifyContent: 'space-between',
       alignItems: 'center',
 

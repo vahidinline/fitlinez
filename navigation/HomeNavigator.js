@@ -24,6 +24,7 @@ import ConfirmPayment from '../screens/upgrade/payment';
 import PlanDetailsIndex from '../screens/planDetails/planDetailsIndex';
 import SessionNavigator from './SessionNavigator';
 import CaloriesIndex from '../screens/Calories/CaloriesIndex';
+import CustomCalorieReport from '../screens/Calories/customReport';
 
 const Stack = createStackNavigator();
 
@@ -182,13 +183,13 @@ const HomeNavigator = () => {
         }}
       />
 
-      {/* <Stack.Screen
-        name="MessageCenter"
-        component={MessageCenter}MessageCenter
+      <Stack.Screen
+        name="CustomCalorieReport"
+        component={CustomCalorieReport}
         options={{
           headerShown: false,
         }}
-      /> */}
+      />
       <Stack.Screen
         name="profile"
         component={ContactStackNavigator}

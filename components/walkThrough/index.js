@@ -25,24 +25,24 @@ const Walkthrough = () => {
   };
 
   // Check if it's the first time the user opens the app
-  useEffect(() => {
-    checkFirstTimeUser();
-  }, []);
+  // useEffect(() => {
+  //   //checkFirstTimeUser();
+  // }, []);
 
-  const checkFirstTimeUser = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@firstTime');
-      if (value === null) {
-        // First time user, set a flag in AsyncStorage
-        await AsyncStorage.setItem('@firstTime', 'true');
-      } else {
-        // Returning user, set the flag to false
-        await AsyncStorage.setItem('@firstTime', 'false');
-      }
-    } catch (error) {
-      // Handle AsyncStorage errors if needed
-    }
-  };
+  // const checkFirstTimeUser = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem('@firstTime');
+  //     if (value === null) {
+  //       // First time user, set a flag in AsyncStorage
+  //       await AsyncStorage.setItem('@firstTime', 'true');
+  //     } else {
+  //       // Returning user, set the flag to false
+  //       await AsyncStorage.setItem('@firstTime', 'false');
+  //     }
+  //   } catch (error) {
+  //     // Handle AsyncStorage errors if needed
+  //   }
+  // };
 
   return (
     <View style={styles.container}>

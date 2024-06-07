@@ -11,6 +11,7 @@ const FoodItemCard = ({
   handleInputChange,
   userId,
   selectedMeal,
+  i18n,
 }) => {
   const { theme } = useTheme();
   const styles = getStyles(theme);
@@ -71,7 +72,7 @@ const FoodItemCard = ({
             <Button
               type="outline"
               buttonStyle={styles.button}
-              title="Add"
+              title={i18n.t('seeNutrition')}
               titleStyle={{
                 color: theme.colors.primary,
                 fontSize: 16,
@@ -127,7 +128,8 @@ const FoodItemCard = ({
         <View style={styles.card}>
           <View style={styles.listTitle}>
             <Text style={styles.itemTitle}>
-              {nutritionData.food_item && nutritionData.food_item}
+              {nutritionData.food_item && nutritionData.food_item}{' '}
+              {i18n.t('submitted')}
             </Text>
           </View>
           <View style={styles.list}>
@@ -241,7 +243,8 @@ const getStyles = (theme) =>
       borderWidth: 0.3,
       borderColor: theme.colors.border,
       margin: 4,
-      backgroundColor: theme.colors.grey5,
+
+      //backgroundColor: theme.colors.grey5,
       height: Dimensions.get('window').height / 6,
     },
     card: {
@@ -281,9 +284,9 @@ const getStyles = (theme) =>
     button: {
       margin: 10,
       padding: 10,
-      width: 60,
+      //width: 60,
       height: 60,
-      borderRadius: 30,
+      borderRadius: 6,
       borderColor: theme.colors.primary,
     },
     itemText: {

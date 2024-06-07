@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { BottomSheet, ListItem } from '@rneui/base';
 import React from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { List } from 'react-native-paper';
 
 function CalorieMenu({
   status,
@@ -12,6 +13,11 @@ function CalorieMenu({
   i18n,
 }) {
   const navigation = useNavigation();
+
+  const handleGoToReport = () => {
+    setStatus('CustomReport');
+    navigation.navigate('CustomCalorieReport', { userId });
+  };
 
   const handleHideMenu = () => {
     setStatus('idle');
@@ -37,7 +43,7 @@ function CalorieMenu({
     {
       id: 3,
       name: i18n.t('report'),
-      onPress: () => setStatus('CustomReport'),
+      onPress: () => handleGoToReport(),
       active: true,
     },
     {
@@ -90,6 +96,7 @@ function CalorieMenu({
             <ListItem.Subtitle style={{ color: l.active ? '#000' : '#ccc' }}>
               {l.active ? '' : i18n.t('notActive')}
             </ListItem.Subtitle>
+            <ListItem.Chevron />
           </ListItem.Content>
         </ListItem>
       ))}
@@ -105,6 +112,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5,
     marginHorizontal: 10,
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
   },
   button: {
     marginHorizontal: 10,

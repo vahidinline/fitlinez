@@ -54,10 +54,13 @@ function IndexOnBoarding() {
     console.log('userData into handleSubmit');
     try {
       const data = userData;
+      const mergedObject = data.reduce((acc, curr) => {
+        return { ...acc, ...curr };
+      }, {});
 
       // Overwrite the existing key with the new data
       const newData = JSON.stringify(data);
-      submitUserDataToCloud();
+      await submitUserDataToCloud(mergedObject);
       const asycRes = await AsyncStorage.setItem('userBasicData', newData);
       console.log('asycRes', asycRes);
       //navigation.navigate('LastPageOnboarding');
@@ -115,16 +118,16 @@ function IndexOnBoarding() {
       onNext();
     }
   };
-  const submitUserDataToCloud = async () => {
+  const submitUserDataToCloud = async (mergedObject) => {
     console.log('sending data to cloud');
     //add user id to the data
-    const allUserData = {
-      userId: userId,
-      data: userData,
-    };
+
     try {
-      const res = await api.post('/userdata/firstassessment', allUserData);
-      console.log('res', res);
+      const res = await api.post(
+        `/userdata/firstassessment/${userId}`,
+        mergedObject
+      );
+      //console.log('response of storing user basic data', res);
     } catch (error) {
       console.log('error', error);
     } finally {

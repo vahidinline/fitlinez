@@ -77,6 +77,7 @@ function CaloriesIndex() {
             userId={userId}
             setStatus={setStatus}
             setSelectedMeal={setSelectedMeal}
+            status={status}
           />
         )}
         {status === 'mealInitialized' && (
@@ -89,8 +90,7 @@ function CaloriesIndex() {
               margin: 20,
               marginBottom: 10,
             }}>
-            {i18n.t('insetmealtitle')}
-            {selectedMeal}
+            {i18n.t('foodinserttypetitle', { mealType: selectedMeal })}
           </Text>
         )}
         {status === 'initialReqSent' && (

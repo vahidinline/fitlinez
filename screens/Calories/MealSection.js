@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import { selectMeal } from '../../api/AsyncTempSessionStorage';
-import { Image } from '@rneui/base';
+import { BottomSheet, Image, ListItem } from '@rneui/base';
+import { useTheme } from '@rneui/themed';
 
-function MealSection({ userId, setStatus, setSelectedMeal, i18n }) {
+function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
+  const { theme } = useTheme();
   const meals = [
     {
       name: i18n.t('breakfast'), // i18n.t('breakfast'
@@ -56,6 +64,47 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n }) {
   }, [meal]);
 
   return (
+    // <BottomSheet
+    //   style={{
+    //     position: 'absolute',
+    //     //  bottom: 10,
+    //     width: Dimensions.get('window').width,
+    //     height: Dimensions.get('window').height / 2.5,
+    //     backgroundColor: '#fff',
+    //     borderRadius: 10,
+    //     padding: 10,
+    //     marginVertical: 10,
+    //   }}
+    //   modalProps={{}}
+    //   // isVisible={status === 'idle'}
+    // >
+    //   {meals.map((l, i) => (
+    //     <ListItem
+    //       key={i}
+    //       containerStyle={styles.containerStyle}
+    //       onPress={l.active ? l.onPress : () => {}}>
+    //       <ListItem.Content
+    //         style={{
+    //           flexDirection: 'row',
+    //           justifyContent: 'space-between',
+    //         }}>
+    //         <ListItem.Title
+    //           style={[
+    //             styles.titleStyle,
+    //             { color: l.active ? '#000' : '#ccc' },
+    //             { borderBottomColor: l.active ? '#000' : '#ccc' },
+    //             { borderBottomWidth: l.active ? 1 : 0 },
+    //           ]}>
+    //           {l.name}
+    //         </ListItem.Title>
+    //         <ListItem.Subtitle style={{ color: l.active ? '#000' : '#ccc' }}>
+    //           {l.active ? '' : i18n.t('notActive')}
+    //         </ListItem.Subtitle>
+    //         <ListItem.Chevron />
+    //       </ListItem.Content>
+    //     </ListItem>
+    //   ))}
+    // </BottomSheet>
     <View
       style={{
         flexDirection: 'column',
@@ -69,7 +118,7 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n }) {
           margin: 20,
           marginBottom: 40,
         }}>
-        {i18n.t('enteryourfood')}
+        {i18n.t('insetmealtitle')}
       </Text>
 
       <View
@@ -79,22 +128,34 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n }) {
           justifyContent: 'center',
         }}>
         {meals.map((meal, index) => (
-          <View key={index}>
-            <Image
+          <TouchableOpacity
+            onPress={() => setMeal(meal.name)}
+            style={{
+              width: Dimensions.get('window').width / 3,
+              height: Dimensions.get('window').width / 3,
+              backgroundColor: 'lightgrey',
+              borderRadius: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+              margin: 10,
+            }}
+            key={index}>
+            {/* <Image
               source={meal?.img}
               style={{ width: 80, height: 80, margin: 10 }}
               onPress={() => setMeal(meal.name)}
-            />
+            /> */}
             <Text
               style={{
                 textAlign: 'center',
-                fontSize: 14,
-                color: 'white',
+                fontSize: 18,
+                color: theme.colors.secondary,
+                fontWeight: 'bold',
                 margin: 10,
               }}>
               {meal.name}
             </Text>
-          </View>
+          </TouchableOpacity>
           // <Button
           //   onPress={() => setMeal(meal.name)}
           //   title={meal.name}
@@ -119,3 +180,22 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n }) {
 }
 
 export default MealSection;
+
+const styles = StyleSheet.create({
+  containerStyle: {
+    backgroundColor: '#fff',
+    padding: 10,
+    marginVertical: 5,
+    marginHorizontal: 10,
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
+  },
+  button: {
+    marginHorizontal: 10,
+  },
+  titleStyle: {
+    color: '#000',
+    borderBottomColor: '#000',
+    borderBottomWidth: 1,
+  },
+});

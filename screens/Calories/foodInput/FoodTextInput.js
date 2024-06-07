@@ -19,6 +19,7 @@ function FoodTextInput({
   userInput,
   setUserInput,
   setInputStatus,
+  i18n,
 }) {
   const { theme } = useTheme();
   const [typeStatus, setTypeStatus] = useState('idle');
@@ -73,6 +74,7 @@ function FoodTextInput({
           top: 10,
         }}>
         <Button
+          disabled={userInput.length < 5}
           buttonStyle={{
             padding: 10,
             width: '95%',
@@ -83,7 +85,7 @@ function FoodTextInput({
             marginBottom: 10,
           }}
           onPress={() => handleInput(userInput)}
-          title="Ask for Nutrition"
+          title={i18n.t('foodsearch')}
         />
       </View>
     </View>

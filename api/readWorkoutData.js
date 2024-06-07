@@ -83,7 +83,7 @@ const readWorkoutData = async () => {
       //   totalSessions: dataObject.item.DaysPerWeek * dataObject.item.duration,
       // };
     } else {
-      console.error('No data in AsyncStorage');
+      //console.error('No data in AsyncStorage');
       return null;
     }
   } catch (error) {

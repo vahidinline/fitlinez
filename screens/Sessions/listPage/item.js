@@ -75,6 +75,7 @@ function Item({
   const { sessionData, setSessionData } = useContext(SessionContext);
   const [userTestAccess, setUserTestAccess] = useState(false);
   let buttonVisible = true;
+  const [currentSet, setCurrentSet] = useState(0);
 
   if (index >= dataLength - 1) {
     buttonVisible = false;
@@ -120,11 +121,13 @@ function Item({
   };
 
   const saveToCloud = async (childDataMap) => {
+    const sessionId = await AsyncStorage.getItem('sessionId');
+    console.log('sessionId', sessionId);
     const response = await api
       .post('/workouthistory', {
         userId,
         location: loc,
-        planId: 'plan id',
+        sessionId: sessionId,
         childDataMap,
       })
       .then((response) => {
@@ -271,20 +274,27 @@ function Item({
         <TouchableOpacity onPress={() => setShowDrawer(!showDrawer)}>
           <IconMenu />
         </TouchableOpacity>
-        <Text
-          style={[
-            styles.title,
-            {
-              fontSize: PixelRatio.get() > 2 ? 20 : 22,
-              fontWeight: 'bold',
-              flexWrap: 'wrap',
-              width: Dimensions.get('window').width / 2,
-              textAlign: 'center',
-              top: 5,
-            },
-          ]}>
-          {title}
-        </Text>
+        <View
+          style={{
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={[
+              styles.title,
+              {
+                fontSize: PixelRatio.get() > 2 ? 20 : 22,
+                fontWeight: 'bold',
+                flexWrap: 'wrap',
+                width: Dimensions.get('window').width / 2,
+                textAlign: 'center',
+                top: 5,
+              },
+            ]}>
+            {title}
+          </Text>
+        </View>
         <TouchableOpacity onPress={() => setShowInstruction(true)}>
           <IconInfo />
         </TouchableOpacity>
@@ -313,8 +323,8 @@ function Item({
           <Text
             style={{
               color: theme.colors.secondary,
-              fontWeight: '500',
-              fontSize: 14,
+              fontWeight: '600',
+              fontSize: 16,
               top: 2,
               marginRight: 10,
             }}>
@@ -336,8 +346,8 @@ function Item({
           <Text
             style={{
               color: theme.colors.secondary,
-              fontWeight: '500',
-              fontSize: 14,
+              fontWeight: '600',
+              fontSize: 16,
               top: 2,
               marginLeft: 10,
             }}>

@@ -44,7 +44,7 @@ function HomeIndex() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [status, setStatus] = useState('loading');
-  console.log('status', status);
+  // console.log('status', status);
   const styles = getStyles(theme);
 
   const navigator = useNavigation();
