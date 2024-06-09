@@ -52,7 +52,7 @@ function LastPageOnboarding() {
           justifyContent: 'flex-start',
           marginLeft: 20,
         }}>
-        Profile created successfully
+        {i18n.t('Profilecreatedsuccessfully')}
       </Text>
     </View>
   );

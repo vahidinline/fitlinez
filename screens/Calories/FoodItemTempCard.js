@@ -17,14 +17,15 @@ const FoodItemCard = ({
   const styles = getStyles(theme);
   const [status, setStatus] = useState('idle');
   const [nutritionData, setNutritionData] = useState(null);
-  console.log('selectedMeal', selectedMeal);
+  console.log('FoodItemCard -> nutritionData', nutritionData);
   const handleSendFoodItemReq = async () => {
     setStatus('loading');
     try {
-      const res = await sendFoodQuery(item, userId, selectedMeal);
-
+      const res = await sendFoodQuery(item, userId, selectedMeal.value);
+      console.log('FoodItemCard -> res', res);
       if (res) {
         setNutritionData(res);
+
         setStatus('dataLoaded');
       } else {
         setStatus('error');

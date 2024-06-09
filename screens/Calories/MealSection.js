@@ -15,32 +15,38 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
   const meals = [
     {
       name: i18n.t('breakfast'), // i18n.t('breakfast'
+      value: 'breakfast',
       color: 'primary',
       img: require('../../assets/icons/breakfast.png'),
     },
     {
       name: i18n.t('lunch'),
+      value: 'lunch',
       color: 'success',
       img: require('../../assets/icons/lunch.png'),
     },
     {
       name: i18n.t('dinner'),
+      value: 'dinner',
       color: 'success',
       img: require('../../assets/icons/dinner.png'),
     },
     {
       name: i18n.t('snack'),
+      value: 'snack',
       color: 'warning',
       img: require('../../assets/icons/snack.png'),
     },
 
     {
       name: i18n.t('desert'),
+      value: 'desert',
       color: 'error',
       img: require('../../assets/icons/dessert.png'),
     },
     {
       name: i18n.t('drink'),
+      value: 'drink',
       color: 'error',
       img: require('../../assets/icons/drink.png'),
     },
@@ -129,7 +135,7 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
         }}>
         {meals.map((meal, index) => (
           <TouchableOpacity
-            onPress={() => setMeal(meal.name)}
+            onPress={() => setMeal(meal)}
             style={{
               width: Dimensions.get('window').width / 3,
               height: Dimensions.get('window').width / 3,

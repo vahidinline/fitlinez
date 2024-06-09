@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   PixelRatio,
   Pressable,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
@@ -203,7 +204,22 @@ const FinishSession = (props) => {
   const handleShowBurnedCalories = async () => {
     const sessionId = await AsyncStorage.getItem('sessionId');
     const burnedCalories = await getBurnedCalories(userId, sessionId);
-
+    if (!burnedCalories) {
+      Alert.alert(
+        i18n.t('burnedCalories'),
+        i18n.t('burnedCaloriesDescription'),
+        [
+          {
+            text: i18n.t('update'),
+            onPress: () => navigation.navigate('IndexOnBoarding'),
+          },
+          {
+            text: i18n.t('later'),
+          },
+        ],
+        { cancelable: true }
+      );
+    }
     setBurnedCalories(burnedCalories);
   };
 

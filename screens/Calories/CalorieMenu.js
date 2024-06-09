@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { BottomSheet, ListItem } from '@rneui/base';
+import { Direct } from 'iconsax-react-native';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { List } from 'react-native-paper';
@@ -11,6 +12,7 @@ function CalorieMenu({
   setStatus,
   setSelectedMeal,
   i18n,
+  RTL,
 }) {
   const navigation = useNavigation();
 
@@ -63,6 +65,7 @@ function CalorieMenu({
   return (
     <BottomSheet
       style={{
+        direction: RTL ? 'rtl' : 'ltr',
         position: 'absolute',
         bottom: 10,
         width: Dimensions.get('window').width,

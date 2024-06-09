@@ -30,6 +30,8 @@ const db0 = SQLite.openDatabase('totalWeight.db');
 const db1 = SQLite.openDatabase('packeges.db');
 
 const StartSessionIndexHome = ({ title, trainer, location }) => {
+  console.log('title in StartSessionIndexHome', title);
+  console.log('location in StartSessionIndexHome', location);
   const { theme } = useTheme();
   const { userAuth, setUserAuth } = useContext(AuthContext);
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);

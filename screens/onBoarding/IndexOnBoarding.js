@@ -254,6 +254,7 @@ function IndexOnBoarding() {
             backgroundColor: theme.colors.button,
             borderWidth: 1,
             borderColor: theme.colors.border,
+            bottom: 20,
           }}
           onPress={() => handlebutton()}
           title={

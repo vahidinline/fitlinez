@@ -20,6 +20,7 @@ function InputSelector({
   setFoodItems,
   setStatus,
   userInput,
+  status,
   setUserInput,
   i18n,
 }) {
@@ -115,6 +116,7 @@ function InputSelector({
           userInput={userInput}
           setUserInput={setUserInput}
           i18n={i18n}
+          status={status}
         />
       )}
     </View>

@@ -122,7 +122,7 @@ function TabNavigator() {
         component={MarketPlaceNavigation}
         options={{
           headerShown: false,
-          title: i18n.t('marketplace'),
+          title: i18n.t('plans'),
           tabBarIcon: ({ focused }) =>
             !focused ? <IconMarketUnFocused /> : <IconMarketFocused />,
         }}

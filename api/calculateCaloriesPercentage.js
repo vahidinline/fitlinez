@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import foodapi from './foodApi';
 
 const setDailyCaloriesGoals = async (
@@ -25,6 +26,8 @@ const setDailyCaloriesGoals = async (
     return response.data;
   } catch (error) {
     console.error('Failed to send data:', error);
+    return false;
+
     // ... Implement proper error handling ...
   }
 };

@@ -101,7 +101,7 @@ function NutritionChart({
           margin: 20,
           padding: 16,
           borderRadius: 20,
-          backgroundColor: '#232B5D',
+          // backgroundColor: '#232B5D',
         }}>
         <Text
           style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}></Text>
@@ -113,7 +113,7 @@ function NutritionChart({
             sectionAutoFocus
             radius={90}
             innerRadius={60}
-            innerCircleColor={'#232B5D'}
+            innerCircleColor={'transparent'}
             centerLabelComponent={() => {
               return (
                 <View
@@ -121,12 +121,12 @@ function NutritionChart({
                   <Text
                     style={{
                       fontSize: 22,
-                      color: 'white',
+                      color: '#000',
                       fontWeight: 'bold',
                     }}>
                     {dailyCalories}
                   </Text>
-                  <Text style={{ fontSize: 14, color: 'white' }}>
+                  <Text style={{ fontSize: 14, color: '#000' }}>
                     {i18n.t('dailyCalories')}
                   </Text>
                 </View>

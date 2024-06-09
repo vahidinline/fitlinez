@@ -3,16 +3,23 @@ import { Dimensions, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import FoodItemCard from './FoodItemTempCard';
 import { useTheme } from '@rneui/themed';
 import { Button } from '@rneui/base';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
   // Initialize state with an empty array
   const [items, setItems] = useState(foodItems);
-  console.log('items', foodItems);
+  console.log('TempfoodItems -> items', items);
   const { theme } = useTheme();
   const handleInputChange = (index, field, value) => {
     const newItems = [...items];
     newItems[index][field] = value;
     setItems(newItems);
+  };
+
+  const handleEndSession = () => {
+    AsyncStorage.removeItem('foodInput');
+    setItems([]);
+    setStatus('idle');
   };
 
   return (
@@ -21,6 +28,14 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
         flex: 10,
         height: Dimensions.get('window').height,
       }}>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 20,
+          color: theme.colors.white,
+        }}>
+        {items.length > 0 ? 'Total Items: ' + items.length : 'No items added'}
+      </Text>
       <ScrollView>
         <View style={{}}>
           {items.map((item, index) => (
@@ -37,14 +52,6 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
         </View>
       </ScrollView>
       <View>
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 20,
-            color: theme.colors.white,
-          }}>
-          {items.length > 0 ? 'Total Items: ' + items.length : 'No items added'}
-        </Text>
         <Button
           buttonStyle={{
             backgroundColor: theme.colors.primary,
@@ -61,7 +68,7 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
             fontWeight: 'bold',
           }}
           title={i18n.t('back')}
-          onPress={() => setStatus('idle')}
+          onPress={() => handleEndSession()}
         />
       </View>
     </View>

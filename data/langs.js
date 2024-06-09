@@ -8,12 +8,12 @@ const langs = [
     Flag: FlagUK,
     value: 'en',
   },
-  {
-    id: 2,
-    name: 'Portuguese',
-    Flag: FlagPT,
-    value: 'pt',
-  },
+  // {
+  //   id: 2,
+  //   name: 'Portuguese',
+  //   Flag: FlagPT,
+  //   value: 'pt',
+  // },
   {
     id: 3,
     name: 'Persian',

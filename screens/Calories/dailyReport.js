@@ -67,7 +67,9 @@ function DailyReport({ userId }) {
         style={styles.background}
       /> */}
       {status === 'noData' && (
-        <Text style={styles.noDataText}>No daily calories goals set</Text>
+        <Text style={styles.noDataText}>
+          {i18n.t('Nodailycaloriesgoalsset')}
+        </Text>
       )}
       {status === 'success' && (
         <>
@@ -80,6 +82,9 @@ function DailyReport({ userId }) {
             <Text style={styles.kcalText}>kcal</Text>
             <Text style={styles.remainingText}>{i18n.t('remaining')}</Text>
           </View>
+          {result.length === 0 && (
+            <Text style={styles.noDataText}>{i18n.t('Nodataavailable')}</Text>
+          )}
           {result.length != 0 && (
             <View style={styles.nutrientContainer}>
               <Text style={styles.nutrientText}>

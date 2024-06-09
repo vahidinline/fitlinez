@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import MealSection from './MealSection';
 import TempfoodItems from './TempfoodItems';
@@ -16,6 +16,8 @@ import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import NutritionChart from './NutritionChart';
 import CustomReport from './customReport';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button } from '@rneui/base';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -29,6 +31,7 @@ function CaloriesIndex() {
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
+  const RTL = userLanguage === 'fa';
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#5B5891' }}>
@@ -51,7 +54,9 @@ function CaloriesIndex() {
             Welcome to the Nutrition Extractor
           </Text> */}
           </View>
-          {status === 'idle' && <DailyReport userId={userId} i18n={i18n} />}
+          {status === 'idle' && (
+            <DailyReport RTL={RTL} userId={userId} i18n={i18n} />
+          )}
           {status === 'loading' && (
             <FitlinezLoading />
             // <ActivityIndicator size="large" color="#0000ff" />
@@ -68,7 +73,12 @@ function CaloriesIndex() {
               marginVertical: 20,
               marginHorizontal: 20,
             }}>
-            <CalorieMenu i18n={i18n} status={status} setStatus={setStatus} />
+            <CalorieMenu
+              RTL={RTL}
+              i18n={i18n}
+              status={status}
+              setStatus={setStatus}
+            />
           </View>
         )}
         {status === 'addFood' && (
@@ -78,6 +88,7 @@ function CaloriesIndex() {
             setStatus={setStatus}
             setSelectedMeal={setSelectedMeal}
             status={status}
+            RTL={RTL}
           />
         )}
         {status === 'mealInitialized' && (
@@ -90,11 +101,12 @@ function CaloriesIndex() {
               margin: 20,
               marginBottom: 10,
             }}>
-            {i18n.t('foodinserttypetitle', { mealType: selectedMeal })}
+            {i18n.t('foodinserttypetitle', { mealType: selectedMeal.name })}
           </Text>
         )}
         {status === 'initialReqSent' && (
           <TempfoodItems
+            RTL={RTL}
             i18n={i18n}
             selectedMeal={selectedMeal}
             foodItems={foodItems}
@@ -107,6 +119,8 @@ function CaloriesIndex() {
         )}
         {status === 'mealInitialized' && (
           <InputSelector
+            status={status}
+            RTL={RTL}
             i18n={i18n}
             setFoodItems={setFoodItems}
             setStatus={setStatus}
@@ -114,11 +128,49 @@ function CaloriesIndex() {
             setUserInput={setUserInput}
           />
         )}
-
-        {/* {status === 'setDailyCalories' &&} */}
+        {status === 'error' && (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 16,
+                color: 'white',
+                margin: 20,
+                marginBottom: 10,
+              }}>
+              {i18n.t('error')}
+            </Text>
+            <Button
+              buttonStyle={{
+                backgroundColor: theme.colors.primary,
+                borderColor: theme.colors.primary,
+                borderWidth: 0.2,
+                margin: 10,
+                borderRadius: 10,
+              }}
+              titleStyle={{
+                color: theme.colors.secondary,
+                fontSize: 15,
+                fontWeight: 'bold',
+              }}
+              title={i18n.t('retry')}
+              onPress={() => setStatus('idle')}
+            />
+          </View>
+        )}
 
         {status === 'setDailyCalories' && (
-          <SetDailyCalories i18n={i18n} setStatus={setStatus} userId={userId} />
+          <SetDailyCalories
+            RTL={RTL}
+            i18n={i18n}
+            setStatus={setStatus}
+            userId={userId}
+          />
         )}
       </View>
     </SafeAreaView>

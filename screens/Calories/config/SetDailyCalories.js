@@ -10,7 +10,7 @@ import { schedulePushNotification } from '../../../api/notification';
 
 const pickerData = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 
-function SetDailyCalories({ userId, setStatus, i18n }) {
+function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
   // const [status, setStatus] = useState('idle');
   const { theme } = useTheme();
   const styles = getStyles(theme);
@@ -149,7 +149,7 @@ function SetDailyCalories({ userId, setStatus, i18n }) {
     <View
       style={{
         height: '100%',
-
+        direction: RTL ? 'rtl' : 'ltr',
         bottom:
           typeStatus === 'focused' ? Dimensions.get('window').height / 4 : 0,
       }}>
@@ -179,7 +179,7 @@ function SetDailyCalories({ userId, setStatus, i18n }) {
                   fontSize: 18,
                   fontWeight: 'bold',
                 }}>
-                Set Daily Calories
+                {i18n.t('dailyCalories')}
               </ListItem.Title>
             </View>
             <TextInput
@@ -205,7 +205,7 @@ function SetDailyCalories({ userId, setStatus, i18n }) {
               width: '100%',
             }}>
             <View style={{ flexDirection: 'row' }}>
-              <ListItem.Title>Carbohydrates</ListItem.Title>
+              <ListItem.Title>{i18n.t('carbs')}</ListItem.Title>
               <Text style={styles.subs}>{carbsGrams} g</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
@@ -237,7 +237,7 @@ function SetDailyCalories({ userId, setStatus, i18n }) {
               width: '100%',
             }}>
             <View style={{ flexDirection: 'row' }}>
-              <ListItem.Title>Protein</ListItem.Title>
+              <ListItem.Title>{i18n.t('protein')}</ListItem.Title>
               <Text style={styles.subs}>{proteinGrams} g</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
@@ -267,7 +267,7 @@ function SetDailyCalories({ userId, setStatus, i18n }) {
               width: '100%',
             }}>
             <View style={{ flexDirection: 'row' }}>
-              <ListItem.Title>Fat</ListItem.Title>
+              <ListItem.Title>{i18n.t('fats')}</ListItem.Title>
               <Text style={styles.subs}>{fatGrams} g</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
@@ -304,13 +304,13 @@ function SetDailyCalories({ userId, setStatus, i18n }) {
                 borderColor: theme.colors.border,
               },
             ]}
-            title="Cancel"
+            title={i18n.t('cancel')}
             titleStyle={[styles.buttonTitle, { color: theme.colors.text }]}
             onPress={() => setStatus('idle')}
           />
           <Button
             buttonStyle={styles.Button}
-            title="Save"
+            title={i18n.t('save')}
             titleStyle={styles.buttonTitle}
             onPress={() => handleSetCalories()}
           />

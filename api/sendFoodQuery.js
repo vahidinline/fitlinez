@@ -10,7 +10,7 @@ const sendInitialReq = async (userInput) => {
     //console.log('response', response.data);
     return response.data;
   } catch (error) {
-    console.error('Failed to send data:', error);
+    console.log('Failed to send data:', error);
     // ... Implement proper error handling ...
   }
 };
@@ -36,7 +36,8 @@ const sendFoodQuery = async (foodItems, userId, selectedMeal) => {
       userId,
       selectedMeal,
     });
-    console.log('response', response.data);
+    console.log('response in sendfoodQuery', response.data);
+
     return response.data;
   } catch (error) {
     console.error('Failed to send data:', error);

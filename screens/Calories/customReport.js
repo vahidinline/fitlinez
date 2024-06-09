@@ -13,6 +13,9 @@ import { Button, Text, Tab, TabView } from '@rneui/base';
 import AuthContext from '../../api/context';
 import ListReport from './reports/ListReport';
 import Header from '../../components/header';
+import LanguageContext from '../../api/langcontext';
+import i18nt from '../../locales';
+import { I18n } from 'i18n-js';
 
 const CustomCalorieReport = () => {
   const { userAuth } = useContext(AuthContext);
@@ -22,8 +25,10 @@ const CustomCalorieReport = () => {
   const [showDatePicker2, setShowDatePicker2] = useState(false);
   const [status, setStatus] = useState('idle');
   const [report, setReport] = useState({});
-  console.log('report in custom report', report);
   const [index, setIndex] = useState(0);
+  const { userLanguage } = useContext(LanguageContext);
+  const i18n = new I18n(i18nt);
+  i18n.locale = userLanguage;
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const onChangeDate1 = (event, selectedDate) => {
@@ -42,7 +47,7 @@ const CustomCalorieReport = () => {
     if (index === 0) {
       handleGetWeeklyReport();
     } else if (index === 1) {
-      // handleGetMonthlyReport();
+      handleGetMonthlyReport();
     }
   }, [index]);
 
@@ -53,6 +58,23 @@ const CustomCalorieReport = () => {
         userAuth.id,
         //calculate 7 days ago
         new Date(new Date().setDate(new Date().getDate() - 8)),
+        new Date(new Date().setDate(new Date().getDate() - 1))
+      );
+      setStatus('success');
+      setReport(result);
+    } catch (error) {
+      setStatus('error');
+      console.log('error in weekly report', error);
+    }
+  };
+
+  const handleGetMonthlyReport = async () => {
+    setStatus('loading');
+    try {
+      const result = await getCustomCalorieInTakeReport(
+        userAuth.id,
+        //calculate 30 days ago
+        new Date(new Date().setDate(new Date().getDate() - 31)),
         new Date(new Date().setDate(new Date().getDate() - 1))
       );
       setStatus('success');
@@ -103,7 +125,7 @@ const CustomCalorieReport = () => {
         width: Dimensions.get('window').width,
       }}>
       <Header
-        title="Custom Report"
+        title={i18n.t('caloriesReport')}
         rightContent={
           <Button
             onPress={() => navigation.navigate('CalorieSettings')}
@@ -113,17 +135,17 @@ const CustomCalorieReport = () => {
       />
       <View style={styles.container}>
         <Tab value={index} onChange={setIndex} dense>
-          <Tab.Item>last 7 days</Tab.Item>
-          <Tab.Item>last 30 days</Tab.Item>
+          <Tab.Item>{<Text>{i18n.t('lastWeek')}</Text>}</Tab.Item>
+          <Tab.Item>{<Text>{i18n.t('lastMonth')}</Text>}</Tab.Item>
           {/* <Tab.Item>Custom Dates</Tab.Item> */}
         </Tab>
 
         <TabView value={index} onChange={setIndex}>
           <TabView.Item>
-            {status === 'success' && <ListReport report={report} />}
+            {status === 'success' && <ListReport i18n={i18n} report={report} />}
           </TabView.Item>
           <TabView.Item>
-            <Text>last 30 days</Text>
+            {status === 'success' && <ListReport i18n={i18n} report={report} />}
           </TabView.Item>
           {/* <TabView.Item>
             <Text>Custom Date</Text>
