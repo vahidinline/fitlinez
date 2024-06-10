@@ -119,6 +119,7 @@ function CaloriesIndex() {
         )}
         {status === 'mealInitialized' && (
           <InputSelector
+            userId={userId}
             status={status}
             RTL={RTL}
             i18n={i18n}

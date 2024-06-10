@@ -130,7 +130,7 @@ function CardItem({ item, showSkeleton }) {
         }}>
         <Card.Cover
           style={{
-            // width: Dimensions.get('window').width / 2,
+            width: Dimensions.get('window').width / 2,
             height: Dimensions.get('window').height / 6,
             resizeMode: 'cover',
             marginHorizontal: 10,

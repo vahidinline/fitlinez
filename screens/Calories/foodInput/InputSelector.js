@@ -23,6 +23,7 @@ function InputSelector({
   status,
   setUserInput,
   i18n,
+  userId,
 }) {
   const { theme } = useTheme();
   const [inputStatus, setInputStatus] = useState('idle');
@@ -71,8 +72,9 @@ function InputSelector({
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          {inputType.map((item) => (
+          {inputType.map((item, i) => (
             <TouchableOpacity
+              key={i}
               style={{
                 width: Dimensions.get('window').width / 3,
                 height: Dimensions.get('window').width / 3,
@@ -117,6 +119,7 @@ function InputSelector({
           setUserInput={setUserInput}
           i18n={i18n}
           status={status}
+          userId={userId}
         />
       )}
     </View>

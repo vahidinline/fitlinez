@@ -1,11 +1,11 @@
 import foodapi from './foodApi';
 
-const sendInitialReq = async (userInput) => {
+const sendInitialReq = async (userInput, userId) => {
   try {
     const response = await foodapi.post(
       //'https://aibackendfitlinez.azurewebsites.net/nutritionextractor',
       '/nutritionextractor',
-      { userInput }
+      { userInput, userId }
     );
     //console.log('response', response.data);
     return response.data;

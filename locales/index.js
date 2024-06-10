@@ -400,19 +400,21 @@ const i18nt = {
     removeStoredValues: 'Remove Stored Values',
     retry: 'Retry',
     plans: 'Plans',
-    Nodataavailable: 'No data available',
+    Nodataavailable: 'No food entered',
     Nodailycaloriesgoalsset: 'No daily goals found',
     burnedCaloriesDescription:
       'Please update your profile to see the burned calories',
     Profilecreatedsuccessfully: 'Profile created successfully',
+    enterFoodPlaceholder: 'Enter your food and serving size',
   },
 
   fa: {
+    enterFoodPlaceholder: 'غذای خود و اندازه سرو را وارد کنید',
     Profilecreatedsuccessfully: 'پروفایل با موفقیت ایجاد شد',
     burnedCaloriesDescription:
       'لطفا پروفایل خود را بروز کنید تا کالری های سوزانده شده را ببینید',
     Nodailycaloriesgoalsset: 'هدف روزانه تنظیم نشده است',
-    Nodataavailable: 'اطلاعاتی موجود نیست',
+    Nodataavailable: 'غذایی وارد نشده است',
     plans: 'برنامه ها',
     retry: 'تلاش مجدد',
     removeStoredValues: 'حذف مقادیر ذخیره شده',

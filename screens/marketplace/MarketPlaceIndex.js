@@ -1,7 +1,7 @@
 import { useTheme } from '@rneui/themed';
 import { SearchBar } from '@rneui/themed';
 import React from 'react';
-import { Dimensions, FlatList, TouchableOpacity, View } from 'react-native';
+import { Dimensions, FlatList, View } from 'react-native';
 import { I18n } from 'i18n-js';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -9,25 +9,25 @@ import LanguageContext from '../../api/langcontext';
 import { useContext } from 'react';
 import i18nt from '../../locales';
 import ListItems from './ListIItems';
-import TrainersList from './TrainersList';
 import { useRef } from 'react';
 import { Chip } from 'react-native-paper';
 import FilterIndex from './filters/FilterIndex';
 import { useNavigation } from '@react-navigation/native';
-import { trainersList } from './data/data';
 import { getPackages } from '../../api/GetData';
-import { IconFilter, IconSearch } from './filters/icons-';
-import { Tab } from '../../navigation/newBottomNavigator';
+import { IconClose, IconSearch } from './filters/icons';
 
 function MarketPlaceIndex() {
   const [packages, setPackages] = useState([]);
   const { userLanguage } = useContext(LanguageContext);
   const packagesRef = useRef(null);
   const [showFilter, setShowFilter] = useState(false);
+  const [status, setStatus] = useState('idle');
   const [selectedFilter, setSelectedFilter] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  console.log('status', status);
   const onChangeSearch = (query) => setSearchQuery(query);
   const [filteredPackages, setFilteredPackages] = useState([]);
+  console.log('filteredPackages', filteredPackages.length);
   const navigation = useNavigation();
   const removeFilteredItem = (itemKeyToRemove) => {
     setSelectedFilter(
@@ -47,8 +47,14 @@ function MarketPlaceIndex() {
   const { theme } = useTheme();
 
   const getPackagesData = async () => {
+    setStatus('loading');
     const result = await getPackages();
+    if (!result) {
+      setStatus('error');
+      return;
+    }
     setPackages(result);
+    setStatus('success');
   };
 
   useEffect(() => {
@@ -96,23 +102,27 @@ function MarketPlaceIndex() {
     );
   };
 
-  useEffect(() => {
-    const filteredData = filterBySearch(packages, searchQuery);
-    setFilteredPackages(filteredData);
-  }, [searchQuery, packages]);
-
   // useEffect(() => {
-  //   if (searchQuery) {
-  //     const filteredData = packages.filter((packages) =>
-  //       packages.name?.toLowerCase().includes(searchQuery.toLowerCase())
-  //     );
-  //     setFilteredPackages(filteredData);
-  //   } else {
-  //     setFilteredPackages(packages);
-  //   }
+  //   const filteredData = filterBySearch(packages, searchQuery);
+  //   setFilteredPackages(filteredData);
   // }, [searchQuery, packages]);
 
-  const filteredPackage = filterBySearch(packages, searchQuery);
+  useEffect(() => {
+    if (searchQuery) {
+      setStatus('searching');
+      setFilteredPackages(filterBySearch(packages, searchQuery));
+    }
+    //   const filteredData = packages.filter((packages) =>
+    //     packages.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    //   );
+    //   setFilteredPackages(filteredData);
+    // } else {
+    //   setFilteredPackages(packages);
+    // }
+  }, [searchQuery, packages]);
+
+  // const filteredPackage = filterBySearch(packages, searchQuery);
+  // console.log('filteredPackage', filteredPackage.length);
 
   return (
     <View
@@ -126,7 +136,9 @@ function MarketPlaceIndex() {
           flexDirection: 'row',
         }}>
         <SearchBar
+          cancelIcon={IconClose}
           searchIcon={IconSearch}
+          onCancel={() => setStatus('idle')}
           leftIconContainerStyle={{ color: theme.colors.secondary }}
           rightIconContainerStyle={{ color: theme.colors.secondary }}
           placeholderTextColor={theme.colors.secondary}
@@ -137,8 +149,8 @@ function MarketPlaceIndex() {
             color: theme.colors.secondary,
             alignSelf: 'center',
             borderRadius: 20,
-            width: Dimensions.get('window').width - 100,
-            marginHorizontal: 10,
+            width: Dimensions.get('window').width / 1.1,
+            marginHorizontal: 20,
             justifyContent: 'flex-start',
           }}
           inputStyle={{
@@ -191,59 +203,59 @@ function MarketPlaceIndex() {
           </Chip>
         ))}
       </View>
-      {searchQuery ? (
+      {status === 'searching' && (
         <FlatList
           data={filteredPackages}
           renderItem={({ item }) => (
             <ListItems
               packages={item}
-              name={'Workouts'}
+              //name={i18n.t('searchResults')}
               navigation={navigation}
             />
           )}
         />
-      ) : (
-        <View>
-          <FlatList
-            sections={sections}
-            ListHeaderComponent={() => (
-              <View>
-                {/* <ListItems
+      )}
+      <View>
+        <FlatList
+          sections={sections}
+          ListHeaderComponent={() => (
+            <View>
+              {/* <ListItems
                   packages={filteredPackage}
                   name={i18n.t('searchResults')}
                   navigation={navigation}
                 /> */}
-                {/* <ListItems
+              {/* <ListItems
                   packages={packages}
                   name={'Workouts'}
                   navigation={navigation}
                 /> */}
-                <ListItems
-                  packages={filterPackages(packages, 'both')}
-                  name={i18n.t('homeWorkout')}
-                  navigation={navigation}
-                />
-                <ListItems
-                  packages={filterPackages(packages, 'gym')}
-                  name={i18n.t('gymWorkout')}
-                  navigation={navigation}
-                />
-                {/* <TrainersList name={'Trainers'} /> */}
-                <ListItems
-                  packages={filterPackagesByLevel(packages, 'Beginner')}
-                  name={i18n.t('beginner')}
-                  navigation={navigation}
-                />
-                <ListItems
-                  packages={filterPackagesByLevel(packages, 'Intermediate')}
-                  name={i18n.t('intermediate')}
-                  navigation={navigation}
-                />
-              </View>
-            )}
-          />
-        </View>
-      )}
+              <ListItems
+                packages={filterPackages(packages, 'both')}
+                name={i18n.t('homeWorkout')}
+                navigation={navigation}
+              />
+              <ListItems
+                packages={filterPackages(packages, 'gym')}
+                name={i18n.t('gymWorkout')}
+                navigation={navigation}
+              />
+              {/* <TrainersList name={'Trainers'} /> */}
+              <ListItems
+                packages={filterPackagesByLevel(packages, 'Beginner')}
+                name={i18n.t('beginner')}
+                navigation={navigation}
+              />
+              <ListItems
+                packages={filterPackagesByLevel(packages, 'Intermediate')}
+                name={i18n.t('intermediate')}
+                navigation={navigation}
+              />
+            </View>
+          )}
+        />
+      </View>
+
       <FilterIndex
         setSelectedFilter={setSelectedFilter}
         showFilter={showFilter}

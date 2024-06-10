@@ -30,6 +30,7 @@ import {
   Iconclose,
 } from '../marketplace/filters/icons-';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
+import { trackUserData } from '../../api/tracker';
 
 function Upgrade() {
   const { userLanguage } = useContext(LanguageContext);
@@ -54,7 +55,9 @@ function Upgrade() {
     setPrice(item.price);
     setTitle(item.description);
   };
-
+  useEffect(() => {
+    trackUserData(userAuth, 'Upgrade page loaded');
+  }, [userAuth]);
   const getPriceList = async () => {
     const response = await api.get('/price');
     setPriceList(response.data);

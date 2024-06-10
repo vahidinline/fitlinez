@@ -19,6 +19,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 const db = SQLite.openDatabase('packeges.db');
 
 function ListItems({ packages, name, navigation }) {
+  //console.log('packages in list item', packages);
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
@@ -55,7 +56,7 @@ function ListItems({ packages, name, navigation }) {
               marginHorizontal: 30,
             }}
             animation="pulse"
-            width={Dimensions.get('window').width / 2.5}
+            width={Dimensions.get('window').width / 2}
             height={Dimensions.get('window').height / 3}
           />
 
@@ -68,7 +69,7 @@ function ListItems({ packages, name, navigation }) {
               marginHorizontal: 30,
             }}
             animation="pulse"
-            width={Dimensions.get('window').width / 2.5}
+            width={Dimensions.get('window').width / 1}
             height={Dimensions.get('window').height / 3}
           />
         </View>

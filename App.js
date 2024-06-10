@@ -31,16 +31,7 @@ import checkFreeTrial from './api/checkFreeTrial';
 import { init } from '@amplitude/analytics-react-native';
 import { logEvent } from '@amplitude/analytics-react-native';
 import { forceSolveError, clearAllAsyncCache } from './api/forceSolveError';
-
-// wherever you want to log an event
-logEvent('using app');
-const setupAmplitude = async () => {
-  await init('2dbde109138c224a29c59085770205c', {
-    serverZone: 'EU',
-  });
-};
-
-setupAmplitude();
+import { trackUserData } from './api/tracker';
 
 const errorHandler = (error, stackTrace) => {
   /* Log the error to an error reporting service */
@@ -67,12 +58,17 @@ export default function App() {
     setCurrentTheme(currentTheme === DefaultTheme ? SecondTheme : DefaultTheme);
   };
 
+  useEffect(() => {
+    trackUserData(userAuth, 'App started');
+  }, [userAuth]);
+
   async function onFetchUpdateAsync() {
     try {
       const update = await Updates.checkForUpdateAsync();
       if (update.isAvailable) {
         await Updates.fetchUpdateAsync();
         await Updates.reloadAsync();
+
         Alert.alert('Update', 'App is updated');
       } else {
         console.log('No updates available');

@@ -22,7 +22,7 @@ function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
   const [proteinGrams, setProteinGrams] = useState(0);
   const [fatGrams, setFatGrams] = useState(0);
   const [typeStatus, setTypeStatus] = useState('idle');
-
+  console.log('typeStatus', typeStatus);
   const valuechecker = () => {
     if (fatPercentage + proteinPercentage + carbsPercentage != 100) {
       Alert.alert(
@@ -127,19 +127,19 @@ function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
     switch (name) {
       case 'dailyCalories':
         setDailyCalories(parseInt(text));
-        setTypeStatus('idle');
+        //setTypeStatus('idle');
         break;
       case 'carbohydrates':
         setCarbsPercentage(parseInt(text));
-        setTypeStatus('idle');
+        //etTypeStatus('idle');
         break;
       case 'protein':
         setProteinPercentage(parseInt(text));
-        setTypeStatus('idle');
+        //setTypeStatus('idle');
         break;
       case 'fat':
         setFatPercentage(parseInt(text));
-        setTypeStatus('idle');
+        // setTypeStatus('idle');
         break;
       default:
         break;

@@ -21,6 +21,7 @@ function FoodTextInput({
   setInputStatus,
   status,
   i18n,
+  userId,
 }) {
   const { theme } = useTheme();
   const [typeStatus, setTypeStatus] = useState('idle');
@@ -42,7 +43,7 @@ function FoodTextInput({
     // Save the user input to AsyncStorage
     await AsyncStorage.setItem('foodInput', userInput);
 
-    const res = await sendInitialReq(userInput);
+    const res = await sendInitialReq(userInput, userId);
     if (res) {
       setFoodItems(res.foodItems);
       setStatus('initialReqSent');
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0.3,
     borderColor: 'grey',
-    height: 200,
+    height: 240,
   },
   verticallySpaced: {
     marginVertical: 10,
