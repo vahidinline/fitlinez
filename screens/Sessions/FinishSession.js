@@ -367,8 +367,8 @@ const FinishSession = (props) => {
                 <View
                   style={{
                     position: 'absolute',
-                    top: 0,
-                    left: 0,
+                    top: 20,
+                    right: 0,
                   }}>
                   <IconFire />
                 </View>

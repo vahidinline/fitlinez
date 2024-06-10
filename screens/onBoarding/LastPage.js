@@ -26,11 +26,15 @@ function LastPageOnboarding() {
   }, []);
 
   const handlePress = () => {
-    if (userLevel === 4) {
-      navigator.navigate('WorkoutListIndex');
-    } else {
-      navigator.navigate('Upgrade');
-    }
+    navigator.reset({
+      index: 0,
+      routes: [{ name: 'Home' }],
+    });
+    // if (userLevel === 4) {
+    //   navigator.navigate('WorkoutListIndex');
+    // } else {
+    //   navigator.navigate('Upgrade');
+    // }
   };
 
   return (
