@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import MealSection from './MealSection';
 import TempfoodItems from './TempfoodItems';
-import { IconArrowLeft } from '../marketplace/filters/icons';
+import { IconArrowLeft, IconWarning } from '../marketplace/filters/icons';
 import DailyReport from './dailyReport';
 import InputSelector from './foodInput/InputSelector';
 import AuthContext from '../../api/context';
@@ -18,6 +18,7 @@ import NutritionChart from './NutritionChart';
 import CustomReport from './customReport';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@rneui/base';
+import { Icon } from 'react-native-paper';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -34,22 +35,25 @@ function CaloriesIndex() {
   const RTL = userLanguage === 'fa';
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#5B5891' }}>
-      <View style={{ flex: 1, backgroundColor: '#5B5891' }}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme.colors.primary }}>
         <ScrollView>
           <View
             style={{
               flex: 1,
               flexDirection: 'row',
-
               justifyContent: 'space-between',
               alignItems: 'center',
               marginVertical: 20,
-              marginHorizontal: 20,
+              //marginHorizontal: 20,
+              backgroundColor: theme.colors.background,
+              height: 50,
             }}>
-            <Pressable onPress={() => setStatus('idle')}>
-              <IconArrowLeft color={theme.colors.white} />
-            </Pressable>
+            {status !== 'idle' && (
+              <Pressable onPress={() => setStatus('idle')}>
+                <IconArrowLeft color={theme.colors.black} />
+              </Pressable>
+            )}
             {/* <Text style={{ textAlign: 'center', fontSize: 20, color: 'white' }}>
             Welcome to the Nutrition Extractor
           </Text> */}
@@ -96,8 +100,8 @@ function CaloriesIndex() {
             style={{
               textAlign: 'center',
               fontSize: 16,
-
-              color: 'white',
+              fontWeight: 'bold',
+              color: theme.colors.secondary,
               margin: 20,
               marginBottom: 10,
             }}>
@@ -136,11 +140,12 @@ function CaloriesIndex() {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
+            <IconWarning color={theme.colors.warning} size={50} />
             <Text
               style={{
                 textAlign: 'center',
                 fontSize: 16,
-                color: 'white',
+                color: theme.colors.warning,
                 margin: 20,
                 marginBottom: 10,
               }}>
@@ -148,14 +153,16 @@ function CaloriesIndex() {
             </Text>
             <Button
               buttonStyle={{
-                backgroundColor: theme.colors.primary,
+                backgroundColor: theme.colors.secondary,
                 borderColor: theme.colors.primary,
                 borderWidth: 0.2,
                 margin: 10,
                 borderRadius: 10,
+                height: 40,
+                width: 100,
               }}
               titleStyle={{
-                color: theme.colors.secondary,
+                color: theme.colors.primary,
                 fontSize: 15,
                 fontWeight: 'bold',
               }}

@@ -4,12 +4,24 @@ import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { BarChart } from 'react-native-gifted-charts';
 
-function ListReport(report) {
+function ListReport(report, i18n) {
   const [dailygoal, setDailygoal] = useState({});
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const [error, setError] = useState(null); // Add error state
   const { theme } = useTheme();
   const styles = getStyles(theme);
+  const [status, setStatus] = useState('idle');
+
+  useEffect(() => {
+    setStatus('loading');
+    if (!report || !report.report) {
+      setStatus('error');
+      setError('Invalid or missing report data');
+      return;
+    } else {
+      setStatus('success');
+    }
+  }, [report]);
 
   const renderTitle = () => {
     return (
@@ -161,7 +173,7 @@ function ListReport(report) {
 
   return (
     <View style={styles.container}>
-      {isLoading && <Text>Loading...</Text>}
+      {status === 'loading' && <Text>Loading...</Text>}
       {error && <Text style={{ color: 'red' }}>{error}</Text>}
       {renderTitle()}
       {!isLoading && !error && (

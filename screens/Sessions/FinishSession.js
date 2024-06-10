@@ -24,7 +24,7 @@ import { TimeSpentContext } from '../../api/TimeSpentContext';
 import AuthContext from '../../api/context';
 import i18nt from '../../locales';
 import api from '../../api/api';
-import { Iconshare } from '../marketplace/filters/icons';
+import { IconFire, Iconshare } from '../marketplace/filters/icons';
 import formatTime from '../../api/timeFormat';
 import { saveUserData } from '../../api/SaveData';
 import { retrieveAndCalculatePerformance } from '../../api/SaveData';
@@ -364,6 +364,14 @@ const FinishSession = (props) => {
             )}
             {burnedCalories && (
               <View style={styles.view}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                  }}>
+                  <IconFire />
+                </View>
                 <Text style={styles.title}>
                   {burnedCalories.totalCaloriesBurned.toFixed(0)} kcal
                 </Text>

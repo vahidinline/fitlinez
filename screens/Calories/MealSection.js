@@ -119,8 +119,8 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
         style={{
           textAlign: 'center',
           fontSize: 20,
-          //fontWeight: 'bold',
-          color: 'white',
+          fontWeight: 'bold',
+          color: theme.colors.secondary,
           margin: 20,
           marginBottom: 40,
         }}>

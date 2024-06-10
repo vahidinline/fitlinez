@@ -72,6 +72,8 @@ function CalorieMenu({
         height: Dimensions.get('window').height / 2.5,
         backgroundColor: '#fff',
         borderRadius: 10,
+        borderTopColor: 'lightgrey',
+        borderTopWidth: 1,
         padding: 10,
         marginVertical: 10,
       }}

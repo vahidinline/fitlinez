@@ -65,7 +65,7 @@ function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
         userId
       );
       await AsyncStorage.setItem(
-        'dailyCaloriesGaols',
+        'dailyCaloriesGoals',
         JSON.stringify({
           dailyCalories,
           fatPercentage,
@@ -99,7 +99,7 @@ function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
   useEffect(() => {
     const getDailyCaloriesGoals = async () => {
       const dailyCaloriesGoals = await AsyncStorage.getItem(
-        'dailyCaloriesGaols'
+        'dailyCaloriesGoals'
       );
       if (
         dailyCaloriesGoals !== 0 &&

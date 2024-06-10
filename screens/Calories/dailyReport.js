@@ -17,6 +17,10 @@ function DailyReport({ userId }) {
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
+  const percentage =
+    (dailyCalories / result[0]?.totalCalories.toFixed(0)) * 100;
+  const angle = (percentage / 100) * 360;
+  console.log('dailyCalories in angle', angle);
   // console.log('dailyCalories in daily', dailyCalories);
   //console.log('result in daily', result);
   const getDailyReport = async () => {
@@ -42,7 +46,7 @@ function DailyReport({ userId }) {
   useEffect(() => {
     const getDailyCaloriesGoals = async () => {
       const dailyCaloriesGoals = await AsyncStorage.getItem(
-        'dailyCaloriesGaols'
+        'dailyCaloriesGoals'
       );
       if (dailyCaloriesGoals) {
         const parsedDailyCaloriesGoals = JSON.parse(dailyCaloriesGoals);
@@ -73,7 +77,12 @@ function DailyReport({ userId }) {
       )}
       {status === 'success' && (
         <>
-          <View style={styles.baseContainer}>
+          <View
+            style={[
+              styles.baseContainer,
+
+              // { borderColor: angle > dailyCalories ? 'red' : 'green' },
+            ]}>
             <Text style={styles.caloriesText}>
               {result.length > 0
                 ? dailyCalories - result[0]?.totalCalories.toFixed(0)
@@ -131,6 +140,11 @@ const getStyles = (theme) =>
       //width: Dimensions.get('window').width / 1.1,
       marginVertical: 10,
       // minHeight: Dimensions.get('window').height / 5,
+      flex: 1,
+      marginHorizontal: 10,
+      padding: 10,
+      borderRadius: 10,
+      backgroundColor: theme.colors.secondary,
     },
     row: {
       flexDirection: 'row',
@@ -147,7 +161,7 @@ const getStyles = (theme) =>
     },
     baseContainer: {
       borderWidth: 5,
-      borderColor: theme.colors.grey3,
+      borderColor: theme.colors.primary,
       borderRadius: 75,
       width: 150,
       height: 150,
@@ -156,19 +170,19 @@ const getStyles = (theme) =>
       alignItems: 'center',
     },
     caloriesText: {
-      color: '#fff',
+      color: theme.colors.primary,
       fontSize: 30,
       textAlign: 'center',
       fontWeight: 'bold',
       margin: 10,
     },
     kcalText: {
-      color: '#fff',
+      color: theme.colors.primary,
       fontSize: 16,
       textAlign: 'center',
     },
     remainingText: {
-      color: '#fff',
+      color: theme.colors.primary,
       fontSize: 15,
       textAlign: 'center',
       fontWeight: 'bold',
@@ -178,7 +192,7 @@ const getStyles = (theme) =>
       alignItems: 'right',
     },
     nutrientText: {
-      color: '#fff',
+      color: theme.colors.primary,
       fontSize: 14,
       textAlign: 'center',
       fontWeight: 'bold',
