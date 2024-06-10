@@ -1,4 +1,5 @@
 import { Text } from '@rneui/base';
+import { useTheme } from '@rneui/themed';
 import React from 'react';
 import { View } from 'react-native';
 import { PieChart } from 'react-native-gifted-charts';
@@ -18,7 +19,7 @@ function NutritionChart({
     { value: proteinPercentage, color: '#79D2DE', text: proteinGrams },
     { value: carbsPercentage, color: '#ED6665', text: carbsGrams },
   ];
-
+  const { theme } = useTheme();
   const renderDot = (color) => {
     return (
       <View
@@ -57,7 +58,7 @@ function NutritionChart({
           <View
             style={{ flexDirection: 'row', alignItems: 'center', width: 120 }}>
             {renderDot('#8F80F3')}
-            <Text style={{ color: 'white' }}>
+            <Text style={{ color: theme.colors.secondary }}>
               {i18n.t('fats')}: {fatGrams} g
             </Text>
           </View>
@@ -71,7 +72,7 @@ function NutritionChart({
               marginRight: 20,
             }}>
             {renderDot('#3BE9DE')}
-            <Text style={{ color: 'white' }}>
+            <Text style={{ color: theme.colors.secondary }}>
               {' '}
               {i18n.t('carbs')}: {carbsGrams} g
             </Text>
@@ -79,7 +80,7 @@ function NutritionChart({
           <View
             style={{ flexDirection: 'row', alignItems: 'center', width: 120 }}>
             {renderDot('#FF7F97')}
-            <Text style={{ color: 'white' }}>
+            <Text style={{ color: theme.colors.secondary }}>
               {' '}
               {i18n.t('protein')}: {proteinGrams} g
             </Text>

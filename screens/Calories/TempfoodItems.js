@@ -32,7 +32,7 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
         style={{
           textAlign: 'center',
           fontSize: 20,
-          color: theme.colors.white,
+          color: theme.colors.secondary,
         }}>
         {items.length > 0 ? 'Total Items: ' + items.length : 'No items added'}
       </Text>
@@ -54,7 +54,7 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
       <View>
         <Button
           buttonStyle={{
-            backgroundColor: theme.colors.primary,
+            backgroundColor: theme.colors.secondary,
 
             borderColor: theme.colors.primary,
             borderWidth: 0.2,
@@ -63,7 +63,7 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
             borderRadius: 10,
           }}
           titleStyle={{
-            color: theme.colors.secondary,
+            color: theme.colors.primary,
             fontSize: 15,
             fontWeight: 'bold',
           }}

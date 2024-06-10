@@ -46,12 +46,16 @@ function CaloriesIndex() {
               alignItems: 'center',
               marginVertical: 20,
               //marginHorizontal: 20,
-              backgroundColor: theme.colors.background,
+              //backgroundColor: theme.colors.background,
               height: 50,
             }}>
             {status !== 'idle' && (
-              <Pressable onPress={() => setStatus('idle')}>
-                <IconArrowLeft color={theme.colors.black} />
+              <Pressable
+                style={{
+                  marginHorizontal: 20,
+                }}
+                onPress={() => setStatus('idle')}>
+                <IconArrowLeft color={theme.colors.secondary} size={30} />
               </Pressable>
             )}
             {/* <Text style={{ textAlign: 'center', fontSize: 20, color: 'white' }}>

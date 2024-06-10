@@ -243,6 +243,7 @@ const getStyles = (theme) =>
       borderRadius: 10,
       borderWidth: 0.3,
       borderColor: theme.colors.border,
+      backgroundColor: theme.colors.secondary,
       margin: 4,
 
       //backgroundColor: theme.colors.grey5,
