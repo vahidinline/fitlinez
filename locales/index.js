@@ -410,9 +410,19 @@ const i18nt = {
     enterFoodPlaceholder: 'Enter your food and serving size',
     delete: 'Delete',
     dailyReport: 'Daily Report',
+    RecommendedWorkoutPlans: 'Recommended Workout Plans',
+    NoWorkoutPlanFound:
+      'No Workout Plan Available. Please see the similar workout plans below',
+    similarWorkoutPlan: ' Similar Workout Plans',
+    backtohome: 'Back to Home',
   },
 
   fa: {
+    backtohome: 'بازگشت به خانه',
+    similarWorkoutPlan: 'برنامه های تمرینی مشابه',
+    NoWorkoutPlanFound:
+      'برنامه تمرینی موجود نیست. لطفا برنامه های مشابه تمرین را ببینید',
+    RecommendedWorkoutPlans: 'برنامه های تمرینی پیشنهادی',
     dailyReport: 'گزارش روزانه',
     delete: 'حذف',
     enterFoodPlaceholder: 'غذای خود و اندازه سرو را وارد کنید',
@@ -501,10 +511,10 @@ const i18nt = {
     loginFooterText: 'حساب کاربری ندارید؟',
     updateProfile: 'بروزرسانی پروفایل',
     searchResults: 'نتایج جستجو',
-    noPlanSelectedTitle: 'برنامه ای انتخاب نشده است',
-    noPlanSelectedSubTitle: 'لطفا برنامه ای را برای شروع تمرین خود انتخاب کنید',
+    noPlanSelectedTitle: 'شما هنوز برنامه تمرینی خود را انتخاب نکرده اید',
+    noPlanSelectedSubTitle: 'با انتخاب یک برنامه، تمرین خود را شروع کنید',
     nextSet: 'ست بعدی',
-    showAllPlans: 'نمایش همه برنامه ها',
+    showAllPlans: 'نمایش همه برنامه های تمرینی',
     nextExercise: 'تمرین بعدی',
     text1001: 'مسیرهای سخت اغلب به زیباترین مقصدها ختم می‌شوند',
     text1002: 'در آینه نگاه کن! رقیب تو در آینه است',

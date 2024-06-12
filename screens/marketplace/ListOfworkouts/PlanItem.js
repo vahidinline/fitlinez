@@ -59,6 +59,7 @@ const SingleItem = ({ title, sub, icon }) => {
               fontSize: 16,
               fontWeight: '500',
               marginHorizontal: 10,
+              fontFamily: 'Vazirmatn',
             }}>
             {title}
           </Text>
@@ -69,6 +70,7 @@ const SingleItem = ({ title, sub, icon }) => {
         style={{
           color: theme.colors.secondary,
           fontSize: 18,
+          fontFamily: 'Vazirmatn',
           fontWeight: '500',
           //marginHorizontal: 10,
         }}>
@@ -248,6 +250,7 @@ function PlanItem({ route }) {
                 justifyContent: 'center',
                 alignContent: 'center',
                 alignItems: 'center',
+                fontFamily: 'Vazirmatn',
                 //left: Dimensions.get('window').width / 3,
                 marginHorizontal: 10,
                 marginVertical: 10,
@@ -347,6 +350,7 @@ function PlanItem({ route }) {
                     textAlign: 'center',
                     marginVertical: 10,
                     color: theme.colors.secondary,
+                    fontFamily: 'Vazirmatn',
                   }}>
                   {day}
                 </Text>
@@ -389,6 +393,7 @@ function PlanItem({ route }) {
                               //marginHorizontal: 10,
                               marginVertical: 10,
                               fontSize: 10,
+                              fontFamily: 'Vazirmatn',
                             }}>
                             {i + 1}
                           </Text>
@@ -404,6 +409,7 @@ function PlanItem({ route }) {
                               color: theme.colors.secondary,
                               fontSize: 16,
                               fontWeight: '500',
+                              fontFamily: 'Vazirmatn',
                             }}>
                             {exercise?.name}
                           </Text>
@@ -446,6 +452,9 @@ function PlanItem({ route }) {
           }}
           color={theme.colors.button}
           title={i18n.t('addtoyourplan')}
+          titleStyle={{
+            fontFamily: 'Vazirmatn',
+          }}
           type="solid"
           onPress={() => savePackages(item, userId)}
           //   premium

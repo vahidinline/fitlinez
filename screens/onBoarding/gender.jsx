@@ -114,6 +114,7 @@ const getStyles = (theme) =>
       fontSize: 16,
       fontWeight: '500',
       marginLeft: 10,
+      fontFamily: 'Vazirmatn',
       //justifyContent: 'flex-start',
     },
     title: {
@@ -123,6 +124,7 @@ const getStyles = (theme) =>
       justifyContent: 'center',
       alignSelf: 'center',
       marginBottom: 100,
+      fontFamily: 'Vazirmatn',
     },
     selectedItem: {
       borderColor: theme.colors.secondary,

@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 
 function LastPageOnboarding() {
-  const navigator = useNavigation();
+  const navigation = useNavigation();
   const { userAuth } = useContext(AuthContext);
   const userLevel = userAuth.level;
   const { theme } = useTheme();
@@ -26,10 +26,11 @@ function LastPageOnboarding() {
   }, []);
 
   const handlePress = () => {
-    navigator.reset({
-      index: 0,
-      routes: [{ name: 'Home' }],
-    });
+    navigation.navigate('WorkoutListIndex');
+    // navigator.reset({
+    //   index: 0,
+    //   routes: [{ name: 'Home' }],
+    // });
     // if (userLevel === 4) {
     //   navigator.navigate('WorkoutListIndex');
     // } else {

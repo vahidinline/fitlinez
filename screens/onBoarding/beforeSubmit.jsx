@@ -8,7 +8,6 @@ import LanguageContext from '../../api/langcontext';
 import AuthContext from '../../api/context';
 
 function BeforeSubmit({ onBeforeSubmitSelect, data }) {
-  console.log('data', data);
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [isSelected, setSelected] = useState(false);
@@ -104,6 +103,7 @@ const getStyles = (theme) =>
       fontSize: 18,
       fontWeight: 'bold',
       justifyContent: 'flex-start',
+      fontFamily: 'Vazirmatn',
     },
 
     container: {
@@ -117,6 +117,7 @@ const getStyles = (theme) =>
       //marginHorizontal: 20,
       marginTop: 0,
       color: theme.colors.grey0,
+      fontFamily: 'Vazirmatn',
     },
     value: {
       fontSize: 14,
@@ -124,6 +125,7 @@ const getStyles = (theme) =>
       //marginHorizontal: 20,
       marginTop: 10,
       color: theme.colors.secondary,
+      fontFamily: 'Vazirmatn',
     },
     fullBox: {
       //flex: 1,
@@ -159,6 +161,7 @@ const getStyles = (theme) =>
       fontSize: 12,
       fontWeight: '400',
       paddingLeft: 15,
+      fontFamily: 'Vazirmatn',
     },
   });
 

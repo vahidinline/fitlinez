@@ -37,6 +37,7 @@ const SingleItem = ({ title, sub, level, location, mainTitle }) => {
               color: mainTitle ? theme.colors.secondary : theme.colors.grey,
               fontSize: mainTitle ? 16 : 12,
               fontWeight: '500',
+              fontFamily: 'Vazirmatn',
               //marginHorizontal: 10,
             }}>
             {title}
@@ -47,6 +48,7 @@ const SingleItem = ({ title, sub, level, location, mainTitle }) => {
               color: theme.colors.text,
               fontSize: 14,
               fontWeight: '500',
+              fontFamily: 'Vazirmatn',
               //marginHorizontal: 10,
             }}>
             {sub}
@@ -64,7 +66,7 @@ const SingleItem = ({ title, sub, level, location, mainTitle }) => {
             style={{
               flexDirection: 'row',
 
-              alignItems: 'center',
+              // alignItems: 'center',
               //marginLeft: 10,
             }}>
             {/* <Iconstar size={32} color={theme.colors.gold} /> */}
@@ -74,6 +76,7 @@ const SingleItem = ({ title, sub, level, location, mainTitle }) => {
                 fontSize: 12,
                 fontWeight: '500',
                 marginHorizontal: 5,
+                fontFamily: 'Vazirmatn',
               }}>
               {location}
             </Text>

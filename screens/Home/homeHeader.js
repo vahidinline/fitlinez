@@ -34,7 +34,7 @@ function HomeHeader({ planStartDate, data, title }) {
   i18n.locale = userLanguage;
   const { theme } = useTheme();
   const [textMessage, setTextMessage] = useState('');
-  console.log('textMessage', textMessage);
+  //console.log('textMessage', textMessage);
   const [activeAccount, setActiveAccount] = useState(true);
   const [status, setStatus] = useState('good');
   const currentVersion = '7.0.7.8';
@@ -152,20 +152,18 @@ function HomeHeader({ planStartDate, data, title }) {
     <View
       style={{
         flexDirection: 'row',
-        height: 50,
+        height: 60,
         alignItems: 'center',
-        // direction: RTL ? 'rtl' : 'ltr',
       }}>
       <View>
         <View>
-          <Text
+          {/* <Text
             style={{
               fontSize: 22,
               color: theme.colors.secondary,
               marginHorizontal: 10,
               marginBottom: 5,
               fontFamily: 'Vazirmatn',
-              // textAlign: RTL ? 'right' : 'left',
             }}>
             {i18n.t('welcome')} {''}
             <Text
@@ -177,7 +175,7 @@ function HomeHeader({ planStartDate, data, title }) {
               }}>
               {userAuth?.name}!
             </Text>
-          </Text>
+          </Text> */}
         </View>
 
         <View
@@ -196,14 +194,15 @@ function HomeHeader({ planStartDate, data, title }) {
               color: theme.colors.secondary,
               fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 12 : 14,
               flexWrap: 'wrap',
-              // flex: 1,
+              flex: 1,
+              // top: 2,
               fontFamily: 'Vazirmatn',
               fontWeight: '400',
               marginHorizontal: 25,
             }}>
-            {status === 'bad' ? <IconHeaderNotStarted /> : <IconStarted />}
             {textMessage}
           </Text>
+          {status === 'bad' ? <IconHeaderNotStarted /> : <IconStarted />}
         </View>
       </View>
     </View>

@@ -25,7 +25,7 @@ function Header({ title, rightIconPress }) {
       style={{
         width: Dimensions.get('window').width,
         height: 50,
-        marginTop: 30,
+        marginTop: Platform.OS === 'ios' ? 30 : 80,
         marginBottom: 10,
         marginHorizontal: 20,
       }}>

@@ -87,6 +87,7 @@ const getStyles = (theme) =>
       fontSize: 20,
       fontWeight: 'bold',
       justifyContent: 'flex-start',
+      fontFamily: 'Vazirmatn',
     },
     title: {
       color: theme.colors.secondary,
@@ -94,6 +95,7 @@ const getStyles = (theme) =>
       fontWeight: 'bold',
       justifyContent: 'center',
       alignSelf: 'center',
+      fontFamily: 'Vazirmatn',
       marginBottom: 100,
     },
   });

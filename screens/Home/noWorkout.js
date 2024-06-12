@@ -79,15 +79,20 @@ function NoWorkoutCard({ title, trainer, packages }) {
           // flexDirection: 'column',
         }}>
         <Button
-          onPress={() =>
-            navigation.navigate('MarketPlace', {
-              packages: packages,
-            })
-          }
+          // onPress={() =>
+          //   navigation.navigate('MarketPlace', {
+          //     packages: packages,
+          //   })
+          //}
+
+          onPress={() => {
+            navigation.navigate('IndexOnBoarding');
+          }}
           titleStyle={{
             color: theme.colors.text,
             fontSize: PixelRatio.get() < 3 ? 10 : 14,
             fontWeight: '500',
+            fontFamily: 'Vazirmatn',
           }}
           buttonStyle={{
             borderRadius: 8,
@@ -162,6 +167,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: 'white',
+    fontFamily: 'Vazirmatn',
     //marginLeft: 10,
     justifyContent: 'flex-start',
   },

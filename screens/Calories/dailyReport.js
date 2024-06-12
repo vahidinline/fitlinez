@@ -21,7 +21,7 @@ function DailyReport({ userId }) {
   const percentage =
     (dailyCalories / result[0]?.totalCalories.toFixed(0)) * 100;
   const angle = (percentage / 100) * 360;
-  console.log('dailyCalories in angle', angle);
+  //console.log('dailyCalories in angle', angle);
   // console.log('dailyCalories in daily', dailyCalories);
   //console.log('result in daily', result);
   const getDailyReport = async () => {

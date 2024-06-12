@@ -25,7 +25,9 @@ const CustomCalorieReport = () => {
   const [showDatePicker2, setShowDatePicker2] = useState(false);
   const [status, setStatus] = useState('idle');
   const [report, setReport] = useState({});
-  const [reportType, setReportType] = useState('weekly');
+  const [reportType, setReportType] = useState(
+    'weekly                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1 1 1`'
+  );
   console.log('reportType', reportType);
   const [index, setIndex] = useState(0);
   const { userLanguage } = useContext(LanguageContext);

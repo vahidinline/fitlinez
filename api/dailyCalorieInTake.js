@@ -2,7 +2,7 @@ import axios from 'axios';
 import foodapi from './foodApi';
 
 const getDailyCalorieInTake = async (userId) => {
-  console.log('userId in getDailyCalorieInTake func', userId);
+  //console.log('userId in getDailyCalorieInTake func', userId);
   try {
     const response = await foodapi.get(
       `/nutritionextractor/dailyreport/${userId}`

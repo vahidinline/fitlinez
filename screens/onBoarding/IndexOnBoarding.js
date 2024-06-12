@@ -32,6 +32,7 @@ function IndexOnBoarding() {
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [currentStep, setCurrentStep] = useState(0);
+
   const [beforeSubmit, setBeforeSubmit] = useState(false);
   const navigation = useNavigation();
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -46,7 +47,8 @@ function IndexOnBoarding() {
 
   useEffect(() => {
     if (currentStep === steps.length - 2) {
-      handleSubmit();
+      console.log('last step');
+      //handleSubmit();
     }
   }, [currentStep]);
 
@@ -109,10 +111,11 @@ function IndexOnBoarding() {
   const handlebutton = () => {
     if (currentStep === steps.length - 1) {
       console.log('last step');
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
+      //navigation.navigate('WorkoutListIndex');
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{ name: 'Home' }],
+      // });
     } else {
       console.log('not last step');
       onNext();
@@ -155,7 +158,7 @@ function IndexOnBoarding() {
       setCurrentStep(currentStep + 1);
     }
   };
-
+  console.log('currentStep', currentStep, '/', steps.length);
   const onPrev = () => {
     // move the step back
     if (currentStep > 0) {
@@ -211,6 +214,7 @@ function IndexOnBoarding() {
                 fontWeight: 'bold',
                 bottom: 5,
                 marginRight: 5,
+                fontFamily: 'Vazirmatn',
                 color: theme.colors.secondary,
               }}>{`${currentStep + 1}`}</Text>
             <Text
@@ -219,6 +223,7 @@ function IndexOnBoarding() {
                 fontSize: 16,
                 fontWeight: 'bold',
                 color: '#787680',
+                fontFamily: 'Vazirmatn',
               }}>{`/ ${steps.length}`}</Text>
           </View>
         </View>
@@ -257,8 +262,12 @@ function IndexOnBoarding() {
             bottom: 20,
           }}
           onPress={() => handlebutton()}
+          titileStyle={{
+            fontFamily: 'Vazirmatn',
+            color: theme.colors.primary,
+          }}
           title={
-            currentStep === steps.length - 1 ? i18n.t('done') : i18n.t('next')
+            currentStep === steps.length - 2 ? i18n.t('done') : i18n.t('next')
           }
         />
       </View>

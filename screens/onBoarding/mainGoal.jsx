@@ -86,6 +86,7 @@ const getStyles = (theme) =>
       alignContent: 'center',
       alignItems: 'center',
       top: 10,
+      fontFamily: 'Vazirmatn',
     },
     title: {
       color: theme.colors.secondary,
@@ -94,6 +95,7 @@ const getStyles = (theme) =>
       justifyContent: 'center',
       alignSelf: 'center',
       marginBottom: 100,
+      fontFamily: 'Vazirmatn',
     },
     selectedItem: {
       borderColor: theme.colors.secondary,

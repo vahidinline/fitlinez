@@ -99,6 +99,7 @@ const getStyles = (theme) =>
       fontWeight: '500',
       marginLeft: 10,
       //justifyContent: 'flex-start',
+      fontFamily: 'Vazirmatn',
     },
     title: {
       color: theme.colors.black,
@@ -107,6 +108,7 @@ const getStyles = (theme) =>
       justifyContent: 'center',
       alignSelf: 'center',
       marginBottom: 100,
+      fontFamily: 'Vazirmatn',
     },
     selectedItem: {
       borderColor: theme.colors.secondary,

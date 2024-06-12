@@ -32,7 +32,8 @@ const SingleItem = ({ title, sub, level, location, mainTitle }) => {
             style={{
               color: mainTitle ? theme.colors.secondary : theme.colors.grey,
               fontSize: mainTitle ? 16 : 12,
-              fontWeight: '500',
+              fontWeight: '700',
+              fontFamily: 'Vazirmatn',
             }}>
             {title}
           </Text>
@@ -42,6 +43,7 @@ const SingleItem = ({ title, sub, level, location, mainTitle }) => {
               color: theme.colors.text,
               fontSize: 14,
               fontWeight: '500',
+              fontFamily: 'Vazirmatn',
             }}>
             {sub}
           </Text>
@@ -56,37 +58,20 @@ const SingleItem = ({ title, sub, level, location, mainTitle }) => {
           <View
             style={{
               flexDirection: 'row',
-              alignItems: 'center',
+              //alignItems: 'center',
+              justifyContent: 'space-between',
             }}>
-            {/* <Iconstar size={32} color={theme.colors.gold} /> */}
             <Text
               style={{
                 color: theme.colors.text,
                 fontSize: 12,
                 fontWeight: '500',
                 marginHorizontal: 0,
+                fontFamily: 'Vazirmatn',
               }}>
               {location === 'both' ? 'Gym/Home' : location}
             </Text>
           </View>
-          <Chip
-            style={{
-              borderWidth: 1,
-              borderColor:
-                level === 'Beginner'
-                  ? theme.colors.beginnerText
-                  : level === 'Intermediate'
-                  ? theme.colors.intermediateText
-                  : theme.colors.advancedText,
-              backgroundColor:
-                level === 'Beginner'
-                  ? theme.colors.beginnerbg
-                  : level === 'Intermediate'
-                  ? theme.colors.intermediatebg
-                  : theme.colors.border,
-            }}>
-            {level}
-          </Chip>
         </View>
       )}
     </View>
@@ -144,7 +129,34 @@ function CardItem({ item }) {
             uri: item.image,
           }}
         />
+        <View
+          style={{
+            position: 'absolute',
+            top: 10,
+            left: 10,
+          }}>
+          <Chip
+            style={{
+              borderWidth: 1,
+              opacity: 0.8,
+              width: '100%',
 
+              borderColor:
+                item.level === 'Beginner'
+                  ? theme.colors.beginnerText
+                  : item.level === 'Intermediate'
+                  ? theme.colors.intermediateText
+                  : theme.colors.advancedText,
+              backgroundColor:
+                item.level === 'Beginner'
+                  ? theme.colors.beginnerbg
+                  : item.level === 'Intermediate'
+                  ? theme.colors.intermediatebg
+                  : theme.colors.border,
+            }}>
+            {item.level}
+          </Chip>
+        </View>
         <View
           style={{
             direction: RTL ? 'rtl' : 'ltr',
@@ -165,7 +177,7 @@ function CardItem({ item }) {
             title={i18n.t('daysperweek')}
             sub={`${item.DaysPerWeek} ${i18n.t('daysinweek')}`}
           />
-          <SingleItem level={item.level} location={item.location} />
+          {/* <SingleItem level={item.level} location={item.location} /> */}
         </View>
       </View>
     </TouchableOpacity>

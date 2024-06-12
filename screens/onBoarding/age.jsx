@@ -81,6 +81,7 @@ const getStyles = (theme) =>
       justifyContent: 'center',
       alignSelf: 'center',
       marginBottom: 100,
+      fontFamily: 'Vazirmatn',
     },
   });
 

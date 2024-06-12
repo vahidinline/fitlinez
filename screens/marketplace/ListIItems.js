@@ -89,6 +89,7 @@ function ListItems({ packages, name, navigation }) {
             fontWeight: 'bold',
             marginHorizontal: 20,
             marginTop: 0,
+            fontFamily: 'Vazirmatn',
           }}>
           {name}
         </Text>
