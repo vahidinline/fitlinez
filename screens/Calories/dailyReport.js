@@ -144,7 +144,7 @@ const getStyles = (theme) =>
       marginHorizontal: 10,
       padding: 10,
       borderRadius: 10,
-      backgroundColor: theme.colors.secondary,
+      //backgroundColor: theme.colors.secondary,
     },
     row: {
       flexDirection: 'row',

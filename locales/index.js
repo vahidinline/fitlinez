@@ -1,3 +1,5 @@
+import DailyReport from '../screens/Calories/dailyReport';
+
 // i18nData.js
 const i18nt = {
   en: {
@@ -406,9 +408,13 @@ const i18nt = {
       'Please update your profile to see the burned calories',
     Profilecreatedsuccessfully: 'Profile created successfully',
     enterFoodPlaceholder: 'Enter your food and serving size',
+    delete: 'Delete',
+    dailyReport: 'Daily Report',
   },
 
   fa: {
+    dailyReport: 'گزارش روزانه',
+    delete: 'حذف',
     enterFoodPlaceholder: 'غذای خود و اندازه سرو را وارد کنید',
     Profilecreatedsuccessfully: 'پروفایل با موفقیت ایجاد شد',
     burnedCaloriesDescription:

@@ -364,14 +364,6 @@ const FinishSession = (props) => {
             )}
             {burnedCalories && (
               <View style={styles.view}>
-                <View
-                  style={{
-                    position: 'absolute',
-                    top: 20,
-                    right: 0,
-                  }}>
-                  <IconFire />
-                </View>
                 <Text style={styles.title}>
                   {burnedCalories.totalCaloriesBurned.toFixed(0)} kcal
                 </Text>
@@ -379,6 +371,14 @@ const FinishSession = (props) => {
                   <Text style={styles.subtitle}>
                     {i18n.t('burnedCalories')}
                   </Text>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      right: -20,
+                    }}>
+                    <IconFire />
+                  </View>
                 </Pressable>
               </View>
             )}

@@ -15,7 +15,7 @@ const getDailyCalorieInTake = async (userId) => {
 };
 
 const getCustomCalorieInTakeReport = async (userId, startDate, endDate) => {
-  console.log('userId in getCustomCalorieInTakeReport func', userId);
+  //console.log('userId in getCustomCalorieInTakeReport func', userId);
   try {
     const response = await foodapi.get(`/nutritionextractor/customreport/`, {
       params: {

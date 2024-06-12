@@ -8,7 +8,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
   // Initialize state with an empty array
   const [items, setItems] = useState(foodItems);
-  console.log('TempfoodItems -> items', items);
+  const [selectedItem, setSelectedItem] = useState();
+  //console.log('TempfoodItems -> items', items);
   const { theme } = useTheme();
   const handleInputChange = (index, field, value) => {
     const newItems = [...items];
@@ -20,6 +21,17 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
     AsyncStorage.removeItem('foodInput');
     setItems([]);
     setStatus('idle');
+  };
+
+  const handleDeleteItem = (index) => {
+    console.log('Before deletion:', items);
+    console.log('Index to delete:', index);
+
+    const newItems = items.filter((_, i) => i !== index); // More functional approach to filtering
+
+    console.log('After deletion:', newItems);
+
+    setItems(newItems);
   };
 
   return (
@@ -47,6 +59,7 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
               index={index}
               handleInputChange={handleInputChange}
               selectedMeal={selectedMeal}
+              handleDeleteItem={handleDeleteItem}
             />
           ))}
         </View>

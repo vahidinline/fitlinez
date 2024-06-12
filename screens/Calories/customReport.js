@@ -5,8 +5,8 @@ import {
   StyleSheet,
   SafeAreaView,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { getCustomCalorieInTakeReport } from '../../api/dailyCalorieInTake';
 import { useTheme } from '@rneui/themed';
 import { Button, Text, Tab, TabView } from '@rneui/base';
@@ -25,6 +25,8 @@ const CustomCalorieReport = () => {
   const [showDatePicker2, setShowDatePicker2] = useState(false);
   const [status, setStatus] = useState('idle');
   const [report, setReport] = useState({});
+  const [reportType, setReportType] = useState('daily');
+  console.log('reportType', reportType);
   const [index, setIndex] = useState(0);
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
@@ -44,12 +46,14 @@ const CustomCalorieReport = () => {
   };
 
   useEffect(() => {
-    if (index === 0) {
+    if (reportType === 'weekly') {
       handleGetWeeklyReport();
-    } else if (index === 1) {
+    } else if (reportType === 'monthly') {
       handleGetMonthlyReport();
+    } else if (reportType === 'daily') {
+      handleGetDailyReport();
     }
-  }, [index]);
+  }, [reportType]);
 
   const handleGetWeeklyReport = async () => {
     setStatus('loading');
@@ -75,6 +79,23 @@ const CustomCalorieReport = () => {
         userAuth.id,
         //calculate 30 days ago
         new Date(new Date().setDate(new Date().getDate() - 31)),
+        new Date(new Date().setDate(new Date().getDate() - 1))
+      );
+      setStatus('success');
+      setReport(result);
+    } catch (error) {
+      setStatus('error');
+      console.log('error in weekly report', error);
+    }
+  };
+
+  const handleGetDailyReport = async () => {
+    setStatus('loading');
+    try {
+      const result = await getCustomCalorieInTakeReport(
+        userAuth.id,
+        //calculate 30 days ago
+        new Date(new Date().setDate(new Date().getDate() - 3)),
         new Date(new Date().setDate(new Date().getDate() - 1))
       );
       setStatus('success');
@@ -134,25 +155,50 @@ const CustomCalorieReport = () => {
         }
       />
       <View style={styles.container}>
-        <Tab value={index} onChange={setIndex} dense>
-          <Tab.Item>{<Text>{i18n.t('lastWeek')}</Text>}</Tab.Item>
-          <Tab.Item>{<Text>{i18n.t('lastMonth')}</Text>}</Tab.Item>
-          {/* <Tab.Item>Custom Dates</Tab.Item> */}
-        </Tab>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            backgroundColor: theme.colors.secondary,
+            //padding: 10,
+            borderRadius: 10,
+            // margin: 10,
+          }}>
+          {/* <TouchableOpacity
+            style={[
+              styles.titleButton,
+              { borderBottomWidth: reportType === 'daily' ? 3 : 0 },
+            ]}
+            onPress={() => setReportType('daily')}>
+            <Text style={styles.dateText}>{i18n.t('dailyReport')}</Text>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+            style={[
+              styles.titleButton,
+              { borderBottomWidth: reportType === 'weekly' ? 3 : 0 },
+            ]}
+            onPress={() => setReportType('weekly')}>
+            <Text style={styles.dateText}>{i18n.t('weeklyReport')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.titleButton,
+              { borderBottomWidth: reportType === 'monthly' ? 3 : 0 },
+            ]}
+            onPress={() => setReportType('monthly')}>
+            <Text style={styles.dateText}>{i18n.t('monthlyReport')}</Text>
+          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={() => setReportType('custom')}>
+            <Text style={styles.dateText}>{i18n.t('monthlyReport')}</Text>
+          </TouchableOpacity> */}
+        </View>
 
-        <TabView value={index} onChange={setIndex}>
-          <TabView.Item>
-            {status === 'success' && <ListReport i18n={i18n} report={report} />}
-          </TabView.Item>
-          <TabView.Item>
-            {status === 'success' && <ListReport i18n={i18n} report={report} />}
-          </TabView.Item>
-          {/* <TabView.Item>
-            <Text>Custom Date</Text>
-          </TabView.Item> */}
-        </TabView>
+        {reportType === 'weekly' && <ListReport i18n={i18n} report={report} />}
 
-        {/* {status === 'idle' && (
+        {reportType === 'monthly' && <ListReport i18n={i18n} report={report} />}
+        {reportType === 'custom' && <ListReport i18n={i18n} report={report} />}
+
+        {/* {status === 'custom' && (
           <>
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -193,7 +239,6 @@ const CustomCalorieReport = () => {
             </View>
           </>
         )} */}
-        {/* {status === 'loading' && (  } */}
 
         <Button
           buttonStyle={styles.pickerButton}
@@ -213,15 +258,19 @@ const getStyles = (theme) =>
       //flex: 1,
       //justifyContent: 'center',
       padding: 20,
-      //backgroundColor: theme.colors.primary,
+      backgroundColor: theme.colors.secondary,
       height: '100%',
     },
+    titleButton: {
+      borderBottomColor: theme.colors.warning,
+    },
     footerContainer: {
-      padding: 20,
+      // padding: 20,
       flexDirection: 'column',
       justifyContent: 'center',
-      backgroundColor: 'white',
-      marginHorizontal: 15,
+      // backgroundColor: 'white',
+      //marginHorizontal: 15,
+      backgroundColor: theme.colors.secondary,
     },
     dateText: {
       color: 'white',

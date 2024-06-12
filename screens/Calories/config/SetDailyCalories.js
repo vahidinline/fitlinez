@@ -325,7 +325,7 @@ export default SetDailyCalories;
 const getStyles = (theme) =>
   StyleSheet.create({
     container: {
-      flex: 1,
+      // flex: 1,
       marginHorizontal: 10,
       padding: 10,
       borderRadius: 10,

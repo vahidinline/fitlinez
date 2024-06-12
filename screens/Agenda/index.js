@@ -79,8 +79,8 @@ function WorkoutAgenda(props) {
             borderRadius: 16,
             backgroundColor: isPastDay
               ? theme.colors.grey3
-              : theme.colors.lightPrimary,
-            borderWidth: 1,
+              : theme.colors.white,
+            borderWidth: isToday ? 2 : 1,
             borderColor: isToday ? theme.colors.secondary : theme.colors.border,
             justifyContent: 'space-around',
             alignItems: 'center',

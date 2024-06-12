@@ -36,12 +36,18 @@ function NutritionChart({
 
   const renderLegendComponent = () => {
     return (
-      <>
+      <View
+        style={{
+          backgroundColor: theme.colors.primary,
+          borderRadius: 10,
+          padding: 5,
+        }}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
             marginBottom: 10,
+            //backgroundColor: theme.colors.primary,
           }}>
           {/* <View
             style={{
@@ -86,27 +92,26 @@ function NutritionChart({
             </Text>
           </View>
         </View>
-      </>
+      </View>
     );
   };
 
   return (
     <View
       style={{
-        paddingVertical: 100,
+        paddingVertical: 10,
         // backgroundColor: '#34448B',
         flex: 1,
       }}>
       <View
         style={{
-          margin: 20,
-          padding: 16,
+          //margin: 20,
+          // padding: 16,
           borderRadius: 20,
           // backgroundColor: '#232B5D',
         }}>
-        <Text
-          style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}></Text>
-        <View style={{ padding: 20, alignItems: 'center' }}>
+        {renderLegendComponent()}
+        <View style={{ padding: 0, alignItems: 'center' }}>
           <PieChart
             data={pieData}
             donut
@@ -135,7 +140,6 @@ function NutritionChart({
             }}
           />
         </View>
-        {renderLegendComponent()}
       </View>
     </View>
   );

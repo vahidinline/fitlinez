@@ -338,7 +338,7 @@ function SettingIndex() {
             )}
           />
         </View>
-        <Text>v.1.26.5</Text>
+        <Text>v.1.26.6</Text>
       </View>
     </SafeAreaView>
   );

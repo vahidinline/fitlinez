@@ -2,87 +2,31 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Text, useTheme } from '@rneui/themed';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
-import { BarChart } from 'react-native-gifted-charts';
 
-function ListReport(report, i18n) {
+function ListReport({ report, i18n }) {
   const [dailygoal, setDailygoal] = useState({});
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
-  const [error, setError] = useState(null); // Add error state
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [status, setStatus] = useState('idle');
 
-  useEffect(() => {
-    setStatus('loading');
-    if (!report || !report.report) {
-      setStatus('error');
-      setError('Invalid or missing report data');
-      return;
-    } else {
-      setStatus('success');
-    }
-  }, [report]);
-
-  const renderTitle = () => {
-    return (
-      <View style={{ marginVertical: 30 }}>
-        <View
-          style={{
-            // flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'space-evenly',
-            marginTop: 24,
-            //  backgroundColor: 'yellow',
-          }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View
-              style={{
-                height: 12,
-                width: 12,
-                borderRadius: 6,
-                backgroundColor: '#177AD5',
-                marginRight: 8,
-              }}
-            />
-            <Text
-              style={{
-                width: 60,
-                height: 16,
-                color: 'lightgray',
-              }}>
-              your intake
-            </Text>
-          </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View
-              style={{
-                height: 12,
-                width: 12,
-                borderRadius: 6,
-                backgroundColor: '#ED6665',
-                marginRight: 8,
-              }}
-            />
-            <Text
-              style={{
-                width: 60,
-                height: 16,
-                color: 'lightgray',
-              }}>
-              your goal
-            </Text>
-          </View>
-        </View>
-      </View>
-    );
-  };
+  // useEffect(() => {
+  //   if (!report || typeof report !== 'object' || !report.report) {
+  //     console.log('Invalid or missing report data', report);
+  //     setStatus('error');
+  //     setError('Invalid or missing report data');
+  //   } else {
+  //     setStatus('success');
+  //   }
+  // }, [report]);
 
   useEffect(() => {
     const getDailyCaloriesGoals = async () => {
-      setIsLoading(true); // Set loading to true
+      setIsLoading(true);
       try {
         const dailyCaloriesGoals = await AsyncStorage.getItem(
-          'dailyCaloriesGaols'
+          'dailyCaloriesGoals'
         );
         if (dailyCaloriesGoals) {
           const parsedDailyCaloriesGoals = JSON.parse(dailyCaloriesGoals);
@@ -93,7 +37,7 @@ function ListReport(report, i18n) {
       } catch (err) {
         setError('Error loading daily goals');
       } finally {
-        setIsLoading(false); // Set loading to false
+        setIsLoading(false);
       }
     };
 
@@ -105,97 +49,84 @@ function ListReport(report, i18n) {
     };
 
     getDailyCaloriesGoals();
-    getReportData(); // Fetch and validate report data
+    //getReportData();
   }, [report]);
 
-  // Calculate bar data based on dailygoal and report
-  const barData =
-    isLoading || error
-      ? [] // Show empty chart if loading or error
-      : [
-          // Calories
-          {
-            value: report?.report?.totalNutrition?.averageCalories || 0,
-            labelComponent: () => customLabel('Calories'),
-            spacing: 2,
-            labelWidth: 30,
-            labelTextStyle: { color: 'gray' },
-            frontColor: '#177AD5',
-          },
-          { value: dailygoal.dailyCalories || 0, frontColor: '#ED6665' },
-          // Carbs
-          {
-            value: report?.report?.totalNutrition?.averageCarbs || 0,
-            labelComponent: () => customLabel('Carbs'),
-            spacing: 2,
-            labelWidth: 30,
-            labelTextStyle: { color: 'gray' },
-            frontColor: '#177AD5',
-          },
-          { value: dailygoal.carbsGrams || 0, frontColor: '#ED6665' },
-          // Protein
-          {
-            value: report?.report?.totalNutrition?.averageProtein || 0,
-            labelComponent: () => customLabel('Protein'),
-            spacing: 2,
-            labelWidth: 30,
-            labelTextStyle: { color: 'gray' },
-            frontColor: '#177AD5',
-          },
-          { value: dailygoal.proteinGrams || 0, frontColor: '#ED6665' },
-          // Fat
-          {
-            value: report?.report?.totalNutrition?.averageFat || 0,
-            labelComponent: () => customLabel('Fat'),
-            spacing: 2,
-            labelWidth: 30,
-            labelTextStyle: { color: 'gray' },
-            frontColor: '#177AD5',
-          },
-          { value: dailygoal.fatGrams || 0, frontColor: '#ED6665' },
-        ];
-
-  const customLabel = (val) => {
-    return (
-      <View style={{ width: 90, height: 50, marginTop: 20 }}>
-        <Text
-          style={{
-            color: theme.colors.secondary,
-            fontWeight: 'bold',
-            fontSize: 14,
-            marginHorizontal: 0,
-          }}>
-          {val}
-        </Text>
+  const renderTitle = () => (
+    <View style={{ marginVertical: 30 }}>
+      <View
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'space-evenly',
+          marginTop: 24,
+        }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View
+            style={{
+              height: 12,
+              width: 12,
+              borderRadius: 6,
+              backgroundColor: '#177AD5',
+              marginRight: 8,
+            }}
+          />
+          <Text style={{ color: 'lightgray' }}>{i18n.t('yourIntake')}</Text>
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View
+            style={{
+              height: 12,
+              width: 12,
+              borderRadius: 6,
+              backgroundColor: '#ED6665',
+              marginRight: 8,
+            }}
+          />
+          <Text style={{ color: 'lightgray' }}>{i18n.t('yourGoal')}</Text>
+        </View>
       </View>
-    );
+    </View>
+  );
+
+  const renderNutritionalData = () => {
+    const data = [
+      {
+        label: 'Calories',
+        intake: report?.totalNutrition?.averageCalories || 0,
+        goal: dailygoal.dailyCalories || 0,
+      },
+      {
+        label: 'Carbs',
+        intake: report?.totalNutrition?.averageCarbs || 0,
+        goal: dailygoal.carbsGrams || 0,
+      },
+      {
+        label: 'Protein',
+        intake: report?.totalNutrition?.averageProtein || 0,
+        goal: dailygoal.proteinGrams || 0,
+      },
+      {
+        label: 'Fat',
+        intake: report?.totalNutrition?.averageFat || 0,
+        goal: dailygoal.fatGrams || 0,
+      },
+    ];
+
+    return data.map((item, index) => (
+      <View key={index} style={styles.dataRow}>
+        <Text style={styles.dataLabel}>{item.label}:</Text>
+        <Text style={styles.dataValue}> {item.intake} (Intake)</Text>
+        <Text style={styles.dataValue}> / {item.goal} (Goal)</Text>
+      </View>
+    ));
   };
 
   return (
     <View style={styles.container}>
       {status === 'loading' && <Text>Loading...</Text>}
       {error && <Text style={{ color: 'red' }}>{error}</Text>}
-      {renderTitle()}
-      {!isLoading && !error && (
-        <BarChart
-          horizontal
-          data={barData}
-          barWidth={10}
-          spacing={60}
-          roundedTop
-          roundedBottom
-          hideRules
-          xAxisThickness={0}
-          yAxisThickness={0}
-          yAxisTextStyle={{
-            color: 'gray',
-            fontSize: 14,
-            fontWeight: 'bold',
-          }}
-          noOfSections={3}
-          maxValue={Math.max(...barData.map((item) => item.value)) * 1.2} // Adjust max value for better visualization
-        />
-      )}
+      {/* {renderTitle()} */}
+      {!isLoading && !error && renderNutritionalData()}
     </View>
   );
 }
@@ -205,9 +136,27 @@ export default ListReport;
 const getStyles = (theme) =>
   StyleSheet.create({
     container: {
-      // flex: 1,
-      justifyContent: 'center',
+      //justifyContent: 'center',
+      //alignItems: 'center',
+      width: Dimensions.get('window').width / 1.2,
+      padding: 20,
+      backgroundColor: theme.colors.secondary,
+      marginHorizontal: 10,
+      height: Dimensions.get('window').height,
+    },
+    dataRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
       alignItems: 'center',
-      width: Dimensions.get('window').width / 1,
+      marginVertical: 5,
+    },
+    dataLabel: {
+      color: theme.colors.primary,
+      fontWeight: 'bold',
+      fontSize: 16,
+    },
+    dataValue: {
+      color: theme.colors.primary,
+      fontSize: 16,
     },
   });

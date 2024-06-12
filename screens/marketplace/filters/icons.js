@@ -958,27 +958,27 @@ const IconCloseCircle = ({ color, size }) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
+      width={size || '24'}
+      height={size || '24'}
       viewBox="0 0 24 24"
       fill="none">
       <Path
         d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
-        stroke={color}
+        stroke={color || '#47464F'}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M9.16992 14.8299L14.8299 9.16992"
-        stroke={color}
+        stroke={color || '#47464F'}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M14.8299 14.8299L9.16992 9.16992"
-        stroke={color}
+        stroke={color || '#47464F'}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -7809,7 +7809,54 @@ const IconFire = ({ size, color }) => {
   );
 };
 
+const IconArrowDown = ({ color, size }) => {
+  return (
+    <Svg
+      width={size || '24'}
+      height={size || '24'}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995"
+        stroke={color || '#292D32'}
+        stroke-width="1.5"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+};
+
+const IconTickCircle = ({ color, size }) => {
+  return (
+    <Svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M7.75 12L10.58 14.83L16.25 9.17004"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+};
 export {
+  IconTickCircle,
+  IconArrowDown,
   IconFire,
   IconBarCode,
   IconLang,

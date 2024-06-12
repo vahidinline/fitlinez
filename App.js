@@ -1,7 +1,7 @@
 import Bugsnag from '@bugsnag/expo';
 Bugsnag.start();
 import { NavigationContainer } from '@react-navigation/native';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import AuthContext from './api/context';
 import AuthStorage from './api/storage';
 import ErrorBoundary from 'react-native-error-boundary';
@@ -32,6 +32,11 @@ import { init } from '@amplitude/analytics-react-native';
 import { logEvent } from '@amplitude/analytics-react-native';
 import { forceSolveError, clearAllAsyncCache } from './api/forceSolveError';
 import { trackUserData } from './api/tracker';
+import appUpdateTrack from './api/appUpdateTrack';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+//SplashScreen.preventAutoHideAsync();
 
 const errorHandler = (error, stackTrace) => {
   /* Log the error to an error reporting service */
@@ -45,6 +50,29 @@ const errorHandler = (error, stackTrace) => {
 const db = SQLite.openDatabase('totalWeight.db');
 
 export default function App() {
+  // const [fontsLoaded, fontError] = useFonts({
+  //   Vazirmatn: require('./assets/fonts/Vazirmatn-Regular.ttf'),
+  // });
+
+  // const loadFonts = async () => {
+  //   await useFonts.loadAsync({
+  //     'Vazirmatn-Regular': require('./assets/fonts/Vazirmatn-Regular.ttf'),
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   loadFonts();
+  // }, []);
+
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (fontsLoaded || fontError) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded, fontError]);
+
+  // if (!fontsLoaded && !fontError) {
+  //   return null;
+  // }
   const [userAuth, setUserAuth] = useState();
   const [userPrivilege, setUserPrivilege] = useState();
   const [msg, setMsg] = useState(0);
@@ -59,8 +87,16 @@ export default function App() {
   };
 
   useEffect(() => {
-    trackUserData(userAuth, 'App started');
+    trackUserAnalytics();
   }, [userAuth]);
+
+  const trackUserAnalytics = async () => {
+    try {
+      const res = await trackUserData(userAuth, 'App started');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   async function onFetchUpdateAsync() {
     try {
@@ -68,7 +104,7 @@ export default function App() {
       if (update.isAvailable) {
         await Updates.fetchUpdateAsync();
         await Updates.reloadAsync();
-
+        appUpdateTrack(userAuth?.userId);
         Alert.alert('Update', 'App is updated');
       } else {
         console.log('No updates available');
@@ -235,6 +271,7 @@ export default function App() {
   );
 
   return (
+    // <View onLayout={onLayoutRootView}>
     <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
       <ThemeContext.Provider value={{ currentTheme, toggleTheme }}>
         <AuthContext.Provider value={{ userAuth, setUserAuth }}>
@@ -288,5 +325,6 @@ export default function App() {
         </AuthContext.Provider>
       </ThemeContext.Provider>
     </ErrorBoundary>
+    //  </View>
   );
 }

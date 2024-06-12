@@ -384,6 +384,23 @@ function Item({
           marginTop: 5,
           width: Dimensions.get('window').width - 25,
         }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginHorizontal: 10,
+            marginVertical: 10,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: 'bold',
+              color: theme.colors.text,
+            }}>
+            {i18n.t('set')} {currentIndex + 1} / {adjustedNumberOfSets}
+          </Text>
+        </View>
         {/* <ScrollView
           style={{
             marginTop: 5,
@@ -447,6 +464,17 @@ function Item({
           })
         )}
 
+        {description && (
+          <View
+            style={{
+              marginHorizontal: 10,
+              marginVertical: 10,
+            }}>
+            <Text>
+              {i18n.t('description')}: {description}
+            </Text>
+          </View>
+        )}
         {/* <View
           style={{
             marginHorizontal: 10,

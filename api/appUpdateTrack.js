@@ -3,11 +3,11 @@ import api from './api';
 
 const appUpdateTrack = async (userId) => {
   const userDevice = Platform.OS;
-  const appVersion = '1.0.0';
+  const appVersion = '1.26.6';
 
   try {
     const response = await api.post(`/appUpdateRecord/${userId}`, {
-      userId: userId,
+      userId: userId ? userId : 'anonymous',
       appVersion: appVersion,
 
       userDevice: userDevice,
