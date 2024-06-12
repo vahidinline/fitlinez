@@ -307,10 +307,23 @@ const SessionMainPage = (props) => {
               // height: 300,
               borderRadius: 16,
             }}>
-            <Text style={{ textAlign: 'center', fontSize: 20 }}>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 20,
+                fontFamily: 'Vazirmatn',
+                color: theme.colors.secondary,
+                marginBottom: 10,
+              }}>
               {i18n.t('finishWorkout')}
             </Text>
-            <Text style={{ textAlign: 'center', fontSize: 16 }}>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 16,
+                color: theme.colors.secondary,
+                fontFamily: 'Vazirmatn',
+              }}>
               {i18n.t('workoutDoneprompt')}
             </Text>
             <View
@@ -329,7 +342,10 @@ const SessionMainPage = (props) => {
                   borderRadius: 12,
                   width: Dimensions.get('window').width / 3,
                 }}
-                titleStyle={{ color: theme.colors.secondary }}
+                titleStyle={{
+                  color: theme.colors.secondary,
+                  fontFamily: 'Vazirmatn',
+                }}
                 onPress={() => setFinish(false)}>
                 {i18n.t('no')}
               </Button>
@@ -342,6 +358,9 @@ const SessionMainPage = (props) => {
                   borderWidth: 1,
                   borderRadius: 12,
                   width: Dimensions.get('window').width / 3,
+                }}
+                titleStyle={{
+                  fontFamily: 'Vazirmatn',
                 }}
                 onPress={() => finishWorkout(setFinish(!finish))}>
                 {i18n.t('yes')}

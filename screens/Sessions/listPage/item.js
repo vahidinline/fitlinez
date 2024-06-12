@@ -286,6 +286,7 @@ function Item({
               {
                 fontSize: PixelRatio.get() > 2 ? 20 : 22,
                 fontWeight: 'bold',
+                fontFamily: 'Vazirmatn',
                 flexWrap: 'wrap',
                 width: Dimensions.get('window').width / 2,
                 textAlign: 'center',
@@ -327,6 +328,7 @@ function Item({
               fontSize: 16,
               top: 2,
               marginRight: 10,
+              fontFamily: 'Vazirmatn',
             }}>
             {i18n.t('SubstituteWorkout')}
           </Text>
@@ -350,6 +352,7 @@ function Item({
               fontSize: 16,
               top: 2,
               marginLeft: 10,
+              fontFamily: 'Vazirmatn',
             }}>
             {i18n.t('finishWorkout')}
           </Text>
@@ -395,8 +398,9 @@ function Item({
           <Text
             style={{
               fontSize: 16,
-              fontWeight: 'bold',
+              //fontWeight: 'bold',
               color: theme.colors.text,
+              fontFamily: 'Vazirmatn',
             }}>
             {i18n.t('set')} {currentIndex + 1} / {adjustedNumberOfSets}
           </Text>
@@ -470,7 +474,10 @@ function Item({
               marginHorizontal: 10,
               marginVertical: 10,
             }}>
-            <Text>
+            <Text
+              style={{
+                fontFamily: 'Vazirmatn',
+              }}>
               {i18n.t('description')}: {description}
             </Text>
           </View>
@@ -563,6 +570,7 @@ function Item({
             }}
             titleStyle={{
               fontSize: PixelRatio.get() < 3 ? 14 : 18,
+              fontFamily: 'Vazirmatn',
             }}
             //  onPress={() => doneItem(index)}
             onPress={() => handleButton(childDataMap.data)}>
@@ -584,6 +592,7 @@ const getStyles = (theme) =>
       paddingTop: 20,
       alignItems: 'center',
       textAlign: 'center',
+      fontFamily: 'Vazirmatn',
     },
     item: {
       padding: 20,

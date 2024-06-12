@@ -105,9 +105,9 @@ function DrawerList({
                         style={{
                           paddingVertical: 2,
                           fontSize: 12,
-
+                          fontFamily: 'Vazirmatn',
                           alignSelf: 'center',
-                          fontWeight: 'bold',
+                          // fontWeight: 'bold',
                           color: theme.colors.secondary,
                           flexWrap: 'wrap',
                           width: Dimensions.get('window').width / 2.3,

@@ -135,6 +135,9 @@ function TabNavigator() {
           //gradientbackground
           headerShown: false,
           title: i18n.t('profile'),
+          style: {
+            fontFamily: 'Vazirmatn',
+          },
           tabBarIcon: ({ focused }) =>
             !focused ? <IconProfileUnFocused /> : <IconProfileFocused />,
         }}

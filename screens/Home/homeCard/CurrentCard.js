@@ -52,6 +52,7 @@ function CurrentCard({
             fontWeight: '500',
             color: theme.colors.white,
             marginLeft: 10,
+            fontFamily: 'Vazirmatn',
           }}>
           {title}
         </Text>
@@ -89,8 +90,8 @@ function CurrentCard({
             <Text
               style={{
                 fontSize: PixelRatio.get() < 3 ? 10 : 14,
-                fontWeight: 'bold',
-
+                //fontWeight: 'bold',
+                fontFamily: 'Vazirmatn',
                 alignSelf: 'center',
                 color: theme.colors.secondary,
               }}>
@@ -102,6 +103,7 @@ function CurrentCard({
                 fontWeight: '500',
                 alignSelf: 'center',
                 color: theme.colors.secondary,
+                fontFamily: 'Vazirmatn',
               }}>
               {value}
             </Text>

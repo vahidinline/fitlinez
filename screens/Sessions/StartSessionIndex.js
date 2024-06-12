@@ -326,6 +326,7 @@ const StartSessionIndex = ({ route }) => {
                         fontWeight: '500',
                         // marginHorizontal: 16,
                         marginTop: 16,
+                        fontFamily: 'Vazirmatn',
                       }}>
                       {findMatchingDay(item.day, daysOfWeek)}
                     </Text>
@@ -334,8 +335,9 @@ const StartSessionIndex = ({ route }) => {
                         color:
                           item.title !== 'Rest' ? theme.colors.text : '#C7C4DC',
                         fontSize: 14,
-                        fontWeight: '500',
+                        //fontWeight: '500',
                         marginTop: 8,
+                        fontFamily: 'Vazirmatn',
                         //marginHorizontal: 16,
                       }}>
                       {item.title}
@@ -362,7 +364,7 @@ const StartSessionIndex = ({ route }) => {
                       style={{
                         borderRadius: 10,
                         color: theme.colors.secondary,
-
+                        fontFamily: 'Vazirmatn',
                         marginBottom: 16,
                       }}>
                       {i18n.t('lastPerformance')}
@@ -372,6 +374,7 @@ const StartSessionIndex = ({ route }) => {
                         borderRadius: 10,
                         color: theme.colors.secondary,
                         marginBottom: 16,
+                        fontFamily: 'Vazirmatn',
                       }}>
                       {showDate(item.title, userLanguage)}
                     </Text>

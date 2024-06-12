@@ -23,7 +23,11 @@ const DropdownCountries = ({
   const renderLabel = () => {
     if (value || isFocus) {
       return (
-        <Text style={[styles.label, isFocus && { color: 'blue' }]}>
+        <Text
+          style={[
+            styles.label,
+            isFocus && { color: 'blue', fontFamily: 'Vazirmatn' },
+          ]}>
           {i18n.t('selectCountry')}
         </Text>
       );
@@ -47,6 +51,7 @@ const DropdownCountries = ({
         valueField="emoji"
         placeholder={!isFocus ? ` ${i18n.t('selectCountry')}` : '...'}
         searchPlaceholder="Search..."
+        placeholderStyle={{ fontFamily: 'Vazirmatn' }}
         value={value}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
@@ -81,6 +86,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 8,
+    fontFamily: 'Vazirmatn',
   },
   icon: {
     marginRight: 5,
@@ -89,6 +95,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'white',
     left: 22,
+    fontFamily: 'Vazirmatn',
     top: 8,
     zIndex: 999,
     paddingHorizontal: 8,

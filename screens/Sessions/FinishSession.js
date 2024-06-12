@@ -367,18 +367,16 @@ const FinishSession = (props) => {
                 <Text style={styles.title}>
                   {burnedCalories.totalCaloriesBurned.toFixed(0)} kcal
                 </Text>
-                <Pressable onPress={() => handleShowBurnedCalories()}>
+                <Pressable
+                  style={{
+                    flexDirection: 'row',
+                  }}
+                  //</View> onPress={() => handleShowBurnedCalories()}
+                >
                   <Text style={styles.subtitle}>
                     {i18n.t('burnedCalories')}
                   </Text>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      right: -20,
-                    }}>
-                    <IconFire />
-                  </View>
+                  <IconFire />
                 </Pressable>
               </View>
             )}
@@ -415,6 +413,7 @@ const FinishSession = (props) => {
             fontSize: 15,
             fontWeight: '400',
             color: '#fff',
+            fontFamily: 'Vazirmatn',
           }}
           title={i18n.t('home')}
         />
@@ -437,6 +436,7 @@ const getStyle = (theme, PixelRatio) =>
       fontWeight: 'bold',
       color: '#3F3B6C',
       textAlign: 'center',
+      fontFamily: 'Vazirmatn',
       // marginTop: 60,
     },
     divider: {
@@ -460,6 +460,7 @@ const getStyle = (theme, PixelRatio) =>
 
     subtitle: {
       fontSize: PixelRatio.get() < 3 ? 10 : 12,
+      fontFamily: 'Vazirmatn',
       fontWeight: '400',
       color: theme.colors.secondary,
       textAlign: 'center',
@@ -472,6 +473,7 @@ const getStyle = (theme, PixelRatio) =>
       color: '#3F3B6C',
       textAlign: 'center',
       marginTop: 20,
+      fontFamily: 'Vazirmatn',
     },
     loadingText: {
       fontSize: 15,
@@ -479,6 +481,7 @@ const getStyle = (theme, PixelRatio) =>
       color: '#3F3B6C',
       textAlign: 'center',
       marginTop: 20,
+      fontFamily: 'Vazirmatn',
     },
     title: {
       fontSize: PixelRatio.get() < 3 ? 14 : 16,
@@ -486,5 +489,6 @@ const getStyle = (theme, PixelRatio) =>
       color: theme.colors.secondary,
       textAlign: 'center',
       marginTop: 20,
+      fontFamily: 'Vazirmatn',
     },
   });

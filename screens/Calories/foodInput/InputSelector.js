@@ -24,6 +24,7 @@ function InputSelector({
   setUserInput,
   i18n,
   userId,
+  RTL,
 }) {
   const { theme } = useTheme();
   const [inputStatus, setInputStatus] = useState('idle');
@@ -112,6 +113,7 @@ function InputSelector({
       )}
       {inputStatus === 'textInput' && (
         <FoodTextInput
+          RTL={RTL}
           setInputStatus={setInputStatus}
           setFoodItems={setFoodItems}
           setStatus={setStatus}

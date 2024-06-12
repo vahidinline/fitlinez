@@ -123,6 +123,7 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
           color: theme.colors.secondary,
           margin: 20,
           marginBottom: 40,
+          fontFamily: 'Vazirmatn',
         }}>
         {i18n.t('insetmealtitle')}
       </Text>
@@ -156,8 +157,9 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
                 textAlign: 'center',
                 fontSize: 18,
                 color: theme.colors.secondary,
-                fontWeight: 'bold',
-                margin: 10,
+                fontWeight: '500',
+                margin: 14,
+                fontFamily: 'Vazirmatn',
               }}>
               {meal.name}
             </Text>
@@ -203,5 +205,6 @@ const styles = StyleSheet.create({
     color: '#000',
     borderBottomColor: '#000',
     borderBottomWidth: 1,
+    fontFamily: 'Vazirmatn',
   },
 });

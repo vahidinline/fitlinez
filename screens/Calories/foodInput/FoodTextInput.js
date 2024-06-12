@@ -22,6 +22,7 @@ function FoodTextInput({
   status,
   i18n,
   userId,
+  RTL,
 }) {
   const { theme } = useTheme();
   const [typeStatus, setTypeStatus] = useState('idle');
@@ -75,13 +76,14 @@ function FoodTextInput({
         multiline={true}
         numberOfLines={4}
         onChangeText={setUserInput}
-        style={styles.verticallySpaced}
+        style={[styles.verticallySpaced, { direction: RTL ? 'rtl' : 'ltr' }]}
         placeholder={i18n.t('enterFoodPlaceholder')}
       />
       <View style={styles.buttonContainer}>
         <Button
           disabled={!userInput || userInput.length < 5}
           buttonStyle={styles.saveButton}
+          titleStyle={{ fontFamily: 'Vazirmatn' }}
           onPress={handleInput}
           title={i18n.t('foodsearch')}
         />
@@ -114,6 +116,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '95%',
     textAlignVertical: 'top',
+    fontFamily: 'Vazirmatn',
   },
   closeButton: {
     position: 'absolute',
@@ -138,5 +141,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 10,
     marginBottom: 10,
+    fontFamily: 'Vazirmatn',
   },
 });

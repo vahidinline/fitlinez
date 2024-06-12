@@ -50,7 +50,12 @@ const RadioButtonfitlinez = ({
         )}
         {/* Use the checkmark icon or customize as needed */}
       </View>
-      <Text>{label}</Text>
+      <Text
+        style={{
+          fontFamily: 'Vazirmatn',
+        }}>
+        {label}
+      </Text>
       {Flag && (
         <View
           style={{

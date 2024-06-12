@@ -105,7 +105,7 @@ function Upgrade() {
         backgroundColor: theme.colors.background,
         height: height,
         //paddingTop: 50,
-        direction: userLanguage === 'fa' ? 'rtl' : 'ltr',
+        //direction: userLanguage === 'fa' ? 'rtl' : 'ltr',
       }}>
       <View
         style={{
@@ -123,6 +123,7 @@ function Upgrade() {
       <View
         style={{
           height: height,
+          direction: userLanguage === 'fa' ? 'rtl' : 'ltr',
         }}>
         <BackgroundImage
           source={require('../../assets/img/paymentbg.jpeg')}
@@ -178,7 +179,7 @@ function Upgrade() {
                   marginHorizontal: 20,
                   width: Dimensions.get('window').width / 1.2,
                   flexWrap: 'wrap',
-
+                  fontFamily: 'Vazirmatn',
                   textAlign: RTL ? 'right' : 'left',
                 }}>
                 {i18n.t('upgradeLocationText')}
@@ -225,6 +226,10 @@ function Upgrade() {
         }}>
         <Button
           disabled={price === null ? true : false}
+          titleStyle={{
+            fontFamily: 'Vazirmatn',
+            color: theme.colors.primary,
+          }}
           buttonStyle={{
             backgroundColor: theme.colors.button,
             borderColor: theme.colors.secondary,
@@ -252,6 +257,7 @@ function Upgrade() {
               fontSize: 14,
               fontWeight: '400',
               marginVertical: 10,
+              fontFamily: 'Vazirmatn',
             }}>
             {i18n.t('trialText')}
           </Text>
@@ -273,6 +279,7 @@ const styles = StyleSheet.create({
   },
   background: {
     //position: 'absolute',
+
     left: 0,
     right: 0,
     top: 0,
@@ -283,10 +290,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontSize: 32,
     top: Dimensions.get('window').height / 5 - 100,
-    fontWeight: '700',
+    fontWeight: '600',
     color: '#17124A',
-    textAlign: 'center',
+    //textAlign: 'center',
     margin: 10,
+    fontFamily: 'Vazirmatn',
     zIndex: 10,
   },
   textSubHeader: {
@@ -297,7 +305,7 @@ const styles = StyleSheet.create({
     color: '#17124A',
     textAlign: 'center',
     margin: 10,
-
+    fontFamily: 'Vazirmatn',
     zIndex: 10,
   },
   textSmallHeader: {
@@ -309,9 +317,11 @@ const styles = StyleSheet.create({
     // textAlign: 'center',
     margin: 20,
     zIndex: 10,
+    fontFamily: 'Vazirmatn',
   },
   textWarning: {
     flexDirection: 'row',
+    fontFamily: 'Vazirmatn',
     position: 'absolute',
     fontSize: 14,
     top: Dimensions.get('window').height / 4 - 0,
@@ -332,6 +342,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
+    fontFamily: 'Vazirmatn',
   },
 });
 export default Upgrade;

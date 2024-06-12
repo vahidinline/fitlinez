@@ -262,7 +262,7 @@ function SettingIndex() {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          marginTop: 20,
+          marginTop: 40,
           marginBottom: 0,
           marginHorizontal: 10,
           direction: RTL ? 'rtl' : 'ltr',
@@ -276,6 +276,7 @@ function SettingIndex() {
             alignContent: 'center',
             alignItems: 'center',
             left: Dimensions.get('window').width / 2.5,
+            fontFamily: 'Vazirmatn',
           }}>
           {i18n.t('settings')}
         </Text>
@@ -323,6 +324,7 @@ function SettingIndex() {
                         //position: 'absolute',
                         //right: 180,
                         //top: -10,
+                        fontFamily: 'Vazirmatn',
                       }}>
                       {item.name}
                     </Text>

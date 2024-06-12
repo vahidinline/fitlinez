@@ -74,6 +74,7 @@ const ButtonsheetComponent = ({
               justifyContent: 'center',
               alignItems: 'center',
               alignSelf: 'center',
+              fontFamily: 'Vazirmatn',
             }}>
             {i18n.t('startWorkoutTitle')}
           </Text>
@@ -117,6 +118,9 @@ const ButtonsheetComponent = ({
           disabled={locSelector === '' || locSelector === 'both'}
           onPress={() => dosomeThing(setIsVisible(!isVisible))}
           title={i18n.t('startWorkout')}
+          titleStyle={{
+            fontFamily: 'Vazirmatn',
+          }}
           buttonStyle={{
             marginHorizontal: 10,
 
@@ -323,7 +327,7 @@ const WeeklyPlan = (props) => {
               fontSize: 14,
               fontWeight: '500',
               marginBottom: 20,
-
+              fontFamily: 'Vazirmatn',
               margin: 20,
             }}>
             {i18n.t('estimatedTime')}
@@ -335,6 +339,7 @@ const WeeklyPlan = (props) => {
               fontWeight: 'bold',
               marginBottom: 20,
               marginLeft: 20,
+              fontFamily: 'Vazirmatn',
             }}>
             {estimatedTime} {i18n.t('minute')}
           </Text>
@@ -353,7 +358,7 @@ const WeeklyPlan = (props) => {
           <Text
             style={{
               color: theme.colors.grey2,
-
+              fontFamily: 'Vazirmatn',
               fontSize: 14,
               fontWeight: '500',
               marginBottom: 20,
@@ -369,6 +374,7 @@ const WeeklyPlan = (props) => {
               fontWeight: 'bold',
               marginBottom: 20,
               marginLeft: 20,
+              fontFamily: 'Vazirmatn',
             }}>
             {planName}
           </Text>
@@ -400,7 +406,8 @@ const WeeklyPlan = (props) => {
           title={i18n.t('start')}
           titleStyle={{
             fontSize: 18,
-            fontWeight: 'bold',
+            // fontWeight: 'bold',
+            fontFamily: 'Vazirmatn',
           }}
           buttonStyle={{
             height: 50,

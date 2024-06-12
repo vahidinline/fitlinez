@@ -157,6 +157,7 @@ function HomeIndex() {
       style={{
         flex: 1,
         backgroundColor: theme.colors.background,
+        direction: isRTL ? 'rtl' : 'ltr',
       }}>
       {status === 'loading' && <FitlinezLoading />}
       <View
@@ -190,6 +191,7 @@ function HomeIndex() {
 
       <ScrollView
         style={{
+          // height: Dimensions.get('window').height,
           flex: 1,
           // marginTop: currentPlan ? Dimensions.get('window').height / 7 : 0,
         }}>
@@ -198,7 +200,7 @@ function HomeIndex() {
             style={{
               width: Dimensions.get('window').width,
               marginTop: 10,
-              height: Dimensions.get('window').height / 15,
+              height: '15%',
               //zIndex: 100,
               marginBottom: Dimensions.get('window').height / 6,
             }}>
@@ -231,7 +233,7 @@ function HomeIndex() {
             marginVertical: 10,
           }}>
           <LinearGradient
-            colors={['#5B5891', '#3A366F', '#17124A']}
+            colors={['#5B5891', '#3A366F', '#17124a']}
             style={styles.background}
           />
           <View>
@@ -253,6 +255,7 @@ function HomeIndex() {
               titleStyle={{
                 color: theme.colors.text,
                 fontSize: 16,
+                fontFamily: 'Vazirmatn',
                 //sfontWeight: 'bold',
               }}
               onPress={() => {

@@ -152,6 +152,7 @@ function SignUpIndex(props) {
             left: 0,
             right: 0,
             bottom: 0,
+            fontFamily: 'Vazirmatn',
             backgroundColor: theme.colors.primary,
             height: Dimensions.get('window').height / 8,
             width: showLang ? '100%' : '10%',
@@ -162,6 +163,7 @@ function SignUpIndex(props) {
             alignItems: 'center',
             alignSelf: 'center',
             zIndex: 100,
+            fontFamily: 'Vazirmatn',
           }}>
           <View
             style={{
@@ -201,7 +203,8 @@ function SignUpIndex(props) {
                     style={{
                       color: theme.colors.secondary,
                       fontSize: 16,
-                      fontWeight: 'bold',
+                      //fontWeight: 'bold',
+                      fontFamily: 'Vazirmatn',
                     }}>
                     {lang.name}
                   </Text>
@@ -266,11 +269,13 @@ function SignUpIndex(props) {
               onPress={toggleCheckbox}
               style={{
                 marginTop: 10,
+                fontFamily: 'Vazirmatn',
               }}
               textStyle={{
                 color: theme.colors.secondary,
-                fontSize: 12,
+                fontSize: 10,
                 fontWeight: 'normal',
+                fontFamily: 'Vazirmatn',
               }}
               title={
                 <View
@@ -281,10 +286,21 @@ function SignUpIndex(props) {
                     //justifyContent: 'center',
                     // textAlign: 'center',
                     marginTop: 10,
+                    fontFamily: 'Vazirmatn',
                   }}>
-                  <Text>{i18n.t('signupTerms')} </Text>
                   <Text
-                    style={{ textDecorationLine: 'underline' }}
+                    style={{
+                      fontFamily: 'Vazirmatn',
+                      fontSize: 10,
+                    }}>
+                    {i18n.t('signupTerms')}{' '}
+                  </Text>
+                  <Text
+                    style={{
+                      textDecorationLine: 'underline',
+                      fontFamily: 'Vazirmatn',
+                      fontSize: 10,
+                    }}
                     onPress={() =>
                       Linking.openURL(
                         'https://www.fitlinez.com/terms-of-service'
@@ -292,9 +308,16 @@ function SignUpIndex(props) {
                     }>
                     {i18n.t('termsandconditions')}
                   </Text>
-                  <Text> {i18n.t('and')}</Text>
+                  <Text style={{ fontFamily: 'Vazirmatn', fontSize: 10 }}>
+                    {' '}
+                    {i18n.t('and')}
+                  </Text>
                   <Text
-                    style={{ textDecorationLine: 'underline' }}
+                    style={{
+                      textDecorationLine: 'underline',
+                      fontFamily: 'Vazirmatn',
+                      fontSize: 10,
+                    }}
                     onPress={() =>
                       Linking.openURL('https://www.fitlinez.com/privacy-policy')
                     }>
@@ -322,6 +345,7 @@ function SignUpIndex(props) {
               {
                 color: theme.colors.primary,
                 fontSize: 16,
+                fontFamily: 'Vazirmatn',
               },
               btnDisable && { color: '#fff' },
             ]}
@@ -340,6 +364,7 @@ function SignUpIndex(props) {
               color: theme.colors.secondary,
               alignSelf: 'center',
               marginTop: 20,
+              fontFamily: 'Vazirmatn',
             }}>
             {i18n.t('signupFooterText')}
             <Text
@@ -362,10 +387,12 @@ const styles = StyleSheet.create({
     marginBottom: -8,
     marginLeft: 10,
     fontSize: 14,
+    fontFamily: 'Vazirmatn',
   },
 
   input: {
     paddingVertical: 10, // Adjust as needed
+    fontFamily: 'Vazirmatn',
   },
 });
 

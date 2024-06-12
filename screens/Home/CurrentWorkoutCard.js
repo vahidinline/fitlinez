@@ -21,6 +21,7 @@ import AuthContext from '../../api/context';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 import StartSessionIndexHome from '../Sessions/StartSessionIndexHome';
 import { IconTrainer } from '../marketplace/filters/icons';
+import PlanPlus from '../../components/newPlan';
 
 function CurrentWorkoutCard({ title, trainer, location }) {
   const [percentage, setPercentage] = useState(0);
@@ -137,6 +138,8 @@ function CurrentWorkoutCard({ title, trainer, location }) {
                 color: theme.colors.primary,
                 fontSize: PixelRatio.get() < 3 ? 10 : 14,
                 fontWeight: '500',
+                fontFamily: 'Vazirmatn',
+                marginVertical: 5,
               }}
               buttonStyle={{
                 borderRadius: 8,

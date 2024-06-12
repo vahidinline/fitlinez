@@ -52,7 +52,7 @@ function Box({ title, subTitle, dayLeft, type }) {
               fontWeight: '400',
               color: 'white',
               marginLeft: 0,
-
+              fontFamily: 'Vazirmatn',
               // position: 'absolute',
               // right: Dimensions.get('window').width,
               bottom: 0,
@@ -70,6 +70,7 @@ function Box({ title, subTitle, dayLeft, type }) {
             color: 'white',
             marginLeft: 10,
             marginTop: 5,
+            fontFamily: 'Vazirmatn',
           }}>
           {subTitle}
         </Text>

@@ -25,7 +25,7 @@ const CustomCalorieReport = () => {
   const [showDatePicker2, setShowDatePicker2] = useState(false);
   const [status, setStatus] = useState('idle');
   const [report, setReport] = useState({});
-  const [reportType, setReportType] = useState('daily');
+  const [reportType, setReportType] = useState('weekly');
   console.log('reportType', reportType);
   const [index, setIndex] = useState(0);
   const { userLanguage } = useContext(LanguageContext);
@@ -276,6 +276,7 @@ const getStyles = (theme) =>
       color: 'white',
       fontSize: 16,
       margin: 10,
+      fontFamily: 'Vazirmatn',
     },
     buttontitle: {
       color: theme.colors.Text,

@@ -44,7 +44,7 @@ function Header({ title, rightIconPress }) {
             left: 0,
             right: 20,
             textAlign: 'center',
-
+            fontFamily: 'Vazirmatn',
             color: theme.colors.secondary,
           }}>
           {title}

@@ -70,7 +70,9 @@ function ListReport({ report, i18n }) {
               marginRight: 8,
             }}
           />
-          <Text style={{ color: 'lightgray' }}>{i18n.t('yourIntake')}</Text>
+          <Text style={{ color: 'lightgray', fontFamily: 'Vazirmatn' }}>
+            {i18n.t('yourIntake')}
+          </Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View
@@ -82,7 +84,9 @@ function ListReport({ report, i18n }) {
               marginRight: 8,
             }}
           />
-          <Text style={{ color: 'lightgray' }}>{i18n.t('yourGoal')}</Text>
+          <Text style={{ color: 'lightgray', fontFamily: 'Vazirmatn' }}>
+            {i18n.t('yourGoal')}
+          </Text>
         </View>
       </View>
     </View>
@@ -149,14 +153,17 @@ const getStyles = (theme) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       marginVertical: 5,
+      fontFamily: 'Vazirmatn',
     },
     dataLabel: {
       color: theme.colors.primary,
       fontWeight: 'bold',
       fontSize: 16,
+      fontFamily: 'Vazirmatn',
     },
     dataValue: {
       color: theme.colors.primary,
       fontSize: 16,
+      fontFamily: 'Vazirmatn',
     },
   });

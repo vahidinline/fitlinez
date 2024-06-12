@@ -35,6 +35,7 @@ function DailyWorkloutListComponent({ item, i }) {
             fontSize: 16,
             fontWeight: '500',
             color: theme.colors.secondary,
+            fontFamily: 'Vazirmatn',
             //padding: 10,
           }}>
           {i + 1}
@@ -55,7 +56,7 @@ function DailyWorkloutListComponent({ item, i }) {
             fontWeight: '500',
             // marginBottom: 20,
             //justifyContent: 'flex-start',
-
+            fontFamily: 'Vazirmatn',
             color: theme.colors.secondary,
             //padding: 10,
           }}>

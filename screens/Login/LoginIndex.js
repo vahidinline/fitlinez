@@ -196,6 +196,7 @@ function LoginIndex(props) {
               {
                 color: theme.colors.primary,
                 fontSize: 16,
+                fontFamily: 'Vazirmatn',
               },
               btnDisable && { color: '#fff' },
             ]}
@@ -214,6 +215,7 @@ function LoginIndex(props) {
                 color: theme.colors.secondary,
                 alignSelf: 'flex-end',
                 marginTop: -10,
+                fontFamily: 'Vazirmatn',
               }}>
               {i18n.t('ForgotPassword')}
             </Text>
@@ -232,6 +234,7 @@ function LoginIndex(props) {
                 fontSize: 14,
                 fontWeight: 'bold',
                 textAlign: 'left',
+                fontFamily: 'Vazirmatn',
               }}
               type="outline"
               containerStyle={{
@@ -255,12 +258,14 @@ function LoginIndex(props) {
               color: theme.colors.secondary,
               alignSelf: 'center',
               marginTop: 20,
+              fontFamily: 'Vazirmatn',
             }}>
             {i18n.t('loginFooterText')}
             <Text
               onPress={() => navigation.navigate('Register')}
               style={{
                 color: theme.colors.button,
+                fontFamily: 'Vazirmatn',
               }}>
               {' '}
               {i18n.t('loginFooterText2')}

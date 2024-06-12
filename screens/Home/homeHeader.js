@@ -24,8 +24,8 @@ import {
 } from '../../api/GetData';
 import { useState } from 'react';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
-import { generateHeaderText } from '../../api/readWorkoutData';
 import { getHeaderReport } from '../../api/headerReportAPI';
+import { useFonts } from 'expo-font';
 
 function HomeHeader({ planStartDate, data, title }) {
   const { userAuth, setUserAuth } = useContext(AuthContext);
@@ -34,7 +34,7 @@ function HomeHeader({ planStartDate, data, title }) {
   i18n.locale = userLanguage;
   const { theme } = useTheme();
   const [textMessage, setTextMessage] = useState('');
-  //console.log('textMessage', textMessage);
+  console.log('textMessage', textMessage);
   const [activeAccount, setActiveAccount] = useState(true);
   const [status, setStatus] = useState('good');
   const currentVersion = '7.0.7.8';
@@ -101,18 +101,18 @@ function HomeHeader({ planStartDate, data, title }) {
     registerBackgroundFetchAsync();
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      async function fetchData() {
-        await userLevelCheck(userAuth, setUserAuth);
-        await userStatusCheck(userAuth, setUserAuth);
-        await checkVersion(currentVersion, Userplatform, userLocation, i18n);
-      }
-      fetchData();
-      //checkFirstTimeUser();
-      checkUserPervilage();
-    }, [])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     async function fetchData() {
+  //       await userLevelCheck(userAuth, setUserAuth);
+  //       await userStatusCheck(userAuth, setUserAuth);
+  //       await checkVersion(currentVersion, Userplatform, userLocation, i18n);
+  //     }
+  //     fetchData();
+  //     //checkFirstTimeUser();
+  //     checkUserPervilage();
+  //   }, [])
+  // );
 
   useEffect(() => {
     checkUserPervilage();
@@ -152,8 +152,9 @@ function HomeHeader({ planStartDate, data, title }) {
     <View
       style={{
         flexDirection: 'row',
-        height: 80,
+        height: 50,
         alignItems: 'center',
+        // direction: RTL ? 'rtl' : 'ltr',
       }}>
       <View>
         <View>
@@ -163,7 +164,8 @@ function HomeHeader({ planStartDate, data, title }) {
               color: theme.colors.secondary,
               marginHorizontal: 10,
               marginBottom: 5,
-              textAlign: RTL ? 'right' : 'left',
+              fontFamily: 'Vazirmatn',
+              // textAlign: RTL ? 'right' : 'left',
             }}>
             {i18n.t('welcome')} {''}
             <Text
@@ -171,71 +173,38 @@ function HomeHeader({ planStartDate, data, title }) {
                 fontSize: 22,
                 fontWeight: 'bold',
                 color: theme.colors.secondary,
+                fontFamily: 'Vazirmatn',
               }}>
               {userAuth?.name}!
             </Text>
           </Text>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              top: 0,
-              alignItems: 'center',
-              flexWrap: 'wrap',
-            }}>
-            <Text
-              onPress={() => !activeAccount && navigation.navigate('Upgrade')}
-              style={{
-                color: theme.colors.secondary,
-                fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 12 : 14,
-                flexWrap: 'wrap',
-                flex: 1,
-                fontWeight: '400',
-                marginHorizontal: 5,
-                textAlign: RTL ? 'right' : 'left',
-              }}></Text>
-          </View>
         </View>
 
-        <Chip
+        <View
           style={{
-            backgroundColor: backgroundColor,
-            marginHorizontal: 10,
-            marginTop: 5,
-            height: 50,
-            padding: 5,
-            width: Dimensions.get('window').width - 20,
-            justifyContent: 'center',
+            padding: 10,
+            flexDirection: 'row',
+            direction: RTL ? 'rtl' : 'ltr',
+            backgroundColor: theme.colors.lightPrimary,
+            paddingHorizontal: 10,
+            width: Dimensions.get('window').width / 1,
+            borderRadius: 10,
           }}>
-          <View
+          <Text
+            onPress={() => !activeAccount && navigation.navigate('Upgrade')}
             style={{
-              flexDirection: 'row',
-              top: 0,
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              color: theme.colors.secondary,
+              fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 12 : 14,
               flexWrap: 'wrap',
-              width: '100%',
+              // flex: 1,
+              fontFamily: 'Vazirmatn',
+              fontWeight: '400',
+              marginHorizontal: 25,
             }}>
-            <Text
-              onPress={() => !activeAccount && navigation.navigate('Upgrade')}
-              style={{
-                color: theme.colors.secondary,
-                fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 12 : 14,
-                flexWrap: 'wrap',
-                flex: 1,
-                fontWeight: '400',
-                marginHorizontal: 5,
-                textAlign: RTL ? 'right' : 'left',
-              }}>
-              {textMessage}
-            </Text>
-            {activeAccount && (
-              <>
-                {status === 'bad' ? <IconHeaderNotStarted /> : <IconStarted />}
-              </>
-            )}
-          </View>
-        </Chip>
+            {status === 'bad' ? <IconHeaderNotStarted /> : <IconStarted />}
+            {textMessage}
+          </Text>
+        </View>
       </View>
     </View>
   );

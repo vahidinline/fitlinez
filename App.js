@@ -34,9 +34,6 @@ import { forceSolveError, clearAllAsyncCache } from './api/forceSolveError';
 import { trackUserData } from './api/tracker';
 import appUpdateTrack from './api/appUpdateTrack';
 import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-
-//SplashScreen.preventAutoHideAsync();
 
 const errorHandler = (error, stackTrace) => {
   /* Log the error to an error reporting service */
@@ -50,29 +47,6 @@ const errorHandler = (error, stackTrace) => {
 const db = SQLite.openDatabase('totalWeight.db');
 
 export default function App() {
-  // const [fontsLoaded, fontError] = useFonts({
-  //   Vazirmatn: require('./assets/fonts/Vazirmatn-Regular.ttf'),
-  // });
-
-  // const loadFonts = async () => {
-  //   await useFonts.loadAsync({
-  //     'Vazirmatn-Regular': require('./assets/fonts/Vazirmatn-Regular.ttf'),
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   loadFonts();
-  // }, []);
-
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (fontsLoaded || fontError) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded, fontError]);
-
-  // if (!fontsLoaded && !fontError) {
-  //   return null;
-  // }
   const [userAuth, setUserAuth] = useState();
   const [userPrivilege, setUserPrivilege] = useState();
   const [msg, setMsg] = useState(0);
@@ -119,26 +93,30 @@ export default function App() {
     onFetchUpdateAsync();
   }, []);
 
-  useEffect(() => {
-    userLevelCheck(userAuth, setUserAuth);
-  }, []);
+  // useEffect(() => {
+  //   userLevelCheck(userAuth, setUserAuth);
+  // }, []);
 
-  useEffect(() => {
-    // Only call checkFreeTrial if userAuth is not empty/null/undefined
-    if (userAuth) {
-      checkFreeTrial(userAuth);
+  // useEffect(() => {
+  //   // Only call checkFreeTrial if userAuth is not empty/null/undefined
+  //   if (userAuth) {
+  //     checkFreeTrial(userAuth);
 
-      // assuming checkFreeTrial returns a boolean
-      let isFreeTrial = checkFreeTrial(userAuth);
+  //     // assuming checkFreeTrial returns a boolean
+  //     let isFreeTrial = checkFreeTrial(userAuth);
 
-      // Now, call your setUserPrivilege function according to the free trial check.
-      setUserPrivilege(isFreeTrial ? true : false);
-    }
-  }, [userAuth]); // This ensures the effect is run whenever userAuth changes
+  //     // Now, call your setUserPrivilege function according to the free trial check.
+  //     setUserPrivilege(isFreeTrial ? true : false);
+  //   }
+  // }, [userAuth]); // This ensures the effect is run whenever userAuth changes
 
   useEffect(() => {
     Notifications.setBadgeCountAsync(msg);
   }, [msg]);
+
+  const [fontsLoaded, fontError] = useFonts({
+    Vazirmatn: require('./assets/fonts/Vazirmatn-Regular.ttf'),
+  });
 
   useEffect(() => {
     const getStoredLanguage = async () => {
@@ -271,7 +249,6 @@ export default function App() {
   );
 
   return (
-    // <View onLayout={onLayoutRootView}>
     <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
       <ThemeContext.Provider value={{ currentTheme, toggleTheme }}>
         <AuthContext.Provider value={{ userAuth, setUserAuth }}>
@@ -325,6 +302,5 @@ export default function App() {
         </AuthContext.Provider>
       </ThemeContext.Provider>
     </ErrorBoundary>
-    //  </View>
   );
 }

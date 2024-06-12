@@ -19,6 +19,7 @@ import CustomReport from './customReport';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@rneui/base';
 import { Icon } from 'react-native-paper';
+import { useFonts } from 'expo-font';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -33,6 +34,11 @@ function CaloriesIndex() {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const RTL = userLanguage === 'fa';
+  const [fontsLoaded, fontError] = useFonts({
+    Vazirmatn: require('../../assets/fonts/Vazirmatn-Regular.ttf'),
+  });
+
+  console.log('is font Loaded', fontsLoaded, 'any font Error', fontError);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -55,7 +61,7 @@ function CaloriesIndex() {
                   marginHorizontal: 20,
                 }}
                 onPress={() => setStatus('idle')}>
-                <IconArrowLeft color={theme.colors.secondary} size={30} />
+                <IconArrowLeft color={theme.colors.primary} size={30} />
               </Pressable>
             )}
             {/* <Text style={{ textAlign: 'center', fontSize: 20, color: 'white' }}>
@@ -63,7 +69,12 @@ function CaloriesIndex() {
           </Text> */}
           </View>
           {status === 'idle' && (
-            <DailyReport RTL={RTL} userId={userId} i18n={i18n} />
+            <DailyReport
+              myFont={'Vazirmatn'}
+              RTL={RTL}
+              userId={userId}
+              i18n={i18n}
+            />
           )}
           {status === 'loading' && (
             <FitlinezLoading />
@@ -105,9 +116,10 @@ function CaloriesIndex() {
               textAlign: 'center',
               fontSize: 16,
               fontWeight: 'bold',
-              color: theme.colors.secondary,
+              color: theme.colors.primary,
               margin: 20,
               marginBottom: 10,
+              fontFamily: 'Vazirmatn',
             }}>
             {i18n.t('foodinserttypetitle', { mealType: selectedMeal.name })}
           </Text>

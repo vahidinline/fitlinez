@@ -270,6 +270,7 @@ function ProfileIndex() {
                           //position: 'absolute',
                           //right: 180,
                           //top: -10,
+                          fontFamily: 'Vazirmatn',
                         }}>
                         {item.name}
                       </Text>
@@ -283,6 +284,7 @@ function ProfileIndex() {
                             //position: 'absolute',
                             //right: 180,
                             //top: -10,
+                            fontFamily: 'Vazirmatn',
                           }}>
                           {item.sub[0].massureUnit} / {item.sub[1].weightUnit}
                         </Text>

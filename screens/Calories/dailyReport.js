@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
+import { useFonts } from 'expo-font';
 
 function DailyReport({ userId }) {
   const { theme } = useTheme();
@@ -126,7 +127,7 @@ function DailyReport({ userId }) {
 
 export default DailyReport;
 
-const getStyles = (theme) =>
+const getStyles = (theme, myFont) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -158,6 +159,7 @@ const getStyles = (theme) =>
       color: '#fff',
       fontSize: 16,
       textAlign: 'center',
+      fontFamily: 'Vazirmatn',
     },
     baseContainer: {
       borderWidth: 5,
@@ -171,6 +173,7 @@ const getStyles = (theme) =>
     },
     caloriesText: {
       color: theme.colors.primary,
+      fontFamily: 'Vazirmatn',
       fontSize: 30,
       textAlign: 'center',
       fontWeight: 'bold',
@@ -180,12 +183,14 @@ const getStyles = (theme) =>
       color: theme.colors.primary,
       fontSize: 16,
       textAlign: 'center',
+      fontFamily: 'Vazirmatn',
     },
     remainingText: {
       color: theme.colors.primary,
       fontSize: 15,
       textAlign: 'center',
-      fontWeight: 'bold',
+      fontFamily: 'Vazirmatn',
+      //fontWeight: 'bold',
       margin: 10,
     },
     nutrientContainer: {
@@ -195,7 +200,8 @@ const getStyles = (theme) =>
       color: theme.colors.primary,
       fontSize: 14,
       textAlign: 'center',
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
+      fontFamily: 'Vazirmatn',
       margin: 5,
     },
   });

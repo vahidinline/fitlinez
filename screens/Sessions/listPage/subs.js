@@ -151,6 +151,7 @@ function Subs({
                   color: theme.colors.secondary,
                   alignContent: 'center',
                   flexWrap: 'wrap',
+                  fontFamily: 'Vazirmatn',
                   width: Dimensions.get('window').width / 3,
                 }}>
                 {l.name}
@@ -258,13 +259,14 @@ function Subs({
 const getStyles = (theme) =>
   StyleSheet.create({
     titleStyle: {
+      fontFamily: 'Vazirmatn',
       color: theme.colors.secondary,
       textAlign: 'center',
       alignItems: 'center',
       //top: 10,
       marginHorizontal: 10,
       fontSize: 20,
-      fontWeight: 'bold',
+      fontWeight: '500',
     },
   });
 

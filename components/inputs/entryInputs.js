@@ -32,7 +32,7 @@ const FloatingPlaceholderInput = (props) => {
           onChangeText={handleChangeText}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          placeholder={props.placeholder}
+          //placeholder={props.placeholder}
           secureTextEntry={props.secureTextEntry}
         />
         {props.type === 'password' && (
@@ -51,7 +51,7 @@ const FloatingPlaceholderInput = (props) => {
       {(isFocused || inputValue === '') && (
         <Text
           type={props.type}
-          style={[styles.placeholder, { top: isFocused ? -10 : '20%' }]}>
+          style={[styles.placeholder, { top: isFocused ? -20 : '20%' }]}>
           {props.placeholder}
         </Text>
       )}
@@ -72,6 +72,7 @@ const getStyles = (theme) =>
       paddingLeft: 10,
       borderRadius: 8,
       width: '100%',
+      // fontFamily: 'Vazirmatn',
     },
     eyeIcon: {
       position: 'absolute',
@@ -80,6 +81,7 @@ const getStyles = (theme) =>
     },
     placeholder: {
       position: 'absolute',
+      fontFamily: 'Vazirmatn',
       left: 10,
       top: 0, // Adjust this value based on your design
       fontSize: 16,

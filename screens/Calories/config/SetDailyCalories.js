@@ -178,6 +178,7 @@ function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
                   color: theme.colors.text,
                   fontSize: 18,
                   fontWeight: 'bold',
+                  fontFamily: 'Vazirmatn',
                 }}>
                 {i18n.t('dailyCalories')}
               </ListItem.Title>
@@ -335,17 +336,20 @@ const getStyles = (theme) =>
       color: theme.colors.primary,
       fontWeight: 'bold',
       fontSize: 16,
+      fontFamily: 'Vazirmatn',
     },
     input: {
       color: theme.colors.text,
       fontSize: 24,
       fontWeight: 'bold',
+      fontFamily: 'Vazirmatn',
     },
     subs: {
       color: theme.colors.text,
       fontSize: 16,
       fontWeight: 'normal',
       marginLeft: 10,
+      fontFamily: 'Vazirmatn',
     },
     Button: {
       padding: 5,

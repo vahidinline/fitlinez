@@ -95,10 +95,15 @@ function CalorieMenu({
                 { color: l.active ? '#000' : '#ccc' },
                 { borderBottomColor: l.active ? '#000' : '#ccc' },
                 { borderBottomWidth: l.active ? 1 : 0 },
+                { fontFamily: 'Vazirmatn' },
               ]}>
               {l.name}
             </ListItem.Title>
-            <ListItem.Subtitle style={{ color: l.active ? '#000' : '#ccc' }}>
+            <ListItem.Subtitle
+              style={{
+                color: l.active ? '#000' : '#ccc',
+                fontFamily: 'Vazirmatn',
+              }}>
               {l.active ? '' : i18n.t('notActive')}
             </ListItem.Subtitle>
             <ListItem.Chevron />
