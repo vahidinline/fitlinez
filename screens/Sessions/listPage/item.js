@@ -1,6 +1,7 @@
 import { Button, Text, useTheme } from '@rneui/themed';
 import React, { useContext, useEffect, useState } from 'react';
 import {
+  Alert,
   Dimensions,
   KeyboardAvoidingView,
   PixelRatio,
@@ -28,6 +29,8 @@ import AiAskHelpIndex from '../../AiAskHelp/AiAskHelpIndex';
 import { checkUserAccess } from '../../../api/checkTestAccess';
 import Recommand from './recomand';
 import api from '../../../api/api';
+import { updateSession } from '../../../api/workoutSessionTracker';
+import { useNavigation } from '@react-navigation/native';
 const { width, height } = Dimensions.get('window');
 
 function Item({
@@ -76,7 +79,7 @@ function Item({
   const [userTestAccess, setUserTestAccess] = useState(false);
   let buttonVisible = true;
   const [currentSet, setCurrentSet] = useState(0);
-
+  const navigation = useNavigation();
   if (index >= dataLength - 1) {
     buttonVisible = false;
   }
@@ -234,6 +237,40 @@ function Item({
       return count;
     });
   };
+
+  const handleCloseSession = async () => {
+    Alert.alert(
+      i18n.t('closeSession'),
+      i18n.t('closeSessionMessage'),
+      [
+        {
+          text: i18n.t('cancel'),
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: i18n.t('confirm'),
+          onPress: async () => closeSession(),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+  const closeSession = async () => {
+    console.log('closing session');
+    const sessionId = await AsyncStorage.getItem('sessionId');
+    const res = await updateSession({
+      sessionId,
+      status: 'uncompleted',
+    });
+    if (res) {
+      console.log('session closed');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
+    }
+  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'position' : 'height'}
@@ -296,8 +333,9 @@ function Item({
             {title}
           </Text>
         </View>
-        <TouchableOpacity onPress={() => setShowInstruction(true)}>
-          <IconInfo />
+        <TouchableOpacity onPress={() => handleCloseSession()}>
+          {/* <IconInfo /> */}
+          <Icons.IconCloseCircle />
         </TouchableOpacity>
       </View>
 

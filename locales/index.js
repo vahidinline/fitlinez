@@ -415,9 +415,17 @@ const i18nt = {
       'No Workout Plan Available. Please see the similar workout plans below',
     similarWorkoutPlan: ' Similar Workout Plans',
     backtohome: 'Back to Home',
+    closeSession: 'Close Session',
+    closeSessionMessage:
+      'Are you sure you want to close the session? All data will be lost.',
+    confirm: 'Confirm',
   },
 
   fa: {
+    confirm: 'تایید',
+    closeSession: 'بستن جلسه تمرین',
+    closeSessionMessage:
+      'آیا مطمئن هستید که میخواهید جلسه تمرین را ببندید؟ تمام داده های این تمرین از بین خواهد رفت',
     backtohome: 'بازگشت به خانه',
     similarWorkoutPlan: 'برنامه های تمرینی مشابه',
     NoWorkoutPlanFound:
