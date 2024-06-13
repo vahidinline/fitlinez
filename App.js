@@ -25,7 +25,7 @@ import { ThemeContext } from './api/themeContext';
 import 'react-native-gesture-handler';
 import { SessionProvider } from './api/sessionContext';
 import { UnitProvider } from './api/unitContext';
-import { PaperProvider } from 'react-native-paper';
+import { ActivityIndicator, PaperProvider } from 'react-native-paper';
 import UserPrivilegeContext from './api/userPrivilegeContext';
 import checkFreeTrial from './api/checkFreeTrial';
 import { init } from '@amplitude/analytics-react-native';
@@ -203,6 +203,15 @@ export default function App() {
 
   if (!isReady) {
     return null;
+  }
+
+  // Display a loading indicator or splash screen while fonts are loading or app is initializing
+  if (!fontsLoaded || !isReady) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
   const ErrorFallback = () => (
