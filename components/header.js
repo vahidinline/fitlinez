@@ -1,16 +1,19 @@
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Dimensions, Touchable, TouchableOpacity, View } from 'react-native';
 import { Button, Icon, Text } from '@rneui/themed';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@rneui/themed';
 import { IconArrowLeft } from '../screens/marketplace/filters/icons-';
+import LanguageContext from '../api/langcontext';
+import { IconArrowRight } from '../screens/marketplace/filters/icons';
 
 function Header({ title, rightIconPress }) {
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
-
+  const { userLanguage } = useContext(LanguageContext);
+  const RTL = userLanguage === 'fa' ? true : false;
   const navigation = useNavigation();
   // const routeNamesHistory = useNavigationState((state) =>
   //   state.routes.map((route) => route.name)
@@ -53,7 +56,7 @@ function Header({ title, rightIconPress }) {
           onPress={() =>
             rightIconPress ? rightIconPress() : navigation.goBack()
           }>
-          <IconArrowLeft />
+          {RTL ? <IconArrowRight /> : <IconArrowLeft />}
         </TouchableOpacity>
       </View>
     </View>

@@ -76,16 +76,13 @@ function CurrentWorkoutCard({ title, trainer, location }) {
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          // justifyContent: 'space-between',
           marginHorizontal: 20,
           top: 10,
 
           //alignItems: 'center',
           width: Dimensions.get('window').width / 1.2,
-          height:
-            PixelRatio.get() < 3
-              ? Dimensions.get('window').height / 12
-              : Dimensions.get('window').height / 13,
+          height: Dimensions.get('window').height / 13,
           // marginHorizontal: 20,
         }}>
         <Text
@@ -103,29 +100,6 @@ function CurrentWorkoutCard({ title, trainer, location }) {
           right: 5,
           flexDirection: 'row',
         }}>
-        {/* <CurrentCard
-          index={2}
-          title={trainer}
-          subtitle={i18n.t('progress')}
-          icon={<IconTrainer />}
-          component={
-            <View>
-              <Text
-                style={{
-                  fontSize: PixelRatio.get() < 3 ? 14 : 16,
-                  fontWeight: '600',
-                  alignSelf: 'center',
-                  color: theme.colors.secondary,
-                }}>
-                {`${isNaN(percentage) ? 0 : percentage}`} %
-              </Text>
-              <LinearProgress
-                value={isNaN(percentage) ? 0 : percentage / 100}
-                style={{ marginTop: 10, height: 10, borderRadius: 8 }}
-              />
-            </View>
-          }
-        /> */}
         <CurrentCard
           index={1}
           title={title}
@@ -160,7 +134,8 @@ function CurrentWorkoutCard({ title, trainer, location }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //
+    // flex: 1,
     width: Dimensions.get('window').width / 1.1,
     marginHorizontal: 20,
   },

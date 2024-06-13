@@ -343,6 +343,7 @@ const i18nt = {
     update: 'Update',
     later: 'Later',
     showAllPlans: 'Show All Plans',
+    assigntheplan: 'Assign Plan',
     tutorialVideo: 'Tutorial Video',
     upgradeHeaderTextIndex: 'Upgrade to Premium',
     restday: 'Rest Day',
@@ -419,9 +420,12 @@ const i18nt = {
     closeSessionMessage:
       'Are you sure you want to close the session? All data will be lost.',
     confirm: 'Confirm',
+    seeDetails: 'See Details',
   },
 
   fa: {
+    seeDetails: 'مشاهده جزئیات',
+    assigntheplan: 'ایجاد برنامه تمرینی',
     confirm: 'تایید',
     closeSession: 'بستن جلسه تمرین',
     closeSessionMessage:

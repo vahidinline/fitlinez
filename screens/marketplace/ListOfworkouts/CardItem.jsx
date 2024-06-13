@@ -9,11 +9,15 @@ import { I18n } from 'i18n-js';
 import { Iconstar } from '../filters/icons-';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'react-native-expo-image-cache';
+import { Button } from '@rneui/base';
+import { savePackages } from '../../../api/assignNewPlan';
+import AuthContext from '../../../api/context';
 
 const SingleItem = ({ title, sub, level, location, mainTitle }) => {
   const { theme } = useTheme();
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
+
   i18n.locale = userLanguage;
   return (
     <View
@@ -85,13 +89,10 @@ function CardItem({ item }) {
   const RTL = userLanguage === 'fa' ? true : false;
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
+  const userAuth = useContext(AuthContext);
+  const userId = userAuth.userAuth.id;
   return (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('PlanItem', {
-          item: item,
-        })
-      }
+    <View
       style={{
         borderRadius: 16,
         marginHorizontal: 20,
@@ -106,16 +107,6 @@ function CardItem({ item }) {
         style={{
           flexDirection: 'row',
         }}>
-        {/* <Card.Cover
-          style={{
-            width: Dimensions.get('window').width / 3,
-            height: Dimensions.get('window').height / 3.5,
-            resizeMode: 'cover',
-            marginLeft: 10,
-            marginVertical: 10,
-          }}
-          source={{ uri: item.image }}
-        /> */}
         <Image
           style={{
             width: Dimensions.get('window').width / 3,
@@ -180,7 +171,29 @@ function CardItem({ item }) {
           {/* <SingleItem level={item.level} location={item.location} /> */}
         </View>
       </View>
-    </TouchableOpacity>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginVertical: 10,
+        }}>
+        <Button
+          onPress={() => savePackages(item, userId, navigation)}
+          style={{ marginHorizontal: 10, marginVertical: 10 }}>
+          {i18n.t('addtoyourplan')}
+        </Button>
+        <Button
+          onPress={() =>
+            navigation.navigate('PlanItem', {
+              item: item,
+            })
+          }
+          style={{ marginHorizontal: 10, marginVertical: 10 }}>
+          {i18n.t('seeDetails')}
+        </Button>
+      </View>
+    </View>
   );
 }
 

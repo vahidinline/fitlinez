@@ -19,7 +19,7 @@ import AuthContext from '../../api/context';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
-import { IconArrowRight } from '../marketplace/filters/icons';
+import { IconArrowLeft, IconArrowRight } from '../marketplace/filters/icons';
 import Header from '../../components/header';
 import { userLevelCheck, userStatusCheck } from '../../api/GetData';
 
@@ -53,7 +53,7 @@ const StartSessionIndex = ({ route }) => {
   const navigation = useNavigation();
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
-  const RTL = userLanguage === 'fa';
+  const RTL = userLanguage === 'fa' ? true : false;
   //console.log('timeSpent in index new plan', timeSpent);
   const saveWorkoutsList = async () => {
     await AsyncStorage.getItem('workoutsList').then((value) => {
@@ -301,7 +301,7 @@ const StartSessionIndex = ({ route }) => {
                       ? theme.colors.background
                       : theme.colors.disabled,
                   marginHorizontal: 16,
-                  height: item.title !== 'Rest' ? 100 : 70,
+                  height: item.title !== 'Rest' ? 120 : 80,
                   marginVertical: 8,
                   borderRadius: 16,
                   borderColor: theme.colors.border,
@@ -349,7 +349,11 @@ const StartSessionIndex = ({ route }) => {
                       marginLeft: 16,
                       marginTop: 16,
                     }}>
-                    {item.title !== 'Rest' && <IconArrowRight />}
+                    {RTL ? (
+                      <IconArrowLeft color={theme.colors.secondary} />
+                    ) : (
+                      <IconArrowRight color={theme.colors.secondary} />
+                    )}
                   </View>
                 </View>
 
@@ -391,7 +395,7 @@ const styles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#f2f4f5',
+      //backgroundColor: '#f2f4f5',
     },
     text: {
       fontSize: 10,

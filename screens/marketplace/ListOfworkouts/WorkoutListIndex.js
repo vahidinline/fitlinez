@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -12,7 +12,6 @@ import CardItem from './CardItem';
 import Header from '../../../components/header';
 import { getPackages } from '../../../api/GetData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useState } from 'react';
 import LanguageContext from '../../../api/langcontext';
 import AuthContext from '../../../api/context';
 import i18nt from '../../../locales';
@@ -21,26 +20,25 @@ import { Button } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
 
 function WorkoutListIndex({ route }) {
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const { theme } = useTheme();
   const [userBasic, setUserBasic] = useState([]);
   const [packages, setPackages] = useState([]);
 
-  const goal = userBasic[4]?.goal;
-  const location =
-    userBasic[5]?.location === 'Home & Gym' ? 'both' : userBasic[5]?.location;
+  // const goal = userBasic[4]?.goal;
+  // const location =
+  //   userBasic[5]?.location === 'Home & Gym' ? 'both' : userBasic[5]?.location;
 
-  const fitnessLevel = userBasic[6]?.fitnessLevel;
-  const daysPerWeek = userBasic[7]?.dayPreferences;
+  // const fitnessLevel = userBasic[6]?.fitnessLevel;
+  // const daysPerWeek = userBasic[7]?.dayPreferences;
   const { userLanguage } = useContext(LanguageContext);
   const { userAuth } = useContext(AuthContext);
   const userId = userAuth.id;
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-  console.log('location', location, goal, fitnessLevel, daysPerWeek);
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
       getLiveData();
@@ -49,19 +47,19 @@ function WorkoutListIndex({ route }) {
   }, []);
 
   //func to filter the packages based on the user's goal, location and fitness level
-  const filterPackages = () => {
-    return packages.filter(
-      (item) => item.location === location
-      // item.level === fitnessLevel &&
-      //item.goal === goal &&
-      //item.DaysPerWeek === daysPerWeek
-    );
-  };
-  let numberOfPackages = filterPackages().length;
+  // const filterPackages = () => {
+  //   return packages.filter(
+  //     (item) => item.location === location
+  //     // item.level === fitnessLevel &&
+  //     //item.goal === goal &&
+  //     //item.DaysPerWeek === daysPerWeek
+  //   );
+  // };
+  // let numberOfPackages = filterPackages().length;
 
   const getUserBasicData = async () => {
     const result = await AsyncStorage.getItem('userBasicData');
-
+    console.log('result', result);
     setUserBasic(JSON.parse(result));
   };
 

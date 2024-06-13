@@ -21,19 +21,14 @@ function CurrentCard({
   return (
     <View
       style={{
-        //position: 'absolute',
-        //top: 0,
-        //right: Dimensions.get('window').width,
         width: Dimensions.get('window').width / 1.2,
         flexDirection: 'column',
         justifyContent: 'space-between',
-        // alignItems: 'center',
         marginTop: 20,
         marginHorizontal: 10,
-        height: Dimensions.get('window').height,
         // backgroundColor: theme.colors.background,
       }}>
-      <View
+      {/* <View
         style={{
           //position: 'absolute',
           top: 10,
@@ -56,7 +51,7 @@ function CurrentCard({
           }}>
           {title}
         </Text>
-      </View>
+      </View> */}
       <View
         style={{
           // position: 'absolute',
@@ -77,10 +72,7 @@ function CurrentCard({
             borderWidth: 1,
             borderColor: theme.colors.border,
             marginTop: 0,
-            height:
-              PixelRatio.get() < 3
-                ? Dimensions.get('window').height / 7.5
-                : Dimensions.get('window').height / 9,
+            height: Dimensions.get('window').height / 7,
             width: Dimensions.get('window').width / 1.2,
             // width: '100%',
             marginHorizontal: 0,
@@ -105,7 +97,7 @@ function CurrentCard({
                 color: theme.colors.secondary,
                 fontFamily: 'Vazirmatn',
               }}>
-              {value}
+              {/* {value} */}
             </Text>
             {component}
           </Card.Content>

@@ -71,7 +71,7 @@ function WorkoutAgenda(props) {
         }}>
         <View
           style={{
-            top: 10,
+            top: 0,
             height: '80%',
             width: Dimensions.get('window').width / 9,
             marginHorizontal: 6,

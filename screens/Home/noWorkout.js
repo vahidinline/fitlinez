@@ -105,7 +105,7 @@ function NoWorkoutCard({ title, trainer, packages }) {
             height: 40,
             width: Dimensions.get('window').width / 1.2,
           }}>
-          {i18n.t('showAllPlans')}
+          {i18n.t('assigntheplan')}
         </Button>
 
         {/* <CurrentCard

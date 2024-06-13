@@ -16,7 +16,6 @@ import * as TaskManager from 'expo-task-manager';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
-import { ActivityIndicator } from 'react-native-paper';
 import NoWorkoutCard from './noWorkout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { checkUserAccess } from '../../api/checkTestAccess';
@@ -200,9 +199,9 @@ function HomeIndex() {
             style={{
               width: Dimensions.get('window').width,
               marginTop: 10,
-              height: '15%',
+              height: Dimensions.get('window').height / 12,
               //zIndex: 100,
-              marginBottom: Dimensions.get('window').height / 6,
+              marginBottom: Dimensions.get('window').height / 5.5,
             }}>
             <CurrentWorkoutCard
               title={currentPlan?.name || ''}
@@ -246,7 +245,7 @@ function HomeIndex() {
               buttonStyle={{
                 backgroundColor: theme.colors.primary,
                 borderRadius: 12,
-                // top: 10,
+                paddingTop: 10,
                 width: Dimensions.get('window').width / 1.2,
                 height: Dimensions.get('window').height / 20,
                 alignSelf: 'center',

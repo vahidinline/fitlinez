@@ -180,11 +180,11 @@ function HomeHeader({ planStartDate, data, title }) {
 
         <View
           style={{
-            padding: 10,
+            padding: 5,
             flexDirection: 'row',
             direction: RTL ? 'rtl' : 'ltr',
             backgroundColor: theme.colors.lightPrimary,
-            paddingHorizontal: 10,
+            paddingHorizontal: 2,
             width: Dimensions.get('window').width / 1,
             borderRadius: 10,
           }}>
@@ -195,14 +195,19 @@ function HomeHeader({ planStartDate, data, title }) {
               fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 12 : 14,
               flexWrap: 'wrap',
               flex: 1,
-              // top: 2,
+              paddingVertical: 8,
               fontFamily: 'Vazirmatn',
               fontWeight: '400',
-              marginHorizontal: 25,
+              marginHorizontal: 10,
             }}>
             {textMessage}
           </Text>
-          {status === 'bad' ? <IconHeaderNotStarted /> : <IconStarted />}
+          <View
+            style={{
+              padding: 5,
+            }}>
+            {status === 'bad' ? <IconHeaderNotStarted /> : <IconStarted />}
+          </View>
         </View>
       </View>
     </View>

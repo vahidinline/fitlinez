@@ -116,7 +116,7 @@ function TabNavigator() {
             !focused ? <IconCakeUnFocused /> : <IconCakeFocused />,
         }}
       /> */}
-      <Tab.Screen
+      {/* <Tab.Screen
         swipEnabled={false}
         name="MarketPlace"
         component={MarketPlaceNavigation}
@@ -126,7 +126,7 @@ function TabNavigator() {
           tabBarIcon: ({ focused }) =>
             !focused ? <IconMarketUnFocused /> : <IconMarketFocused />,
         }}
-      />
+      /> */}
       <Tab.Screen
         swipEnabled={false}
         name="profileNavigator"

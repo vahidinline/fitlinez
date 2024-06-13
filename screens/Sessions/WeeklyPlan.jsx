@@ -338,7 +338,7 @@ const WeeklyPlan = (props) => {
               fontSize: 15,
               fontWeight: 'bold',
               marginBottom: 20,
-              marginLeft: 20,
+              marginHorizontal: 20,
               fontFamily: 'Vazirmatn',
             }}>
             {estimatedTime} {i18n.t('minute')}
@@ -363,7 +363,7 @@ const WeeklyPlan = (props) => {
               fontWeight: '500',
               marginBottom: 20,
 
-              margin: 20,
+              marginHorizontal: 20,
             }}>
             {i18n.t('currentPlan')}
           </Text>

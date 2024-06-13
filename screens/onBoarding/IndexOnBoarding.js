@@ -262,7 +262,7 @@ function IndexOnBoarding() {
             bottom: 20,
           }}
           onPress={() => handlebutton()}
-          titileStyle={{
+          titleStyle={{
             fontFamily: 'Vazirmatn',
             color: theme.colors.primary,
           }}
