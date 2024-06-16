@@ -4,9 +4,9 @@ import axios from 'axios';
 const api = axios.create({
   //baseURL: 'https://jobitta.com',
   //office local
-  baseURL: 'http://10.10.177.234:8080',
+  //baseURL: 'http://10.10.177.234:8080',
   //home local
-  // baseURL: 'http://192.168.1.60:8080',
+  baseURL: 'http://192.168.1.63:8080',
   timeout: 20000,
   headers: {
     'Content-Type': 'application/json',

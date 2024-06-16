@@ -31,7 +31,9 @@ import CaloriesIndex from '../screens/Calories/CaloriesIndex';
 import {
   IconCakeFocused,
   IconCakeUnFocused,
+  IconToDoList,
 } from '../screens/marketplace/filters/icons';
+import DailyTaskIndex from '../screens/DailyTasks/DailyTaskIndex';
 
 const Tab = createBottomTabNavigator();
 
@@ -118,13 +120,13 @@ function TabNavigator() {
       /> */}
       {/* <Tab.Screen
         swipEnabled={false}
-        name="MarketPlace"
-        component={MarketPlaceNavigation}
+        name="DailyTaskIndex"
+        component={DailyTaskIndex}
         options={{
           headerShown: false,
-          title: i18n.t('plans'),
+          title: i18n.t('todayTasks'),
           tabBarIcon: ({ focused }) =>
-            !focused ? <IconMarketUnFocused /> : <IconMarketFocused />,
+            !focused ? <IconToDoList /> : <IconToDoList color={'#292D32'} />,
         }}
       /> */}
       <Tab.Screen

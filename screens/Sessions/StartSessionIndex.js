@@ -266,7 +266,7 @@ const StartSessionIndex = ({ route }) => {
       style={{
         flex: 1,
         backgroundColor: theme.colors.background,
-        direction: RTL ? 'rtl' : 'ltr',
+        //direction: RTL ? 'rtl' : 'ltr',
       }}>
       <Header title={title} />
       <ScrollView>
@@ -349,11 +349,7 @@ const StartSessionIndex = ({ route }) => {
                       marginLeft: 16,
                       marginTop: 16,
                     }}>
-                    {RTL ? (
-                      <IconArrowLeft color={theme.colors.secondary} />
-                    ) : (
-                      <IconArrowRight color={theme.colors.secondary} />
-                    )}
+                    <IconArrowRight color={theme.colors.secondary} />
                   </View>
                 </View>
 

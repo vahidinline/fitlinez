@@ -18,12 +18,13 @@ const addSession = async (userId, planId, planName, title, location) => {
   }
 };
 
-const updateSession = async ({ sessionId, status }) => {
+const updateSession = async ({ sessionId, status, userId }) => {
   console.log('sessionId', sessionId, 'status', status);
 
   try {
     const response = await api.put(`/workoutsession/update/${sessionId}`, {
       status,
+      userId,
     });
     return response.data;
   } catch (error) {
@@ -31,4 +32,14 @@ const updateSession = async ({ sessionId, status }) => {
   }
 };
 
-export { addSession, updateSession };
+const userWorkoutHistory = async (userId) => {
+  try {
+    const response = await api.get(`/workoutsession/get/${userId}`);
+    //console.log('response', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error reading session:', error);
+  }
+};
+
+export { addSession, updateSession, userWorkoutHistory };

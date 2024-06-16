@@ -56,7 +56,7 @@ function Header({ title, rightIconPress }) {
           onPress={() =>
             rightIconPress ? rightIconPress() : navigation.goBack()
           }>
-          {RTL ? <IconArrowRight /> : <IconArrowLeft />}
+          <IconArrowLeft />
         </TouchableOpacity>
       </View>
     </View>

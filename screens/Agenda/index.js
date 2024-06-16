@@ -1,117 +1,27 @@
 import { Text, useTheme } from '@rneui/themed';
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Dimensions, FlatList, StyleSheet } from 'react-native';
+import {
+  View,
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { IconRest, IconWeight } from '../marketplace/filters/icons';
+import { useNavigation } from '@react-navigation/native';
 
 function WorkoutAgenda(props) {
-  const { durationWeeks, sessionPerWeek, workoutData } = props;
+  const { workoutData } = props; // Assuming workoutData is provided via props
   const { theme } = useTheme();
   const { userLanguage } = useContext(LanguageContext);
-  const [workDates, setWorkDates] = useState({});
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
+  const navigation = useNavigation();
 
-  useEffect(() => {
-    setWorkDates(
-      generateDates(new Date(), durationWeeks, sessionPerWeek, workoutData)
-    );
-  }, []);
-
-  const generateDates = (startDate, taskData) => {
-    const workDates = {};
-    let currentDate = new Date(startDate);
-
-    for (let week = 1; week <= 12; week++) {
-      for (let day = 0; day < 7; day++) {
-        const currentDayName = currentDate.toLocaleString('en-US', {
-          weekday: 'long',
-        });
-        const formattedDate = currentDate.toISOString().split('T')[0];
-        const dayName = currentDayName.split(',')[0];
-
-        const task = taskData?.find((d) => d.day === dayName);
-        if (task) {
-          if (!workDates[formattedDate]) {
-            workDates[formattedDate] = [];
-          }
-          workDates[formattedDate].push({
-            name: task.title,
-            date: formattedDate,
-          });
-        } else {
-          if (!workDates[formattedDate]) {
-            workDates[formattedDate] = [{ name: 'Rest' }];
-          }
-        }
-
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-    }
-    return workDates;
-  };
-
-  const ButtonTitle = ({ item }) => {
-    const itemDate = new Date(item.year, item.month, parseInt(item.day, 10));
-    itemDate.setHours(0, 0, 0, 0);
-
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
-
-    const isPastDay = itemDate < currentDate;
-    const isToday = itemDate.getTime() === currentDate.getTime();
-
-    return (
-      <View
-        key={item.id}
-        style={{
-          flexDirection: 'column',
-        }}>
-        <View
-          style={{
-            top: 0,
-            height: '80%',
-            width: Dimensions.get('window').width / 9,
-            marginHorizontal: 6,
-            marginVertical: 4,
-            borderRadius: 16,
-            backgroundColor: isPastDay
-              ? theme.colors.grey3
-              : theme.colors.white,
-            borderWidth: isToday ? 2 : 1,
-            borderColor: isToday ? theme.colors.secondary : theme.colors.border,
-            justifyContent: 'space-around',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 15,
-              //fontWeight: 'bold',
-              color: isToday ? theme.colors.secondary : theme.colors.text,
-            }}>
-            {item.day}
-          </Text>
-
-          <Text
-            style={{
-              fontSize: 15,
-              // fontWeight: 'bold',
-              color: isToday ? theme.colors.secondary : theme.colors.text,
-            }}>
-            {item.title}
-          </Text>
-          {item.task !== 'Rest' ? (
-            <IconWeight size={24} />
-          ) : (
-            <IconRest size={24} color={theme.colors.secondary} />
-          )}
-        </View>
-      </View>
-    );
-  };
-
+  // Get the week data with today centered as the 4th item
   function getWeekData() {
     const weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const fullDayNames = [
@@ -124,43 +34,114 @@ function WorkoutAgenda(props) {
       'Saturday',
     ];
 
-    const getDayTitle = (day) => {
-      const fullDayName = fullDayNames[weekDays?.indexOf(day)];
-      return workoutData?.find((d) => d.day === fullDayName)?.title || 'Rest';
-    };
-
     const today = new Date();
-    const currentDayOfWeek = today.getDay();
+    today.setHours(0, 0, 0, 0); // Normalize to midnight
 
-    // Calculate the date of the most recent Monday
-    const mostRecentMonday = new Date(today);
-    mostRecentMonday.setDate(
-      today.getDate() - (currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1)
-    );
-
+    // Calculate the dates with today in the middle (4th position)
     const week = Array.from({ length: 7 }, (_, i) => {
-      const dayOfWeek = (mostRecentMonday.getDay() + i) % 7;
-      const date = new Date(mostRecentMonday);
-      date.setDate(mostRecentMonday.getDate() + i);
+      const date = new Date(today);
+      date.setDate(today.getDate() + i - 3); // Offset by -3 to +3 around today
+
+      const dayName = fullDayNames[date.getDay()];
+      const formattedDate = date.toISOString().split('T')[0];
+
+      // Find the task for the current day
+      const task = workoutData?.find((d) => d.day === dayName) || {
+        title: 'Rest',
+      };
+
       return {
         day: String(date.getDate()).padStart(2, '0'),
         month: date.getMonth(),
         year: date.getFullYear(),
-        title: weekDays[dayOfWeek],
-        task: getDayTitle(weekDays[dayOfWeek]),
+        title: weekDays[date.getDay()],
+        task: task.title, // Assign the task title
+        isToday: date.getTime() === today.getTime(),
       };
     });
 
     return week;
   }
 
+  const ButtonTitle = ({ item }) => {
+    return (
+      <View
+        key={`${item.year}-${item.month}-${item.day}`}
+        style={{
+          flexDirection: 'column',
+        }}>
+        <TouchableOpacity
+          // onPress={() => {
+          //   item.isToday
+          //     ? navigation.navigate('DailyTaskIndex', {
+          //         screen: 'DailyTaskIndex',
+          //       })
+          //     : null;
+          // }}
+          style={{
+            top: item.isToday ? 0 : 5,
+            height: item.isToday ? 100 : 90,
+            width: !item.isToday ? Dimensions.get('window').width / 9 : 60,
+            marginHorizontal: item.isToday ? 2 : 6,
+            marginVertical: 4,
+            borderRadius: item.isToday ? 16 : 10,
+            backgroundColor: item.isToday
+              ? theme.colors.secondary
+              : theme.colors.white,
+
+            borderWidth: item.isToday ? 2 : 1,
+            borderColor: theme.colors.primary,
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 15,
+              color: item.isToday
+                ? theme.colors.primary
+                : theme.colors.secondary,
+            }}>
+            {item.day}
+          </Text>
+
+          <Text
+            style={{
+              fontSize: 15,
+              color: item.isToday
+                ? theme.colors.primary
+                : theme.colors.secondary,
+            }}>
+            {item.title}
+          </Text>
+          {item.title !== 'Rest' ? (
+            <IconWeight
+              size={24}
+              color={item.isToday ? theme.colors.white : theme.colors.secondary}
+            />
+          ) : (
+            <IconRest
+              size={24}
+              color={item.isToday ? theme.colors.white : theme.colors.secondary}
+            />
+          )}
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <FlatList
       data={getWeekData()}
       renderItem={({ item }) => <ButtonTitle item={item} />}
-      keyExtractor={(item) => item.day}
+      keyExtractor={(item) => `${item.year}-${item.month}-${item.day}`}
       horizontal
       showsHorizontalScrollIndicator={false}
+      initialScrollIndex={3} // Start with today as the center item
+      getItemLayout={(data, index) => ({
+        length: Dimensions.get('window').width / 7,
+        offset: (Dimensions.get('window').width / 7) * index,
+        index,
+      })}
     />
   );
 }

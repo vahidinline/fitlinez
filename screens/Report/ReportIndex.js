@@ -10,6 +10,8 @@ import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import getAllWorkoutHistory from '../../api/getAllHistory';
+import { userWorkoutHistory } from '../../api/workoutSessionTracker';
+import AuthContext from '../../api/context';
 
 function ReportIndex() {
   const [userHisoricalData, setUserHistoricalData] = useState([]);
@@ -19,7 +21,10 @@ function ReportIndex() {
   const [itemsPerPage, onItemsPerPageChange] = useState(
     numberOfItemsPerPageList[0]
   );
+
   const { userLanguage } = useContext(LanguageContext);
+  const { userAuth } = useContext(AuthContext);
+  const userId = userAuth.id;
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const from = page * itemsPerPage;
@@ -30,7 +35,16 @@ function ReportIndex() {
     return `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
   };
 
+  const handleHistoryData = async () => {
+    const res = await userWorkoutHistory(userId);
+    if (res) {
+      setUserHistoricalData(res);
+    }
+    //
+  };
+
   useEffect(() => {
+    handleHistoryData();
     getAllWorkoutHistory()
       .then((result) => {
         setUserHistoricalData(result.rows._array);

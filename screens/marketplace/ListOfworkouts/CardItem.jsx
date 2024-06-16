@@ -179,11 +179,43 @@ function CardItem({ item }) {
           marginVertical: 10,
         }}>
         <Button
+          buttonStyle={{
+            backgroundColor: theme.colors.secondary,
+            borderRadius: 10,
+            width: 150,
+            height: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginHorizontal: 10,
+            marginVertical: 10,
+          }}
+          titleStyle={{
+            color: theme.colors.white,
+            fontSize: 14,
+            fontWeight: '700',
+            fontFamily: 'Vazirmatn',
+          }}
           onPress={() => savePackages(item, userId, navigation)}
           style={{ marginHorizontal: 10, marginVertical: 10 }}>
           {i18n.t('addtoyourplan')}
         </Button>
         <Button
+          buttonStyle={{
+            backgroundColor: theme.colors.warning,
+            borderRadius: 10,
+            width: 150,
+            height: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginHorizontal: 10,
+            marginVertical: 10,
+          }}
+          titleStyle={{
+            color: theme.colors.white,
+            fontSize: 14,
+            fontWeight: '700',
+            fontFamily: 'Vazirmatn',
+          }}
           onPress={() =>
             navigation.navigate('PlanItem', {
               item: item,

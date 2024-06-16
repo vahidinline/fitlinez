@@ -43,7 +43,9 @@
     "expo-crypto": "~12.4.1",
     "expo-dev-client": "~2.4.13",
     "expo-device": "~5.4.0",
+    "expo-env": "^1.1.1",
     "expo-file-system": "~15.4.4",
+    "expo-font": "~11.4.0",
     "expo-image-picker": "~14.3.2",
     "expo-linear-gradient": "~12.3.0",
     "expo-localization": "~14.3.0",
@@ -86,8 +88,7 @@
     "react-native-svg": "^13.9.0",
     "react-native-vector-icons": "^10.0.3",
     "react-native-view-shot": "3.7.0",
-    "victory-native": "^36.6.12",
-    "expo-font": "~11.4.0"
+    "victory-native": "^36.6.12"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

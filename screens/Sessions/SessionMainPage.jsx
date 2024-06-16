@@ -185,7 +185,9 @@ const SessionMainPage = (props) => {
       console.log('sessionId', sessionId);
       await updateSession({
         sessionId,
+
         status: 'completed',
+        userId,
       });
 
       setTimeout(() => {

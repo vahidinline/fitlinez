@@ -10,7 +10,12 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import CurrentCard from './homeCard/CurrentCard';
 import { useNavigation } from '@react-navigation/native';
-import { IconArrow, IconBlackDumbbell } from '../marketplace/filters/icons';
+import {
+  IconArrow,
+  IconArrowLeft,
+  IconArrowRight,
+  IconBlackDumbbell,
+} from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
@@ -22,8 +27,9 @@ import UserPrivilegeContext from '../../api/userPrivilegeContext';
 import StartSessionIndexHome from '../Sessions/StartSessionIndexHome';
 import { IconTrainer } from '../marketplace/filters/icons';
 import PlanPlus from '../../components/newPlan';
+import DailyTaskIndex from '../DailyTasks/DailyTaskIndex';
 
-function CurrentWorkoutCard({ title, trainer, location }) {
+function CurrentWorkoutCard({ title, trainer, location, RTL }) {
   const [percentage, setPercentage] = useState(0);
   const { userPrivilege, setUserPrivilege } = useContext(UserPrivilegeContext);
   useEffect(() => {
@@ -66,68 +72,12 @@ function CurrentWorkoutCard({ title, trainer, location }) {
         style={[
           styles.background,
           {
-            height:
-              PixelRatio.get() < 3
-                ? Dimensions.get('window').height / 3.8
-                : Dimensions.get('window').height / 4.5,
+            height: Dimensions.get('window').height / 6,
           },
         ]}
       />
-      <View
-        style={{
-          flexDirection: 'row',
-          // justifyContent: 'space-between',
-          marginHorizontal: 20,
-          top: 10,
 
-          //alignItems: 'center',
-          width: Dimensions.get('window').width / 1.2,
-          height: Dimensions.get('window').height / 13,
-          // marginHorizontal: 20,
-        }}>
-        <Text
-          style={[styles.text, { fontSize: PixelRatio.get() < 3 ? 14 : 18 }]}>
-          {title}
-        </Text>
-        <Pressable onPress={() => navigation.navigate('PlanDetailsIndex')}>
-          <IconArrow size={24} color={theme.colors.white} />
-        </Pressable>
-      </View>
-      <View
-        style={{
-          position: 'absolute',
-          top: 20,
-          right: 5,
-          flexDirection: 'row',
-        }}>
-        <CurrentCard
-          index={1}
-          title={title}
-          icon={<IconBlackDumbbell color="#fff" />}
-          subtitle={i18n.t('todaysactivity')}
-          component={
-            <Button
-              onPress={() => handleNextStep(userAuth.date)}
-              titleStyle={{
-                color: theme.colors.primary,
-                fontSize: PixelRatio.get() < 3 ? 10 : 14,
-                fontWeight: '500',
-                fontFamily: 'Vazirmatn',
-                marginVertical: 5,
-              }}
-              buttonStyle={{
-                borderRadius: 8,
-                backgroundColor: theme.colors.button,
-                borderWidth: 1,
-                borderColor: theme.colors.border,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              {i18n.t('letsstart')}
-            </Button>
-          }
-        />
-      </View>
+      <DailyTaskIndex />
     </View>
   );
 }

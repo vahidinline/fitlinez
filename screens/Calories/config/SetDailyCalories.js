@@ -190,7 +190,7 @@ function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
               placeholder="Enter daily calories"
               defaultValue={dailyCalories.toString() || '0'}
               keyboardType="numeric"
-              onChangeText={(e) => setDailyCalories(parseInt(e))}
+              onChangeText={(e) => setDailyCalories(parseInt(e) || 0)}
               onSubmitEditing={handleInput}
               onFocus={() => setTypeStatus('focused')}
             />

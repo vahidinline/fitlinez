@@ -24,7 +24,8 @@ import DailyReport from '../Calories/dailyReport';
 import { Button } from '@rneui/base';
 import FitlinezLoading from '../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
-import PushApp from '../../components/push';
+import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
+import DailyTaskIndex from '../DailyTasks/DailyTaskIndex';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -189,11 +190,13 @@ function HomeIndex() {
       </View>
 
       <ScrollView
-        style={{
-          // height: Dimensions.get('window').height,
-          flex: 1,
-          // marginTop: currentPlan ? Dimensions.get('window').height / 7 : 0,
-        }}>
+        style={
+          {
+            // height: Dimensions.get('window').height,
+            //flex: 1,
+            // marginTop: currentPlan ? Dimensions.get('window').height / 7 : 0,
+          }
+        }>
         {status === 'hasPlan' && (
           <View
             style={{
@@ -201,9 +204,10 @@ function HomeIndex() {
               marginTop: 10,
               height: Dimensions.get('window').height / 12,
               //zIndex: 100,
-              marginBottom: Dimensions.get('window').height / 5.5,
+              marginBottom: Dimensions.get('window').height / 8,
             }}>
             <CurrentWorkoutCard
+              RTL={isRTL}
               title={currentPlan?.name || ''}
               trainer={currentPlan?.creator || ''}
               totalSessions={totalSessions || 0}
@@ -218,7 +222,7 @@ function HomeIndex() {
               width: Dimensions.get('window').width,
               marginTop: 30,
 
-              marginBottom: Dimensions.get('window').height / 6,
+              marginBottom: Dimensions.get('window').height / 7,
             }}>
             <NoWorkoutCard packages={packages} userPervilage={userPervilage} />
           </View>
@@ -226,10 +230,10 @@ function HomeIndex() {
 
         <View
           style={{
-            backgroundColor: theme.colors.background,
+            //  backgroundColor: theme.colors.background,
             marginHorizontal: 20,
             borderRadius: 14,
-            marginVertical: 10,
+            marginVertical: 0,
           }}>
           <LinearGradient
             colors={['#5B5891', '#3A366F', '#17124a']}
@@ -260,11 +264,33 @@ function HomeIndex() {
               onPress={() => {
                 navigator.navigate('Calories');
               }}>
-              {i18n.t('calorieTracker')}
+              {i18n.t('calorieTracker')} ️{' '}
+              <Text
+                style={{
+                  position: 'absolute',
+                  right: 0,
+                  fontSize: 12,
+                  color: theme.colors.warning,
+                  fontFamily: 'Vazirmatn',
+                  top: 0,
+                }}>
+                {i18n.t('beta')} ️
+              </Text>
             </Button>
             <DailyReport userId={userAuth.id} />
           </View>
         </View>
+        <Text
+          style={{
+            color: theme.colors.text,
+            fontSize: 8,
+            fontFamily: 'Vazirmatn',
+            textAlign: 'center',
+            marginVertical: 10,
+          }}>
+          {' '}
+          v. {process.env.EXPO_PUBLIC_VERSION}
+        </Text>
       </ScrollView>
     </View>
   );

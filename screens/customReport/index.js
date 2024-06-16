@@ -21,6 +21,8 @@ import { captureRef } from 'react-native-view-shot';
 import * as MediaLibrary from 'expo-media-library';
 import { filterByDates } from '../../api/readWorkoutData';
 import { Iconshare } from '../marketplace/filters/icons-';
+import { userWorkoutHistory } from '../../api/workoutSessionTracker';
+import AuthContext from '../../api/context';
 
 const db = SQLite.openDatabase('performance.db');
 const CustomReport = () => {
@@ -32,6 +34,15 @@ const CustomReport = () => {
   const Styles = getStyles(theme);
   const imageRef = useRef();
   const [filteredData, setFilteredData] = useState([]);
+  const { userAuth } = useContext(AuthContext);
+  const userId = userAuth.id;
+  const RTL = userLanguage === 'fa';
+  const handleHistoryData = async () => {
+    const res = await userWorkoutHistory(userId);
+    // console.log('history result', res);
+    setFilteredData(res);
+  };
+
   // const filteredData = [
   //   {
   //     category: 'Cardio',
@@ -96,17 +107,18 @@ const CustomReport = () => {
     );
   };
 
-  const getResult = async () => {
-    try {
-      const res = await filterByDates(pastSevenDays, tomorrow);
-      setFilteredData(res); // pass the fetched data to setFilteredData function
-    } catch (error) {
-      console.log('error', error);
-    }
-  };
+  // const getResult = async () => {
+  //   try {
+  //     const res = await filterByDates(pastSevenDays, tomorrow);
+  //     setFilteredData(res); // pass the fetched data to setFilteredData function
+  //   } catch (error) {
+  //     console.log('error', error);
+  //   }
+  // };
 
   useEffect(() => {
-    getResult();
+    // getResult();
+    handleHistoryData();
   }, []);
 
   const groupByDateAndCategory = (data) => {
@@ -140,58 +152,9 @@ const CustomReport = () => {
         height: Dimensions.get('window').height,
       }}>
       <StatusBar style="auto" />
-      <Header title={i18n.t('report')} />
+      <Header title={i18n.t('workoutReport')} />
       <ScrollView>
         <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-            }}>
-            <Button
-              title={i18n.t('weeklyReport')}
-              buttonStyle={{
-                backgroundColor: theme.colors.background,
-                borderRadius: 12,
-                borderWidth: 1,
-                borderColor: theme.colors.border,
-              }}
-              titleStyle={{
-                color: theme.colors.text,
-                fontSize: 12,
-                fontWeight: '400',
-              }}
-              onPress={() => {
-                filterByDates(pastSevenDays, tomorrow);
-              }}
-            />
-            <Button
-              buttonStyle={{
-                backgroundColor: theme.colors.background,
-                borderRadius: 12,
-                borderWidth: 1,
-                borderColor: theme.colors.border,
-              }}
-              titleStyle={{
-                color: theme.colors.text,
-                fontSize: 12,
-                fontWeight: '400',
-              }}
-              title={i18n.t('monthlyReport')}
-              onPress={() => {
-                filterByDates(pastThirtyDays, tomorrow);
-              }}
-            />
-            <Button
-              buttonStyle={{
-                backgroundColor: theme.colors.background,
-                borderRadius: 5,
-              }}
-              onPress={takeScreenshot}>
-              <Iconshare />
-            </Button>
-          </View>
-
           <View ref={imageRef}>
             <View
               style={{
@@ -207,15 +170,95 @@ const CustomReport = () => {
               }}>
               <View
                 style={{
-                  flexDirection: 'row',
+                  flexDirection: 'column',
                   justifyContent: 'space-between',
                   margin: 5,
                   borderRadius: 10,
                   padding: 5,
                 }}>
-                <Text>{reportHistoryDates}</Text>
+                <Text style={Styles.title}>{i18n.t('workoutHistory')}</Text>
+                {filteredData?.length > 0 && (
+                  <Text style={Styles.title}>
+                    {filteredData.length} {i18n.t('workouts')}
+                  </Text>
+                )}
+                {filteredData?.length === 0 && (
+                  <Text style={Styles.title}>{i18n.t('noWorkouts')}</Text>
+                )}
+
+                {filteredData
+                  ?.sort(
+                    (a, b) =>
+                      new Date(b.sessionStartDate) -
+                      new Date(a.sessionStartDate)
+                  )
+                  .map((item, index) => {
+                    return (
+                      <View
+                        key={index}
+                        style={{
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          margin: 5,
+                          borderRadius: 10,
+                          padding: 5,
+                          borderColor: theme.colors.border,
+                          borderWidth: 1,
+                        }}>
+                        <Text style={Styles.date}>
+                          {moment(item.sessionStartDate).format('YYYY-MM-DD')}
+                        </Text>
+                        {item.sessionEndDate != null && (
+                          <Text style={Styles.date}>
+                            {i18n.t('sessionDuration')} :{' '}
+                            {moment(item.sessionEndDate).diff(
+                              moment(item.sessionStartDate),
+                              'minutes'
+                            )}{' '}
+                            {i18n.t('minute')}
+                          </Text>
+                        )}
+                        {/* 
+                      moment difference between two dates in minutes
+                     
+*/}
+                        <Text style={Styles.title}>{item.planName}</Text>
+                        <Text style={Styles.subtitle}>
+                          {}
+
+                          {i18n.t('doneWorkoutAt', {
+                            workout: item.dayName,
+                            location:
+                              item.location === 'Gym'
+                                ? i18n.t('workOutAtGym')
+                                : i18n.t('workOutAtHome'),
+                          })}
+                        </Text>
+                        <Text style={Styles.status}>
+                          {item.sessionStatus === 'pending' &&
+                            i18n.t('pending')}
+                          {item.sessionStatus === 'started' &&
+                            i18n.t('pending')}
+                          {item.sessionStatus === 'uncompleted' &&
+                            i18n.t('missed')}
+
+                          {item.sessionStatus === 'completed' &&
+                            i18n.t('completed')}
+                          {item.sessionStatus === 'missed' && i18n.t('missed')}
+                        </Text>
+                        {item.burnedCalories != null && (
+                          <Text style={Styles.calories}>
+                            {`${i18n.t(
+                              'burnedCalories'
+                            )} ${item.burnedCalories.toFixed(0)}`}{' '}
+                            {i18n.t('calories')}
+                          </Text>
+                        )}
+                      </View>
+                    );
+                  })}
               </View>
-              {Object.entries(groupByDateAndCategory(filteredData)).map(
+              {/* {Object.entries(groupByDateAndCategory(filteredData)).map(
                 ([date, categories]) => {
                   return (
                     <View key={date} style={Styles.dateContainer}>
@@ -225,7 +268,9 @@ const CustomReport = () => {
                           <View
                             key={`${category}-${index}`}
                             style={Styles.categoryContainer}>
-                            <Text style={Styles.categoryText}>{category}</Text>
+                            <Text style={Styles.categoryText}>
+                              {item.dayName} {item.day}
+                            </Text>
                             <View style={Styles.itemContainer}>
                               <Text style={Styles.itemText}>
                                 {item.location === 'Gym'
@@ -233,11 +278,7 @@ const CustomReport = () => {
                                   : i18n.t('homeWorkout')}
                               </Text>
                               <Text style={Styles.itemText}>
-                                {item.performance !== 'Unknown'
-                                  ? `${i18n.t('performance')}: ${
-                                      item.performance
-                                    } %`
-                                  : null}
+                                {item.sessionStartDate}
                               </Text>
                             </View>
                           </View>
@@ -246,7 +287,7 @@ const CustomReport = () => {
                     </View>
                   );
                 }
-              )}
+              )} */}
             </View>
           </View>
         </View>
@@ -257,12 +298,25 @@ const CustomReport = () => {
 
 const getStyles = (theme) =>
   StyleSheet.create({
-    text: { color: theme.colors.text, fontSize: 14, fontWeight: '400' },
-    title: { color: theme.colors.text, fontSize: 14 },
-    tableText: {
+    text: {
+      color: theme.colors.text,
+      fontSize: 14,
+      fontWeight: '400',
+
+      fontFamily: 'Vazirmatn',
+    },
+    title: {
+      color: theme.colors.text,
+      fontSize: 18,
+      fontFamily: 'Vazirmatn',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    date: {
       color: theme.colors.text,
       fontSize: 10,
-
+      fontWeight: '400',
+      fontFamily: 'Vazirmatn',
       flexWrap: 'wrap',
     },
     container: {
@@ -278,11 +332,19 @@ const getStyles = (theme) =>
       borderRadius: 10,
       padding: 5,
     },
-    dateText: {
+    subtitle: {
       fontWeight: '400',
       fontSize: 14,
       textAlign: 'center',
       color: theme.colors.text,
+      fontFamily: 'Vazirmatn',
+    },
+    calories: {
+      color: theme.colors.text,
+      fontSize: 14,
+      fontWeight: '400',
+      fontFamily: 'Vazirmatn',
+      textAlign: 'center',
     },
     categoryContainer: {
       flexDirection: 'row',
@@ -305,6 +367,11 @@ const getStyles = (theme) =>
       padding: 5,
       borderRadius: 5,
       marginVertical: 2,
+    },
+    status: {
+      position: 'absolute',
+      top: 5,
+      right: 5,
     },
     itemText: {
       fontSize: 14,

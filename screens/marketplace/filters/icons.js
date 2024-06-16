@@ -7854,7 +7854,841 @@ const IconTickCircle = ({ color, size }) => {
     </Svg>
   );
 };
+
+const IconSignal = ({ color, size }) => {
+  return (
+    <Svg
+      fill={color || '#292D32'}
+      viewBox="-7.5 0 32 32"
+      xmlns="http://www.w3.org/2000/svg">
+      <G id="SVGRepo_bgCarrier" strokeWidth={1} />
+      <G
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <G id="SVGRepo_iconCarrier">
+        <Path d="M15.96 24.52c-0.48 0-0.84-0.36-0.84-0.84v-15.36c0-0.48 0.36-0.84 0.84-0.84s0.84 0.36 0.84 0.84v15.4c0.040 0.44-0.36 0.8-0.84 0.8zM10.92 24.52c-0.48 0-0.84-0.36-0.84-0.84v-12.2c0-0.48 0.36-0.84 0.84-0.84s0.84 0.36 0.84 0.84v12.2c0.040 0.48-0.36 0.84-0.84 0.84zM5.88 24.52c-0.48 0-0.84-0.36-0.84-0.84v-8c0-0.48 0.36-0.84 0.84-0.84s0.84 0.36 0.84 0.84v8c0 0.48-0.4 0.84-0.84 0.84zM0.84 24.52c-0.48 0-0.84-0.36-0.84-0.84v-5.28c0-0.48 0.36-0.84 0.84-0.84s0.84 0.36 0.84 0.84v5.28c0 0.48-0.4 0.84-0.84 0.84z" />
+      </G>
+    </Svg>
+  );
+};
+
+const IconWalk = ({ color, size }) => {
+  return (
+    <Svg viewBox="10 10 10 10" fill={color} xmlns="http://www.w3.org/2000/svg">
+      <G id="SVGRepo_bgCarrier" strokeWidth={10} />
+      <G
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <G id="SVGRepo_iconCarrier">
+        <Path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M13 6C14.1046 6 15 5.10457 15 4C15 2.89543 14.1046 2 13 2C11.8955 2 11 2.89543 11 4C11 5.10457 11.8955 6 13 6ZM11.0528 6.60557C11.3841 6.43992 11.7799 6.47097 12.0813 6.68627L13.0813 7.40056C13.3994 7.6278 13.5559 8.01959 13.482 8.40348L12.4332 13.847L16.8321 20.4453C17.1384 20.9048 17.0143 21.5257 16.5547 21.8321C16.0952 22.1384 15.4743 22.0142 15.168 21.5547L10.5416 14.6152L9.72611 13.3919C9.58336 13.1778 9.52866 12.9169 9.57338 12.6634L10.1699 9.28309L8.38464 10.1757L7.81282 13.0334C7.70445 13.575 7.17759 13.9261 6.63604 13.8178C6.09449 13.7094 5.74333 13.1825 5.85169 12.641L6.51947 9.30379C6.58001 9.00123 6.77684 8.74356 7.05282 8.60557L11.0528 6.60557ZM16.6838 12.9487L13.8093 11.9905L14.1909 10.0096L17.3163 11.0513C17.8402 11.226 18.1234 11.7923 17.9487 12.3162C17.7741 12.8402 17.2078 13.1234 16.6838 12.9487ZM6.12844 20.5097L9.39637 14.7001L9.70958 15.1699L10.641 16.5669L7.87159 21.4903C7.60083 21.9716 6.99111 22.1423 6.50976 21.8716C6.0284 21.6008 5.85768 20.9911 6.12844 20.5097Z"
+          fill={color || '#292D32'}
+        />
+      </G>
+    </Svg>
+  );
+};
+
+const IconWorkout = ({ size, color }) => {
+  return (
+    <Svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      width={size}
+      height={size}
+      viewBox="0 0 256 256"
+      xmlSpace="preserve">
+      <Defs />
+      <G
+        style={{
+          stroke: 'none',
+          strokeWidth: 0,
+          strokeDasharray: 'none',
+          strokeLinecap: 'butt',
+          strokeLinejoin: 'miter',
+          strokeMiterlimit: 10,
+          fill: 'none',
+          fillRule: 'nonzero',
+          opacity: 1,
+        }}
+        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+        <Path
+          d="M 74.011 33.148 l -6.87 4.041 c -1.636 0.962 -3.743 0.416 -4.705 -1.22 L 47.55 10.665 c -0.962 -1.636 -0.416 -3.743 1.22 -4.705 l 6.87 -4.041 c 1.636 -0.962 3.743 -0.416 4.705 1.22 L 75.23 28.443 C 76.193 30.079 75.647 32.185 74.011 33.148 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(201,76,76)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 10.171 58.986 l 2.827 -1.663 l -8.13 -13.82 l -2.827 1.663 c -1.006 0.592 -1.342 1.887 -0.75 2.893 l 5.987 10.177 C 7.87 59.242 9.165 59.578 10.171 58.986 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(211,221,237)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 74.679 21.038 l -2.827 1.663 l -8.13 -13.82 l 2.827 -1.663 c 1.006 -0.592 2.302 -0.256 2.893 0.75 l 5.987 10.177 C 76.021 19.15 75.685 20.446 74.679 21.038 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(211,221,237)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Rect
+          x={19.06}
+          y={28.28}
+          rx={0}
+          ry={0}
+          width={38.59}
+          height={9.64}
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(211,221,237)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(0.8619 -0.507 0.507 0.8619 -11.4874 24.0212) "
+        />
+        <Path
+          d="M 15.324 61.277 L 1.49 37.761 c -0.962 -1.636 -0.416 -3.743 1.22 -4.705 l 6.87 -4.041 c 1.636 -0.962 3.743 -0.416 4.705 1.22 l 12.994 22.089"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(201,76,76)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 26.731 88.555 h -7.97 c -1.898 0 -3.437 -1.539 -3.437 -3.437 V 55.761 c 0 -1.898 1.539 -3.437 3.437 -3.437 h 7.97 c 1.898 0 3.437 1.539 3.437 3.437 v 29.357 C 30.168 87.016 28.629 88.555 26.731 88.555 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(134,142,150)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 80.17 88.555 H 72.2 c -1.898 0 -3.437 -1.539 -3.437 -3.437 V 55.761 c 0 -1.898 1.539 -3.437 3.437 -3.437 h 7.97 c 1.898 0 3.437 1.539 3.437 3.437 v 29.357 C 83.607 87.016 82.068 88.555 80.17 88.555 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(134,142,150)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 12.044 78.456 h 3.28 V 62.422 h -3.28 c -1.167 0 -2.114 0.946 -2.114 2.114 v 11.807 C 9.931 77.51 10.877 78.456 12.044 78.456 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(211,221,237)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 86.886 78.456 h -3.28 V 62.422 h 3.28 c 1.167 0 2.114 0.946 2.114 2.114 v 11.807 C 89 77.51 88.054 78.456 86.886 78.456 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(211,221,237)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Rect
+          x={30.17}
+          y={65.62}
+          rx={0}
+          ry={0}
+          width={38.59}
+          height={9.64}
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(211,221,237)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+        />
+        <Path
+          d="M 26.731 89.555 h -7.97 c -2.447 0 -4.437 -1.99 -4.437 -4.437 V 55.76 c 0 -2.446 1.99 -4.437 4.437 -4.437 h 7.97 c 2.447 0 4.437 1.99 4.437 4.437 v 29.358 C 31.168 87.564 29.178 89.555 26.731 89.555 z M 18.761 53.324 c -1.344 0 -2.437 1.093 -2.437 2.437 v 29.358 c 0 1.344 1.093 2.437 2.437 2.437 h 7.97 c 1.344 0 2.437 -1.093 2.437 -2.437 V 55.76 c 0 -1.344 -1.093 -2.437 -2.437 -2.437 H 18.761 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 80.17 89.555 H 72.2 c -2.447 0 -4.438 -1.99 -4.438 -4.437 V 55.76 c 0 -2.446 1.99 -4.437 4.438 -4.437 h 7.97 c 2.446 0 4.437 1.99 4.437 4.437 v 29.358 C 84.606 87.564 82.616 89.555 80.17 89.555 z M 72.2 53.324 c -1.344 0 -2.438 1.093 -2.438 2.437 v 29.358 c 0 1.344 1.094 2.437 2.438 2.437 h 7.97 c 1.344 0 2.437 -1.093 2.437 -2.437 V 55.76 c 0 -1.344 -1.093 -2.437 -2.437 -2.437 H 72.2 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 15.324 79.456 h -3.28 c -1.717 0 -3.113 -1.396 -3.113 -3.113 V 64.536 c 0 -1.717 1.396 -3.113 3.113 -3.113 h 3.28 c 0.552 0 1 0.447 1 1 v 16.033 C 16.324 79.009 15.876 79.456 15.324 79.456 z M 12.044 63.422 c -0.614 0 -1.113 0.499 -1.113 1.113 v 11.807 c 0 0.614 0.5 1.113 1.113 1.113 h 2.28 V 63.422 H 12.044 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 86.887 79.456 h -3.28 c -0.553 0 -1 -0.447 -1 -1 V 62.422 c 0 -0.553 0.447 -1 1 -1 h 3.28 c 1.717 0 3.113 1.396 3.113 3.113 v 11.807 C 90 78.059 88.604 79.456 86.887 79.456 z M 84.606 77.456 h 2.28 c 0.614 0 1.113 -0.499 1.113 -1.113 V 64.536 c 0 -0.614 -0.499 -1.113 -1.113 -1.113 h -2.28 V 77.456 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 68.763 76.259 H 30.168 c -0.552 0 -1 -0.447 -1 -1 v -9.638 c 0 -0.553 0.448 -1 1 -1 h 38.595 c 0.553 0 1 0.447 1 1 v 9.638 C 69.763 75.811 69.315 76.259 68.763 76.259 z M 31.168 74.259 h 36.595 v -7.638 H 31.168 V 74.259 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 65.406 38.665 c -0.374 0 -0.75 -0.048 -1.121 -0.144 c -1.147 -0.297 -2.11 -1.024 -2.711 -2.045 L 46.688 11.172 c -0.601 -1.021 -0.768 -2.215 -0.471 -3.363 c 0.298 -1.147 1.024 -2.109 2.046 -2.71 l 6.869 -4.042 c 2.11 -1.241 4.833 -0.533 6.074 1.575 l 14.886 25.304 c 1.239 2.108 0.533 4.833 -1.575 6.073 l 0 0 l -6.869 4.042 C 66.957 38.457 66.187 38.665 65.406 38.665 z M 57.378 2.445 c -0.419 0 -0.844 0.108 -1.231 0.336 l -6.869 4.042 c -0.561 0.33 -0.96 0.859 -1.123 1.489 c -0.163 0.63 -0.072 1.286 0.258 1.846 l 14.887 25.304 c 0.329 0.561 0.858 0.96 1.488 1.123 c 0.632 0.163 1.287 0.071 1.848 -0.258 l 6.869 -4.042 l 0.507 0.862 l -0.507 -0.862 c 1.157 -0.681 1.546 -2.178 0.864 -3.336 L 59.482 3.646 C 59.029 2.875 58.215 2.445 57.378 2.445 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 9.105 60.277 c -1.068 0 -2.109 -0.549 -2.689 -1.534 L 0.429 48.566 c -0.871 -1.48 -0.375 -3.391 1.105 -4.262 l 2.828 -1.663 c 0.477 -0.279 1.089 -0.121 1.369 0.355 l 8.13 13.819 c 0.28 0.476 0.121 1.089 -0.354 1.369 l -2.827 1.663 c 0 0 0 0 0 0 C 10.184 60.138 9.641 60.277 9.105 60.277 z M 10.172 58.986 h 0.01 H 10.172 z M 4.513 44.872 l -1.965 1.156 c -0.529 0.312 -0.706 0.995 -0.395 1.524 L 8.14 57.729 c 0.312 0.528 0.994 0.706 1.525 0.395 l 1.964 -1.155 L 4.513 44.872 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 71.853 23.701 c -0.343 0 -0.677 -0.176 -0.863 -0.493 l -8.13 -13.82 c -0.134 -0.229 -0.172 -0.501 -0.105 -0.758 c 0.066 -0.257 0.232 -0.477 0.461 -0.611 l 2.827 -1.663 c 0.716 -0.421 1.553 -0.54 2.359 -0.331 c 0.805 0.208 1.48 0.718 1.902 1.436 l 5.987 10.176 c 0.87 1.48 0.374 3.392 -1.105 4.263 l 0 0 l -2.827 1.663 C 72.2 23.656 72.025 23.701 71.853 23.701 z M 65.092 9.235 l 7.115 12.096 l 1.966 -1.156 c 0.529 -0.312 0.706 -0.996 0.395 -1.525 L 68.58 8.475 c -0.15 -0.257 -0.392 -0.439 -0.68 -0.514 c -0.286 -0.074 -0.587 -0.033 -0.844 0.118 L 65.092 9.235 z M 74.68 21.038 h 0.01 H 74.68 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 24.171 48.041 c -0.084 0 -0.168 -0.011 -0.251 -0.032 c -0.257 -0.066 -0.477 -0.232 -0.611 -0.461 l -4.887 -8.307 c -0.28 -0.476 -0.121 -1.089 0.355 -1.369 l 33.265 -19.57 c 0.228 -0.135 0.499 -0.174 0.758 -0.106 c 0.257 0.066 0.477 0.232 0.611 0.461 l 4.887 8.307 c 0.279 0.476 0.121 1.089 -0.355 1.369 l -33.265 19.57 C 24.523 47.994 24.348 48.041 24.171 48.041 z M 20.653 39.088 l 3.873 6.583 l 31.541 -18.555 l -3.872 -6.583 L 20.653 39.088 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 15.325 62.277 c -0.343 0 -0.677 -0.176 -0.863 -0.493 L 0.629 38.268 c -0.601 -1.021 -0.768 -2.215 -0.471 -3.363 c 0.297 -1.147 1.023 -2.11 2.045 -2.71 l 6.87 -4.042 c 1.021 -0.601 2.215 -0.767 3.363 -0.471 c 1.147 0.297 2.109 1.024 2.71 2.045 l 12.995 22.09 c 0.28 0.476 0.121 1.089 -0.355 1.369 c -0.475 0.281 -1.089 0.121 -1.369 -0.355 L 13.423 30.742 c -0.33 -0.561 -0.859 -0.959 -1.489 -1.123 c -0.631 -0.163 -1.287 -0.071 -1.847 0.258 l -6.87 4.042 c -0.561 0.33 -0.96 0.859 -1.123 1.489 c -0.164 0.63 -0.072 1.286 0.258 1.847 L 16.186 60.77 c 0.28 0.476 0.121 1.089 -0.355 1.369 C 15.672 62.233 15.497 62.277 15.325 62.277 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+      </G>
+    </Svg>
+  );
+};
+
+const IconWalking = ({ size, color }) => {
+  return (
+    <Svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      width={size}
+      height={size}
+      viewBox="0 0 256 256"
+      xmlSpace="preserve">
+      <Defs />
+      <G
+        style={{
+          stroke: 'none',
+          strokeWidth: 0,
+          strokeDasharray: 'none',
+          strokeLinecap: 'butt',
+          strokeLinejoin: 'miter',
+          strokeMiterlimit: 10,
+          fill: 'none',
+          fillRule: 'nonzero',
+          opacity: 1,
+        }}
+        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+        <Path
+          d="M 60.318 25.352 v 20.123 c 0 5.091 4.127 9.217 9.217 9.217 h 2.886 C 81.578 54.693 89 62.116 89 71.272 v 8.137 c 0 2.977 -2.413 5.391 -5.391 5.391 H 56.975 c -5.685 0 -11.149 -2.207 -15.239 -6.156 L 5.28 43.444 c -5.627 -5.433 -5.677 -14.432 -0.112 -19.928 L 21.015 7.869 C 24.55 4.378 30.22 4.333 33.81 7.768 l 0 0 c -0.299 11.805 10.183 16.892 22.3 14.188 C 58.271 21.474 60.318 23.138 60.318 25.352 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(133,158,196)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 4.063 24.748 l 44.678 43.028 c 2.328 2.242 5.435 3.495 8.668 3.495 H 89 c 0 0 0 8.137 0 8.137 c 0 2.977 -2.413 5.391 -5.391 5.391 H 56.975 c -5.685 0 -11.149 -2.207 -15.239 -6.156 L 5.28 43.444 C 0.056 38.4 -0.362 30.28 4.06 24.746 L 4.063 24.748 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(208,215,233)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 33.81 7.768 c -0.081 3.211 0.635 5.924 1.964 8.12 l 0.005 -0.003 c -5.451 2.631 -11.8 2.375 -19.764 -3.079 l 0 0 l 4.999 -4.937 C 24.55 4.378 30.22 4.333 33.81 7.768"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(248,210,79)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 20.957 41.018 L 4.063 24.748 l 8.479 -8.513 C 20.641 24.037 23.758 32.271 20.957 41.018 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(248,210,79)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 60.4 46.663 l -0.082 -17.505 l -4.082 0.817 c -3.716 0.744 -5.939 4.575 -4.742 8.171 l 1.458 4.379 C 53.986 45.628 57.22 47.425 60.4 46.663 L 60.4 46.663"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(248,210,79)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 83.609 85.799 H 56.976 c -5.977 0 -11.635 -2.285 -15.934 -6.436 l -36.457 -35.2 c -5.574 -5.381 -6.135 -13.997 -1.306 -20.041 c 0.365 -0.458 0.764 -0.901 1.186 -1.317 L 20.312 7.157 c 3.947 -3.897 10.18 -3.948 14.19 -0.112 c 0.204 0.195 0.315 0.466 0.308 0.748 c -0.074 2.912 0.538 5.461 1.82 7.576 c 3.261 5.385 10.645 7.533 19.262 5.611 c 1.326 -0.294 2.687 0.025 3.745 0.873 c 1.068 0.856 1.68 2.132 1.68 3.499 v 20.123 c 0 4.531 3.686 8.218 8.218 8.218 h 2.886 C 82.115 53.693 90 61.578 90 71.272 v 8.137 C 90 82.932 87.133 85.799 83.609 85.799 z M 27.464 6.205 c -2.073 0 -4.144 0.793 -5.747 2.375 L 5.871 24.227 c -0.366 0.362 -0.712 0.746 -1.029 1.143 C 0.66 30.603 1.147 38.064 5.974 42.725 l 36.457 35.199 c 3.924 3.789 9.089 5.875 14.544 5.875 h 26.634 c 2.421 0 4.391 -1.969 4.391 -4.39 v -8.137 c 0 -8.59 -6.989 -15.579 -15.579 -15.579 h -2.886 c -5.634 0 -10.218 -4.584 -10.218 -10.217 V 25.353 c 0 -0.758 -0.34 -1.465 -0.931 -1.939 c -0.584 -0.467 -1.335 -0.643 -2.059 -0.481 c -9.483 2.118 -17.687 -0.384 -21.408 -6.526 c -1.413 -2.333 -2.124 -5.091 -2.115 -8.202 C 31.263 6.87 29.362 6.205 27.464 6.205 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 28.875 18.511 c -4.224 0 -8.667 -1.622 -13.425 -4.881 c -0.455 -0.312 -0.572 -0.934 -0.26 -1.39 c 0.312 -0.456 0.934 -0.571 1.39 -0.26 c 6.951 4.762 13.088 5.744 18.765 3.004 c 0.496 -0.24 1.094 -0.032 1.335 0.466 c 0.24 0.497 0.032 1.095 -0.466 1.335 C 33.832 17.934 31.393 18.511 28.875 18.511 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 89 72.272 H 57.409 c -3.509 0 -6.834 -1.34 -9.36 -3.774 L 20.281 41.755 c -0.012 -0.01 -0.022 -0.021 -0.034 -0.032 L 3.37 25.468 c -0.193 -0.186 -0.303 -0.442 -0.306 -0.71 s 0.102 -0.526 0.291 -0.716 l 8.478 -8.514 c 0.385 -0.388 1.008 -0.392 1.402 -0.015 c 8.395 8.087 11.373 16.565 8.857 25.209 l 27.342 26.333 c 2.154 2.074 4.985 3.216 7.974 3.216 H 89 c 0.553 0 1 0.447 1 1 S 89.553 72.272 89 72.272 z M 5.489 24.734 l 14.956 14.404 c 1.754 -7.364 -0.84 -14.419 -7.896 -21.494 L 5.489 24.734 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 26.977 47.815 c -0.354 0 -0.697 -0.188 -0.879 -0.521 c -0.265 -0.484 -0.085 -1.091 0.399 -1.356 c 6.172 -3.365 11.238 -4.834 18.067 -5.24 c 0.538 -0.04 1.024 0.387 1.057 0.939 c 0.033 0.551 -0.387 1.024 -0.939 1.057 c -6.507 0.387 -11.338 1.789 -17.228 4.999 C 27.303 47.776 27.139 47.815 26.977 47.815 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 33.53 54.125 c -0.354 0 -0.698 -0.188 -0.879 -0.521 c -0.265 -0.485 -0.085 -1.092 0.399 -1.356 c 6.17 -3.362 11.233 -4.83 18.059 -5.235 c 0.57 -0.021 1.025 0.388 1.057 0.938 c 0.033 0.552 -0.388 1.025 -0.938 1.057 c -6.505 0.387 -11.334 1.787 -17.221 4.995 C 33.855 54.086 33.691 54.125 33.53 54.125 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 40.069 60.383 c -0.355 0 -0.699 -0.189 -0.88 -0.523 c -0.264 -0.485 -0.083 -1.091 0.402 -1.355 c 6.124 -3.322 11.158 -4.774 17.954 -5.178 c 0.576 -0.029 1.025 0.388 1.057 0.938 c 0.033 0.552 -0.388 1.025 -0.938 1.057 c -6.477 0.386 -11.277 1.771 -17.119 4.94 C 40.393 60.344 40.23 60.383 40.069 60.383 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 38.981 85.799 H 1.027 c -0.552 0 -1 -0.447 -1 -1 s 0.448 -1 1 -1 h 37.954 c 0.552 0 1 0.447 1 1 S 39.533 85.799 38.981 85.799 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 23.532 71.803 H 1.027 c -0.552 0 -1 -0.447 -1 -1 s 0.448 -1 1 -1 h 22.505 c 0.552 0 1 0.447 1 1 S 24.084 71.803 23.532 71.803 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 9.124 57.807 H 1.027 c -0.552 0 -1 -0.447 -1 -1 c 0 -0.553 0.448 -1 1 -1 h 8.098 c 0.552 0 1 0.447 1 1 C 10.124 57.36 9.676 57.807 9.124 57.807 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+        <Path
+          d="M 58.899 47.841 c -3.079 0 -5.877 -1.944 -6.895 -5 l -1.459 -4.38 c -0.661 -1.986 -0.437 -4.163 0.613 -5.973 c 1.05 -1.81 2.829 -3.083 4.881 -3.494 l 4.082 -0.818 c 0.292 -0.059 0.597 0.016 0.828 0.206 c 0.231 0.189 0.367 0.471 0.368 0.77 L 61.4 46.658 c 0.002 0.465 -0.315 0.869 -0.766 0.977 C 60.052 47.775 59.47 47.841 58.899 47.841 z M 59.324 30.377 l -2.892 0.579 c -1.49 0.298 -2.781 1.223 -3.545 2.537 c -0.762 1.314 -0.925 2.895 -0.444 4.337 l 1.459 4.38 c 0.792 2.38 3.066 3.828 5.495 3.608 L 59.324 30.377 z"
+          style={{
+            stroke: 'none',
+            strokeWidth: 1,
+            strokeDasharray: 'none',
+            strokeLinecap: 'butt',
+            strokeLinejoin: 'miter',
+            strokeMiterlimit: 10,
+            fill: 'rgb(0,0,0)',
+            fillRule: 'nonzero',
+            opacity: 1,
+          }}
+          transform=" matrix(1 0 0 1 0 0) "
+          strokeLinecap="round"
+        />
+      </G>
+    </Svg>
+  );
+};
+
+const IconToDoList = ({ size, color }) => {
+  return (
+    <Svg
+      width={size || '24'}
+      height={size || '24'}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M8 2V5"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M16 2V5"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M3.5 9.08997H20.5"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M22 19C22 19.75 21.79 20.46 21.42 21.06C20.73 22.22 19.46 23 18 23C16.99 23 16.07 22.63 15.37 22C15.06 21.74 14.79 21.42 14.58 21.06C14.21 20.46 14 19.75 14 19C14 16.79 15.79 15 18 15C19.2 15 20.27 15.53 21 16.36C21.62 17.07 22 17.99 22 19Z"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M16.4399 19L17.4299 19.99L19.5599 18.02"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M21 8.5V16.36C20.27 15.53 19.2 15 18 15C15.79 15 14 16.79 14 19C14 19.75 14.21 20.46 14.58 21.06C14.79 21.42 15.06 21.74 15.37 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M11.9955 13.7H12.0045"
+        stroke={'#292D32'}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M8.29431 13.7H8.30329"
+        stroke={'#292D32'}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M8.29431 16.7H8.30329"
+        stroke={'#292D32'}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+};
+const IconToDoListFocused = ({ size, color }) => {
+  return (
+    <Svg
+      width={size || '24'}
+      height={size || '24'}
+      viewBox="0 0 24 24"
+      fill="#292D32"
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M8 2V5"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M16 2V5"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M3.5 9.08997H20.5"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M22 19C22 19.75 21.79 20.46 21.42 21.06C20.73 22.22 19.46 23 18 23C16.99 23 16.07 22.63 15.37 22C15.06 21.74 14.79 21.42 14.58 21.06C14.21 20.46 14 19.75 14 19C14 16.79 15.79 15 18 15C19.2 15 20.27 15.53 21 16.36C21.62 17.07 22 17.99 22 19Z"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M16.4399 19L17.4299 19.99L19.5599 18.02"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M21 8.5V16.36C20.27 15.53 19.2 15 18 15C15.79 15 14 16.79 14 19C14 19.75 14.21 20.46 14.58 21.06C14.79 21.42 15.06 21.74 15.37 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
+        stroke={'#292D32'}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M11.9955 13.7H12.0045"
+        stroke={'#292D32'}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M8.29431 13.7H8.30329"
+        stroke={'#292D32'}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M8.29431 16.7H8.30329"
+        stroke={'#292D32'}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M17.6009 22.5601H6.40094C4.58094 22.5601 2.92094 21.1601 2.62094 19.3701L1.29094 11.4001C1.07094 10.1601 1.68094 8.57007 2.67094 7.78007L9.60094 2.23007C10.9409 1.15007 13.0509 1.16007 14.4009 2.24007L21.3309 7.78007C22.3109 8.57007 22.9109 10.1601 22.7109 11.4001L21.3809 19.3601C21.0809 21.1301 19.3809 22.5601 17.6009 22.5601ZM11.9909 2.93007C11.4609 2.93007 10.9309 3.09007 10.5409 3.40007L3.61094 8.96007C3.05094 9.41007 2.65094 10.4501 2.77094 11.1601L4.10094 19.1201C4.28094 20.1701 5.33094 21.0601 6.40094 21.0601H17.6009C18.6709 21.0601 19.7209 20.1701 19.9009 19.1101L21.2309 11.1501C21.3409 10.4501 20.9409 9.39007 20.3909 8.95007L13.4609 3.41007C13.0609 3.09007 12.5209 2.93007 11.9909 2.93007Z"
+        fill="#292D32"
+      />
+    </Svg>
+  );
+};
+
 export {
+  IconToDoListFocused,
+  IconToDoList,
+  IconWalking,
+  IconWorkout,
+  IconWalk,
+  IconSignal,
   IconTickCircle,
   IconArrowDown,
   IconFire,

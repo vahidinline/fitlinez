@@ -7,6 +7,7 @@ import {
   Platform,
   SafeAreaView,
   Share,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
@@ -35,6 +36,8 @@ import {
   IconWeight,
   Iconshare,
 } from '../marketplace/filters/icons-';
+import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
+import { IconArrowLeft, IconArrowRight } from '../marketplace/filters/icons';
 
 const message =
   //'https://fitlinez.com/application?utm_source=fitlinezApp&utm_medium=share&utm_campaign=sharetoFriendWithInApp';
@@ -159,9 +162,9 @@ function SettingIndex() {
     },
     {
       id: 8,
-      name: 'Select Specific Workout',
+      name: i18n.t('updatePlanManually'),
       icon: IconWeight,
-      func: () => navigation.navigate('CustomPlan'),
+      func: () => getUsercurrentWorkoutPlan(userAuth.id),
     },
     {
       id: 9,
@@ -280,6 +283,12 @@ function SettingIndex() {
           }}>
           {i18n.t('settings')}
         </Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
+          }>
+          <IconArrowLeft color={theme.colors.secondary} />
+        </TouchableOpacity>
       </View>
       <View
         style={{
@@ -340,7 +349,6 @@ function SettingIndex() {
             )}
           />
         </View>
-        <Text>v.1.26.6</Text>
       </View>
     </SafeAreaView>
   );

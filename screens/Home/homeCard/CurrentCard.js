@@ -28,30 +28,6 @@ function CurrentCard({
         marginHorizontal: 10,
         // backgroundColor: theme.colors.background,
       }}>
-      {/* <View
-        style={{
-          //position: 'absolute',
-          top: 10,
-          right: index === 1 ? 0 : Dimensions.get('window').width / 22,
-          flexDirection: 'row',
-          //justifyContent: 'flex-start',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          marginRight: 0,
-          //bottom: 0,
-        }}>
-        {icon}
-        <Text
-          style={{
-            fontSize: PixelRatio.get() < 3 ? 11 : 12,
-            fontWeight: '500',
-            color: theme.colors.white,
-            marginLeft: 10,
-            fontFamily: 'Vazirmatn',
-          }}>
-          {title}
-        </Text>
-      </View> */}
       <View
         style={{
           // position: 'absolute',
@@ -67,12 +43,12 @@ function CurrentCard({
         }}>
         <Card
           style={{
-            backgroundColor: theme.colors.background,
+            //backgroundColor: theme.colors.background,
             borderRadius: 16,
             borderWidth: 1,
             borderColor: theme.colors.border,
             marginTop: 0,
-            height: Dimensions.get('window').height / 7,
+            // height: Dimensions.get('window').height / 7,
             width: Dimensions.get('window').width / 1.2,
             // width: '100%',
             marginHorizontal: 0,
@@ -99,7 +75,6 @@ function CurrentCard({
               }}>
               {/* {value} */}
             </Text>
-            {component}
           </Card.Content>
         </Card>
       </View>
