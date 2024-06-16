@@ -26,6 +26,7 @@ import FitlinezLoading from '../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
 import DailyTaskIndex from '../DailyTasks/DailyTaskIndex';
+import { getNewTasks } from '../../api/getNewTasks';
 
 function HomeIndex() {
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -127,6 +128,7 @@ function HomeIndex() {
     getPlanFromAsyncStorage();
   }, []);
 
+  // console.log('userAuth.id', userAuth.id);
   const getUserWorkoutData = async () => {
     currentPalnPercentage().then((data) => {
       setUserWorkoutData(data);

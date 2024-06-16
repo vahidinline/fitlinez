@@ -435,9 +435,15 @@ const i18nt = {
     workOutAtHome: 'Home',
     workOutAtGym: 'Gym',
     workoutReport: 'Workout Report',
+    noTasks: 'No tasks available',
+    getNewTasks: 'Get New Tasks',
+    noTasksAvailable: 'No tasks available',
   },
 
   fa: {
+    noTasksAvailable: ' امروز تمرینی موجود نیست',
+    getNewTasks: 'دریافت برنامه امروز',
+    noTasks: 'برنامه ای موجود نیست',
     workoutReport: 'گزارش تمرین',
     workOutAtHome: 'خانه',
     workOutAtGym: 'باشگاه',

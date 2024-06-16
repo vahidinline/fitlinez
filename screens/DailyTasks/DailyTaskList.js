@@ -3,6 +3,9 @@ import { useTheme } from '@rneui/themed';
 import React, { useContext } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import {
+  IconInfo,
+  IconTick,
+  IconTickCircle,
   IconWalk,
   IconWalking,
   IconWeight,
@@ -50,7 +53,7 @@ function DailyTaskList(item) {
           style={{
             //  padding: 15,
             flexDirection: 'row',
-            marginHorizontal: 10,
+            marginHorizontal: 0,
             alignItems: 'center',
           }}>
           {item.item.taskType === 'workout' && (
@@ -74,22 +77,43 @@ function DailyTaskList(item) {
             {item.item.task}
           </Text>
         </View>
-        <Text
+        <View
           style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
             color: theme.colors.text,
-            fontSize: 12,
+
             //fontWeight: '500',
-            top: 0,
-            fontFamily: 'Vazirmatn',
+            top: 5,
+
             //marginHorizontal: 16,
           }}>
-          {item.item.status === 'pending' && i18n.t('pending')}
-          {item.item.status === 'completed' && i18n.t('completed')}
-          {item.item.status === 'missed' && i18n.t('missed')}
-        </Text>
+          {item.item.status === 'pending' && (
+            <IconInfo
+              color={theme.colors.warning}
+              size={48}
+              fill={theme.colors.warning}
+            />
+          )}
+          {item.item.status === 'completed' && (
+            <IconTickCircle
+              color={theme.colors.white}
+              size={48}
+              fill={theme.colors.green}
+            />
+          )}
+          {item.item.status === 'missed' && (
+            <Text
+              style={{
+                color: theme.colors.warning,
+                fontSize: 20,
+                fontWeight: 'bold',
+                marginHorizontal: 16,
+                marginTop: 16,
+                fontFamily: 'Vazirmatn',
+              }}>
+              {i18n.t('missed')}
+            </Text>
+          )}
+        </View>
       </View>
     </TouchableOpacity>
   );

@@ -127,60 +127,10 @@ function WorkoutListIndex({ route }) {
             }}>
             {i18n.t('RecommendedWorkoutPlans')}
           </Text>
-          {packages.map((item) => {
-            return <CardItem key={item.id} item={item} />;
+          {packages.map((item, i) => {
+            return <CardItem key={i} item={item} />;
           })}
-          {/* <FlatList
-          ListHeaderComponent={
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '500',
-                color: theme.colors.text,
-                margin: 20,
-                flexShrink: 1,
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignSelf: 'center',
-                textAlign: 'center',
-              }}>
-              {i18n.t('RecommendedWorkoutPlans')}
-            </Text>
-          }
-          data={packages}
-          renderItem={({ item }) => <CardItem item={item} />}
-          keyExtractor={(item) => item.name}
-          showsVerticalScrollIndicator={false}
-          ListFooterComponent={
-            
-          }
-          ListEmptyComponent={
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: 50,
-              }}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '500',
-                  color: theme.colors.text,
-                  margin: 20,
-                  flexShrink: 1,
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  alignSelf: 'center',
-                  textAlign: 'center',
-                }}>
-                {i18n.t('NoWorkoutPlanFound')}
-              </Text>
-            </View>
-          }
-        /> */}
+
           <Divider
             style={{
               marginVertical: 20,
