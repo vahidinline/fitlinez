@@ -1,3 +1,4 @@
+import { useTheme } from '@rneui/themed';
 import React, { useState } from 'react';
 import { View, Button, StyleSheet, Dimensions } from 'react-native';
 import { Image } from 'react-native-expo-image-cache';
@@ -6,7 +7,7 @@ const ImageLoader = ({ uri, width, height, i18n }) => {
   const [imageLoaded, setImageLoaded] = useState(true);
   const [key, setKey] = useState(0); // Used to force re-render
   const [dimensions, setDimensions] = useState({ width: 200, height: 200 }); // Default dimensions
-
+  const { theme } = useTheme();
   const handleImageLoad = () => setImageLoaded(true);
   const handleImageError = () => setImageLoaded(false);
   const windowWidth = Dimensions.get('window').width / 1.4;
@@ -42,7 +43,16 @@ const ImageLoader = ({ uri, width, height, i18n }) => {
         // />
         <Image style={{ height: height, width: width }} {...{ uri }} />
       ) : (
-        <Button title={i18n.t('Retry')} onPress={retryLoadingImage} />
+        <Button
+          titleStyle={{
+            color: theme.colors.text,
+            fontSize: 14,
+            fontFamily: 'Vazirmatn',
+            //fontWeight: 'bold',
+          }}
+          title={i18n.t('Retry')}
+          onPress={retryLoadingImage}
+        />
       )}
       {/* <View style={styles.buttonsContainer}>
         <Button title="Zoom In" onPress={zoomIn} />

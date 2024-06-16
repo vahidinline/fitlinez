@@ -93,27 +93,6 @@ function WeightAndSetsInput(props) {
             flexDirection: 'row',
             backgroundColor: theme.colors.background,
           }}>
-          <View
-            style={{
-              borderRadius: 16,
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-              marginTop: 5,
-              marginBottom: 5,
-              borderWidth: 1,
-              borderColor: theme.colors.border,
-            }}>
-            <Text
-              style={{
-                margin: 5,
-                color: '#787680',
-                fontSize: 14,
-                fontWeight: '500',
-                padding: 10,
-              }}>
-              {i18n.t('set')} {setIndex + 1}
-            </Text>
-          </View>
           <InputSpinner
             name="weight"
             type="float"
@@ -143,10 +122,11 @@ function WeightAndSetsInput(props) {
               shadowOpacity: 0,
               borderTopRightRadius: 0,
               borderBottomRightRadius: 0,
-              borderRadius: 0,
+              borderTopLeftRadius: 16,
+              borderRadius: 16,
               borderWidth: 1,
-              borderStartWidth: 0,
-              borderEndWidth: 0,
+              borderStartWidth: 1,
+              borderEndWidth: 1,
               borderColor: theme.colors.border,
             }}
             skin="clean"
@@ -178,6 +158,7 @@ function WeightAndSetsInput(props) {
               borderRadius: 16,
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
+
               borderStartWidth: 1,
               borderWidth: 1,
               borderColor: theme.colors.border,

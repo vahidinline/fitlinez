@@ -85,7 +85,7 @@ function RepsInput(props) {
             width: Dimensions.get('window').width / 1.1,
             marginHorizontal: 5,
           }}>
-          <View
+          {/* <View
             style={{
               borderRadius: 16,
               borderTopRightRadius: 0,
@@ -105,7 +105,7 @@ function RepsInput(props) {
               }}>
               {i18n.t('set')} {setIndex + 1}
             </Text>
-          </View>
+          </View> */}
           <InputSpinner
             background={theme.colors.background}
             typingTimeout={2000}
@@ -127,18 +127,14 @@ function RepsInput(props) {
               shadowColor: 'transparent',
               justifyContent: 'center',
               shadowOpacity: 0,
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-              borderRadius: 0,
+
               borderWidth: 1,
-              borderStartWidth: 0,
-              borderEndWidth: 1,
-              borderEndEndRadius: 16,
-              borderStartEndRadius: 16,
+
+              borderRadius: 16,
+
               borderColor: theme.colors.border,
               marginStart: 0,
-              borderTopLeftRadius: 0,
-              borderBottomLeftRadius: 0,
+
               marginTop: 5,
               marginBottom: 5,
             }}

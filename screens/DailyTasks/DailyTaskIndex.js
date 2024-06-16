@@ -100,7 +100,7 @@ function DailyTaskIndex() {
           </View>
         )}
 
-        {dailyTasks.length === 0 && (
+        {dailyTasks?.length === 0 && (
           <View
             style={{
               backgroundColor: theme.colors.background,
@@ -147,7 +147,7 @@ function DailyTaskIndex() {
           </View>
         )}
 
-        {dailyTasks.map((item, i) => (
+        {dailyTasks?.map((item, i) => (
           <DailyTaskList key={i} item={item} i18n={i18n} />
         ))}
         {/* <FlatList

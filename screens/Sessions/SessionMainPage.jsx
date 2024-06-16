@@ -12,7 +12,6 @@ import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
 import { BottomSheet, useTheme, Button, Text } from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SessionContext } from '../../api/sessionContext';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
@@ -230,7 +229,8 @@ const SessionMainPage = (props) => {
         <FlatList
           initialNumToRender={2} // Adjust according to your need
           onEndReached={() => {
-            Alert.alert(i18n.t('alertEndOfList'));
+            console.log('End of list');
+            // Alert.alert(i18n.t('alertEndOfList'));
           }}
           removeClippedSubviews={true}
           maxToRenderPerBatch={2}

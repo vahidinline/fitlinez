@@ -23,7 +23,7 @@ function DailyTaskList(item) {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const isRTL = userLanguage === 'fa';
-  console.log('item', item);
+
   return (
     <TouchableOpacity
       onPress={() => {

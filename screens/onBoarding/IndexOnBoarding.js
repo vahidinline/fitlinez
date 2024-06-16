@@ -64,7 +64,7 @@ function IndexOnBoarding() {
       const newData = JSON.stringify(data);
       await submitUserDataToCloud(mergedObject);
       const asycRes = await AsyncStorage.setItem('userBasicData', newData);
-      console.log('asycRes', asycRes);
+      //console.log('asycRes', asycRes);
       //navigation.navigate('LastPageOnboarding');
     } catch (error) {
       console.log('Error in handleSubmit:', error);
@@ -109,9 +109,10 @@ function IndexOnBoarding() {
   }, [currentStep]);
 
   const handlebutton = () => {
-    if (currentStep === steps.length - 1) {
+    if (currentStep === steps.length - 2) {
       console.log('last step');
-      //navigation.navigate('WorkoutListIndex');
+      handleSubmit();
+      navigation.navigate('WorkoutListIndex');
       // navigation.reset({
       //   index: 0,
       //   routes: [{ name: 'Home' }],
