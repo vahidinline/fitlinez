@@ -153,6 +153,7 @@ function HomeHeader({ planStartDate, data, title }) {
       style={{
         flexDirection: 'row',
         height: 60,
+        // width: Dimensions.get('window').width / 1.4,
         alignItems: 'center',
       }}>
       <View>
@@ -185,14 +186,15 @@ function HomeHeader({ planStartDate, data, title }) {
             direction: RTL ? 'rtl' : 'ltr',
             backgroundColor: theme.colors.lightPrimary,
             paddingHorizontal: 2,
-            width: Dimensions.get('window').width / 1,
+            marginHorizontal: 20,
+            width: Dimensions.get('window').width / 1.1,
             borderRadius: 10,
           }}>
           <Text
             onPress={() => !activeAccount && navigation.navigate('Upgrade')}
             style={{
               color: theme.colors.secondary,
-              fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 12 : 14,
+              fontSize: messageLength > 50 || PixelRatio.get() < 3 ? 11 : 13,
               flexWrap: 'wrap',
               flex: 1,
               paddingVertical: 8,

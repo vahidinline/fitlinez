@@ -1,6 +1,12 @@
 import { Skeleton, Text, useTheme } from '@rneui/themed';
 import React, { useCallback, useContext } from 'react';
-import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import HomeHeader from './homeHeader';
 import { WorkoutAgenda } from '../Agenda';
 import { useEffect, useState } from 'react';
@@ -19,16 +25,15 @@ import AuthContext from '../../api/context';
 import NoWorkoutCard from './noWorkout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { checkUserAccess } from '../../api/checkTestAccess';
-import StartSessionIndexHome from '../Sessions/StartSessionIndexHome';
 import DailyReport from '../Calories/dailyReport';
 import { Button } from '@rneui/base';
 import FitlinezLoading from '../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
-import DailyTaskIndex from '../DailyTasks/DailyTaskIndex';
-import { getNewTasks } from '../../api/getNewTasks';
+import FitModal from '../../components/FitModal';
 
 function HomeIndex() {
+  const [refreshing, setRefreshing] = useState(false);
   const [currentPlan, setCurrentPlan] = useState(null);
   const [currentPlanAsync, setCurrentPlanAsync] = useState(null);
   const [isPlanAssigned, setIsPlanAssigned] = useState(false);
@@ -47,6 +52,7 @@ function HomeIndex() {
   const [status, setStatus] = useState('loading');
   // console.log('status', status);
   const styles = getStyles(theme);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const navigator = useNavigation();
   const [userTestAccess, setUserTestAccess] = useState(
@@ -61,6 +67,17 @@ function HomeIndex() {
       return BackgroundFetch.Result.Failed;
     }
   });
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(async () => {
+      const result = await getUsercurrentWorkoutPlan(userAuth.id, i18n);
+      if (result) {
+        setModalVisible(true);
+      }
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -174,6 +191,12 @@ function HomeIndex() {
           i18n={i18n}
           title={currentPlan?.name}
         />
+        {/* {modalVisible && (
+          <FitModal
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+          />
+        )} */}
         {status === 'hasPlan' && (
           <View
             style={{
@@ -192,12 +215,8 @@ function HomeIndex() {
       </View>
 
       <ScrollView
-        style={
-          {
-            // height: Dimensions.get('window').height,
-            //flex: 1,
-            // marginTop: currentPlan ? Dimensions.get('window').height / 7 : 0,
-          }
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         {status === 'hasPlan' && (
           <View

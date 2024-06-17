@@ -23,6 +23,7 @@ import { filterByDates } from '../../api/readWorkoutData';
 import { Iconshare } from '../marketplace/filters/icons-';
 import { userWorkoutHistory } from '../../api/workoutSessionTracker';
 import AuthContext from '../../api/context';
+import { G, Polygon, Svg } from 'react-native-svg';
 
 const db = SQLite.openDatabase('performance.db');
 const CustomReport = () => {
@@ -152,7 +153,7 @@ const CustomReport = () => {
         height: Dimensions.get('window').height,
       }}>
       <StatusBar style="auto" />
-      <Header title={i18n.t('workoutReport')} />
+      <Header title={i18n.t('report')} />
       <ScrollView>
         <View>
           <View ref={imageRef}>
@@ -205,6 +206,58 @@ const CustomReport = () => {
                           borderColor: theme.colors.border,
                           borderWidth: 1,
                         }}>
+                        <View
+                          style={{
+                            position: 'absolute',
+                            top: -10,
+                            right: -10,
+                          }}>
+                          <Svg height="70" width="70">
+                            <Polygon
+                              points="0 0, 0 10, 10 10"
+                              fill={
+                                item.sessionStatus === 'completed'
+                                  ? theme.colors.success
+                                  : theme.colors.warning
+                              }
+                              strokeWidth="0"
+                            />
+                            <Polygon
+                              points="0 0, 70 70, 70 40, 30 0"
+                              fill={
+                                item.sessionStatus === 'completed'
+                                  ? theme.colors.success
+                                  : theme.colors.warning
+                              }
+                              strokeWidth="0"
+                            />
+                            <Polygon
+                              points="60 60, 60 70, 70 70"
+                              fill={
+                                item.sessionStatus === 'completed'
+                                  ? theme.colors.success
+                                  : theme.colors.warning
+                              }
+                              strokeWidth="0"
+                            />
+                            <G rotation="45" origin="130, -10">
+                              <Text style={Styles.status}>
+                                {item.sessionStatus === 'pending' &&
+                                  i18n.t('pending')}
+                                {item.sessionStatus === 'started' &&
+                                  i18n.t('pending')}
+                                {item.sessionStatus === 'uncompleted' &&
+                                  i18n.t('missed')}
+
+                                {item.sessionStatus === 'completed' &&
+                                  i18n.t('completed')}
+                                {item.sessionStatus === 'missed' &&
+                                  i18n.t('missed')}
+                              </Text>
+                            </G>
+                          </Svg>
+                        </View>
+
                         <Text style={Styles.date}>
                           {moment(item.sessionStartDate).format('YYYY-MM-DD')}
                         </Text>
@@ -234,18 +287,7 @@ const CustomReport = () => {
                                 : i18n.t('workOutAtHome'),
                           })}
                         </Text>
-                        <Text style={Styles.status}>
-                          {item.sessionStatus === 'pending' &&
-                            i18n.t('pending')}
-                          {item.sessionStatus === 'started' &&
-                            i18n.t('pending')}
-                          {item.sessionStatus === 'uncompleted' &&
-                            i18n.t('missed')}
 
-                          {item.sessionStatus === 'completed' &&
-                            i18n.t('completed')}
-                          {item.sessionStatus === 'missed' && i18n.t('missed')}
-                        </Text>
                         {item.burnedCalories != null && (
                           <Text style={Styles.calories}>
                             {`${i18n.t(
@@ -258,36 +300,6 @@ const CustomReport = () => {
                     );
                   })}
               </View>
-              {/* {Object.entries(groupByDateAndCategory(filteredData)).map(
-                ([date, categories]) => {
-                  return (
-                    <View key={date} style={Styles.dateContainer}>
-                      <Text style={Styles.dateText}>{date}</Text>
-                      {Object.entries(categories).map(([category, items]) => {
-                        return items.map((item, index) => (
-                          <View
-                            key={`${category}-${index}`}
-                            style={Styles.categoryContainer}>
-                            <Text style={Styles.categoryText}>
-                              {item.dayName} {item.day}
-                            </Text>
-                            <View style={Styles.itemContainer}>
-                              <Text style={Styles.itemText}>
-                                {item.location === 'Gym'
-                                  ? i18n.t('gymWorkout')
-                                  : i18n.t('homeWorkout')}
-                              </Text>
-                              <Text style={Styles.itemText}>
-                                {item.sessionStartDate}
-                              </Text>
-                            </View>
-                          </View>
-                        ));
-                      })}
-                    </View>
-                  );
-                }
-              )} */}
             </View>
           </View>
         </View>
@@ -314,7 +326,7 @@ const getStyles = (theme) =>
     },
     date: {
       color: theme.colors.text,
-      fontSize: 10,
+      fontSize: 12,
       fontWeight: '400',
       fontFamily: 'Vazirmatn',
       flexWrap: 'wrap',
@@ -370,8 +382,10 @@ const getStyles = (theme) =>
     },
     status: {
       position: 'absolute',
-      top: 5,
-      right: 5,
+      top: 20,
+      right: 0,
+      transform: [{ rotate: '45deg' }],
+      color: 'white',
     },
     itemText: {
       fontSize: 14,

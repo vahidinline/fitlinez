@@ -287,7 +287,7 @@ function SettingIndex() {
           onPress={() =>
             navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
           }>
-          <IconArrowLeft color={theme.colors.secondary} />
+          {/* <IconArrowLeft color={theme.colors.secondary} /> */}
         </TouchableOpacity>
       </View>
       <View

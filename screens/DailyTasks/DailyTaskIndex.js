@@ -23,6 +23,7 @@ function DailyTaskIndex() {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const isRTL = userLanguage === 'fa';
+
   useEffect(() => {
     getDailyTasks(userId)
       .then((tasks) => {

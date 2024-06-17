@@ -68,7 +68,10 @@ function SupportIndex() {
           }}>
           <Text
             style={{
-              marginBottom: 20,
+              marginBottom: 22,
+              color: theme.colors.secondary,
+              fontSize: 18,
+              fontFamily: 'Vazirmatn',
             }}>
             {i18n.t('supportText')}
           </Text>
@@ -110,6 +113,8 @@ function SupportIndex() {
             <Text
               style={{
                 color: theme.colors.primary,
+                fontSize: 16,
+                fontFamily: 'Vazirmatn',
               }}>
               {i18n.t('support')}
             </Text>

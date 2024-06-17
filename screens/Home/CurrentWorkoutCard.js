@@ -6,6 +6,7 @@ import {
   Dimensions,
   PixelRatio,
   Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import CurrentCard from './homeCard/CurrentCard';
@@ -72,12 +73,28 @@ function CurrentWorkoutCard({ title, trainer, location, RTL }) {
         style={[
           styles.background,
           {
-            height: Dimensions.get('window').height / 6,
+            height: Dimensions.get('window').height / 5,
           },
         ]}
       />
 
       <DailyTaskIndex />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('SessionNavigator');
+        }}>
+        <Text
+          style={{
+            fontSize: 12,
+            fontFamily: 'Vazirmatn',
+            marginHorizontal: 10,
+            marginTop: 5,
+            // fontWeight: 'bold',
+            color: 'white',
+          }}>
+          {i18n.t('seeLastExercises')}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -3,11 +3,9 @@ import { Dimensions, PixelRatio, StyleSheet, Text, View } from 'react-native';
 import { getDailyCalorieInTake } from '../../api/dailyCalorieInTake';
 import { useTheme } from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { LinearGradient } from 'expo-linear-gradient';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
-import { useFonts } from 'expo-font';
 
 function DailyReport({ userId }) {
   const { theme } = useTheme();
@@ -58,7 +56,7 @@ function DailyReport({ userId }) {
         setDailyCalories(Number(parsedDailyCaloriesGoals.dailyCalories));
       }
       if (!dailyCaloriesGoals) {
-        setStatus('noData');
+        setStatus('noDailyCalories');
       }
     };
 
@@ -71,7 +69,13 @@ function DailyReport({ userId }) {
         colors={['#5B5891', '#3A366F', '#17124A']}
         style={styles.background}
       /> */}
-      {status === 'noData' && (
+      {/* {status === 'noData' && (
+        <Text style={styles.noDataText}>
+          {i18n.t('Nodailycaloriesgoalsset')}
+        </Text>
+      )} */}
+
+      {status === 'noDailyCalories' && (
         <Text style={styles.noDataText}>
           {i18n.t('Nodailycaloriesgoalsset')}
         </Text>
@@ -92,9 +96,9 @@ function DailyReport({ userId }) {
             <Text style={styles.kcalText}>kcal</Text>
             <Text style={styles.remainingText}>{i18n.t('remaining')}</Text>
           </View>
-          {result.length === 0 && (
+          {/* {result.length === 0 && (
             <Text style={styles.noDataText}>{i18n.t('Nodataavailable')}</Text>
-          )}
+          )} */}
           {result.length != 0 && (
             <View style={styles.nutrientContainer}>
               <Text style={styles.nutrientText}>
