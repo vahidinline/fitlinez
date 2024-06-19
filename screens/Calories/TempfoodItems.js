@@ -7,9 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
   // Initialize state with an empty array
-  const [items, setItems] = useState(foodItems);
+  const [items, setItems] = useState(foodItems.data);
   const [selectedItem, setSelectedItem] = useState();
-  //console.log('TempfoodItems -> items', items);
+  //console.log('TempfoodItems -> items', foodItems.data.foodId);
   const { theme } = useTheme();
   const handleInputChange = (index, field, value) => {
     const newItems = [...items];
@@ -46,22 +46,25 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
           fontSize: 20,
           color: theme.colors.secondary,
         }}>
-        {items.length > 0 ? 'Total Items: ' + items.length : 'No items added'}
+        {/* {items.length > 0 ? 'Total Items: ' + items.length : 'No items added'} */}
       </Text>
       <ScrollView>
         <View style={{}}>
-          {items.map((item, index) => (
-            <FoodItemCard
-              i18n={i18n}
-              userId={userId}
-              key={index}
-              item={item}
-              index={index}
-              handleInputChange={handleInputChange}
-              selectedMeal={selectedMeal}
-              handleDeleteItem={handleDeleteItem}
-            />
-          ))}
+          {/* {items.map((item, index) => ( */}
+
+          <FoodItemCard
+            i18n={i18n}
+            userId={userId}
+            // key={index}
+            item={items.data}
+            foodItems={items.foodItems}
+            foodId={foodItems.data.foodId}
+            handleInputChange={handleInputChange}
+            selectedMeal={items.selectedMeal}
+            handleDeleteItem={handleDeleteItem}
+            setMainStatus={setStatus}
+          />
+          {/* ))} */}
         </View>
       </ScrollView>
       <View>
@@ -79,6 +82,7 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
             color: theme.colors.primary,
             fontSize: 15,
             fontWeight: 'bold',
+            fontFamily: 'Vazirmatn',
           }}
           title={i18n.t('back')}
           onPress={() => handleEndSession()}

@@ -28,11 +28,12 @@ function DailyTaskIndex() {
     getDailyTasks(userId)
       .then((tasks) => {
         setDailyTasks(tasks);
+        console.log('tasks', tasks);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [dailyTasks.length === 0]);
 
   const handleGetTodaysTask = async () => {
     setStatus('loading');

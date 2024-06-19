@@ -203,8 +203,8 @@ const StartSessionIndex = ({ route }) => {
     moment.locale(userLanguage); // set the locale based on userLanguage
     for (let i = 0; i < timestamp.length; i++) {
       if (timestamp[i].category === category) {
-        return moment(timestamp[i].timestamp).endOf('day').fromNow();
-        //return moment(timestamp[i].timestamp).format('DD/MM/YYYY');
+        //return moment(timestamp[i].timestamp).endOf('day').fromNow();
+        return moment(timestamp[i].timestamp).format('DD/MM/YYYY');
       }
     }
   };

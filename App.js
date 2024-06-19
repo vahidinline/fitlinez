@@ -30,10 +30,12 @@ import UserPrivilegeContext from './api/userPrivilegeContext';
 import checkFreeTrial from './api/checkFreeTrial';
 import { init } from '@amplitude/analytics-react-native';
 import { logEvent } from '@amplitude/analytics-react-native';
-import { forceSolveError, clearAllAsyncCache } from './api/forceSolveError';
 import { trackUserData } from './api/tracker';
 import appUpdateTrack from './api/appUpdateTrack';
 import { useFonts } from 'expo-font';
+import ErrorIndex from './screens/Error/ErrorIndex';
+import i18nt from './locales';
+import { I18n } from 'i18n-js';
 
 const errorHandler = (error, stackTrace) => {
   /* Log the error to an error reporting service */
@@ -52,6 +54,7 @@ export default function App() {
   const [msg, setMsg] = useState(0);
   const [currentTheme, setCurrentTheme] = useState(DefaultTheme);
   const [userLanguage, setUserLanguage] = useState('en');
+  const i18n = new I18n(i18nt);
   const [isReady, setIsReady] = useState(false);
   const [initialState, setInitialState] = useState();
   const [routeNamesHistory, setRouteNamesHistory] = useState([]);
@@ -214,48 +217,7 @@ export default function App() {
     );
   }
 
-  const ErrorFallback = () => (
-    <SafeAreaView>
-      <Text
-        style={{
-          fontSize: 20,
-          fontWeight: 'bold',
-          textAlign: 'center',
-          marginTop: 200,
-        }}>
-        Something happened!
-      </Text>
-
-      <Button
-        buttonStyle={{
-          marginTop: 20,
-          marginHorizontal: 20,
-          width: Dimensions.get('window').width - 40,
-          borderRadius: 10,
-          justifyContent: 'center',
-        }}
-        color="primary"
-        onPress={() => forceSolveError(setUserAuth)}
-        size="lg">
-        Reset the app
-      </Button>
-      {/* <Button
-        buttonStyle={{
-          marginTop: 20,
-          marginHorizontal: 20,
-          width: Dimensions.get('window').width - 40,
-          borderRadius: 10,
-          justifyContent: 'center',
-          backgroundColor: '#FFF3DA',
-        }}
-        titleStyle={{ color: '#5B5891' }}
-        color="primary"
-        onPress={() => clearAllAsyncCache()}
-        size="lg">
-        clear cache
-      </Button> */}
-    </SafeAreaView>
-  );
+  const ErrorFallback = () => <ErrorIndex i18n={i18n} theme={theme} />;
 
   return (
     <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>

@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     //
     // flex: 1,
     width: Dimensions.get('window').width / 1.1,
-    marginHorizontal: 20,
+    marginHorizontal: 17,
   },
   background: {
     position: 'absolute',

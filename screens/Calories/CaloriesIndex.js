@@ -34,11 +34,6 @@ function CaloriesIndex() {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const RTL = userLanguage === 'fa';
-  const [fontsLoaded, fontError] = useFonts({
-    Vazirmatn: require('../../assets/fonts/Vazirmatn-Regular.ttf'),
-  });
-
-  console.log('is font Loaded', fontsLoaded, 'any font Error', fontError);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -147,6 +142,7 @@ function CaloriesIndex() {
             setStatus={setStatus}
             userInput={userInput}
             setUserInput={setUserInput}
+            selectedMeal={selectedMeal}
           />
         )}
         {status === 'error' && (
@@ -164,6 +160,7 @@ function CaloriesIndex() {
                 color: theme.colors.warning,
                 margin: 20,
                 marginBottom: 10,
+                fontFamily: 'Vazirmatn',
               }}>
               {i18n.t('error')}
             </Text>
@@ -181,9 +178,10 @@ function CaloriesIndex() {
                 color: theme.colors.primary,
                 fontSize: 15,
                 fontWeight: 'bold',
+                fontFamily: 'Vazirmatn',
               }}
               title={i18n.t('retry')}
-              onPress={() => setStatus('idle')}
+              onPress={() => setStatus('mealInitialized')}
             />
           </View>
         )}

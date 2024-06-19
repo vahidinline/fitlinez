@@ -22,13 +22,14 @@ function InputSelector({
   userInput,
   status,
   setUserInput,
+  selectedMeal,
   i18n,
   userId,
   RTL,
 }) {
   const { theme } = useTheme();
   const [inputStatus, setInputStatus] = useState('idle');
-
+  console.log('selectedMeal in InputSelector', selectedMeal);
   const handleSetStatus = (status) => {
     //setStatus('mealInitialized');
     setInputStatus(status);
@@ -109,10 +110,12 @@ function InputSelector({
           userInput={userInput}
           setUserInput={setUserInput}
           i18n={i18n}
+          selectedMeal={selectedMeal.value}
         />
       )}
       {inputStatus === 'textInput' && (
         <FoodTextInput
+          selectedMeal={selectedMeal}
           RTL={RTL}
           setInputStatus={setInputStatus}
           setFoodItems={setFoodItems}

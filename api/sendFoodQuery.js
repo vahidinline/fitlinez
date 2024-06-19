@@ -1,15 +1,23 @@
 import foodapi from './foodApi';
 
-const sendInitialReq = async (userInput, userId, setStatus) => {
+const sendInitialReq = async (userInput, userId, selectedMeal) => {
+  //setStatus('initialReqSent');
+  console.log(
+    'selectedMeal in sendInitialReq',
+    userInput,
+    userId,
+
+    selectedMeal
+  );
   try {
     const response = await foodapi.post(
       //'https://aibackendfitlinez.azurewebsites.net/nutritionextractor',
       '/nutritionextractor',
-      { userInput, userId }
+      { userInput, userId, selectedMeal }
     );
-    console.log('response in sendInitialReq', response.data);
+    //console.log('response in sendInitialReq', response.data.foodId);
 
-    //return response.data;
+    return response;
   } catch (error) {
     console.log('Failed to send data:', error);
     // ... Implement proper error handling ...

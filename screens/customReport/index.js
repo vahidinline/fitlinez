@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import moment from 'moment';
-import { Button, Text } from '@rneui/themed';
-import { useNavigation } from '@react-navigation/native';
+import { Text } from '@rneui/themed';
+
 import * as SQLite from 'expo-sqlite';
 import { StatusBar } from 'expo-status-bar';
 import { I18n } from 'i18n-js';
@@ -19,73 +19,32 @@ import { useTheme } from '@rneui/themed';
 import Header from '../../components/header';
 import { captureRef } from 'react-native-view-shot';
 import * as MediaLibrary from 'expo-media-library';
-import { filterByDates } from '../../api/readWorkoutData';
-import { Iconshare } from '../marketplace/filters/icons-';
 import { userWorkoutHistory } from '../../api/workoutSessionTracker';
 import AuthContext from '../../api/context';
 import { G, Polygon, Svg } from 'react-native-svg';
+import { IconFire } from '../marketplace/filters/icons';
+import convertToPersianNumbers from '../../api/PersianNumber';
 
 const db = SQLite.openDatabase('performance.db');
 const CustomReport = () => {
   const { userLanguage } = useContext(LanguageContext);
-  const [reportHistoryDates, setReportHistoryDates] = useState();
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const { theme } = useTheme();
   const Styles = getStyles(theme);
+  const [status, setStatus] = useState('idle');
   const imageRef = useRef();
   const [filteredData, setFilteredData] = useState([]);
   const { userAuth } = useContext(AuthContext);
   const userId = userAuth.id;
   const RTL = userLanguage === 'fa';
   const handleHistoryData = async () => {
+    setStatus('loading');
     const res = await userWorkoutHistory(userId);
+    setStatus('success');
     // console.log('history result', res);
     setFilteredData(res);
   };
-
-  // const filteredData = [
-  //   {
-  //     category: 'Cardio',
-  //     date: '2024-02-10',
-  //     id: 3,
-  //     location: 'Gym',
-  //     performance: 90.18,
-  //     timeSpent: 299,
-  //   },
-  //   {
-  //     category: 'Full Body',
-  //     date: '2024-02-12',
-  //     id: 3,
-  //     location: 'Gym',
-  //     performance: 95.98,
-  //     timeSpent: 299,
-  //   },
-  //   {
-  //     category: 'Core & Upper',
-  //     date: '2024-02-13',
-  //     id: 1,
-  //     location: 'Gym',
-  //     performance: 85.15,
-  //     timeSpent: 631,
-  //   },
-  //   {
-  //     category: 'Lower Body',
-  //     date: '2024-02-15',
-  //     id: 3,
-  //     location: 'Gym',
-  //     performance: 95.83,
-  //     timeSpent: 299,
-  //   },
-  //   {
-  //     category: 'upper Body',
-  //     date: '2024-02-17',
-  //     id: 3,
-  //     location: 'Gym',
-  //     performance: 92.13,
-  //     timeSpent: 299,
-  //   },
-  // ];
 
   //console.log('filteredData', filteredData);
   // New state variable for filtered data
@@ -177,13 +136,13 @@ const CustomReport = () => {
                   borderRadius: 10,
                   padding: 5,
                 }}>
-                <Text style={Styles.title}>{i18n.t('workoutHistory')}</Text>
-                {filteredData?.length > 0 && (
+                <Text style={Styles.title}>{i18n.t('workoutHistorydesc')}</Text>
+                {/* {filteredData?.length > 0 && (
                   <Text style={Styles.title}>
                     {filteredData.length} {i18n.t('workouts')}
                   </Text>
-                )}
-                {filteredData?.length === 0 && (
+                )} */}
+                {status === 'noData' && (
                   <Text style={Styles.title}>{i18n.t('noWorkouts')}</Text>
                 )}
 
@@ -292,8 +251,11 @@ const CustomReport = () => {
                           <Text style={Styles.calories}>
                             {`${i18n.t(
                               'burnedCalories'
-                            )} ${item.burnedCalories.toFixed(0)}`}{' '}
-                            {i18n.t('calories')}
+                            )} ${convertToPersianNumbers(
+                              item.burnedCalories.toFixed(0),
+                              RTL
+                            )}`}{' '}
+                            {i18n.t('calories')} <IconFire />
                           </Text>
                         )}
                       </View>

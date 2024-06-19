@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
+import convertToPersianNumbers from '../../api/PersianNumber';
 
 function DailyReport({ userId }) {
   const { theme } = useTheme();
@@ -14,6 +15,7 @@ function DailyReport({ userId }) {
   const [result, setResult] = useState([]);
   const [dailyCalories, setDailyCalories] = useState(0);
   const { userLanguage } = useContext(LanguageContext);
+  const RTL = userLanguage === 'fa' ? true : false;
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const percentage =
@@ -90,8 +92,11 @@ function DailyReport({ userId }) {
             ]}>
             <Text style={styles.caloriesText}>
               {result.length > 0
-                ? dailyCalories - result[0]?.totalCalories.toFixed(0)
-                : dailyCalories}
+                ? convertToPersianNumbers(
+                    dailyCalories - result[0]?.totalCalories.toFixed(0),
+                    RTL
+                  )
+                : convertToPersianNumbers(dailyCalories, RTL)}
             </Text>
             <Text style={styles.kcalText}>kcal</Text>
             <Text style={styles.remainingText}>{i18n.t('remaining')}</Text>
@@ -103,22 +108,48 @@ function DailyReport({ userId }) {
             <View style={styles.nutrientContainer}>
               <Text style={styles.nutrientText}>
                 {i18n.t('calories')}:
-                {result && result[0]?.totalCalories.toFixed(0)} g
+                {result &&
+                  convertToPersianNumbers(
+                    result[0]?.totalCalories.toFixed(0),
+                    RTL
+                  )}{' '}
+                g
               </Text>
               <Text style={styles.nutrientText}>
-                {i18n.t('carbs')}: {result && result[0]?.totalCarbs.toFixed(0)}{' '}
+                {i18n.t('carbs')}:{' '}
+                {result &&
+                  convertToPersianNumbers(
+                    result[0]?.totalCarbs.toFixed(0),
+                    RTL
+                  )}{' '}
                 g
               </Text>
               <Text style={styles.nutrientText}>
                 {i18n.t('protein')}:
-                {result && result[0]?.totalProtein.toFixed(0)}g
+                {result &&
+                  convertToPersianNumbers(
+                    result[0]?.totalProtein.toFixed(0),
+                    RTL
+                  )}
+                g
               </Text>
 
               <Text style={styles.nutrientText}>
-                {i18n.t('fats')}: {result && result[0]?.totalFat.toFixed(0)} g
+                {i18n.t('fats')}:{' '}
+                {result &&
+                  convertToPersianNumbers(
+                    result[0]?.totalFat.toFixed(0),
+                    RTL
+                  )}{' '}
+                g
               </Text>
               <Text style={styles.nutrientText}>
-                {i18n.t('fiber')}: {result && result[0]?.totalFiber.toFixed(0)}{' '}
+                {i18n.t('fiber')}:{' '}
+                {result &&
+                  convertToPersianNumbers(
+                    result[0]?.totalFiber.toFixed(0),
+                    RTL
+                  )}{' '}
                 g
               </Text>
             </View>
@@ -142,7 +173,7 @@ const getStyles = (theme, myFont) =>
       flexDirection: 'row',
       padding: 30,
       borderRadius: 14,
-      //width: Dimensions.get('window').width / 1.1,
+      width: Dimensions.get('window').width / 1.1,
       marginVertical: 10,
       // minHeight: Dimensions.get('window').height / 5,
       flex: 1,

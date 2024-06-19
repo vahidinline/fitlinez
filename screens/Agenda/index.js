@@ -12,6 +12,7 @@ import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { IconRest, IconWeight } from '../marketplace/filters/icons';
 import { useNavigation } from '@react-navigation/native';
+import convertToPersianNumbers from '../../api/PersianNumber';
 
 function WorkoutAgenda(props) {
   const { workoutData } = props; // Assuming workoutData is provided via props
@@ -19,6 +20,7 @@ function WorkoutAgenda(props) {
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
+  const RTL = userLanguage === 'fa' ? true : false;
   const navigation = useNavigation();
 
   // Get the week data with today centered as the 4th item
@@ -101,7 +103,7 @@ function WorkoutAgenda(props) {
                 ? theme.colors.primary
                 : theme.colors.secondary,
             }}>
-            {item.day}
+            {convertToPersianNumbers(item.day, RTL)}
           </Text>
 
           <Text

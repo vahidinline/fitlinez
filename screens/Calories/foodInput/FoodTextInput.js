@@ -19,6 +19,7 @@ function FoodTextInput({
   userInput,
   setUserInput,
   setInputStatus,
+  selectedMeal,
   status,
   i18n,
   userId,
@@ -26,7 +27,6 @@ function FoodTextInput({
 }) {
   const { theme } = useTheme();
   const [typeStatus, setTypeStatus] = useState('idle');
-
   // Load the existing value from AsyncStorage on component mount
   useEffect(() => {
     const getStoredValue = async () => {
@@ -44,9 +44,10 @@ function FoodTextInput({
     // Save the user input to AsyncStorage
     await AsyncStorage.setItem('foodInput', userInput);
 
-    const res = await sendInitialReq(userInput, userId);
+    const res = await sendInitialReq(userInput, userId, selectedMeal.value);
     if (res) {
-      setFoodItems(res.foodItems);
+      //console.log('res in FoodTextInput', res);
+      setFoodItems(res);
       setStatus('initialReqSent');
     } else {
       setStatus('error');
