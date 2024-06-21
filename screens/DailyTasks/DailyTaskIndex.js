@@ -19,7 +19,7 @@ function DailyTaskIndex() {
   const userId = userAuth.id;
   const { userLanguage } = useContext(LanguageContext);
   const [status, setStatus] = useState('idle');
-  console.log('status DailyTaskIndex', status);
+  //console.log('status DailyTaskIndex', status);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const isRTL = userLanguage === 'fa';
@@ -28,7 +28,7 @@ function DailyTaskIndex() {
     getDailyTasks(userId)
       .then((tasks) => {
         setDailyTasks(tasks);
-        console.log('tasks', tasks);
+        //console.log('tasks', tasks);
       })
       .catch((error) => {
         console.log(error);

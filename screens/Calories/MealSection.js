@@ -138,8 +138,8 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
           <TouchableOpacity
             onPress={() => setMeal(meal)}
             style={{
-              width: Dimensions.get('window').width / 3,
-              height: Dimensions.get('window').width / 3,
+              width: Dimensions.get('window').width / 4,
+              height: Dimensions.get('window').width / 4,
               backgroundColor: 'lightgrey',
               borderRadius: 10,
               justifyContent: 'center',
@@ -155,7 +155,7 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
             <Text
               style={{
                 textAlign: 'center',
-                fontSize: 18,
+                fontSize: 16,
                 color: theme.colors.secondary,
                 fontWeight: '500',
                 margin: 14,

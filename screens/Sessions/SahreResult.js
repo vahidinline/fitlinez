@@ -26,6 +26,7 @@ import {
 } from '../marketplace/filters/icons';
 import Header from '../../components/header';
 import { TouchableOpacity } from 'react-native';
+import { getBurnedCalories } from '../../api/getBurnedCalories';
 
 const SahreResult = ({ route }) => {
   const [open, setOpen] = useState(false);
@@ -36,6 +37,8 @@ const SahreResult = ({ route }) => {
   if (status === null) {
     requestPermission();
   }
+  const [burnedCalories, setBurnedCalories] = useState(null);
+
   const imageRef = useRef();
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
@@ -183,6 +186,28 @@ const SahreResult = ({ route }) => {
   //     console.log(error);
   //   }
   // };
+
+  const handleShowBurnedCalories = async () => {
+    const sessionId = await AsyncStorage.getItem('sessionId');
+    const burnedCalories = await getBurnedCalories(userId, sessionId);
+    if (!burnedCalories) {
+      Alert.alert(
+        i18n.t('burnedCalories'),
+        i18n.t('burnedCaloriesDescription'),
+        [
+          {
+            text: i18n.t('update'),
+            onPress: () => navigation.navigate('IndexOnBoarding'),
+          },
+          {
+            text: i18n.t('later'),
+          },
+        ],
+        { cancelable: true }
+      );
+    }
+    setBurnedCalories(burnedCalories);
+  };
 
   const handleStoreandNavigate = () => {
     //saveUserData();

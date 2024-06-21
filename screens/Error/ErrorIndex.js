@@ -4,7 +4,6 @@ import { Dimensions, SafeAreaView } from 'react-native';
 import { forceSolveError, clearAllAsyncCache } from '../../api/forceSolveError';
 
 const ErrorIndex = (i18n, theme) => {
-  console.log('i18n', i18n);
   return (
     <SafeAreaView>
       <Text
@@ -15,7 +14,7 @@ const ErrorIndex = (i18n, theme) => {
           marginTop: 200,
           fontFamily: 'Vazirmatn',
         }}>
-        {i18n.t('errorTitle')}
+        An Error Occurred
       </Text>
 
       <Text
@@ -25,9 +24,7 @@ const ErrorIndex = (i18n, theme) => {
           textAlign: 'center',
           marginTop: 200,
           fontFamily: 'Vazirmatn',
-        }}>
-        {/* {i18n.t('errorMessage')} */}
-      </Text>
+        }}></Text>
       <Button
         buttonStyle={{
           marginTop: 20,
@@ -37,7 +34,7 @@ const ErrorIndex = (i18n, theme) => {
           justifyContent: 'center',
         }}
         titleStyle={{
-          color: '#000',
+          color: '#fff',
           fontSize: 15,
           fontWeight: 'bold',
           fontFamily: 'Vazirmatn',
@@ -45,7 +42,7 @@ const ErrorIndex = (i18n, theme) => {
         color="primary"
         onPress={() => forceSolveError()}
         size="lg"
-        title="{i18n.t('errorButtonTitle')}"
+        title="try again"
       />
     </SafeAreaView>
   );

@@ -31,6 +31,7 @@ import FitlinezLoading from '../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
 import FitModal from '../../components/FitModal';
+import RoundAnimationChart from '../../components/RoundAnimationChart';
 
 function HomeIndex() {
   const [refreshing, setRefreshing] = useState(false);
@@ -261,20 +262,17 @@ function HomeIndex() {
             style={styles.background}
           />
           <View>
-            <View
-              style={{
-                posistion: 'absolute',
-                paddingTop: 10,
-              }}></View>
+            <DailyReport userId={userAuth.id} />
+
             <Button
               buttonStyle={{
                 backgroundColor: theme.colors.primary,
                 borderRadius: 12,
-                paddingTop: 10,
+                //bottom: 5,
                 width: Dimensions.get('window').width / 1.2,
                 height: Dimensions.get('window').height / 20,
                 alignSelf: 'center',
-                //marginBottom: 20,
+                marginBottom: 20,
               }}
               titleStyle={{
                 color: theme.colors.text,
@@ -298,7 +296,6 @@ function HomeIndex() {
                 {i18n.t('beta')} ️
               </Text>
             </Button>
-            <DailyReport userId={userAuth.id} />
           </View>
         </View>
         <Text

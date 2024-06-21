@@ -7,6 +7,7 @@ const getDailyCalorieInTake = async (userId) => {
     const response = await foodapi.get(
       `/nutritionextractor/dailyreport/${userId}`
     );
+    console.log('response.data in getDailyCalorieInTake', response.data);
     return response.data;
   } catch (error) {
     console.error('Failed to send data:', error);

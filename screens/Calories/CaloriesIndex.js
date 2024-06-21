@@ -18,8 +18,6 @@ import NutritionChart from './NutritionChart';
 import CustomReport from './customReport';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@rneui/base';
-import { Icon } from 'react-native-paper';
-import { useFonts } from 'expo-font';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -63,14 +61,14 @@ function CaloriesIndex() {
             Welcome to the Nutrition Extractor
           </Text> */}
           </View>
-          {status === 'idle' && (
-            <DailyReport
-              myFont={'Vazirmatn'}
-              RTL={RTL}
-              userId={userId}
-              i18n={i18n}
-            />
-          )}
+          {/* {status === 'idle' && ( */}
+          <DailyReport
+            myFont={'Vazirmatn'}
+            RTL={RTL}
+            userId={userId}
+            i18n={i18n}
+          />
+          {/* )} */}
           {status === 'loading' && (
             <FitlinezLoading />
             // <ActivityIndicator size="large" color="#0000ff" />

@@ -1,6 +1,6 @@
 import foodapi from './foodApi';
 
-const sendInitialReq = async (userInput, userId, selectedMeal) => {
+const sendInitialReq = async (userInput, userId, selectedMeal, setStatus) => {
   //setStatus('initialReqSent');
   console.log(
     'selectedMeal in sendInitialReq',
@@ -15,10 +15,14 @@ const sendInitialReq = async (userInput, userId, selectedMeal) => {
       '/nutritionextractor',
       { userInput, userId, selectedMeal }
     );
-    //console.log('response in sendInitialReq', response.data.foodId);
-
+    console.log('response in sendInitialReq', response.data);
+    console.log(
+      'response in sendInitialReq',
+      response.data.currentFood.foodItems
+    );
     return response;
   } catch (error) {
+    setStatus('error');
     console.log('Failed to send data:', error);
     // ... Implement proper error handling ...
   }

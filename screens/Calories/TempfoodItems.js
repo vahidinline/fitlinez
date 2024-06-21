@@ -9,7 +9,7 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
   // Initialize state with an empty array
   const [items, setItems] = useState(foodItems.data);
   const [selectedItem, setSelectedItem] = useState();
-  //console.log('TempfoodItems -> items', foodItems.data.foodId);
+  // console.log('TempfoodItems -> items', foodItems.data.foodId);
   const { theme } = useTheme();
   const handleInputChange = (index, field, value) => {
     const newItems = [...items];
@@ -56,6 +56,7 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
             i18n={i18n}
             userId={userId}
             // key={index}
+            current={items.currentFood}
             item={items.data}
             foodItems={items.foodItems}
             foodId={foodItems.data.foodId}

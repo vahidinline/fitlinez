@@ -96,9 +96,9 @@ export default function App() {
     onFetchUpdateAsync();
   }, []);
 
-  // useEffect(() => {
-  //   userLevelCheck(userAuth, setUserAuth);
-  // }, []);
+  useEffect(() => {
+    userLevelCheck(userAuth, setUserAuth);
+  }, []);
 
   // useEffect(() => {
   //   // Only call checkFreeTrial if userAuth is not empty/null/undefined

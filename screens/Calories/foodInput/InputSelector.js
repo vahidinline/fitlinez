@@ -29,7 +29,7 @@ function InputSelector({
 }) {
   const { theme } = useTheme();
   const [inputStatus, setInputStatus] = useState('idle');
-  console.log('selectedMeal in InputSelector', selectedMeal);
+  //console.log('selectedMeal in InputSelector', selectedMeal);
   const handleSetStatus = (status) => {
     //setStatus('mealInitialized');
     setInputStatus(status);
@@ -70,7 +70,7 @@ function InputSelector({
       {inputStatus === 'idle' && (
         <View
           style={{
-            flexDirection: 'column',
+            flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
@@ -78,8 +78,8 @@ function InputSelector({
             <TouchableOpacity
               key={i}
               style={{
-                width: Dimensions.get('window').width / 3,
-                height: Dimensions.get('window').width / 3,
+                width: Dimensions.get('window').width / 4,
+                height: Dimensions.get('window').width / 4,
                 backgroundColor: 'lightgrey',
                 borderRadius: 10,
                 justifyContent: 'center',

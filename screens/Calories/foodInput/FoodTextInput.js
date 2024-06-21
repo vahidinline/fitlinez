@@ -44,7 +44,12 @@ function FoodTextInput({
     // Save the user input to AsyncStorage
     await AsyncStorage.setItem('foodInput', userInput);
 
-    const res = await sendInitialReq(userInput, userId, selectedMeal.value);
+    const res = await sendInitialReq(
+      userInput,
+      userId,
+      selectedMeal.value,
+      setStatus
+    );
     if (res) {
       //console.log('res in FoodTextInput', res);
       setFoodItems(res);

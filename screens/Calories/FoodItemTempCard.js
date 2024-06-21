@@ -19,7 +19,7 @@ const FoodItemCard = ({
   item,
   index,
   handleInputChange,
-
+  current,
   userId,
   selectedMeal,
   i18n,
@@ -35,7 +35,12 @@ const FoodItemCard = ({
   const [mealId, setMealId] = useState(null);
   const { userLanguage } = useContext(LanguageContext);
   const RTL = userLanguage === 'fa';
-  console.log('foodItems in card', foodItems);
+  console.log('current food in card', current.foodItems[0]?.calories?.amount);
+  //console.log('foodItems in card', foodItems);
+  //console.log('foodId in card', foodId);
+  //console.log('selectedMeal in card', selectedMeal);
+  //console.log('item in card', item);
+
   const handleSendFoodItemReq = async () => {
     setStatus('loading');
     try {
@@ -94,36 +99,82 @@ const FoodItemCard = ({
       {/* {status === 'dataLoaded' && ( */}
       <View style={styles.card}>
         <View style={styles.listTitle}>
-          <Text style={styles.itemTitle}>{foodItems && foodItems}</Text>
+          <Text style={styles.itemTitle}>
+            {foodItems && foodItems[0]?.userInput}
+          </Text>
         </View>
 
         <View style={styles.list}>
           <Text style={styles.itemText}>{i18n.t('calories')}</Text>
-          <Text style={styles.itemValue}>{`${item.calories}`}</Text>
+
+          {/* <Text style={styles.itemValue}>{`${item?.calories}`}</Text> */}
+          <Text style={styles.itemUnit}>
+            <Text
+              style={
+                styles.itemValue
+              }>{`${current.foodItems[0]?.calories?.amount}`}</Text>
+            {`${current.foodItems[0]?.calories?.unit}`}
+          </Text>
         </View>
         <View style={styles.list}>
           <Text style={styles.itemText}>{i18n.t('cholesterol')}</Text>
-          <Text style={styles.itemValue}>{`${item.cholesterol}`}</Text>
+          <Text style={styles.itemUnit}>
+            <Text
+              style={
+                styles.itemValue
+              }>{`${current.foodItems[0]?.cholesterol?.amount}`}</Text>
+            {`${current.foodItems[0]?.cholesterol?.unit}`}
+          </Text>
         </View>
         <View style={styles.list}>
           <Text style={styles.itemText}>{i18n.t('protein')}</Text>
-          <Text style={styles.itemValue}>{`${item.protein}`}</Text>
+          <Text style={styles.itemUnit}>
+            <Text
+              style={
+                styles.itemValue
+              }>{`${current.foodItems[0]?.protein?.amount}`}</Text>
+            {`${current.foodItems[0]?.protein?.unit}`}
+          </Text>
         </View>
         <View style={styles.list}>
           <Text style={styles.itemText}>{i18n.t('saturated_fat')}</Text>
-          <Text style={styles.itemValue}>{`${item.saturated_fat}`}</Text>
+          <Text style={styles.itemUnit}>
+            <Text
+              style={
+                styles.itemValue
+              }>{`${current.foodItems[0]?.saturated_fat?.amount}`}</Text>
+            {`${current.foodItems[0]?.saturated_fat?.unit}`}
+          </Text>
         </View>
         <View style={styles.list}>
           <Text style={styles.itemText}>{i18n.t('sugar')}</Text>
-          <Text style={styles.itemValue}>{`${item.sugars}`}</Text>
+          <Text style={styles.itemUnit}>
+            <Text
+              style={
+                styles.itemValue
+              }>{`${current.foodItems[0]?.sugars?.amount}`}</Text>
+            {`${current.foodItems[0]?.sugars?.unit}`}
+          </Text>
         </View>
         <View style={styles.list}>
           <Text style={styles.itemText}>{i18n.t('carbs')} </Text>
-          <Text style={styles.itemValue}>{`${item.total_carbohydrates}`}</Text>
+          <Text style={styles.itemUnit}>
+            <Text
+              style={
+                styles.itemValue
+              }>{`${current.foodItems[0]?.total_carbohydrates?.amount}`}</Text>
+            {`${current.foodItems[0]?.total_carbohydrates?.unit}`}
+          </Text>
         </View>
         <View style={styles.list}>
           <Text style={styles.itemText}>{i18n.t('fats')}</Text>
-          <Text style={styles.itemValue}>{`${item.total_fat}`}</Text>
+          <Text style={styles.itemUnit}>
+            <Text
+              style={
+                styles.itemValue
+              }>{`${current.foodItems[0]?.total_fat?.amount}`}</Text>
+            {`${current.foodItems[0]?.total_fat?.unit}`}
+          </Text>
         </View>
 
         <View
@@ -229,6 +280,13 @@ const getStyles = (theme) =>
       color: theme.colors.primary,
       fontSize: 14,
     },
+    itemUnit: {
+      color: theme.colors.white,
+      fontSize: 10,
+      marginTop: 5,
+
+      fontFamily: 'Vazirmatn',
+    },
     button: {
       //margin: 10,
       padding: 10,
@@ -248,6 +306,7 @@ const getStyles = (theme) =>
       color: theme.colors.white,
       fontSize: 16,
       fontFamily: 'Vazirmatn',
+      marginHorizontal: 5,
     },
     itemTitle: {
       color: theme.colors.warning,

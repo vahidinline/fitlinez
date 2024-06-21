@@ -7,6 +7,7 @@ import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import convertToPersianNumbers from '../../api/PersianNumber';
+import RoundAnimationChart from '../../components/RoundAnimationChart';
 
 function DailyReport({ userId }) {
   const { theme } = useTheme();
@@ -14,6 +15,10 @@ function DailyReport({ userId }) {
   const [status, setStatus] = useState('idle');
   const [result, setResult] = useState([]);
   const [dailyCalories, setDailyCalories] = useState(0);
+  const [dailyCarbs, setDailyCarbs] = useState(0);
+  const [dailyProtein, setDailyProtein] = useState(0);
+  const [dailyFat, setDailyFat] = useState(0);
+  const [dailyFiber, setDailyFiber] = useState(0);
   const { userLanguage } = useContext(LanguageContext);
   const RTL = userLanguage === 'fa' ? true : false;
   const i18n = new I18n(i18nt);
@@ -51,11 +56,12 @@ function DailyReport({ userId }) {
       );
       if (dailyCaloriesGoals) {
         const parsedDailyCaloriesGoals = JSON.parse(dailyCaloriesGoals);
-        console.log(
-          'parsedDailyCaloriesGoals',
-          Number(parsedDailyCaloriesGoals.dailyCalories)
-        );
+
         setDailyCalories(Number(parsedDailyCaloriesGoals.dailyCalories));
+        setDailyCarbs(Number(parsedDailyCaloriesGoals.dailyCarbs));
+        setDailyProtein(Number(parsedDailyCaloriesGoals.dailyProtein));
+        setDailyFat(Number(parsedDailyCaloriesGoals.dailyFat));
+        setDailyFiber(Number(parsedDailyCaloriesGoals.dailyFiber));
       }
       if (!dailyCaloriesGoals) {
         setStatus('noDailyCalories');
@@ -90,7 +96,24 @@ function DailyReport({ userId }) {
 
               // { borderColor: angle > dailyCalories ? 'red' : 'green' },
             ]}>
-            <Text style={styles.caloriesText}>
+            <RoundAnimationChart
+              borderColor="blue" // Custom border color
+              borderWidth={4}
+              size={200}
+              shownumber={
+                result.length > 0
+                  ? convertToPersianNumbers(
+                      dailyCalories - result[0]?.totalCalories.toFixed(0),
+                      RTL
+                    )
+                  : convertToPersianNumbers(dailyCalories, RTL)
+              }
+              takenCalories={
+                dailyCalories - result[0]?.totalCalories.toFixed(0)
+              }
+              dailyGoal={dailyCalories}
+            />
+            {/* <Text style={styles.caloriesText}>
               {result.length > 0
                 ? convertToPersianNumbers(
                     dailyCalories - result[0]?.totalCalories.toFixed(0),
@@ -99,14 +122,31 @@ function DailyReport({ userId }) {
                 : convertToPersianNumbers(dailyCalories, RTL)}
             </Text>
             <Text style={styles.kcalText}>kcal</Text>
-            <Text style={styles.remainingText}>{i18n.t('remaining')}</Text>
+            <Text style={styles.remainingText}>{i18n.t('remaining')}</Text> */}
           </View>
           {/* {result.length === 0 && (
             <Text style={styles.noDataText}>{i18n.t('Nodataavailable')}</Text>
           )} */}
           {result.length != 0 && (
             <View style={styles.nutrientContainer}>
-              <Text style={styles.nutrientText}>
+              {/* <RoundAnimationChart
+                borderColor="blue" // Custom border color
+                borderWidth={4}
+                size={200}
+                shownumber={
+                  result.length > 0
+                    ? convertToPersianNumbers(
+                        dailyCalories - result[0]?.totalCalories.toFixed(0),
+                        RTL
+                      )
+                    : convertToPersianNumbers(dailyCalories, RTL)
+                }
+                takenCalories={
+                  dailyCalories - result[0]?.totalCalories.toFixed(0)
+                }
+                dailyGoal={dailyCalories}
+              /> */}
+              {/* <Text style={styles.nutrientText}>
                 {i18n.t('calories')}:
                 {result &&
                   convertToPersianNumbers(
@@ -114,7 +154,7 @@ function DailyReport({ userId }) {
                     RTL
                   )}{' '}
                 g
-              </Text>
+              </Text> */}
               <Text style={styles.nutrientText}>
                 {i18n.t('carbs')}:{' '}
                 {result &&
@@ -197,12 +237,13 @@ const getStyles = (theme, myFont) =>
       fontFamily: 'Vazirmatn',
     },
     baseContainer: {
-      borderWidth: 5,
+      borderWidth: 15,
       borderColor: theme.colors.primary,
       borderRadius: 75,
       width: 150,
       height: 150,
       margin: 10,
+      borderOpacity: 0.2,
       justifyContent: 'center',
       alignItems: 'center',
     },

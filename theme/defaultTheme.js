@@ -9,6 +9,7 @@ const DefaultTheme = createTheme({
     background: '#FCF8FF',
     warning: '#FFA500',
     error: '#FF0000',
+    lightSuccess: '#25c43d',
     button: '#5B5891',
     searchBackground: '#F0ECF4',
     secondary2: '#E4DFF9',
