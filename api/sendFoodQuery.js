@@ -15,11 +15,11 @@ const sendInitialReq = async (userInput, userId, selectedMeal, setStatus) => {
       '/nutritionextractor',
       { userInput, userId, selectedMeal }
     );
-    console.log('response in sendInitialReq', response.data);
-    console.log(
-      'response in sendInitialReq',
-      response.data.currentFood.foodItems
-    );
+    // console.log('response in sendInitialReq', response.data);
+    // console.log(
+    //   'response in sendInitialReq',
+    //   response.data.currentFood.foodItems
+    // );
     return response;
   } catch (error) {
     setStatus('error');

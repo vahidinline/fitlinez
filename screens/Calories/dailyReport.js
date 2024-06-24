@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, PixelRatio, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  PixelRatio,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { getDailyCalorieInTake } from '../../api/dailyCalorieInTake';
 import { useTheme } from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -29,6 +37,7 @@ function DailyReport({ userId }) {
   //console.log('dailyCalories in angle', angle);
   // console.log('dailyCalories in daily', dailyCalories);
   //console.log('result in daily', result);
+  console.log('percentage in daily', percentage);
   const getDailyReport = async () => {
     setStatus('loading');
     if (!userId) {
@@ -48,6 +57,8 @@ function DailyReport({ userId }) {
   useEffect(() => {
     getDailyReport();
   }, [userId]);
+
+  const handleAddFoodbutton = () => {};
 
   useEffect(() => {
     const getDailyCaloriesGoals = async () => {
@@ -83,11 +94,13 @@ function DailyReport({ userId }) {
         </Text>
       )} */}
 
-      {status === 'noDailyCalories' && (
-        <Text style={styles.noDataText}>
-          {i18n.t('Nodailycaloriesgoalsset')}
-        </Text>
-      )}
+      {/* {!percentage && (
+        <TouchableOpacity onPress={() => handleAddFoodbutton()}>
+          <Text style={styles.noDataText}>
+            {i18n.t('noFoodSubmittedToday')}
+          </Text>
+        </TouchableOpacity>
+      )} */}
       {status === 'success' && (
         <>
           <View
@@ -100,6 +113,7 @@ function DailyReport({ userId }) {
               borderColor="blue" // Custom border color
               borderWidth={4}
               size={200}
+              i18n={i18n}
               shownumber={
                 result.length > 0
                   ? convertToPersianNumbers(
@@ -210,7 +224,7 @@ const getStyles = (theme, myFont) =>
       justifyContent: 'center',
       alignItems: 'center',
       //marginHorizontal: 20,
-      flexDirection: 'row',
+      flexDirection: 'column',
       padding: 30,
       borderRadius: 14,
       width: Dimensions.get('window').width / 1.1,

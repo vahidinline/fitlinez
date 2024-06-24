@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import MealSection from './MealSection';
 import TempfoodItems from './TempfoodItems';
@@ -14,10 +14,9 @@ import FitlinezLoading from '../../components/FitlinezLoading';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
-import NutritionChart from './NutritionChart';
 import CustomReport from './customReport';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@rneui/base';
+import DailyDetailsIndex from './DailyDetails/DailyDetailsIndex';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -52,9 +51,18 @@ function CaloriesIndex() {
               <Pressable
                 style={{
                   marginHorizontal: 20,
+                  flexDirection: 'row',
                 }}
                 onPress={() => setStatus('idle')}>
                 <IconArrowLeft color={theme.colors.primary} size={30} />
+                <Text
+                  style={{
+                    color: theme.colors.primary,
+                    top: 6,
+                    fontFamily: 'Vazirmatn',
+                  }}>
+                  {i18n.t('back')}
+                </Text>
               </Pressable>
             )}
             {/* <Text style={{ textAlign: 'center', fontSize: 20, color: 'white' }}>
@@ -62,19 +70,27 @@ function CaloriesIndex() {
           </Text> */}
           </View>
           {/* {status === 'idle' && ( */}
-          <DailyReport
-            myFont={'Vazirmatn'}
-            RTL={RTL}
-            userId={userId}
-            i18n={i18n}
-          />
           {/* )} */}
           {status === 'loading' && (
             <FitlinezLoading />
             // <ActivityIndicator size="large" color="#0000ff" />
             // <Image source={require('../../../assets/loading.gif')} />
           )}
+          {status === 'idle' && <DailyDetailsIndex mainStatus={status} />}
+          {status === 'addFood' && <DailyDetailsIndex mainStatus={status} />}
+          {status === 'mealInitialized' && (
+            <DailyDetailsIndex mainStatus={status} />
+          )}
+          {/* <DailyReport
+            setMaintStatus={setStatus}
+            mainStatus={status}
+            myFont={'Vazirmatn'}
+            RTL={RTL}
+            userId={userId}
+            i18n={i18n}
+          /> */}
         </ScrollView>
+
         {status === 'idle' && (
           <View
             style={{

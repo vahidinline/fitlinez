@@ -451,9 +451,15 @@ const i18nt = {
     errorTitle: 'Error',
     errorMessage: 'An error occurred. Please try again later',
     errorButtonTitle: 'Retry',
+    previousMenu: 'Previous Menu',
+    dailyCaloriesReportTitle: 'Daily Calories Report',
+    noFoodSubmittedToday: 'No food submitted today',
+    kcal: 'kcal',
   },
 
   fa: {
+    noFoodSubmittedToday: 'امروز هیچ غذایی ثبت نشده است',
+    dailyCaloriesReportTitle: 'گزارش کالری روزانه',
     errorTitle: 'خطا',
     errorMessage: 'خطایی رخ داده است. لطفا بعدا دوباره تلاش کنید',
     errorButtonTitle: 'تلاش مجدد',
@@ -474,7 +480,7 @@ const i18nt = {
     workOutAtGym: 'باشگاه',
     doneWorkoutAt: ' تمرین {{workout}} در {{location}} ',
     noWorkouts: 'تمرینی موجود نیست',
-
+    kcal: 'کیلوکالری',
     at: 'در',
 
     workoutHistory: 'تاریخچه تمرین',
@@ -523,7 +529,7 @@ const i18nt = {
     addfood: 'افزودن غذا',
     setdailycalories: 'تنظیم کالری روزانه',
     dailyCalories: 'کالری روزانه',
-    createmeal: 'ایجاد وعده غذایی',
+    createmeal: 'ثبت غذای خاص',
     back: 'بازگشت',
     insetmealtitle: 'لطفا نوع وعده غذایی را انتخاب کنید',
     breakfast: 'صبحانه',
@@ -805,6 +811,7 @@ const i18nt = {
     SizeTracker: ' سایزگیری اندام',
     next: 'بعدی',
     previous: 'قبلی',
+    previousMenu: 'منوی قبلی',
     seechart: 'پیشرفت خود را در طول زمان ببینید',
     poweredbyfitlinez: 'طراحی شده توسط فیت لاینز',
     chest: 'سینه',

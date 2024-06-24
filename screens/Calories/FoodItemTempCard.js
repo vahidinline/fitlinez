@@ -35,7 +35,7 @@ const FoodItemCard = ({
   const [mealId, setMealId] = useState(null);
   const { userLanguage } = useContext(LanguageContext);
   const RTL = userLanguage === 'fa';
-  console.log('current food in card', current.foodItems[0]?.calories?.amount);
+  //console.log('current food in card', current.foodItems[0]?.calories?.amount);
   //console.log('foodItems in card', foodItems);
   //console.log('foodId in card', foodId);
   //console.log('selectedMeal in card', selectedMeal);
@@ -116,16 +116,7 @@ const FoodItemCard = ({
             {`${current.foodItems[0]?.calories?.unit}`}
           </Text>
         </View>
-        <View style={styles.list}>
-          <Text style={styles.itemText}>{i18n.t('cholesterol')}</Text>
-          <Text style={styles.itemUnit}>
-            <Text
-              style={
-                styles.itemValue
-              }>{`${current.foodItems[0]?.cholesterol?.amount}`}</Text>
-            {`${current.foodItems[0]?.cholesterol?.unit}`}
-          </Text>
-        </View>
+
         <View style={styles.list}>
           <Text style={styles.itemText}>{i18n.t('protein')}</Text>
           <Text style={styles.itemUnit}>
@@ -137,15 +128,41 @@ const FoodItemCard = ({
           </Text>
         </View>
         <View style={styles.list}>
-          <Text style={styles.itemText}>{i18n.t('saturated_fat')}</Text>
-          <Text style={styles.itemUnit}>
+          <View
+            style={{
+              flexDirection: 'column',
+            }}>
+            <Text style={styles.itemText}>{i18n.t('fats')}</Text>
             <Text
-              style={
-                styles.itemValue
-              }>{`${current.foodItems[0]?.saturated_fat?.amount}`}</Text>
-            {`${current.foodItems[0]?.saturated_fat?.unit}`}
-          </Text>
+              style={{
+                color: theme.colors.white,
+                fontFamily: 'Vazirmatn',
+                fontSize: 10,
+              }}>
+              {i18n.t('saturated_fat')}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'column',
+            }}>
+            <Text style={styles.itemValue}>
+              {`${current.foodItems[0]?.total_fat?.amount}`}{' '}
+              {`${current.foodItems[0]?.total_fat?.unit}`}
+            </Text>
+            <Text
+              style={{
+                color: theme.colors.white,
+                fontFamily: 'Vazirmatn',
+                fontSize: 10,
+              }}>
+              {`${current.foodItems[0]?.saturated_fat?.amount}`}{' '}
+              {`${current.foodItems[0]?.total_fat?.unit}`}
+            </Text>
+          </View>
         </View>
+
         <View style={styles.list}>
           <Text style={styles.itemText}>{i18n.t('sugar')}</Text>
           <Text style={styles.itemUnit}>
@@ -166,17 +183,23 @@ const FoodItemCard = ({
             {`${current.foodItems[0]?.total_carbohydrates?.unit}`}
           </Text>
         </View>
+
         <View style={styles.list}>
-          <Text style={styles.itemText}>{i18n.t('fats')}</Text>
+          <Text style={styles.itemText}>{i18n.t('fiber')}</Text>
           <Text style={styles.itemUnit}>
             <Text
               style={
                 styles.itemValue
-              }>{`${current.foodItems[0]?.total_fat?.amount}`}</Text>
-            {`${current.foodItems[0]?.total_fat?.unit}`}
+              }>{`${current.foodItems[0]?.dietary_fiber?.amount}`}</Text>
+            {`${current.foodItems[0]?.dietary_fiber?.unit}`}
           </Text>
         </View>
-
+        {/* <Text
+              style={
+                styles.itemValue
+              }>{`${current.foodItems[0]?.saturated_fat?.amount}`}</Text>
+            {`${current.foodItems[0]?.saturated_fat?.unit}`}
+          </Text>  */}
         <View
           style={{
             flexDirection: 'row',

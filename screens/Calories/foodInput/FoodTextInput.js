@@ -80,7 +80,7 @@ function FoodTextInput({
         onFocus={() => setTypeStatus('focused')}
         onBlur={() => setTypeStatus('idle')}
         multiline={true}
-        numberOfLines={4}
+        //numberOfLines={4}
         onChangeText={setUserInput}
         style={[styles.verticallySpaced, { direction: RTL ? 'rtl' : 'ltr' }]}
         placeholder={i18n.t('enterFoodPlaceholder')}
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderWidth: 0.3,
     marginHorizontal: 10,
-    height: 100,
+    // height: 100,
     borderRadius: 5,
     padding: 10,
     width: '95%',

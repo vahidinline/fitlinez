@@ -28,7 +28,7 @@ const CustomCalorieReport = () => {
   const [reportType, setReportType] = useState(
     'weekly                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1 1 1`'
   );
-  console.log('reportType', reportType);
+
   const [index, setIndex] = useState(0);
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
@@ -97,7 +97,7 @@ const CustomCalorieReport = () => {
       const result = await getCustomCalorieInTakeReport(
         userAuth.id,
         //calculate 30 days ago
-        new Date(new Date().setDate(new Date().getDate() - 3)),
+        new Date(new Date().setDate(new Date().getDate() - 1)),
         new Date(new Date().setDate(new Date().getDate() - 1))
       );
       setStatus('success');
@@ -166,14 +166,14 @@ const CustomCalorieReport = () => {
             borderRadius: 10,
             // margin: 10,
           }}>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={[
               styles.titleButton,
               { borderBottomWidth: reportType === 'daily' ? 3 : 0 },
             ]}
             onPress={() => setReportType('daily')}>
             <Text style={styles.dateText}>{i18n.t('dailyReport')}</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
           <TouchableOpacity
             style={[
               styles.titleButton,

@@ -7,6 +7,7 @@ import {
   Linking,
   Dimensions,
   ImageBackground,
+  Pressable,
 } from 'react-native';
 import { I18n } from 'i18n-js';
 import LanguageContext from '../../api/langcontext';
@@ -19,6 +20,7 @@ import { Button, Text, useTheme } from '@rneui/themed';
 import { Divider } from 'react-native-paper';
 import formatTime from '../../api/timeFormat';
 import {
+  IconFire,
   IconImage,
   IconLogo,
   Iconshare,
@@ -27,6 +29,7 @@ import {
 import Header from '../../components/header';
 import { TouchableOpacity } from 'react-native';
 import { getBurnedCalories } from '../../api/getBurnedCalories';
+import AuthContext from '../../api/context';
 
 const SahreResult = ({ route }) => {
   const [open, setOpen] = useState(false);
@@ -38,7 +41,8 @@ const SahreResult = ({ route }) => {
     requestPermission();
   }
   const [burnedCalories, setBurnedCalories] = useState(null);
-
+  const { userAuth } = useContext(AuthContext);
+  const userId = userAuth.id;
   const imageRef = useRef();
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
@@ -209,6 +213,10 @@ const SahreResult = ({ route }) => {
     setBurnedCalories(burnedCalories);
   };
 
+  useEffect(() => {
+    handleShowBurnedCalories();
+  }, []);
+
   const handleStoreandNavigate = () => {
     //saveUserData();
     navigation.reset({
@@ -288,11 +296,25 @@ const SahreResult = ({ route }) => {
                   <Divider style={styles.divider} />
                 </>
               )}
-              {/* <View style={styles.view}>
-                <Text style={styles.title}>{performance}%</Text>
-                <Text style={styles.subtitle}>{i18n.t('performance')}</Text>
-              </View> 
-              <Divider style={styles.divider} />*/}
+              {burnedCalories && (
+                <View style={styles.view}>
+                  <Text style={styles.title}>
+                    {burnedCalories.totalCaloriesBurned.toFixed(0)} kcal
+                  </Text>
+                  <Pressable
+                    style={{
+                      flexDirection: 'row',
+                    }}
+                    //</View> onPress={() => handleShowBurnedCalories()}
+                  >
+                    <Text style={styles.subtitle}>
+                      {i18n.t('burnedCalories')}
+                    </Text>
+                    <IconFire />
+                  </Pressable>
+                </View>
+              )}
+              <Divider style={styles.divider} />
               <View style={styles.view}>
                 <Text style={styles.title}>{formatTime(timeSpent)}</Text>
                 <Text style={styles.subtitle}>{i18n.t('duration')}</Text>

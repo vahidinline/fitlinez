@@ -198,7 +198,7 @@ function HomeIndex() {
             onClose={() => setModalVisible(false)}
           />
         )} */}
-        {status === 'hasPlan' && (
+        {/* {status === 'hasPlan' && (
           <View
             style={{
               height: Dimensions.get('window').height / 7,
@@ -212,7 +212,7 @@ function HomeIndex() {
               }))}
             />
           </View>
-        )}
+        )} */}
       </View>
 
       <ScrollView
@@ -298,6 +298,7 @@ function HomeIndex() {
             </Button>
           </View>
         </View>
+        {/* <StepcounterIndex /> */}
         <Text
           style={{
             color: theme.colors.text,

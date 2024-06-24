@@ -88,7 +88,8 @@
     "react-native-svg": "^13.9.0",
     "react-native-vector-icons": "^10.0.3",
     "react-native-view-shot": "3.7.0",
-    "victory-native": "^37.0.3-next.0"
+    "victory-native": "^37.0.3-next.0",
+    "expo-sensors": "~12.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

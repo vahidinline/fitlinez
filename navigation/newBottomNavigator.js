@@ -7,33 +7,18 @@ import { useTheme } from '@rneui/themed';
 import HomeIndex from '../screens/Home/HomeIndex';
 import CustomReport from '../screens/customReport';
 import MsgContext from '../api/messageContext';
-import Svg, { Path } from 'react-native-svg';
-import MarketPlaceNavigation from './MarketPlaceNavigation';
 import SettingNavigator from './settingNavigator';
 import ProfileNavigator from './profileNavigator';
 import {
   IconHomeFocused,
   IconHomeUnFocused,
-  IconMarketFocused,
-  IconMarketUnFocused,
   IconProfileFocused,
   IconProfileUnFocused,
   IconSettingsFocused,
   IconSettingsUnFocused,
   IconStatsFocused,
   IconStatsUnFocused,
-} from '../screens/marketplace/filters/icons-';
-import StatisticsIndex from '../screens/customReport/statistics';
-import ReportIndex from '../screens/Report/ReportIndex';
-import { LinearGradient } from 'expo-linear-gradient';
-import { View } from 'react-native';
-import CaloriesIndex from '../screens/Calories/CaloriesIndex';
-import {
-  IconCakeFocused,
-  IconCakeUnFocused,
-  IconToDoList,
 } from '../screens/marketplace/filters/icons';
-import DailyTaskIndex from '../screens/DailyTasks/DailyTaskIndex';
 
 const Tab = createBottomTabNavigator();
 
@@ -53,10 +38,18 @@ function TabNavigator() {
           flex: 1,
           backgroundColor: theme.colors.black,
         },
+        tabBarIndicatorStyle: {
+          backgroundColor: '#00BB23',
+          height: 3,
+        },
+        tabBarLabelStyle: {
+          fontFamily: 'Vazirmatn',
+        },
         activeTintColor: theme.colors.white,
         inactiveTintColor: theme.colors.grey2,
         style: {
           backgroundColor: theme.colors.black,
+          fontFamily: 'Vazirmatn',
         },
       }}
       activeColor={theme.colors.white}
@@ -64,6 +57,7 @@ function TabNavigator() {
       barStyle={{ backgroundColor: 'transparent' }}>
       <Tab.Screen
         swipEnabled={false}
+        style={{ fontFamily: 'Vazirmatn' }}
         name="Settings"
         component={SettingNavigator}
         options={{
@@ -103,7 +97,7 @@ function TabNavigator() {
           headerShown: false,
           title: i18n.t('home'),
           tabBarIcon: ({ focused }) =>
-            !focused ? <IconHomeFocused /> : <IconHomeUnFocused />,
+            !focused ? <IconHomeUnFocused /> : <IconHomeFocused />,
         }}
       />
 

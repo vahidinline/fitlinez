@@ -3,7 +3,9 @@ import { BottomSheet, ListItem } from '@rneui/base';
 import { Direct } from 'iconsax-react-native';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
-import { List } from 'react-native-paper';
+import { List, Text } from 'react-native-paper';
+import { IconArrow, IconArrowLeft } from '../marketplace/filters/icons';
+import { useTheme } from '@rneui/themed';
 
 function CalorieMenu({
   status,
@@ -15,7 +17,7 @@ function CalorieMenu({
   RTL,
 }) {
   const navigation = useNavigation();
-
+  const { theme } = useTheme();
   const handleGoToReport = () => {
     setStatus('CustomReport');
     navigation.navigate('CustomCalorieReport', { userId });
@@ -56,8 +58,14 @@ function CalorieMenu({
     },
     {
       id: 5,
-      name: i18n.t('back'),
+      name: i18n.t('previousMenu'),
       onPress: () => handleHideMenu(),
+      active: true,
+    },
+    {
+      id: 6,
+      name: i18n.t('backtohome'),
+      onPress: () => navigation.reset({ index: 0, routes: [{ name: 'Home' }] }),
       active: true,
     },
   ];
@@ -92,7 +100,7 @@ function CalorieMenu({
             <ListItem.Title
               style={[
                 styles.titleStyle,
-                { color: l.active ? '#000' : '#ccc' },
+                { color: l.active ? theme.colors.secondary : '#ccc' },
                 { borderBottomColor: l.active ? '#000' : '#ccc' },
                 { borderBottomWidth: l.active ? 1 : 0 },
                 { fontFamily: 'Vazirmatn' },
@@ -101,12 +109,21 @@ function CalorieMenu({
             </ListItem.Title>
             <ListItem.Subtitle
               style={{
-                color: l.active ? '#000' : '#ccc',
+                color: l.active ? theme.colors.secondary : '#ccc',
                 fontFamily: 'Vazirmatn',
+                fontSize: 10,
               }}>
               {l.active ? '' : i18n.t('notActive')}
             </ListItem.Subtitle>
-            <ListItem.Chevron />
+
+            {RTL ? (
+              <IconArrowLeft
+                size={20}
+                color={l.active ? theme.colors.secondary : '#ccc'}
+              />
+            ) : (
+              <ListItem.Chevron />
+            )}
           </ListItem.Content>
         </ListItem>
       ))}
