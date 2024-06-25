@@ -32,6 +32,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
 import FitModal from '../../components/FitModal';
 import RoundAnimationChart from '../../components/RoundAnimationChart';
+import { getNewTasks } from '../../api/getNewTasks';
 
 function HomeIndex() {
   const [refreshing, setRefreshing] = useState(false);
@@ -72,7 +73,7 @@ function HomeIndex() {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(async () => {
-      const result = await getUsercurrentWorkoutPlan(userAuth.id, i18n);
+      const result = await getNewTasks(userAuth.id);
       if (result) {
         setModalVisible(true);
       }
@@ -226,7 +227,7 @@ function HomeIndex() {
               marginTop: 10,
               height: Dimensions.get('window').height / 12,
               //zIndex: 100,
-              marginBottom: Dimensions.get('window').height / 8,
+              //  marginBottom: Dimensions.get('window').height / 7,
             }}>
             <CurrentWorkoutCard
               RTL={isRTL}
@@ -256,6 +257,7 @@ function HomeIndex() {
             marginHorizontal: 20,
             borderRadius: 14,
             marginVertical: 0,
+            top: Dimensions.get('window').height / 5,
           }}>
           <LinearGradient
             colors={['#5B5891', '#3A366F', '#17124a']}

@@ -46,6 +46,8 @@ const RoundAnimationChart = ({
 
   size,
 }) => {
+  console.log('dailyGoal', dailyGoal);
+  console.log('takenCalories', takenCalories);
   const { theme } = useTheme();
   const [state, setState] = useState({
     percent: 0,
@@ -55,7 +57,7 @@ const RoundAnimationChart = ({
 
   useEffect(() => {
     let currentPercent = 0;
-    const targetPercent = (takenCalories / dailyGoal) * 100; // Calculate the target percent
+    const targetPercent = (takenCalories ? takenCalories : 0 / dailyGoal) * 100; // Calculate the target percent
     const increment = targetPercent / 20; // This controls the speed of the animation
     const intervalTime = 100; // Time in milliseconds between updates
 
@@ -106,14 +108,14 @@ const RoundAnimationChart = ({
                 y={200}
                 text={
                   shownumber
-                    ? `${
-                        Math.round(takenCalories)
-                          ? Math.round(takenCalories)
-                          : 0
-                      }/${dailyGoal}`
-                    : takenCalories > dailyGoal
-                    ? `Over ${Math.round(newProps.percent - 100)}%`
-                    : `${Math.round(newProps.percent)}%`
+                  // ? `${
+                  //     Math.round(takenCalories)
+                  //       ? Math.round(takenCalories)
+                  //       : 0
+                  //   }/${dailyGoal}`
+                  // : takenCalories > dailyGoal
+                  // ? `Over ${Math.round(newProps.percent - 100)}%`
+                  // : `${Math.round(newProps.percent)}%`
                 }
                 style={{
                   fontSize: 30,

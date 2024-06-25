@@ -1,13 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  Dimensions,
-  PixelRatio,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { getDailyCalorieInTake } from '../../api/dailyCalorieInTake';
 import { useTheme } from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -37,7 +29,7 @@ function DailyReport({ userId }) {
   //console.log('dailyCalories in angle', angle);
   // console.log('dailyCalories in daily', dailyCalories);
   //console.log('result in daily', result);
-  console.log('percentage in daily', percentage);
+  //console.log('percentage in daily', percentage);
   const getDailyReport = async () => {
     setStatus('loading');
     if (!userId) {
@@ -84,32 +76,10 @@ function DailyReport({ userId }) {
 
   return (
     <View style={styles.container}>
-      {/* <LinearGradient
-        colors={['#5B5891', '#3A366F', '#17124A']}
-        style={styles.background}
-      /> */}
-      {/* {status === 'noData' && (
-        <Text style={styles.noDataText}>
-          {i18n.t('Nodailycaloriesgoalsset')}
-        </Text>
-      )} */}
-
-      {/* {!percentage && (
-        <TouchableOpacity onPress={() => handleAddFoodbutton()}>
-          <Text style={styles.noDataText}>
-            {i18n.t('noFoodSubmittedToday')}
-          </Text>
-        </TouchableOpacity>
-      )} */}
       {status === 'success' && (
         <>
-          <View
-            style={[
-              styles.baseContainer,
-
-              // { borderColor: angle > dailyCalories ? 'red' : 'green' },
-            ]}>
-            <RoundAnimationChart
+          <View style={[styles.baseContainer]}>
+            {/* <RoundAnimationChart
               borderColor="blue" // Custom border color
               borderWidth={4}
               size={200}
@@ -126,8 +96,8 @@ function DailyReport({ userId }) {
                 dailyCalories - result[0]?.totalCalories.toFixed(0)
               }
               dailyGoal={dailyCalories}
-            />
-            {/* <Text style={styles.caloriesText}>
+            /> */}
+            <Text style={styles.caloriesText}>
               {result.length > 0
                 ? convertToPersianNumbers(
                     dailyCalories - result[0]?.totalCalories.toFixed(0),
@@ -135,8 +105,8 @@ function DailyReport({ userId }) {
                   )
                 : convertToPersianNumbers(dailyCalories, RTL)}
             </Text>
-            <Text style={styles.kcalText}>kcal</Text>
-            <Text style={styles.remainingText}>{i18n.t('remaining')}</Text> */}
+            <Text style={styles.kcalText}>{i18n.t('kcal')}</Text>
+            <Text style={styles.remainingText}>{i18n.t('remaining')}</Text>
           </View>
           {/* {result.length === 0 && (
             <Text style={styles.noDataText}>{i18n.t('Nodataavailable')}</Text>
@@ -176,7 +146,7 @@ function DailyReport({ userId }) {
                     result[0]?.totalCarbs.toFixed(0),
                     RTL
                   )}{' '}
-                g
+                {i18n.t('g')}
               </Text>
               <Text style={styles.nutrientText}>
                 {i18n.t('protein')}:
@@ -185,7 +155,7 @@ function DailyReport({ userId }) {
                     result[0]?.totalProtein.toFixed(0),
                     RTL
                   )}
-                g
+                {i18n.t('g')}
               </Text>
 
               <Text style={styles.nutrientText}>
@@ -195,7 +165,7 @@ function DailyReport({ userId }) {
                     result[0]?.totalFat.toFixed(0),
                     RTL
                   )}{' '}
-                g
+                {i18n.t('g')}
               </Text>
               <Text style={styles.nutrientText}>
                 {i18n.t('fiber')}:{' '}
@@ -204,7 +174,7 @@ function DailyReport({ userId }) {
                     result[0]?.totalFiber.toFixed(0),
                     RTL
                   )}{' '}
-                g
+                {i18n.t('g')}
               </Text>
             </View>
           )}
@@ -224,7 +194,7 @@ const getStyles = (theme, myFont) =>
       justifyContent: 'center',
       alignItems: 'center',
       //marginHorizontal: 20,
-      flexDirection: 'column',
+      flexDirection: 'row',
       padding: 30,
       borderRadius: 14,
       width: Dimensions.get('window').width / 1.1,
@@ -251,15 +221,16 @@ const getStyles = (theme, myFont) =>
       fontFamily: 'Vazirmatn',
     },
     baseContainer: {
-      borderWidth: 15,
+      borderWidth: 5,
       borderColor: theme.colors.primary,
       borderRadius: 75,
       width: 150,
       height: 150,
-      margin: 10,
+      margin: 5,
       borderOpacity: 0.2,
       justifyContent: 'center',
       alignItems: 'center',
+      flexDirection: 'column',
     },
     caloriesText: {
       color: theme.colors.primary,
@@ -277,7 +248,7 @@ const getStyles = (theme, myFont) =>
     },
     remainingText: {
       color: theme.colors.primary,
-      fontSize: 15,
+      fontSize: 12,
       textAlign: 'center',
       fontFamily: 'Vazirmatn',
       //fontWeight: 'bold',

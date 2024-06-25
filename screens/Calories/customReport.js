@@ -25,6 +25,7 @@ const CustomCalorieReport = () => {
   const [showDatePicker2, setShowDatePicker2] = useState(false);
   const [status, setStatus] = useState('idle');
   const [report, setReport] = useState({});
+
   const [reportType, setReportType] = useState(
     'weekly                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1 1 1`'
   );
@@ -96,8 +97,8 @@ const CustomCalorieReport = () => {
     try {
       const result = await getCustomCalorieInTakeReport(
         userAuth.id,
-        //calculate 30 days ago
-        new Date(new Date().setDate(new Date().getDate() - 1)),
+        //calculate 1 days ago
+        new Date(new Date().setDate(new Date().getDate() - 2)),
         new Date(new Date().setDate(new Date().getDate() - 1))
       );
       setStatus('success');
@@ -199,7 +200,7 @@ const CustomCalorieReport = () => {
 
         {reportType === 'monthly' && <ListReport i18n={i18n} report={report} />}
         {reportType === 'custom' && <ListReport i18n={i18n} report={report} />}
-
+        {reportType === 'daily' && <ListReport i18n={i18n} report={report} />}
         {/* {status === 'custom' && (
           <>
             <View

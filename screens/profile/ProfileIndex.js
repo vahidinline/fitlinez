@@ -173,6 +173,27 @@ function ProfileIndex() {
             justifyContent: 'center',
           }}>
           <UserImagePicker setAvatar={setAvatar} />
+          <View
+            style={{
+              position: 'absolute',
+
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: theme.colors.text,
+                // marginLeft: 10,
+                marginTop: 10,
+                opacity: 0.4,
+                fontFamily: 'Vazirmatn',
+              }}>
+              {userAuth.name}
+            </Text>
+          </View>
         </View>
 
         <TouchableOpacity
@@ -196,6 +217,7 @@ function ProfileIndex() {
           <IconLeaderboard />
         </TouchableOpacity>
       </View>
+
       <View
         style={{
           flexDirection: 'column',

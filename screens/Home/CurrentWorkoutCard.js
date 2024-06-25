@@ -33,11 +33,11 @@ import DailyTaskIndex from '../DailyTasks/DailyTaskIndex';
 function CurrentWorkoutCard({ title, trainer, location, RTL }) {
   const [percentage, setPercentage] = useState(0);
   const { userPrivilege, setUserPrivilege } = useContext(UserPrivilegeContext);
-  useEffect(() => {
-    readWorkoutPercentageData(title).then((data) => {
-      setPercentage(data?.percentage ? data.percentage : 0);
-    });
-  }, []);
+  // useEffect(() => {
+  //   readWorkoutPercentageData(title).then((data) => {
+  //     setPercentage(data?.percentage ? data.percentage : 0);
+  //   });
+  // }, []);
 
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -73,28 +73,38 @@ function CurrentWorkoutCard({ title, trainer, location, RTL }) {
         style={[
           styles.background,
           {
-            height: Dimensions.get('window').height / 5,
+            height: Dimensions.get('window').height / 4,
           },
         ]}
       />
-
-      <DailyTaskIndex />
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('SessionNavigator');
+      <View
+        style={{
+          direction: RTL ? 'rtl' : 'ltr',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginHorizontal: 10,
+          marginTop: 10,
         }}>
-        <Text
-          style={{
-            fontSize: 12,
-            fontFamily: 'Vazirmatn',
-            marginHorizontal: 10,
-            marginTop: 5,
-            // fontWeight: 'bold',
-            color: 'white',
-          }}>
-          {i18n.t('seeLastExercises')}
-        </Text>
-      </TouchableOpacity>
+        {title && (
+          <Text
+            style={{
+              fontSize: 12,
+              fontFamily: 'Vazirmatn',
+              marginHorizontal: 10,
+              marginTop: 5,
+              color: 'white',
+            }}>
+            {i18n.t('yourWorkoutPlan')} : {title}
+          </Text>
+        )}
+      </View>
+      <View
+        style={{
+          top: 30,
+        }}>
+        <DailyTaskIndex />
+      </View>
     </View>
   );
 }

@@ -150,8 +150,9 @@ function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
       style={{
         height: '100%',
         direction: RTL ? 'rtl' : 'ltr',
+        top: 30,
         bottom:
-          typeStatus === 'focused' ? Dimensions.get('window').height / 4 : 0,
+          typeStatus === 'focused' ? Dimensions.get('window').height / 4 : 20,
       }}>
       <NutritionChart
         i18n={i18n}

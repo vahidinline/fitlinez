@@ -46,16 +46,16 @@ function CalorieMenu({
     },
     {
       id: 3,
-      name: i18n.t('report'),
+      name: i18n.t('seeHistory'),
       onPress: () => handleGoToReport(),
       active: true,
     },
-    {
-      id: 4,
-      name: i18n.t('createmeal'),
-      onPress: () => setStatus('createMeal'),
-      active: false,
-    },
+    // {
+    //   id: 4,
+    //   name: i18n.t('createmeal'),
+    //   onPress: () => setStatus('createMeal'),
+    //   active: false,
+    // },
     {
       id: 5,
       name: i18n.t('previousMenu'),
@@ -77,7 +77,7 @@ function CalorieMenu({
         position: 'absolute',
         bottom: 10,
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 2.5,
+        height: Dimensions.get('window').height / 2.8,
         backgroundColor: '#fff',
         borderRadius: 10,
         borderTopColor: 'lightgrey',

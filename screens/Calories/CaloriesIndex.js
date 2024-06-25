@@ -33,7 +33,7 @@ function CaloriesIndex() {
   const RTL = userLanguage === 'fa';
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <View style={{ flex: 1, backgroundColor: theme.colors.secondary }}>
         <ScrollView>
           <View
@@ -43,8 +43,7 @@ function CaloriesIndex() {
               justifyContent: 'space-between',
               alignItems: 'center',
               marginVertical: 20,
-              //marginHorizontal: 20,
-              //backgroundColor: theme.colors.background,
+
               height: 50,
             }}>
             {status !== 'idle' && (
@@ -65,30 +64,12 @@ function CaloriesIndex() {
                 </Text>
               </Pressable>
             )}
-            {/* <Text style={{ textAlign: 'center', fontSize: 20, color: 'white' }}>
-            Welcome to the Nutrition Extractor
-          </Text> */}
           </View>
-          {/* {status === 'idle' && ( */}
-          {/* )} */}
-          {status === 'loading' && (
-            <FitlinezLoading />
-            // <ActivityIndicator size="large" color="#0000ff" />
-            // <Image source={require('../../../assets/loading.gif')} />
+
+          {status === 'loading' && <FitlinezLoading />}
+          {status === 'idle' && (
+            <DailyDetailsIndex mainStatus={status} setMainStatus={setStatus} />
           )}
-          {status === 'idle' && <DailyDetailsIndex mainStatus={status} />}
-          {status === 'addFood' && <DailyDetailsIndex mainStatus={status} />}
-          {status === 'mealInitialized' && (
-            <DailyDetailsIndex mainStatus={status} />
-          )}
-          {/* <DailyReport
-            setMaintStatus={setStatus}
-            mainStatus={status}
-            myFont={'Vazirmatn'}
-            RTL={RTL}
-            userId={userId}
-            i18n={i18n}
-          /> */}
         </ScrollView>
 
         {status === 'idle' && (
@@ -209,7 +190,7 @@ function CaloriesIndex() {
           />
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

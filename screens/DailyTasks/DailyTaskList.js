@@ -1,7 +1,7 @@
 import { Text } from '@rneui/base';
 import { useTheme } from '@rneui/themed';
 import React, { useContext } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Dimensions, TouchableOpacity, View } from 'react-native';
 import {
   IconInfo,
   IconTick,
@@ -35,7 +35,8 @@ function DailyTaskList(item) {
         justifyContent: 'space-between',
         backgroundColor: theme.colors.background,
         marginHorizontal: 10,
-        height: 80,
+        height: Dimensions.get('window').height / 9,
+        top: 10,
         marginVertical: 8,
         borderRadius: 16,
         borderColor: theme.colors.border,
@@ -51,16 +52,16 @@ function DailyTaskList(item) {
         }}>
         <View
           style={{
-            //  padding: 15,
+            paddingVertical: 15,
             flexDirection: 'row',
             marginHorizontal: 0,
             alignItems: 'center',
           }}>
           {item.item.taskType === 'workout' && (
-            <IconWorkout color={theme.colors.secondary} size={32} />
+            <IconWorkout color={theme.colors.secondary} size={48} />
           )}
           {item.item.taskType === 'NEAT' && (
-            <IconWalking color={theme.colors.secondary} size={32} />
+            <IconWalking color={theme.colors.secondary} size={48} />
           )}
           <Text
             style={{
