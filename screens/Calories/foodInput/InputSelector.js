@@ -127,6 +127,27 @@ function InputSelector({
           userId={userId}
         />
       )}
+      <View>
+        <Button
+          buttonStyle={{
+            backgroundColor: theme.colors.secondary,
+
+            borderColor: theme.colors.primary,
+            borderWidth: 0.2,
+
+            margin: 10,
+            borderRadius: 10,
+          }}
+          titleStyle={{
+            color: theme.colors.primary,
+            fontSize: 15,
+            fontWeight: 'bold',
+            fontFamily: 'Vazirmatn',
+          }}
+          title={i18n.t('back')}
+          onPress={() => setStatus('idle')}
+        />
+      </View>
     </View>
   );
 }

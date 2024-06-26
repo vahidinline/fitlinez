@@ -62,17 +62,17 @@ function FoodTextInput({
   return (
     <View
       style={[
-        styles.footerContainer,
+        // styles.footerContainer,
         {
           bottom:
             typeStatus === 'focused' ? Dimensions.get('window').height / 3 : 0,
         },
       ]}>
-      <Pressable
+      {/* <Pressable
         onPress={() => setInputStatus('idle')}
         style={styles.closeButton}>
         <Iconclose size={30} color={theme.colors.grey2} />
-      </Pressable>
+      </Pressable> */}
       <TextInput
         value={userInput}
         returnKeyType="done"
@@ -82,14 +82,21 @@ function FoodTextInput({
         multiline={true}
         //numberOfLines={4}
         onChangeText={setUserInput}
-        style={[styles.verticallySpaced, { direction: RTL ? 'rtl' : 'ltr' }]}
+        style={[
+          styles.verticallySpaced,
+          { direction: RTL ? 'rtl' : 'ltr', backgroundColor: '#fff' },
+        ]}
         placeholder={i18n.t('enterFoodPlaceholder')}
       />
       <View style={styles.buttonContainer}>
         <Button
           disabled={!userInput || userInput.length < 5}
           buttonStyle={styles.saveButton}
-          titleStyle={{ fontFamily: 'Vazirmatn' }}
+          titleStyle={{
+            fontFamily: 'Vazirmatn',
+
+            color: theme.colors.secondary,
+          }}
           onPress={handleInput}
           title={i18n.t('foodsearch')}
         />
@@ -105,7 +112,7 @@ const styles = StyleSheet.create({
     padding: 20,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     marginHorizontal: 15,
     marginVertical: 10,
     borderRadius: 10,
@@ -143,7 +150,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '95%',
     height: 50,
-    backgroundColor: '#5B5891',
+    backgroundColor: '#fff',
     borderRadius: 5,
     marginHorizontal: 10,
     marginBottom: 10,

@@ -3,6 +3,7 @@ import React, { useCallback, useContext } from 'react';
 import {
   Dimensions,
   RefreshControl,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
@@ -174,16 +175,10 @@ function HomeIndex() {
     setPackages(result);
   };
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: theme.colors.background,
-        direction: isRTL ? 'rtl' : 'ltr',
-      }}>
+    <SafeAreaView>
       {status === 'loading' && <FitlinezLoading />}
       <View
         style={{
-          marginTop: Dimensions.get('window').height / 10,
           marginBottom: 0,
           zIndex: 100,
         }}>
@@ -193,27 +188,6 @@ function HomeIndex() {
           i18n={i18n}
           title={currentPlan?.name}
         />
-        {/* {modalVisible && (
-          <FitModal
-            visible={modalVisible}
-            onClose={() => setModalVisible(false)}
-          />
-        )} */}
-        {/* {status === 'hasPlan' && (
-          <View
-            style={{
-              height: Dimensions.get('window').height / 7,
-              marginTop: 20,
-            }}>
-            <WorkoutAgenda
-              data={currentPlan}
-              workoutData={currentPlan?.data?.map(({ day, title }) => ({
-                day,
-                title,
-              }))}
-            />
-          </View>
-        )} */}
       </View>
 
       <ScrollView
@@ -225,9 +199,7 @@ function HomeIndex() {
             style={{
               width: Dimensions.get('window').width,
               marginTop: 10,
-              height: Dimensions.get('window').height / 12,
-              //zIndex: 100,
-              //  marginBottom: Dimensions.get('window').height / 7,
+              height: Dimensions.get('window').height / 2,
             }}>
             <CurrentWorkoutCard
               RTL={isRTL}
@@ -245,7 +217,7 @@ function HomeIndex() {
               width: Dimensions.get('window').width,
               marginTop: 30,
 
-              marginBottom: Dimensions.get('window').height / 7,
+              height: Dimensions.get('window').height / 4,
             }}>
             <NoWorkoutCard packages={packages} userPervilage={userPervilage} />
           </View>
@@ -257,7 +229,8 @@ function HomeIndex() {
             marginHorizontal: 20,
             borderRadius: 14,
             marginVertical: 0,
-            top: Dimensions.get('window').height / 5,
+            // height: Dimensions.get('window').height / 3.3,
+            // top: Dimensions.get('window').height / 8,
           }}>
           <LinearGradient
             colors={['#5B5891', '#3A366F', '#17124a']}
@@ -274,7 +247,7 @@ function HomeIndex() {
                 width: Dimensions.get('window').width / 1.2,
                 height: Dimensions.get('window').height / 20,
                 alignSelf: 'center',
-                marginBottom: 20,
+                marginBottom: 30,
               }}
               titleStyle={{
                 color: theme.colors.text,
@@ -313,7 +286,7 @@ function HomeIndex() {
           v. {process.env.EXPO_PUBLIC_VERSION}
         </Text>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 export default HomeIndex;

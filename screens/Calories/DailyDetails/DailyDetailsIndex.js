@@ -211,6 +211,7 @@ const getStyles = (theme, RTL) =>
       backgroundColor: '#333',
       padding: 10,
       borderRadius: 10,
+      direction: RTL ? 'rtl' : 'ltr',
     },
     MealMainSection: {
       borderEndWidth: 1,
@@ -253,7 +254,8 @@ const getStyles = (theme, RTL) =>
       fontFamily: 'Vazirmatn',
       fontSize: 10,
       color: '#fff',
-      textAlign: 'center',
+      marginHorizontal: 10,
+      textAlign: !RTL ? 'right' : 'left',
     },
     mealItemsContainer: {
       borderRadius: 10,

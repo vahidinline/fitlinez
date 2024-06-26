@@ -459,9 +459,11 @@ const i18nt = {
     yourWorkoutPlan: 'Your Workout Plan',
     g: 'g',
     fat: 'Fat',
+    sutablefor: 'Suitable for',
   },
 
   fa: {
+    sutablefor: 'مناسب برای',
     fat: 'چربی',
     g: 'گرم',
     yourWorkoutPlan: 'برنامه تمرینی شما',

@@ -47,7 +47,7 @@ function DailyTaskIndex() {
         console.log(error);
       });
   }, []);
-  console.log('dailyTasks', dailyTasks.length);
+
   const handleGetTodaysTask = async () => {
     setStatus('loading');
     const res = await getNewTasks(userId);

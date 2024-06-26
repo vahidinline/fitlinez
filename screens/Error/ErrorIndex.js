@@ -1,9 +1,11 @@
 import { Button, Text } from '@rneui/base';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Dimensions, SafeAreaView } from 'react-native';
 import { forceSolveError, clearAllAsyncCache } from '../../api/forceSolveError';
+import AuthContext from '../../api/context';
 
 const ErrorIndex = (i18n, theme) => {
+  const { setUserAuth } = useContext(AuthContext);
   return (
     <SafeAreaView>
       <Text
@@ -40,7 +42,7 @@ const ErrorIndex = (i18n, theme) => {
           fontFamily: 'Vazirmatn',
         }}
         color="primary"
-        onPress={() => forceSolveError()}
+        onPress={() => forceSolveError(setUserAuth)}
         size="lg"
         title="try again"
       />

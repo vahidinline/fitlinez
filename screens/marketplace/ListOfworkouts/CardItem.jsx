@@ -156,7 +156,7 @@ function CardItem({ item }) {
           <SingleItem title={item.name} mainTitle={true} />
           <SingleItem title={i18n.t('trainer')} sub={item.creator} />
           <SingleItem
-            title="At"
+            title={i18n.t('sutablefor')}
             sub={item.location === 'both' ? 'Gym/Home' : item.location}
           />
           <SingleItem title={i18n.t('target')} sub={item.target} />

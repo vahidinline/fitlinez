@@ -25,7 +25,7 @@ function WorkoutListIndex({ route }) {
   const { theme } = useTheme();
   const [userBasic, setUserBasic] = useState([]);
   const [packages, setPackages] = useState([]);
-
+  const [status, setStatus] = useState('idle');
   // const goal = userBasic[4]?.goal;
   // const location =
   //   userBasic[5]?.location === 'Home & Gym' ? 'both' : userBasic[5]?.location;
@@ -39,9 +39,11 @@ function WorkoutListIndex({ route }) {
   i18n.locale = userLanguage;
 
   const onRefresh = useCallback(() => {
+    setStatus('loading');
     setRefreshing(true);
     setTimeout(() => {
       getLiveData();
+      setStatus('success');
       setRefreshing(false);
     }, 2000);
   }, []);
@@ -58,9 +60,11 @@ function WorkoutListIndex({ route }) {
   // let numberOfPackages = filterPackages().length;
 
   const getUserBasicData = async () => {
+    setStatus('loading');
     const result = await AsyncStorage.getItem('userBasicData');
-    console.log('result', result);
+    // console.log('result', result);
     setUserBasic(JSON.parse(result));
+    setStatus('success');
   };
 
   useEffect(() => {
@@ -74,10 +78,13 @@ function WorkoutListIndex({ route }) {
   //const { packages, name } = route.params;
 
   const getPackagesData = async () => {
+    setStatus('loading');
     const result = await AsyncStorage.getItem('Allpackages');
     try {
+      setStatus('success');
       setPackages(JSON.parse(result));
     } catch (e) {
+      setStatus('error');
       console.log(e);
     }
   };
@@ -111,35 +118,7 @@ function WorkoutListIndex({ route }) {
             // width: Dimensions.get('window').width / 1.1,
           }}>
           <Header />
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: '500',
-              color: theme.colors.text,
-              margin: 20,
-              flexShrink: 1,
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignSelf: 'center',
-              textAlign: 'center',
-              fontFamily: 'Vazirmatn',
-            }}>
-            {i18n.t('RecommendedWorkoutPlans')}
-          </Text>
-          {packages.map((item, i) => {
-            return <CardItem key={i} item={item} />;
-          })}
-
-          <Divider
-            style={{
-              marginVertical: 20,
-              marginHorizontal: 20,
-              backgroundColor: theme.colors.border,
-            }}
-          />
-          {/* <FlatList
-          ListHeaderComponent={
+          {status === 'loading' && (
             <Text
               style={{
                 fontSize: 16,
@@ -152,22 +131,13 @@ function WorkoutListIndex({ route }) {
                 alignContent: 'center',
                 alignSelf: 'center',
                 textAlign: 'center',
+                fontFamily: 'Vazirmatn',
               }}>
-              {i18n.t('similarWorkoutPlan')}
+              {i18n.t('loading')}
             </Text>
-          }
-          data={packages}
-          renderItem={({ item }) => <CardItem item={item} />}
-          keyExtractor={(item) => item.name}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: 50,
-              }}>
+          )}
+          {status === 'success' && (
+            <View>
               <Text
                 style={{
                   fontSize: 16,
@@ -180,12 +150,23 @@ function WorkoutListIndex({ route }) {
                   alignContent: 'center',
                   alignSelf: 'center',
                   textAlign: 'center',
+                  fontFamily: 'Vazirmatn',
                 }}>
-                No Workout Plan Available. please refresh the page
+                {i18n.t('RecommendedWorkoutPlans')}
               </Text>
+              {packages.map((item, i) => {
+                return <CardItem key={i} item={item} />;
+              })}
+
+              <Divider
+                style={{
+                  marginVertical: 20,
+                  marginHorizontal: 20,
+                  backgroundColor: theme.colors.border,
+                }}
+              />
             </View>
-          }
-        /> */}
+          )}
         </View>
       </ScrollView>
       <View
@@ -197,26 +178,46 @@ function WorkoutListIndex({ route }) {
 
           // backgroundColor: theme.colors.secondary,
         }}>
-        <Button
-          buttonStyle={{
-            backgroundColor: theme.colors.secondary,
-            color: theme.colors.background,
-            fontSize: 16,
-            fontWeight: 'bold',
+        {status === 'success' && (
+          <Button
+            buttonStyle={{
+              backgroundColor: theme.colors.secondary,
+              color: theme.colors.background,
+              fontSize: 16,
+              fontWeight: 'bold',
 
-            marginBottom: 50,
-            height: 50,
-            borderRadius: 16,
-          }}
-          titleStyle={{
-            fontFamily: 'Vazirmatn',
-          }}
-          title={i18n.t('backtohome')}
-          onPress={() =>
-            navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
-          }
-        />
+              marginBottom: 50,
+              height: 50,
+              borderRadius: 16,
+            }}
+            titleStyle={{
+              fontFamily: 'Vazirmatn',
+            }}
+            title={i18n.t('backtohome')}
+            onPress={() =>
+              navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
+            }
+          />
+        )}
       </View>
+      {status === 'error' && (
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: '500',
+            color: theme.colors.text,
+            margin: 20,
+            flexShrink: 1,
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignSelf: 'center',
+            textAlign: 'center',
+            fontFamily: 'Vazirmatn',
+          }}>
+          {i18n.t('error')}
+        </Text>
+      )}
     </View>
   );
 }

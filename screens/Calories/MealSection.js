@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { selectMeal } from '../../api/AsyncTempSessionStorage';
-import { BottomSheet, Image, ListItem } from '@rneui/base';
+import { BottomSheet, Button, Image, ListItem } from '@rneui/base';
 import { useTheme } from '@rneui/themed';
 
 function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
@@ -164,6 +164,7 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
               {meal.name}
             </Text>
           </TouchableOpacity>
+
           // <Button
           //   onPress={() => setMeal(meal.name)}
           //   title={meal.name}
@@ -182,6 +183,27 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
           //   }}
           // />
         ))}
+      </View>
+      <View>
+        <Button
+          buttonStyle={{
+            backgroundColor: theme.colors.secondary,
+
+            borderColor: theme.colors.primary,
+            borderWidth: 0.2,
+
+            margin: 10,
+            borderRadius: 10,
+          }}
+          titleStyle={{
+            color: theme.colors.primary,
+            fontSize: 15,
+            fontWeight: 'bold',
+            fontFamily: 'Vazirmatn',
+          }}
+          title={i18n.t('back')}
+          onPress={() => setStatus('idle')}
+        />
       </View>
     </View>
   );

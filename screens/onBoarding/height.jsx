@@ -51,7 +51,7 @@ function HeightSelection({ onHeightSelect, i18n }) {
   return (
     <View>
       <Text style={styles.title}>{i18n.t('height')}</Text>
-      <View>
+      {/* <View>
         <ButtonGroup
           containerStyle={{
             width: '30%',
@@ -77,7 +77,7 @@ function HeightSelection({ onHeightSelect, i18n }) {
             setSelectedIndex(value);
           }}
         />
-      </View>
+      </View> */}
       <View style={styles.container}>
         {messureUnit === 'metric' ? (
           <CM setHeight={onHeightSelect} />
