@@ -242,6 +242,7 @@ const SessionMainPage = (props) => {
             <View style={style}>
               <Item
                 goToIndex={goToIndex}
+                image={item.image}
                 userLevel={userLevel}
                 sortedData={sortedData}
                 navigation={navigation}

@@ -15,6 +15,7 @@ import {
   IconType,
 } from '../../marketplace/filters/icons';
 import { useTheme } from '@rneui/themed';
+import BarcodeScanner from './barcode/BarcodeScanner';
 
 function InputSelector({
   setFoodItems,
@@ -55,7 +56,7 @@ function InputSelector({
       name: 'Barcode',
       func: () => handleSetStatus('barcodeInput'),
       icon: <IconBarCode size={80} color={theme.colors.grey} />,
-      active: false,
+      active: true,
     },
   ];
 
@@ -127,6 +128,22 @@ function InputSelector({
           userId={userId}
         />
       )}
+
+      {inputStatus === 'barcodeInput' && (
+        <BarcodeScanner
+          selectedMeal={selectedMeal}
+          RTL={RTL}
+          setInputStatus={setInputStatus}
+          setFoodItems={setFoodItems}
+          setStatus={setStatus}
+          userInput={userInput}
+          setUserInput={setUserInput}
+          i18n={i18n}
+          status={status}
+          userId={userId}
+        />
+      )}
+
       <View>
         <Button
           buttonStyle={{

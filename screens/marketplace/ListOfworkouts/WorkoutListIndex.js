@@ -18,6 +18,7 @@ import i18nt from '../../../locales';
 import { I18n } from 'i18n-js';
 import { Button } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
+import BannerAdMob from '../../../api/AdMob/BannerComponent';
 
 function WorkoutListIndex({ route }) {
   const [refreshing, setRefreshing] = useState(false);
@@ -26,12 +27,6 @@ function WorkoutListIndex({ route }) {
   const [userBasic, setUserBasic] = useState([]);
   const [packages, setPackages] = useState([]);
   const [status, setStatus] = useState('idle');
-  // const goal = userBasic[4]?.goal;
-  // const location =
-  //   userBasic[5]?.location === 'Home & Gym' ? 'both' : userBasic[5]?.location;
-
-  // const fitnessLevel = userBasic[6]?.fitnessLevel;
-  // const daysPerWeek = userBasic[7]?.dayPreferences;
   const { userLanguage } = useContext(LanguageContext);
   const { userAuth } = useContext(AuthContext);
   const userId = userAuth.id;
@@ -48,21 +43,9 @@ function WorkoutListIndex({ route }) {
     }, 2000);
   }, []);
 
-  //func to filter the packages based on the user's goal, location and fitness level
-  // const filterPackages = () => {
-  //   return packages.filter(
-  //     (item) => item.location === location
-  //     // item.level === fitnessLevel &&
-  //     //item.goal === goal &&
-  //     //item.DaysPerWeek === daysPerWeek
-  //   );
-  // };
-  // let numberOfPackages = filterPackages().length;
-
   const getUserBasicData = async () => {
     setStatus('loading');
     const result = await AsyncStorage.getItem('userBasicData');
-    // console.log('result', result);
     setUserBasic(JSON.parse(result));
     setStatus('success');
   };
@@ -74,8 +57,6 @@ function WorkoutListIndex({ route }) {
       setUserBasic([]);
     };
   }, []);
-
-  //const { packages, name } = route.params;
 
   const getPackagesData = async () => {
     setStatus('loading');
@@ -94,8 +75,6 @@ function WorkoutListIndex({ route }) {
   }, []);
 
   const getLiveData = async () => {
-    //getPackages
-    console.log('getLiveData');
     const result = await getPackages();
     setPackages(result);
   };
@@ -115,7 +94,6 @@ function WorkoutListIndex({ route }) {
             backgroundColor: theme.colors.background,
             paddingTop: 50,
             marginHorizontal: 0,
-            // width: Dimensions.get('window').width / 1.1,
           }}>
           <Header />
           {status === 'loading' && (
@@ -154,29 +132,27 @@ function WorkoutListIndex({ route }) {
                 }}>
                 {i18n.t('RecommendedWorkoutPlans')}
               </Text>
-              {packages.map((item, i) => {
-                return <CardItem key={i} item={item} />;
-              })}
-
-              <Divider
-                style={{
-                  marginVertical: 20,
-                  marginHorizontal: 20,
-                  backgroundColor: theme.colors.border,
-                }}
-              />
+              {packages.map((item, i) => (
+                <View key={`item-${i}`}>
+                  <CardItem item={item} />
+                  <BannerAdMob key={`ad-${i}`} />
+                  <Divider
+                    style={{
+                      marginVertical: 20,
+                      marginHorizontal: 20,
+                      backgroundColor: theme.colors.border,
+                    }}
+                  />
+                </View>
+              ))}
             </View>
           )}
         </View>
       </ScrollView>
       <View
         style={{
-          //position: 'absolute',
-          // bottom: 0,
           width: Dimensions.get('window').width / 1.1,
           marginHorizontal: 20,
-
-          // backgroundColor: theme.colors.secondary,
         }}>
         {status === 'success' && (
           <Button
@@ -185,7 +161,6 @@ function WorkoutListIndex({ route }) {
               color: theme.colors.background,
               fontSize: 16,
               fontWeight: 'bold',
-
               marginBottom: 50,
               height: 50,
               borderRadius: 16,
@@ -221,13 +196,13 @@ function WorkoutListIndex({ route }) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   scrollView: {
     flex: 1,
-
     alignItems: 'center',
     justifyContent: 'center',
   },

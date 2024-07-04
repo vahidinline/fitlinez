@@ -34,29 +34,26 @@ function DailyTaskIndex() {
   const isRTL = userLanguage === 'fa';
   const navigation = useNavigation();
   useEffect(() => {
-    getDailyTasks(userId)
-      .then((tasks) => {
-        if (tasks.length === 0) {
-          setStatus('noTask');
-        } else {
-          setDailyTasks(tasks);
-        }
-        //console.log('tasks', tasks);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    handleGetTodaysTask();
   }, []);
 
   const handleGetTodaysTask = async () => {
-    setStatus('loading');
-    const res = await getNewTasks(userId);
-    Updates.reloadAsync();
-    // reload the app
-
-    if (res.length > 0) {
-      setStatus('idle');
-    } else {
+    try {
+      getDailyTasks(userId)
+        .then((tasks) => {
+          console.log('tasks', tasks);
+          if (tasks?.length === 0) {
+            setStatus('noTask');
+          } else {
+            setDailyTasks(tasks);
+          }
+          //console.log('tasks', tasks);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log('error in getting new task', error);
       setStatus('noTask');
     }
   };

@@ -29,7 +29,7 @@ function DailyDetailsIndex(mainStatus, setMainStatus) {
   const yesterdayISO = yesterday.toISOString().split('T')[0];
 
   const { theme } = useTheme();
-  const styles = getStyles(theme);
+  const styles = getStyles(theme, RTL); // Pass RTL as a parameter
 
   const [result, setResult] = useState([]);
   const [status, setStatus] = useState('idle');
@@ -113,6 +113,8 @@ function DailyDetailsIndex(mainStatus, setMainStatus) {
   return (
     <View style={styles.container}>
       <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollViewContent} // Added to set flexGrow
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
@@ -201,8 +203,14 @@ function DailyDetailsIndex(mainStatus, setMainStatus) {
 const getStyles = (theme, RTL) =>
   StyleSheet.create({
     container: {
+      flex: 1, // Ensures the container takes up the available space
       marginHorizontal: 10,
-      flex: 1,
+    },
+    scrollView: {
+      flexGrow: 1, // Allows the ScrollView to fill its parent container
+    },
+    scrollViewContent: {
+      flexGrow: 1, // Ensures content inside the ScrollView can expand to enable scrolling
     },
     mealSection: {
       marginBottom: 4,

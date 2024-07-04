@@ -3,10 +3,11 @@ import api from './api';
 import { Alert } from 'react-native';
 
 const getUsercurrentWorkoutPlan = async (userId, i18n) => {
-  // console.log('getUsercurrentWorkoutPlan', userId);
+  console.log('getUsercurrentWorkoutPlan', userId);
   const addedDateTime = new Date().toISOString();
   try {
     const result = await api.get(`newplan/currentPlan/${userId}`);
+    console.log('getUsercurrentWorkoutPlan', result.data);
     const data = result.data[0];
     if (result.data) {
       await AsyncStorage.setItem(
@@ -14,7 +15,7 @@ const getUsercurrentWorkoutPlan = async (userId, i18n) => {
         JSON.stringify({ data, addedDateTime })
       ).then(() => {
         console.log('workoutsList');
-        Alert.alert(i18n.t('updatesuccess'), i18n.t('updateSuccessMessage'));
+        // Alert.alert(i18n.t('updatesuccess'), i18n.t('updateSuccessMessage'));
       });
     } else {
       console.log('no workoutsList');

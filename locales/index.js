@@ -460,9 +460,19 @@ const i18nt = {
     g: 'g',
     fat: 'Fat',
     sutablefor: 'Suitable for',
+    removeAdTitle: 'Remove Ad',
+    upgradeAlertDescription:
+      'Please upgrade your account to access this feature',
+    errorLoadingData: 'Error loading data',
+    changeWorkoutPlan: 'Change Workout Plan',
   },
 
   fa: {
+    changeWorkoutPlan: 'تغییر برنامه تمرینی',
+    errorLoadingData: 'خطا در بارگذاری اطلاعات',
+    upgradeAlertDescription:
+      'با ارتقا حساب کاربری، میتوانید تبلیغات را حذف کنید',
+    removeAdTitle: 'حذف تبلیغ',
     sutablefor: 'مناسب برای',
     fat: 'چربی',
     g: 'گرم',

@@ -34,6 +34,7 @@ import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
 import FitModal from '../../components/FitModal';
 import RoundAnimationChart from '../../components/RoundAnimationChart';
 import { getNewTasks } from '../../api/getNewTasks';
+import BannerAdMob from '../../api/AdMob/BannerComponent';
 
 function HomeIndex() {
   const [refreshing, setRefreshing] = useState(false);
@@ -53,6 +54,7 @@ function HomeIndex() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [status, setStatus] = useState('loading');
+  const userLevel = userAuth.level;
   // console.log('status', status);
   const styles = getStyles(theme);
   const [modalVisible, setModalVisible] = useState(false);
@@ -61,15 +63,15 @@ function HomeIndex() {
   const [userTestAccess, setUserTestAccess] = useState(
     checkUserAccess(userAuth.id)
   );
-  const BACKGROUND_FETCH_TASK = 'background-fetch';
-  TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
-    try {
-      await syncMessages();
-      return BackgroundFetch.Result.NewData;
-    } catch (err) {
-      return BackgroundFetch.Result.Failed;
-    }
-  });
+  // const BACKGROUND_FETCH_TASK = 'background-fetch';
+  // TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
+  //   try {
+  //     await syncMessages();
+  //     return BackgroundFetch.Result.NewData;
+  //   } catch (err) {
+  //     return BackgroundFetch.Result.Failed;
+  //   }
+  // });
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -102,13 +104,17 @@ function HomeIndex() {
     };
   }, [currentPlan]);
 
-  async function registerBackgroundFetchAsync() {
-    return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-      minimumInterval: 60 * 15, // 15 minutes
-      stopOnTerminate: false, // android only
-      startOnBoot: true, // android only
-    });
-  }
+  useEffect(() => {
+    getUsercurrentWorkoutPlan(userAuth.id, i18n);
+  }, []);
+
+  // async function registerBackgroundFetchAsync() {
+  //   return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+  //     minimumInterval: 60 * 15, // 15 minutes
+  //     stopOnTerminate: false, // android only
+  //     startOnBoot: true, // android only
+  //   });
+  // }
 
   const [userPervilage, setUserPervilage] = useState(false);
 
@@ -116,9 +122,9 @@ function HomeIndex() {
     setUserPervilage(checkFreeTrial(userAuth.date));
   };
 
-  useEffect(() => {
-    registerBackgroundFetchAsync();
-  }, []);
+  // useEffect(() => {
+  //   registerBackgroundFetchAsync();
+  // }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -199,7 +205,8 @@ function HomeIndex() {
             style={{
               width: Dimensions.get('window').width,
               marginTop: 10,
-              height: Dimensions.get('window').height / 2,
+              height: Dimensions.get('window').height / 4,
+              marginBottom: 10,
             }}>
             <CurrentWorkoutCard
               RTL={isRTL}
@@ -236,6 +243,7 @@ function HomeIndex() {
             colors={['#5B5891', '#3A366F', '#17124a']}
             style={styles.background}
           />
+
           <View>
             <DailyReport userId={userAuth.id} />
 
@@ -286,6 +294,16 @@ function HomeIndex() {
           v. {process.env.EXPO_PUBLIC_VERSION}
         </Text>
       </ScrollView>
+
+      <View
+        style={{
+          position: 'absolute',
+          bottom: -150,
+          //marginHorizontal: 10,
+          zIndex: 100,
+        }}>
+        <BannerAdMob />
+      </View>
     </SafeAreaView>
   );
 }

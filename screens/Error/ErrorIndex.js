@@ -5,7 +5,6 @@ import { forceSolveError, clearAllAsyncCache } from '../../api/forceSolveError';
 import AuthContext from '../../api/context';
 
 const ErrorIndex = (i18n, theme) => {
-  const { setUserAuth } = useContext(AuthContext);
   return (
     <SafeAreaView>
       <Text
@@ -42,7 +41,7 @@ const ErrorIndex = (i18n, theme) => {
           fontFamily: 'Vazirmatn',
         }}
         color="primary"
-        onPress={() => forceSolveError(setUserAuth)}
+        onPress={() => forceSolveError()}
         size="lg"
         title="try again"
       />

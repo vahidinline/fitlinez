@@ -205,9 +205,9 @@ const FoodItemCard = ({
             flexDirection: 'row',
             justifyContent: 'space-around',
 
-            width: Dimensions.get('window').width / 1.2,
+            width: Dimensions.get('window').width / 1.1,
 
-            marginHorizontal: 5,
+            marginHorizontal: 0,
             marginVertical: 10,
             borderColor: theme.colors.warning,
           }}>
@@ -313,7 +313,7 @@ const getStyles = (theme) =>
     button: {
       //margin: 10,
       padding: 10,
-      width: Dimensions.get('window').width / 2.5,
+      width: Dimensions.get('window').width / 2.4,
       height: 40,
       borderRadius: 10,
       borderColor: theme.colors.primary,

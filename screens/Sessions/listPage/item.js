@@ -31,6 +31,8 @@ import Recommand from './recomand';
 import api from '../../../api/api';
 import { updateSession } from '../../../api/workoutSessionTracker';
 import { useNavigation } from '@react-navigation/native';
+import BannerAdMob from '../../../api/AdMob/BannerComponent';
+import AdModal from '../../../components/AdModal/AdModalIndex';
 const { width, height } = Dimensions.get('window');
 
 function Item({
@@ -40,10 +42,12 @@ function Item({
   title,
   index,
   gifUrl,
+  image,
   faInstructor,
   inputType,
   setFinish,
   type,
+  userLevel,
   loc,
   bodyPart,
   category,
@@ -73,6 +77,7 @@ function Item({
   const [saveTimer, setSaveTimer] = useState(false);
   const [showDrawer, setShowDrawer] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false);
   let adjustedNumberOfSets = 3;
   const [showRest, setShowRest] = useState(false);
   const { sessionData, setSessionData } = useContext(SessionContext);
@@ -239,22 +244,23 @@ function Item({
   };
 
   const handleCloseSession = async () => {
-    Alert.alert(
-      i18n.t('closeSession'),
-      i18n.t('closeSessionMessage'),
-      [
-        {
-          text: i18n.t('cancel'),
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {
-          text: i18n.t('confirm'),
-          onPress: async () => closeSession(),
-        },
-      ],
-      { cancelable: false }
-    );
+    setAlertVisible(true);
+    // Alert.alert(
+    //   i18n.t('closeSession'),
+    //   i18n.t('closeSessionMessage'),
+    //   [
+    //     {
+    //       text: i18n.t('cancel'),
+    //       onPress: () => console.log('Cancel Pressed'),
+    //       style: 'cancel',
+    //     },
+    //     {
+    //       text: i18n.t('confirm'),
+    //       onPress: async () => closeSession(),
+    //     },
+    //   ],
+    //   { cancelable: false }
+    // );
   };
   const closeSession = async () => {
     console.log('closing session');
@@ -397,7 +403,7 @@ function Item({
           <IconArrowRight />
         </TouchableOpacity>
       </View>
-
+      <Text>{image}</Text>
       <View
         style={{
           position: 'relative',
@@ -544,7 +550,13 @@ function Item({
           />
         )}
       </View>
-
+      <AdModal
+        visible={alertVisible}
+        title={i18n.t('closeSession')}
+        message={i18n.t('closeSessionMessage')}
+        onConfirm={closeSession}
+        onCancel={() => setAlertVisible(false)}
+      />
       {showInstruction ? (
         <Instruction
           title={i18n.t('description')}
@@ -615,6 +627,16 @@ function Item({
             {buttonTitle}
           </Button>
         )}
+      </View>
+
+      <View
+        style={{
+          position: 'absolute',
+          bottom: -100,
+          //marginHorizontal: 10,
+          zIndex: 100,
+        }}>
+        <BannerAdMob />
       </View>
     </KeyboardAvoidingView>
   );

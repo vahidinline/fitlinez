@@ -10,6 +10,8 @@ import MsgContext from '../api/messageContext';
 import SettingNavigator from './settingNavigator';
 import ProfileNavigator from './profileNavigator';
 import {
+  IconCakeFocused,
+  IconCakeUnFocused,
   IconHomeFocused,
   IconHomeUnFocused,
   IconProfileFocused,
@@ -19,6 +21,7 @@ import {
   IconStatsFocused,
   IconStatsUnFocused,
 } from '../screens/marketplace/filters/icons';
+import CaloriesIndex from '../screens/Calories/CaloriesIndex';
 
 const Tab = createBottomTabNavigator();
 
@@ -79,17 +82,7 @@ function TabNavigator() {
             !focused ? <IconStatsUnFocused /> : <IconStatsFocused />,
         }}
       />
-      {/* <Tab.Screen
-        swipEnabled={false}
-        name="CustomReport"
-        component={ReportIndex}
-        options={{
-          headerShown: false,
-          title: i18n.t('CalendarView'),
-          tabBarIcon: ({ focused }) =>
-            !focused ? <IconStatsUnFocused /> : <IconStatsFocused />,
-        }}
-      /> */}
+
       <Tab.Screen
         name="HomePage"
         component={HomeIndex}
@@ -101,7 +94,7 @@ function TabNavigator() {
         }}
       />
 
-      {/* <Tab.Screen
+      <Tab.Screen
         swipEnabled={false}
         name="Calories"
         component={CaloriesIndex}
@@ -111,7 +104,7 @@ function TabNavigator() {
           tabBarIcon: ({ focused }) =>
             !focused ? <IconCakeUnFocused /> : <IconCakeFocused />,
         }}
-      /> */}
+      />
       {/* <Tab.Screen
         swipEnabled={false}
         name="DailyTaskIndex"

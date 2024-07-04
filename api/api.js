@@ -2,12 +2,12 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://jobitta.com',
+  baseURL: 'https://fitlinez-backend.lm.r.appspot.com',
   //office local
   //baseURL: 'http://10.10.176.28:8080',
   //home local
-  //baseURL: 'http://192.168.1.65:8080',
-  timeout: 20000,
+  //baseURL: 'http://192.168.1.67:8080',
+  timeout: 50000,
   headers: {
     'Content-Type': 'application/json',
   },
