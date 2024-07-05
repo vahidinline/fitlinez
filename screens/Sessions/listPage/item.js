@@ -403,7 +403,7 @@ function Item({
           <IconArrowRight />
         </TouchableOpacity>
       </View>
-      <Text>{image}</Text>
+
       <View
         style={{
           position: 'relative',

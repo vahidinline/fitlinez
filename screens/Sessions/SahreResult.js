@@ -8,6 +8,7 @@ import {
   Dimensions,
   ImageBackground,
   Pressable,
+  Alert,
 } from 'react-native';
 import { I18n } from 'i18n-js';
 import LanguageContext from '../../api/langcontext';
