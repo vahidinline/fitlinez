@@ -20,37 +20,35 @@ export default function StepcounterIndex() {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
 
-  const subscribe = async () => {
-    const isAvailable = await Pedometer.isAvailableAsync();
-    setIsPedometerAvailable(String(isAvailable));
-
-    if (isAvailable) {
-      // Set `end` to the current date and time
-      const end = new Date();
-
-      // Set `start` to 00:00:00 of the 2 days ago
-
-      const start = new Date();
-      start.setHours(0, 0, 0, 0); // Set time to 00:00:00.000
-
-      // Get the step count from the start of today until now
-      const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
-      if (pastStepCountResult) {
-        setPastStepCount(pastStepCountResult.steps);
-      }
-
-      // Start watching step count from now
-      return Pedometer.watchStepCount((result) => {
-        setCurrentStepCount(result.steps);
-      });
-    }
-    return null; // Return null if the pedometer is not available
-  };
-
   useEffect(() => {
     let subscription;
+
     const setupSubscription = async () => {
-      subscription = await subscribe();
+      const isAvailable = await Pedometer.isAvailableAsync();
+      setIsPedometerAvailable(String(isAvailable));
+
+      if (isAvailable) {
+        // Set `end` to the current date and time
+        const end = new Date();
+
+        // Set `start` to 00:00:00 of today
+        const start = new Date();
+        start.setHours(0, 0, 0, 0); // Set time to 00:00:00.000
+
+        // Get the step count from the start of today until now
+        const pastStepCountResult = await Pedometer.getStepCountAsync(
+          start,
+          end
+        );
+        if (pastStepCountResult) {
+          setPastStepCount(pastStepCountResult.steps);
+        }
+
+        // Start watching step count from now
+        subscription = Pedometer.watchStepCount((result) => {
+          setCurrentStepCount(result.steps);
+        });
+      }
     };
 
     setupSubscription();
@@ -67,32 +65,20 @@ export default function StepcounterIndex() {
     <View style={styles.container}>
       {isPedometerAvailable === 'true' ? (
         <View
-          style={
-            {
-              //flexDirection: 'row',
-            }
-          }>
+          style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
+            style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <View>
               <IconWalking color={theme.colors.secondary} size={64} />
             </View>
             <View>
               <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
               <Text style={styles.steps}>
-                {convertToPersianNumbers(pastStepCount, RTL)}
+                {convertToPersianNumbers(pastStepCount + currentStepCount, RTL)}
               </Text>
             </View>
           </View>
-          {/* <RingProgress /> */}
-          {/* Uncomment the line below to display the current step count */}
-          {/* <Text style={styles.text}>
-            {i18n.t('currentSteps')}: {currentStepCount}
-          </Text> */}
-          <WeeklyStepChart theme={theme} RTL={RTL} و i18n={i18n} />
+          <WeeklyStepChart theme={theme} RTL={RTL} i18n={i18n} />
         </View>
       ) : (
         <Text style={styles.text}>{i18n.t('stepCounterNotAvailable')}</Text>

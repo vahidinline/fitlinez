@@ -132,7 +132,7 @@ function WorkoutListIndex({ route }) {
                 }}>
                 {i18n.t('RecommendedWorkoutPlans')}
               </Text>
-              {packages.map((item, i) => (
+              {packages?.map((item, i) => (
                 <View key={`item-${i}`}>
                   <CardItem item={item} />
                   {/* <BannerAdMob key={`ad-${i}`} />

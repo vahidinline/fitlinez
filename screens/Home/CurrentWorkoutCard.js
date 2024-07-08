@@ -1,6 +1,6 @@
 import { Text, useTheme } from '@rneui/themed';
 import React, { useContext } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import LanguageContext from '../../api/langcontext';
@@ -9,6 +9,7 @@ import { I18n } from 'i18n-js';
 import AuthContext from '../../api/context';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 import DailyTaskIndex from '../DailyTasks/DailyTaskIndex';
+import { IconDelete, IconEdit } from '../marketplace/filters/icons';
 
 function CurrentWorkoutCard({ title, location, RTL }) {
   const { userPrivilege, setUserPrivilege } = useContext(UserPrivilegeContext);
@@ -55,7 +56,7 @@ function CurrentWorkoutCard({ title, location, RTL }) {
         style={{
           direction: RTL ? 'rtl' : 'ltr',
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          // justifyContent: 'space-between',
           alignItems: 'center',
           marginHorizontal: 10,
           marginTop: 10,
@@ -72,6 +73,12 @@ function CurrentWorkoutCard({ title, location, RTL }) {
             {i18n.t('yourWorkoutPlan')} : {title}
           </Text>
         )}
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('WorkoutListIndex');
+          }}>
+          <IconEdit color={theme.colors.white} size={24} />
+        </TouchableOpacity>
       </View>
       <View
         style={{

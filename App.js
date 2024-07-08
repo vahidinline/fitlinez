@@ -56,6 +56,7 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
   const [initialState, setInitialState] = useState();
   const [routeNamesHistory, setRouteNamesHistory] = useState([]);
+  const [status, setStatus] = useState('idle');
   const { theme } = useTheme();
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === DefaultTheme ? SecondTheme : DefaultTheme);
@@ -77,6 +78,7 @@ export default function App() {
     try {
       const update = await Updates.checkForUpdateAsync();
       if (update.isAvailable) {
+        setStatus('loading');
         await Updates.fetchUpdateAsync();
         await Updates.reloadAsync();
         appUpdateTrack(userAuth?.userId);

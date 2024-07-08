@@ -56,7 +56,7 @@ const PlanPlus = ({ route }) => {
     await AsyncStorage.getItem('workoutsList').then((value) => {
       if (value !== null) {
         // console.log('value in index from async', JSON.parse(value).data.data);
-        const workoutsList = JSON.parse(value).data.data;
+        const workoutsList = JSON.parse(value)?.data?.data;
         // console.log('workoutsList', workoutsList[0].data);
         setWorkoutPlan(workoutsList);
       } else {

@@ -24,8 +24,7 @@ function NoWorkoutCard() {
 
   const getUserInfo = async () => {
     getUserFirstData(userAuth.id).then((data) => {
-      console.log('data', data);
-      if (data.length === 0) {
+      if (!data || data?.length === 0) {
         setStatus('noData');
       } else {
         setStatus('data');
