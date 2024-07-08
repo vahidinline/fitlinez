@@ -56,7 +56,7 @@ function InputSelector({
       name: 'Barcode',
       func: () => handleSetStatus('barcodeInput'),
       icon: <IconBarCode size={80} color={theme.colors.grey} />,
-      active: true,
+      active: false,
     },
   ];
 

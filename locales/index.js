@@ -465,9 +465,19 @@ const i18nt = {
       'Please upgrade your account to access this feature',
     errorLoadingData: 'Error loading data',
     changeWorkoutPlan: 'Change Workout Plan',
+    stepCounter: 'Step Counter',
+    stepCounterNotAvailable: 'Step Counter is not available',
+    stepCounterNotAvailableDesc:
+      'Please enable the step counter in your phone settings',
+    stepsTakenToday: 'Steps taken today',
+    steps: 'Steps',
   },
 
   fa: {
+    steps: 'قدم',
+    stepsTakenToday: 'تعداد قدم های امروز',
+    stepCounter: 'قدم شمار',
+    stepCounterNotAvailable: 'قدم شمار در دسترس نیست',
     changeWorkoutPlan: 'تغییر برنامه تمرینی',
     errorLoadingData: 'خطا در بارگذاری اطلاعات',
     upgradeAlertDescription:

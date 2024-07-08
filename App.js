@@ -1,7 +1,7 @@
 import Bugsnag from '@bugsnag/expo';
 Bugsnag.start();
 import { NavigationContainer } from '@react-navigation/native';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AuthContext from './api/context';
 import AuthStorage from './api/storage';
 import ErrorBoundary from 'react-native-error-boundary';
@@ -19,7 +19,7 @@ import * as Updates from 'expo-updates';
 import { Button, Text, ThemeProvider, useTheme } from '@rneui/themed';
 import * as Notifications from 'expo-notifications';
 import React from 'react';
-import { Alert, Dimensions, Linking, SafeAreaView, View } from 'react-native';
+import { Alert, Dimensions, View } from 'react-native';
 import { userLevelCheck } from './api/GetData';
 import { ThemeContext } from './api/themeContext';
 import 'react-native-gesture-handler';
@@ -27,15 +27,13 @@ import { SessionProvider } from './api/sessionContext';
 import { UnitProvider } from './api/unitContext';
 import { ActivityIndicator, PaperProvider } from 'react-native-paper';
 import UserPrivilegeContext from './api/userPrivilegeContext';
-import checkFreeTrial from './api/checkFreeTrial';
-import { init } from '@amplitude/analytics-react-native';
-import { logEvent } from '@amplitude/analytics-react-native';
+
 import { trackUserData } from './api/tracker';
 import appUpdateTrack from './api/appUpdateTrack';
 import { useFonts } from 'expo-font';
-import ErrorIndex from './screens/Error/ErrorIndex';
 import i18nt from './locales';
 import { I18n } from 'i18n-js';
+import { forceSolveError } from './api/forceSolveError';
 
 const errorHandler = (error, stackTrace) => {
   /* Log the error to an error reporting service */
@@ -217,7 +215,30 @@ export default function App() {
     );
   }
 
-  const ErrorFallback = () => <ErrorIndex i18n={i18n} theme={theme} />;
+  const ErrorFallback = () => (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          textAlign: 'center',
+          marginTop: 20,
+        }}>
+        An Error Occurred
+      </Text>
+      <Button
+        buttonStyle={{
+          marginTop: 20,
+          width: Dimensions.get('window').width - 40,
+          borderRadius: 10,
+        }}
+        color="primary"
+        onPress={() => forceSolveError(setUserAuth)}
+        size="lg">
+        Reset the app
+      </Button>
+    </View>
+  );
 
   return (
     <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>

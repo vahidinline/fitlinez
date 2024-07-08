@@ -120,7 +120,7 @@ function ProfileIndex() {
       func: () => nabigateToVideo(),
     },
     {
-      id: 6,
+      id: 7,
       name: i18n.t('changeWorkoutPlan'),
       icon: IconProfile,
       func: () => navigation.navigate('WorkoutListIndex'),

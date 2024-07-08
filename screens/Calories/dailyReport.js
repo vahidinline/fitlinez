@@ -1,5 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { getDailyCalorieInTake } from '../../api/dailyCalorieInTake';
 import { useTheme } from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,6 +14,7 @@ import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import convertToPersianNumbers from '../../api/PersianNumber';
 import RoundAnimationChart from '../../components/RoundAnimationChart';
+import { useNavigation } from '@react-navigation/native';
 
 function DailyReport({ userId }) {
   const { theme } = useTheme();
@@ -51,7 +58,7 @@ function DailyReport({ userId }) {
   }, [userId]);
 
   const handleAddFoodbutton = () => {};
-
+  const navigator = useNavigation();
   useEffect(() => {
     const getDailyCaloriesGoals = async () => {
       const dailyCaloriesGoals = await AsyncStorage.getItem(
@@ -75,7 +82,11 @@ function DailyReport({ userId }) {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => {
+        navigator.navigate('Calories');
+      }}
+      style={[styles.container, { direction: RTL ? 'rtl' : 'ltr' }]}>
       {status === 'success' && (
         <>
           <View style={[styles.baseContainer]}>
@@ -108,37 +119,9 @@ function DailyReport({ userId }) {
             <Text style={styles.kcalText}>{i18n.t('kcal')}</Text>
             <Text style={styles.remainingText}>{i18n.t('remaining')}</Text>
           </View>
-          {/* {result.length === 0 && (
-            <Text style={styles.noDataText}>{i18n.t('Nodataavailable')}</Text>
-          )} */}
+
           {result.length != 0 && (
             <View style={styles.nutrientContainer}>
-              {/* <RoundAnimationChart
-                borderColor="blue" // Custom border color
-                borderWidth={4}
-                size={200}
-                shownumber={
-                  result.length > 0
-                    ? convertToPersianNumbers(
-                        dailyCalories - result[0]?.totalCalories.toFixed(0),
-                        RTL
-                      )
-                    : convertToPersianNumbers(dailyCalories, RTL)
-                }
-                takenCalories={
-                  dailyCalories - result[0]?.totalCalories.toFixed(0)
-                }
-                dailyGoal={dailyCalories}
-              /> */}
-              {/* <Text style={styles.nutrientText}>
-                {i18n.t('calories')}:
-                {result &&
-                  convertToPersianNumbers(
-                    result[0]?.totalCalories.toFixed(0),
-                    RTL
-                  )}{' '}
-                g
-              </Text> */}
               <Text style={styles.nutrientText}>
                 {i18n.t('carbs')}:{' '}
                 {result &&
@@ -180,13 +163,13 @@ function DailyReport({ userId }) {
           )}
         </>
       )}
-    </View>
+    </TouchableOpacity>
   );
 }
 
 export default DailyReport;
 
-const getStyles = (theme, myFont) =>
+const getStyles = (theme, RTL) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -201,6 +184,7 @@ const getStyles = (theme, myFont) =>
       marginVertical: 10,
       // minHeight: Dimensions.get('window').height / 5,
       flex: 1,
+
       marginHorizontal: 10,
       padding: 10,
       borderRadius: 10,
@@ -258,9 +242,10 @@ const getStyles = (theme, myFont) =>
       alignItems: 'right',
     },
     nutrientText: {
+      direction: RTL ? 'rtl' : 'ltr',
       color: theme.colors.primary,
       fontSize: 14,
-      textAlign: 'center',
+      // textAlign: 'center',
       // fontWeight: 'bold',
       fontFamily: 'Vazirmatn',
       margin: 5,

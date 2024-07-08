@@ -31,7 +31,7 @@ import Recommand from './recomand';
 import api from '../../../api/api';
 import { updateSession } from '../../../api/workoutSessionTracker';
 import { useNavigation } from '@react-navigation/native';
-import BannerAdMob from '../../../api/AdMob/BannerComponent';
+// import BannerAdMob from '../../../api/AdMob/BannerComponent';
 import AdModal from '../../../components/AdModal/AdModalIndex';
 const { width, height } = Dimensions.get('window');
 
@@ -629,7 +629,7 @@ function Item({
         )}
       </View>
 
-      <View
+      {/* <View
         style={{
           position: 'absolute',
           bottom: -100,
@@ -637,7 +637,7 @@ function Item({
           zIndex: 100,
         }}>
         <BannerAdMob />
-      </View>
+      </View> */}
     </KeyboardAvoidingView>
   );
 }

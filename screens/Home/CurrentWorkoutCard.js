@@ -1,43 +1,17 @@
-import { Button, LinearProgress, Text, useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import React, { useContext } from 'react';
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  PixelRatio,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import CurrentCard from './homeCard/CurrentCard';
 import { useNavigation } from '@react-navigation/native';
-import {
-  IconArrow,
-  IconArrowLeft,
-  IconArrowRight,
-  IconBlackDumbbell,
-} from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
-import { readWorkoutPercentageData } from '../../api/readWorkoutData';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import AuthContext from '../../api/context';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
-import StartSessionIndexHome from '../Sessions/StartSessionIndexHome';
-import { IconTrainer } from '../marketplace/filters/icons';
-import PlanPlus from '../../components/newPlan';
 import DailyTaskIndex from '../DailyTasks/DailyTaskIndex';
 
-function CurrentWorkoutCard({ title, trainer, location, RTL }) {
-  const [percentage, setPercentage] = useState(0);
+function CurrentWorkoutCard({ title, location, RTL }) {
   const { userPrivilege, setUserPrivilege } = useContext(UserPrivilegeContext);
-  // useEffect(() => {
-  //   readWorkoutPercentageData(title).then((data) => {
-  //     setPercentage(data?.percentage ? data.percentage : 0);
-  //   });
-  // }, []);
 
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -101,7 +75,12 @@ function CurrentWorkoutCard({ title, trainer, location, RTL }) {
       </View>
       <View
         style={{
-          top: 30,
+          position: 'absolute',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginHorizontal: 10,
+          marginTop: 40,
         }}>
         <DailyTaskIndex />
       </View>

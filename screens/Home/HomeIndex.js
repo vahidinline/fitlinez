@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import HomeHeader from './homeHeader';
-import { WorkoutAgenda } from '../Agenda';
 import { useEffect, useState } from 'react';
 import { currentPalnPercentage } from '../../api/readWorkoutData';
 import { readWorkoutData } from '../../api/readWorkoutData';
@@ -18,8 +17,6 @@ import { getPackages } from '../../api/GetData';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
-import * as BackgroundFetch from 'expo-background-fetch';
-import * as TaskManager from 'expo-task-manager';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
@@ -31,10 +28,10 @@ import { Button } from '@rneui/base';
 import FitlinezLoading from '../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
-import FitModal from '../../components/FitModal';
-import RoundAnimationChart from '../../components/RoundAnimationChart';
+
 import { getNewTasks } from '../../api/getNewTasks';
-import BannerAdMob from '../../api/AdMob/BannerComponent';
+import StepcounterIndex from '../StepCounter/StepcounterIndex';
+// import BannerAdMob from '../../api/AdMob/BannerComponent';
 
 function HomeIndex() {
   const [refreshing, setRefreshing] = useState(false);
@@ -246,42 +243,23 @@ function HomeIndex() {
 
           <View>
             <DailyReport userId={userAuth.id} />
-
-            <Button
-              buttonStyle={{
-                backgroundColor: theme.colors.primary,
-                borderRadius: 12,
-                //bottom: 5,
-                width: Dimensions.get('window').width / 1.2,
-                height: Dimensions.get('window').height / 20,
-                alignSelf: 'center',
-                marginBottom: 30,
-              }}
-              titleStyle={{
-                color: theme.colors.text,
-                fontSize: 16,
-                fontFamily: 'Vazirmatn',
-                //sfontWeight: 'bold',
-              }}
-              onPress={() => {
-                navigator.navigate('Calories');
-              }}>
-              {i18n.t('calorieTracker')} ️{' '}
-              <Text
-                style={{
-                  position: 'absolute',
-                  right: 0,
-                  fontSize: 12,
-                  color: theme.colors.warning,
-                  fontFamily: 'Vazirmatn',
-                  top: 0,
-                }}>
-                {i18n.t('beta')} ️
-              </Text>
-            </Button>
           </View>
         </View>
-        {/* <StepcounterIndex /> */}
+        <View
+          style={{
+            //  backgroundColor: theme.colors.background,
+            marginHorizontal: 20,
+            borderRadius: 14,
+            marginVertical: 0,
+            height: Dimensions.get('window').height / 2.5,
+            top: 10,
+          }}>
+          <LinearGradient
+            colors={['#5B5891', '#3A366F', '#17124a']}
+            style={styles.background}
+          />
+          <StepcounterIndex />
+        </View>
         <Text
           style={{
             color: theme.colors.text,
@@ -295,7 +273,7 @@ function HomeIndex() {
         </Text>
       </ScrollView>
 
-      <View
+      {/* <View
         style={{
           position: 'absolute',
           bottom: -150,
@@ -303,7 +281,7 @@ function HomeIndex() {
           zIndex: 100,
         }}>
         <BannerAdMob />
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 }

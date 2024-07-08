@@ -66,9 +66,5 @@
       "url": "https://u.expo.dev/7819d490-9761-46a4-93c9-1c969843df38"
     },
     "runtimeVersion": "exposdk:49.0.0"
-  },
-  "react-native-google-mobile-ads": {
-    "ios_app_id": "ca-app-pub-8519330785052751~6171768783",
-    "android_app_id": "ca-app-pub-1838196565626196~1121248937"
   }
 }

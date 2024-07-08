@@ -18,7 +18,7 @@ import i18nt from '../../../locales';
 import { I18n } from 'i18n-js';
 import { Button } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
-import BannerAdMob from '../../../api/AdMob/BannerComponent';
+// import BannerAdMob from '../../../api/AdMob/BannerComponent';
 
 function WorkoutListIndex({ route }) {
   const [refreshing, setRefreshing] = useState(false);
@@ -135,14 +135,14 @@ function WorkoutListIndex({ route }) {
               {packages.map((item, i) => (
                 <View key={`item-${i}`}>
                   <CardItem item={item} />
-                  <BannerAdMob key={`ad-${i}`} />
+                  {/* <BannerAdMob key={`ad-${i}`} />
                   <Divider
                     style={{
                       marginVertical: 20,
                       marginHorizontal: 20,
                       backgroundColor: theme.colors.border,
                     }}
-                  />
+                  /> */}
                 </View>
               ))}
             </View>

@@ -4,11 +4,8 @@ import React, { useContext } from 'react';
 import { Dimensions, TouchableOpacity, View } from 'react-native';
 import {
   IconInfo,
-  IconTick,
   IconTickCircle,
-  IconWalk,
   IconWalking,
-  IconWeight,
   IconWorkout,
 } from '../marketplace/filters/icons';
 import { useNavigation } from '@react-navigation/native';
@@ -34,9 +31,10 @@ function DailyTaskList(item) {
         flexDirection: 'column',
         justifyContent: 'space-between',
         backgroundColor: theme.colors.background,
-        marginHorizontal: 10,
-        height: Dimensions.get('window').height / 9,
-        top: 10,
+        marginHorizontal: 5,
+        height: Dimensions.get('window').height / 12,
+        width: Dimensions.get('window').width / 1.2,
+        top: 30,
         marginVertical: 8,
         borderRadius: 16,
         borderColor: theme.colors.border,
@@ -48,11 +46,11 @@ function DailyTaskList(item) {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginHorizontal: 16,
+          marginHorizontal: 0,
         }}>
         <View
           style={{
-            paddingVertical: 15,
+            paddingVertical: 0,
             flexDirection: 'row',
             marginHorizontal: 0,
             alignItems: 'center',
@@ -70,7 +68,7 @@ function DailyTaskList(item) {
               fontSize: 20,
               fontWeight: 'bold',
               marginHorizontal: 16,
-              marginTop: 16,
+              marginTop: 10,
               textDecorationLine:
                 item.item.status === 'completed' ? 'line-through' : 'none',
               fontFamily: 'Vazirmatn',
@@ -107,7 +105,7 @@ function DailyTaskList(item) {
                 color: theme.colors.warning,
                 fontSize: 20,
                 fontWeight: 'bold',
-                marginHorizontal: 16,
+                marginHorizontal: 0,
                 marginTop: 16,
                 fontFamily: 'Vazirmatn',
               }}>

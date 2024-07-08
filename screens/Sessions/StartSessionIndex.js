@@ -22,7 +22,7 @@ import i18nt from '../../locales';
 import { IconArrowLeft, IconArrowRight } from '../marketplace/filters/icons';
 import Header from '../../components/header';
 import { userLevelCheck, userStatusCheck } from '../../api/GetData';
-import BannerAdMob from '../../api/AdMob/BannerComponent';
+// import BannerAdMob from '../../api/AdMob/BannerComponent';
 import { Divider } from 'react-native-paper';
 
 require('moment/locale/fa');
@@ -37,7 +37,6 @@ const StartSessionIndex = ({ route }) => {
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
   //console.log('timeSpent in index new plan', timeSpent);
   const [workoutPlan, setWorkoutPlan] = useState([]);
-
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   const [timestamp, setTimestamp] = useState([]);
@@ -392,21 +391,21 @@ const StartSessionIndex = ({ route }) => {
                     marginTop: 16,
                   }}
                 />
-                <Divider
+                {/* <Divider
                   style={{
                     marginVertical: 20,
                     marginHorizontal: 20,
                     backgroundColor: 'transparent',
                   }}
-                />
-                <BannerAdMob key={`ad-${i}`} />
-                <Divider
+                /> */}
+                {/* <BannerAdMob key={`ad-${i}`} /> */}
+                {/* <Divider
                   style={{
                     marginVertical: 20,
                     marginHorizontal: 20,
                     backgroundColor: theme.colors.border,
                   }}
-                />
+                /> */}
               </View>
             );
           })}

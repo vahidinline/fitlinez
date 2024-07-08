@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
-  FlatList,
   SafeAreaView,
   View,
   Text,
@@ -15,9 +14,7 @@ import { useTheme } from '@rneui/themed';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
-import { getNewTasks } from '../../api/getNewTasks';
 import CircleLoading from '../../components/CircleLoading';
-import * as Updates from 'expo-updates';
 import { useNavigation } from '@react-navigation/native';
 
 function DailyTaskIndex() {
