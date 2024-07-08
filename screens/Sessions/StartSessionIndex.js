@@ -61,7 +61,8 @@ const StartSessionIndex = ({ route }) => {
       if (value !== null) {
         // console.log('value in index from async', JSON.parse(value).data.data);
         const workoutsList = JSON.parse(value).data.data;
-        // console.log('workoutsList', workoutsList[0].data);
+        const title = JSON.parse(value).data.name;
+        setTitle(title);
         setWorkoutPlan(workoutsList);
       } else {
         console.log('doesnt have value');

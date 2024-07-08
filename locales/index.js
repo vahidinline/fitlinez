@@ -471,9 +471,13 @@ const i18nt = {
       'Please enable the step counter in your phone settings',
     stepsTakenToday: 'Steps taken today',
     steps: 'Steps',
+    aihelperror: 'An error occurred. Please try again later',
+    tryagain: 'Try Again',
   },
 
   fa: {
+    tryagain: 'تلاش مجدد',
+    aihelperror: 'خطایی رخ داده است. لطفا بعدا دوباره تلاش کنید',
     steps: 'قدم',
     stepsTakenToday: 'تعداد قدم های امروز',
     stepCounter: 'قدم شمار',

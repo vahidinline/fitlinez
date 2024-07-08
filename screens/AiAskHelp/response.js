@@ -35,7 +35,7 @@ function ChatResponse({
       style={{
         padding: 10,
         marginBottom: 0,
-        // zIndex: 0,
+        zIndex: 10,
         backgroundColor: theme.colors.background,
         opacity: isHide ? 0.5 : 1,
         borderRadius: 12,

@@ -415,6 +415,23 @@ function Item({
           borderColor: theme.colors.border,
           marginHorizontal: 20,
         }}>
+        <View
+          style={{
+            position: 'absolute',
+            marginHorizontal: 10,
+            marginVertical: 10,
+            top: 0,
+            left: 0,
+            zIndex: 100,
+          }}>
+          <AiAskHelpIndex
+            title={title}
+            category={category}
+            userLanguage={userLanguage}
+            exerciseId={exerciseId}
+            i18n={i18n}
+          />
+        </View>
         <ImageLoader
           i18n={i18n}
           uri={gifUrl}
@@ -526,19 +543,6 @@ function Item({
             </Text>
           </View>
         )}
-        {/* <View
-          style={{
-            marginHorizontal: 10,
-            marginVertical: 10,
-          }}>
-          <AiAskHelpIndex
-            title={title}
-            category={category}
-            userLanguage={userLanguage}
-            exerciseId={exerciseId}
-            i18n={i18n}
-          />
-        </View> */}
 
         {/* </ScrollView> */}
 

@@ -18,7 +18,7 @@ import CircleLoading from '../../components/CircleLoading';
 import { useNavigation } from '@react-navigation/native';
 
 function DailyTaskIndex(title) {
-  console.log('title in daily task', title);
+  console.log('title in daily task', title.title);
   const [dailyTasks, setDailyTasks] = useState([]);
   const { theme } = useTheme();
   const styles = getStyles(theme);
@@ -117,7 +117,7 @@ function DailyTaskIndex(title) {
         )}
 
         {dailyTasks?.slice(0, 1).map((item, i) => (
-          <DailyTaskList key={i} item={item} i18n={i18n} title={title} />
+          <DailyTaskList key={i} item={item} i18n={i18n} title={title.title} />
         ))}
       </View>
     </SafeAreaView>

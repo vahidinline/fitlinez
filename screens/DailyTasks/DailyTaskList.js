@@ -14,7 +14,7 @@ import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import AuthContext from '../../api/context';
 
-function DailyTaskList(item, title, location) {
+function DailyTaskList(item, { title }) {
   console.log('title in daily task', title);
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -30,7 +30,7 @@ function DailyTaskList(item, title, location) {
     // condition 1
     navigation.navigate('SessionNavigator', {
       screen: 'StartSessionIndex',
-      params: { title: title.title, location: title.location },
+      params: { title: title },
     });
     // } else if (userPrivilege) {
     // condition 1

@@ -9,7 +9,11 @@ import Loading from './loading';
 import ChatResponse from './response';
 import InputChat from './inputChat';
 import Usage from './usage';
-import { IconAi, IconLoading } from '../marketplace/filters/icons';
+import {
+  IconAi,
+  IconLoading,
+  IconQuestion,
+} from '../marketplace/filters/icons';
 import ErrorIndex from './error';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
@@ -23,7 +27,7 @@ function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId }) {
   let isRTl = userLanguage === 'fa' ? true : false;
   //let message = `Help me perform ${title} exercise in ${category} and suggest the weight and reps, my 1rm is 40kg. Response in ${userLanguage}. I'm a 41-year-old man, 78 kg, 183 cm tall, with ${userPain}. Doing muscle-building workout.`;
   let message = `Please provide short, lest than 1000 token in ${
-    userLanguage === 'en' ? 'in english' : 'به فارسی'
+    userLanguage === 'en' ? 'in english' : ' فارسی'
   }, detailed step-by-step instructions on how to perform the ${title} exercise with  ${
     userPain === null ? 'no pain' : `special attention to reducing ${userPain}`
   }`;
@@ -79,13 +83,11 @@ function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId }) {
 
   return (
     <View
-      style={
-        {
-          //flex: 1,
-          // height: Dimensions.get('window').height / 5,
-          // paddingBottom: 50,
-        }
-      }>
+      style={{
+        //flex: 1,
+        height: Dimensions.get('window').height / 15,
+        // paddingBottom: 50,
+      }}>
       <View>
         {status === 'loading' && (
           <ActivityIndicator size="small" color="#5B5891" />
@@ -100,18 +102,30 @@ function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId }) {
             i18n={i18n}
           />
         )}
-        {status === 'error' && <ErrorIndex response={response} theme={theme} />}
+        {status === 'error' && (
+          <ErrorIndex
+            isRTl={isRTl}
+            tryAgain={sendMessage}
+            i18n={i18n}
+            response={response}
+            theme={theme}
+          />
+        )}
         {/* {status === 'notstarted' && (
           <Usage
             usage={usage}
             usagePercentage={usagePercentage}
             userLimitExceeded={true}
           />
-           
+
         )} */}
         {status === 'notstarted' && (
           <TouchableOpacity onPress={() => sendMessage()}>
-            <IconAi name="robot" size={48} color={theme.colors.secondary} />
+            <IconQuestion
+              name="robot"
+              size={32}
+              color={theme.colors.secondary}
+            />
           </TouchableOpacity>
         )}
 

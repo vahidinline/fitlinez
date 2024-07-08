@@ -152,6 +152,8 @@ const CustomReport = () => {
                       new Date(b.sessionStartDate) -
                       new Date(a.sessionStartDate)
                   )
+                  //filter sessionStatus to completed and uncompleted
+                  .filter((item) => item.sessionStatus === 'completed')
                   .map((item, index) => {
                     return (
                       <View
@@ -230,9 +232,9 @@ const CustomReport = () => {
                             {i18n.t('minute')}
                           </Text>
                         )}
-                        {/* 
+                        {/*
                       moment difference between two dates in minutes
-                     
+
 */}
                         <Text style={Styles.title}>{item.planName}</Text>
                         <Text style={Styles.subtitle}>
