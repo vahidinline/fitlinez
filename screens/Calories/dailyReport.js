@@ -20,6 +20,7 @@ function DailyReport({ userId }) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [status, setStatus] = useState('idle');
+  const [dailyGoalStatus, setDailyGoalStatus] = useState('idle');
   const [result, setResult] = useState([]);
   const [dailyCalories, setDailyCalories] = useState(0);
   const [dailyCarbs, setDailyCarbs] = useState(0);
@@ -64,7 +65,9 @@ function DailyReport({ userId }) {
       const dailyCaloriesGoals = await AsyncStorage.getItem(
         'dailyCaloriesGoals'
       );
+
       if (dailyCaloriesGoals) {
+        setDailyGoalStatus('success');
         const parsedDailyCaloriesGoals = JSON.parse(dailyCaloriesGoals);
 
         setDailyCalories(Number(parsedDailyCaloriesGoals.dailyCalories));
@@ -73,8 +76,8 @@ function DailyReport({ userId }) {
         setDailyFat(Number(parsedDailyCaloriesGoals.dailyFat));
         setDailyFiber(Number(parsedDailyCaloriesGoals.dailyFiber));
       }
-      if (!dailyCaloriesGoals) {
-        setStatus('noDailyCalories');
+      if (!dailyCaloriesGoals || dailyCaloriesGoals === null) {
+        setDailyGoalStatus('noDailyCalories');
       }
     };
 
@@ -82,15 +85,21 @@ function DailyReport({ userId }) {
   }, []);
 
   return (
-    <TouchableOpacity
-      onPress={() => {
-        navigator.navigate('Calories');
-      }}
-      style={[styles.container, { direction: RTL ? 'rtl' : 'ltr' }]}>
-      {status === 'success' && (
-        <>
-          <View style={[styles.baseContainer]}>
-            {/* <RoundAnimationChart
+    <>
+      {dailyGoalStatus == 'noDailyCalories' && (
+        <Text style={styles.errorText}>
+          {i18n.t('Nodailycaloriesgoalsset')}
+        </Text>
+      )}
+      <TouchableOpacity
+        onPress={() => {
+          navigator.navigate('Calories');
+        }}
+        style={[styles.container, { direction: RTL ? 'rtl' : 'ltr' }]}>
+        {status === 'success' && (
+          <>
+            <View style={[styles.baseContainer]}>
+              {/* <RoundAnimationChart
               borderColor="blue" // Custom border color
               borderWidth={4}
               size={200}
@@ -108,62 +117,69 @@ function DailyReport({ userId }) {
               }
               dailyGoal={dailyCalories}
             /> */}
-            <Text style={styles.caloriesText}>
-              {result.length > 0
-                ? convertToPersianNumbers(
-                    dailyCalories - result[0]?.totalCalories.toFixed(0),
-                    RTL
-                  )
-                : convertToPersianNumbers(dailyCalories, RTL)}
-            </Text>
-            <Text style={styles.kcalText}>{i18n.t('kcal')}</Text>
-            <Text style={styles.remainingText}>{i18n.t('remaining')}</Text>
-          </View>
-
-          {result.length != 0 && (
-            <View style={styles.nutrientContainer}>
-              <Text style={styles.nutrientText}>
-                {i18n.t('carbs')}:{' '}
-                {result &&
-                  convertToPersianNumbers(
-                    result[0]?.totalCarbs.toFixed(0),
-                    RTL
-                  )}{' '}
-                {i18n.t('g')}
+              <Text style={styles.caloriesText}>
+                {result.length > 0
+                  ? convertToPersianNumbers(
+                      dailyCalories - result[0]?.totalCalories.toFixed(0),
+                      RTL
+                    )
+                  : convertToPersianNumbers(dailyCalories, RTL)}
               </Text>
-              <Text style={styles.nutrientText}>
-                {i18n.t('protein')}:
-                {result &&
-                  convertToPersianNumbers(
-                    result[0]?.totalProtein.toFixed(0),
-                    RTL
-                  )}
-                {i18n.t('g')}
-              </Text>
-
-              <Text style={styles.nutrientText}>
-                {i18n.t('fats')}:{' '}
-                {result &&
-                  convertToPersianNumbers(
-                    result[0]?.totalFat.toFixed(0),
-                    RTL
-                  )}{' '}
-                {i18n.t('g')}
-              </Text>
-              <Text style={styles.nutrientText}>
-                {i18n.t('fiber')}:{' '}
-                {result &&
-                  convertToPersianNumbers(
-                    result[0]?.totalFiber.toFixed(0),
-                    RTL
-                  )}{' '}
-                {i18n.t('g')}
-              </Text>
+              <Text style={styles.kcalText}>{i18n.t('kcal')}</Text>
+              {dailyGoalStatus === 'success' && (
+                <>
+                  <Text style={styles.remainingText}>
+                    {i18n.t('remaining')}
+                  </Text>
+                </>
+              )}
             </View>
-          )}
-        </>
-      )}
-    </TouchableOpacity>
+
+            {result.length != 0 && (
+              <View style={styles.nutrientContainer}>
+                <Text style={styles.nutrientText}>
+                  {i18n.t('carbs')}:{' '}
+                  {result &&
+                    convertToPersianNumbers(
+                      result[0]?.totalCarbs.toFixed(0),
+                      RTL
+                    )}{' '}
+                  {i18n.t('g')}
+                </Text>
+                <Text style={styles.nutrientText}>
+                  {i18n.t('protein')}:
+                  {result &&
+                    convertToPersianNumbers(
+                      result[0]?.totalProtein.toFixed(0),
+                      RTL
+                    )}
+                  {i18n.t('g')}
+                </Text>
+
+                <Text style={styles.nutrientText}>
+                  {i18n.t('fats')}:{' '}
+                  {result &&
+                    convertToPersianNumbers(
+                      result[0]?.totalFat.toFixed(0),
+                      RTL
+                    )}{' '}
+                  {i18n.t('g')}
+                </Text>
+                <Text style={styles.nutrientText}>
+                  {i18n.t('fiber')}:{' '}
+                  {result &&
+                    convertToPersianNumbers(
+                      result[0]?.totalFiber.toFixed(0),
+                      RTL
+                    )}{' '}
+                  {i18n.t('g')}
+                </Text>
+              </View>
+            )}
+          </>
+        )}
+      </TouchableOpacity>
+    </>
   );
 }
 
@@ -232,6 +248,14 @@ const getStyles = (theme, RTL) =>
     },
     remainingText: {
       color: theme.colors.primary,
+      fontSize: 12,
+      textAlign: 'center',
+      fontFamily: 'Vazirmatn',
+      //fontWeight: 'bold',
+      margin: 10,
+    },
+    errorText: {
+      color: theme.colors.warning,
       fontSize: 12,
       textAlign: 'center',
       fontFamily: 'Vazirmatn',

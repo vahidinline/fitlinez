@@ -226,7 +226,7 @@ export default function App() {
           textAlign: 'center',
           marginTop: 20,
         }}>
-        An Error Occurred
+        {i18n.t('errorMessage')}
       </Text>
       <Button
         buttonStyle={{
@@ -237,7 +237,7 @@ export default function App() {
         color="primary"
         onPress={() => forceSolveError(setUserAuth)}
         size="lg">
-        Reset the app
+        {i18n.t('errorButtonTitle')}
       </Button>
     </View>
   );

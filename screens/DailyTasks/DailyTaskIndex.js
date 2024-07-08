@@ -17,7 +17,8 @@ import { I18n } from 'i18n-js';
 import CircleLoading from '../../components/CircleLoading';
 import { useNavigation } from '@react-navigation/native';
 
-function DailyTaskIndex() {
+function DailyTaskIndex(title) {
+  console.log('title in daily task', title);
   const [dailyTasks, setDailyTasks] = useState([]);
   const { theme } = useTheme();
   const styles = getStyles(theme);
@@ -25,7 +26,6 @@ function DailyTaskIndex() {
   const userId = userAuth.id;
   const { userLanguage } = useContext(LanguageContext);
   const [status, setStatus] = useState('idle');
-  console.log('status DailyTaskIndex', status);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const isRTL = userLanguage === 'fa';
@@ -38,7 +38,7 @@ function DailyTaskIndex() {
     try {
       getDailyTasks(userId)
         .then((tasks) => {
-          console.log('tasks', tasks);
+          // console.log('tasks', tasks);
           if (tasks?.length === 0) {
             setStatus('noTask');
           } else {
@@ -70,7 +70,7 @@ function DailyTaskIndex() {
             fontSize: 17,
             fontWeight: '700',
             marginHorizontal: 15,
-            marginVertical: 5,
+            // marginVertical: 5,
             color: theme.colors.primary,
             fontFamily: 'Vazirmatn',
             textAlign: 'center',
@@ -86,7 +86,7 @@ function DailyTaskIndex() {
               backgroundColor: theme.colors.background,
               marginHorizontal: 16,
               borderRadius: 14,
-              marginVertical: 5,
+              // marginVertical: 5,
               borderColor: theme.colors.border,
               borderWidth: 1,
             }}>
@@ -117,7 +117,7 @@ function DailyTaskIndex() {
         )}
 
         {dailyTasks?.slice(0, 1).map((item, i) => (
-          <DailyTaskList key={i} item={item} i18n={i18n} />
+          <DailyTaskList key={i} item={item} i18n={i18n} title={title} />
         ))}
       </View>
     </SafeAreaView>

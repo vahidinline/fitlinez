@@ -48,7 +48,7 @@ function CurrentWorkoutCard({ title, location, RTL }) {
         style={[
           styles.background,
           {
-            height: Dimensions.get('window').height / 4,
+            height: Dimensions.get('window').height / 4.5,
           },
         ]}
       />
@@ -87,9 +87,9 @@ function CurrentWorkoutCard({ title, location, RTL }) {
           justifyContent: 'space-between',
           alignItems: 'center',
           marginHorizontal: 10,
-          marginTop: 40,
+          marginTop: 45,
         }}>
-        <DailyTaskIndex />
+        <DailyTaskIndex title={title} location={location} />
       </View>
     </View>
   );

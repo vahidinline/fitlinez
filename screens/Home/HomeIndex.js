@@ -201,9 +201,9 @@ function HomeIndex() {
           <View
             style={{
               width: Dimensions.get('window').width,
-              marginTop: 10,
-              height: Dimensions.get('window').height / 4,
-              marginBottom: 10,
+              marginTop: 0,
+              height: Dimensions.get('window').height / 4.3,
+              marginBottom: 0,
             }}>
             <CurrentWorkoutCard
               RTL={isRTL}
@@ -251,7 +251,7 @@ function HomeIndex() {
             marginHorizontal: 20,
             borderRadius: 14,
             marginVertical: 0,
-            height: Dimensions.get('window').height / 2.5,
+
             top: 10,
           }}>
           <LinearGradient
@@ -298,7 +298,7 @@ const getStyles = (theme) =>
       padding: 30,
       borderRadius: 14,
       //width: Dimensions.get('window').width / 1.1,
-      marginVertical: 10,
+      marginVertical: 0,
       // minHeight: Dimensions.get('window').height / 5,
     },
     background: {

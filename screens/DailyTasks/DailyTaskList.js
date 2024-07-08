@@ -12,20 +12,41 @@ import { useNavigation } from '@react-navigation/native';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
+import AuthContext from '../../api/context';
 
-function DailyTaskList(item) {
+function DailyTaskList(item, title, location) {
+  console.log('title in daily task', title);
   const { theme } = useTheme();
   const navigation = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
+  const { userAuth } = useContext(AuthContext);
+  const userLevel = userAuth.level;
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const isRTL = userLanguage === 'fa';
 
+  const handleNextStep = () => {
+    // if (userLevel === 4) {
+    // condition 1
+    navigation.navigate('SessionNavigator', {
+      screen: 'StartSessionIndex',
+      params: { title: title.title, location: title.location },
+    });
+    // } else if (userPrivilege) {
+    // condition 1
+    //  navigation.navigate('SessionNavigator', {
+    //    screen: 'StartSessionIndex',
+    //    params: { title: title, location: location },
+    //  });
+    // } else {
+    // condition 2
+    //   navigation.navigate('Upgrade');
+    // }
+  };
+
   return (
     <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('SessionNavigator');
-      }}
+      onPress={handleNextStep}
       style={{
         direction: isRTL ? 'rtl' : 'ltr',
         flexDirection: 'column',

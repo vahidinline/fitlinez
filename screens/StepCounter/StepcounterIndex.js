@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { Pedometer } from 'expo-sensors';
 import { useTheme } from '@rneui/themed';
 import LanguageContext from '../../api/langcontext';
@@ -11,6 +11,7 @@ import WeeklyStepChart from './weeklyChart';
 
 export default function StepcounterIndex() {
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
+  const [status, setStatus] = useState('idle');
   const [pastStepCount, setPastStepCount] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);
   const { theme } = useTheme();
@@ -48,6 +49,8 @@ export default function StepcounterIndex() {
         subscription = Pedometer.watchStepCount((result) => {
           setCurrentStepCount(result.steps);
         });
+      } else {
+        setStatus('error');
       }
     };
 
@@ -62,7 +65,14 @@ export default function StepcounterIndex() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          height:
+            status !== 'error' ? Dimensions.get('window').height / 2.8 : 100,
+        },
+      ]}>
       {isPedometerAvailable === 'true' ? (
         <View
           style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -90,7 +100,7 @@ export default function StepcounterIndex() {
 const getStyles = (theme) =>
   StyleSheet.create({
     container: {
-      top: 25,
+      top: 5,
       alignItems: 'center',
       justifyContent: 'center',
     },
