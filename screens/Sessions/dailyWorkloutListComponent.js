@@ -60,7 +60,7 @@ function DailyWorkloutListComponent({ item, i }) {
             color: theme.colors.secondary,
             //padding: 10,
           }}>
-          {item.name}
+          {item.exerciseName}
         </Text>
       </View>
     </View>

@@ -204,7 +204,7 @@ const WeeklyPlan = (props) => {
   }, []);
   const { setSessionData } = useContext(SessionContext);
   const { userLanguage } = useContext(LanguageContext);
-  const { weeklyPlan, title, baseLocation, planName } = props.route.params;
+  const { weeklyPlan, day, title, baseLocation, planName } = props.route.params;
 
   console.log('data in weeklyPlan', weeklyPlan, title, baseLocation);
   let isRTL = userLanguage === 'fa' ? true : false;
@@ -218,7 +218,7 @@ const WeeklyPlan = (props) => {
   const [confirmEating, setConfirmEating] = useState(false);
   const [locSelector, setLocSelector] = useState('');
   const planId = planName;
-  const estimatedTime = data?.length * 6;
+  const estimatedTime = weeklyPlan?.length * 6;
   const [isVisible, setIsVisible] = useState(false);
   const { userAuth } = useContext(AuthContext);
   const userId = userAuth.id;
@@ -254,12 +254,12 @@ const WeeklyPlan = (props) => {
       day: day,
     });
     // timeContext.setWorkoutDuration(newDate);
-  }, [navigation, data, locSelector]);
+  }, [navigation, locSelector]);
 
   const saveWorkoutsList = async () => {
     try {
       const filteredWorkoutsList =
-        data?.filter(
+        weeklyPlan?.filter(
           (workout) =>
             workout.loc === locSelector || workout.loc.toLowerCase() === 'both'
         ) || [];
@@ -274,7 +274,7 @@ const WeeklyPlan = (props) => {
     getWorkOutData();
   }, []);
 
-  const sortedData = [...data].sort((a, b) => {
+  const sortedData = [...weeklyPlan].sort((a, b) => {
     if (a.type === 'warmup' && b.type !== 'warmup') {
       return -1; // "warmup" appears before other types
     } else if (a.type !== 'warmup' && b.type === 'warmup') {

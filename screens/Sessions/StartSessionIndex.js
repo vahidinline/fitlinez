@@ -38,6 +38,7 @@ const StartSessionIndex = ({ route }) => {
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
   //console.log('timeSpent in index new plan', timeSpent);
   const [workoutPlan, setWorkoutPlan] = useState([]);
+  console.log('workoutPlan in index new plan', workoutPlan);
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   const [timestamp, setTimestamp] = useState([]);
@@ -187,9 +188,9 @@ const StartSessionIndex = ({ route }) => {
   const goToWorkOut = (item) => {
     navigation.navigate('WeeklyPlan', {
       baseLocation: location,
-      weeklyPlan: workoutPlan,
+      weeklyPlan: item,
       title: title,
-      day: item.day,
+      day: item.dayName,
 
       planName: title,
     });
@@ -290,7 +291,7 @@ const StartSessionIndex = ({ route }) => {
                       : false
                   }
                   onPress={() => {
-                    item.title === 'Rest' ? null : goToWorkOut(item);
+                    item.title === 'Rest' ? null : goToWorkOut(item.exercises);
                   }}
                   style={{
                     flexDirection: 'column',
@@ -327,7 +328,7 @@ const StartSessionIndex = ({ route }) => {
                           marginTop: 16,
                           fontFamily: 'Vazirmatn',
                         }}>
-                        {findMatchingDay(item.day, daysOfWeek)}
+                        {findMatchingDay(item.dayName, daysOfWeek)}
                       </Text>
                       <Text
                         style={{
@@ -377,7 +378,7 @@ const StartSessionIndex = ({ route }) => {
                           marginBottom: 16,
                           fontFamily: 'Vazirmatn',
                         }}>
-                        {showDate(item.title, userLanguage)}
+                        {showDate(item.dayName, userLanguage)}
                       </Text>
                     </View>
                   )}
