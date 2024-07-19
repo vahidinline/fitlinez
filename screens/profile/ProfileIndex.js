@@ -113,12 +113,12 @@ function ProfileIndex() {
       },
     },
 
-    {
-      id: 6,
-      name: i18n.t('tutorialVideo'),
-      icon: IconProfile,
-      func: () => nabigateToVideo(),
-    },
+    // {
+    //   id: 6,
+    //   name: i18n.t('tutorialVideo'),
+    //   icon: IconProfile,
+    //   func: () => nabigateToVideo(),
+    // },
     {
       id: 7,
       name: i18n.t('changeWorkoutPlan'),

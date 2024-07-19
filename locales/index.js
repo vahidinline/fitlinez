@@ -473,6 +473,7 @@ const i18nt = {
     steps: 'Steps',
     aihelperror: 'An error occurred. Please try again later',
     tryagain: 'Try Again',
+    getTodaysTask: 'Get Todays Task',
   },
 
   fa: {
@@ -490,6 +491,7 @@ const i18nt = {
     sutablefor: 'مناسب برای',
     fat: 'چربی',
     g: 'گرم',
+    getTodaysTask: 'دریافت برنامه تمرینی امروز',
     yourWorkoutPlan: 'برنامه تمرینی شما',
     doOtherTasks: 'انجام تمرینات دیگر',
     noFoodSubmittedToday: 'امروز هیچ غذایی ثبت نشده است',
@@ -503,7 +505,7 @@ const i18nt = {
     cholesterol: 'کلسترول',
     sugar: 'شکر',
     workoutHistorydesc: 'تاریخچه جلسات تمرینی شما ',
-    seeLastExercises: 'مشاهده تمرینات گذشته',
+    seeLastExercises: 'مشاهده تمرینات دیگر',
     updatesuccess: 'بروزرسانی موفق',
     updateSuccessMessage: 'برنامه تمرینی شما با موفقیت بروزرسانی شد',
     noTasksAvailable: 'برنامه تمرینی برای امروز پیدا نشد.',

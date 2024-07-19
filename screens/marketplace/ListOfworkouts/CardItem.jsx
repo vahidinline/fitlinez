@@ -177,12 +177,13 @@ function CardItem({ item }) {
           justifyContent: 'center',
           alignItems: 'center',
           marginVertical: 10,
+          marginHorizontal: 20,
         }}>
         <Button
           buttonStyle={{
             backgroundColor: theme.colors.secondary,
             borderRadius: 10,
-            width: 150,
+            width: 130,
             height: 40,
             justifyContent: 'center',
             alignItems: 'center',
@@ -203,7 +204,7 @@ function CardItem({ item }) {
           buttonStyle={{
             backgroundColor: theme.colors.warning,
             borderRadius: 10,
-            width: 150,
+            width: 130,
             height: 40,
             justifyContent: 'center',
             alignItems: 'center',

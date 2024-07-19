@@ -1,12 +1,29 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
+
 import { Alert, Linking } from 'react-native';
 import api from './api';
 
-const getPlanUsage = async (userId) => {
-  console.log('getPlanUsage', userId);
+const getPlanUsage = async ({ packageId, userId }) => {
+  console.log('getPlanUsage', packageId);
   try {
-    const response = await api.get(`/newplan/usage/${userId}`);
+    const response = await api.post(`/newplan/userPlan/`, {
+      params: {
+        userId: userId,
+        packageId: packageId,
+      },
+    });
+    const data = response.data;
+    console.log('data in getData', data);
+
+    await AsyncStorage.setItem('workoutsList', JSON.stringify(data)).then(
+      () => {
+        console.log('stored into async updateWorkoutPlan');
+        console.log('data in getData', data);
+        //setShowCustomAlert(true);
+        //for previous plan use "usage" endpoint
+      }
+    );
+
     return response.data;
   } catch (error) {
     console.log(error);
@@ -16,7 +33,9 @@ const getPlanUsage = async (userId) => {
 };
 
 const updateWorkoutPlan = async (data, addedDateTime, userId) => {
-  console.log('updateWorkoutPlan by asyncstorage', data, addedDateTime);
+  getPlanUsage(userId);
+  return;
+  //console.log('updateWorkoutPlan by asyncstorage', data, addedDateTime);
   try {
     await AsyncStorage.setItem(
       'workoutsList',
@@ -24,7 +43,8 @@ const updateWorkoutPlan = async (data, addedDateTime, userId) => {
     ).then(() => {
       console.log('stored into async updateWorkoutPlan');
       //setShowCustomAlert(true);
-      const res = api.post(`/newplan/usage/`, {
+      //for previous plan use "usage" endpoint
+      const res = api.post(`/newplan/userPlan/`, {
         userId: userId,
         packageId: data._id,
       });
@@ -115,8 +135,8 @@ function createGoogleCalendarEvent(
 
 const userStatusCheck = async (userAuth, setUserAuth) => {
   try {
-    await axios
-      .get(`https://jobitta.com/api/userupdate/${userAuth.id}`, {
+    await api
+      .get(`/api/userupdate/${userAuth.id}`, {
         headers: {
           Authorization: `Bearer ${userAuth}`,
         },

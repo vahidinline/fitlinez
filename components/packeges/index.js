@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { Button, Icon, Text } from '@rneui/themed';
 import * as SQLite from 'expo-sqlite';
-import axios from 'axios';
 import { ActivityIndicator, Colors } from '@rneui/themed';
 // import Header from '../header';
 import { I18n } from 'i18n-js';
@@ -19,6 +18,7 @@ import { useTheme } from '@rneui/themed';
 import CategoryList from '../../screens/Home/categoryList';
 import { SearchBar } from '@rneui/base';
 import Header from '../header';
+import api from '../../api/api';
 const db = SQLite.openDatabase('packeges.db'); // Open or create the database
 
 const Packages = () => {
@@ -36,8 +36,8 @@ const Packages = () => {
   const getPackages = async () => {
     setLoading(true);
     try {
-      const result = await axios
-        .get('https://jobitta.com/newplan/prebuild')
+      const result = await api
+        .get('/newplan/prebuild')
 
         .then((res) => {
           setPackages(res.data);

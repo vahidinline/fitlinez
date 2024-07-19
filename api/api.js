@@ -1,13 +1,13 @@
-// api.js
 import axios from 'axios';
+import { showMessage } from 'react-native-flash-message';
 
 const api = axios.create({
-  baseURL: 'https://fitlinez-backend.lm.r.appspot.com',
-  //office local
-  //baseURL: 'http://10.10.178.1:8080',
-  //home local
-  //baseURL: 'http://192.168.1.67:8080',
-  timeout: 50000,
+  //baseURL: 'https://server.fitlinez.com',
+  // office local
+  baseURL: 'http://10.10.178.1:8080',
+  // home local
+  //baseURL: 'http://192.168.1.55:8080',
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -22,6 +22,33 @@ api.interceptors.request.use(
     return config;
   },
   (error) => Promise.reject(error)
+);
+
+// Interceptor to handle errors
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (!error.response) {
+      // Network error
+
+      showMessage({
+        message: 'Network Error',
+        description: 'Please check your internet connection.',
+        type: 'danger',
+        icon: 'auto',
+      });
+    } else {
+      // Other errors
+      console.log('Network error', error.response.data.error);
+      showMessage({
+        message: `Error ${error.response.data.error}`,
+        description: error.response.data.message || 'An error occurred',
+        type: 'warning',
+        icon: 'auto',
+      });
+    }
+    return Promise.reject(error);
+  }
 );
 
 export default api;

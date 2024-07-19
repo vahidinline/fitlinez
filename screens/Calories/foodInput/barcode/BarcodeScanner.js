@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { sendBarCode } from '../../../../api/barCodefunctions';
 
-export default function BarcodeScanner() {
+export default function BarcodeScanner({
+  setFoodItems,
+  setStatus,
+  userInput,
+  setUserInput,
+  setInputStatus,
+  selectedMeal,
+  status,
+  i18n,
+  userId,
+  RTL,
+}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  console.log('BarcodeScanner hasPermission?', hasPermission);
+
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -15,9 +27,19 @@ export default function BarcodeScanner() {
     getBarCodeScannerPermissions();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    const res = await sendBarCode(data, selectedMeal, userId);
+    if (res) {
+      await setFoodItems(res);
+      setTimeout(() => {
+        setStatus('initialReqSent');
+      }, 1000);
+
+      //console.log('res in handleBarCodeScanned', res);
+    } else {
+      alert(`Bar code with type  ${data} has  no data!`);
+    }
   };
 
   if (hasPermission === null) {

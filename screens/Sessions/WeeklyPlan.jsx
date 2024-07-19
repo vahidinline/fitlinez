@@ -204,8 +204,9 @@ const WeeklyPlan = (props) => {
   }, []);
   const { setSessionData } = useContext(SessionContext);
   const { userLanguage } = useContext(LanguageContext);
-  const { data, title, day, category, baseLocation, planName } =
-    props.route.params;
+  const { weeklyPlan, title, baseLocation, planName } = props.route.params;
+
+  console.log('data in weeklyPlan', weeklyPlan, title, baseLocation);
   let isRTL = userLanguage === 'fa' ? true : false;
   const { theme } = useTheme();
   const [refreshing, setRefreshing] = useState(false);
@@ -248,7 +249,7 @@ const WeeklyPlan = (props) => {
     navigation.navigate('SessionMainPage', {
       category: title,
       catTname: title,
-      workouts: data,
+      workouts: weeklyPlan,
       location: locSelector,
       day: day,
     });
@@ -331,6 +332,7 @@ const WeeklyPlan = (props) => {
               margin: 20,
             }}>
             {i18n.t('estimatedTime')}
+            {/* {filteredWorkoutsList.length} */}
           </Text>
           <Text
             style={{

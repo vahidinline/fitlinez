@@ -20,6 +20,7 @@ import {
   IconSettingsUnFocused,
   IconStatsFocused,
   IconStatsUnFocused,
+  IconWeightScale,
 } from '../screens/marketplace/filters/icons';
 import CaloriesIndex from '../screens/Calories/CaloriesIndex';
 
@@ -102,7 +103,11 @@ function TabNavigator() {
           headerShown: false,
           title: i18n.t('calorieCounter'),
           tabBarIcon: ({ focused }) =>
-            !focused ? <IconCakeUnFocused /> : <IconCakeFocused />,
+            !focused ? (
+              <IconWeightScale fill={'#5B5891'} color={'grey'} />
+            ) : (
+              <IconWeightScale color={'#5B5891'} fill={'#grey'} />
+            ),
         }}
       />
       {/* <Tab.Screen

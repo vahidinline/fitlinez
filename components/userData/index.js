@@ -11,8 +11,6 @@ import { useNavigation } from '@react-navigation/native';
 import { CheckBox, useTheme } from '@rneui/themed';
 import { ButtonGroup, Icon, Input } from '@rneui/base';
 import { DataPicker, NumPicker } from './picker';
-import axios from 'axios';
-import AnimatedLottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthContext from '../../api/context';
 import TestExercise from './testComponent/exercises/';
@@ -21,6 +19,7 @@ import UserImagePicker from './userImage';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
+import api from '../../api/api';
 // const db = SQLite.openDatabase('userWeight.db'); // Open or create the database
 const userDb = SQLite.openDatabase('user.db'); // Open or create the database
 
@@ -221,17 +220,15 @@ const GetUserData = () => {
 
     try {
       saveUserWeight(data);
-      axios
-        .post('https://jobitta.com/userdata/firstassessment', data)
-        .then((res) => {
-          navigation.navigate('TestExercise', {
-            assessmentId: res.data._id,
-            userScore: userScore,
-            gender,
-            weight,
-          });
-          // handleNext();
+      api.post('/userdata/firstassessment', data).then((res) => {
+        navigation.navigate('TestExercise', {
+          assessmentId: res.data._id,
+          userScore: userScore,
+          gender,
+          weight,
         });
+        // handleNext();
+      });
     } catch (err) {
       console.log(err);
       handleExit();
@@ -531,7 +528,7 @@ const GetUserData = () => {
             </TouchableOpacity>
           </View>
 
-          {/* 
+          {/*
           <TouchableOpacity style={styles.button} onPress={handleExit}>
             <Text style={styles.buttonText}>Start Now </Text>
           </TouchableOpacity> */}

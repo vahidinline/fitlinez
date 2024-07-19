@@ -78,7 +78,7 @@ function Item({
   const [showDrawer, setShowDrawer] = useState(false);
   const [visible, setVisible] = useState(false);
   const [alertVisible, setAlertVisible] = useState(false);
-  let adjustedNumberOfSets = 3;
+  let adjustedNumberOfSets = 4;
   const [showRest, setShowRest] = useState(false);
   const { sessionData, setSessionData } = useContext(SessionContext);
   const [userTestAccess, setUserTestAccess] = useState(false);

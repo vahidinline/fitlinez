@@ -1,8 +1,8 @@
-import axios from 'axios';
+import api from './api';
 
 const GetFromCloud = () => {
-  axios
-    .get('https://jobitta.com/userworkoutdata', {
+  api
+    .get('/userworkoutdata', {
       params: {
         userId: userAuth.id,
       },

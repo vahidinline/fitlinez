@@ -51,7 +51,7 @@ function FoodTextInput({
       setStatus
     );
     if (res) {
-      //console.log('res in FoodTextInput', res);
+      console.log('res in FoodTextInput', res);
       setFoodItems(res);
       setStatus('initialReqSent');
     } else {

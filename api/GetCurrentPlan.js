@@ -7,16 +7,14 @@ const getUsercurrentWorkoutPlan = async (userId, i18n) => {
   const addedDateTime = new Date().toISOString();
   try {
     const result = await api.get(`newplan/currentPlan/${userId}`);
-    console.log('getUsercurrentWorkoutPlan', result.data);
-    const data = result.data[0];
+    //console.log('getUsercurrentWorkoutPlan', result.data);
+    const data = result.data;
     if (result.data) {
-      await AsyncStorage.setItem(
-        'workoutsList',
-        JSON.stringify({ data, addedDateTime })
-      ).then(() => {
-        console.log('workoutsList');
-        // Alert.alert(i18n.t('updatesuccess'), i18n.t('updateSuccessMessage'));
-      });
+      await AsyncStorage.setItem('workoutsList', JSON.stringify(data)).then(
+        () => {
+          //console.log('workoutsList in getUsercurrentWorkoutPlan', data);
+        }
+      );
     } else {
       console.log('no workoutsList');
       Alert.alert(i18n.t('updateError'), i18n.t('updateErrorMessage'));

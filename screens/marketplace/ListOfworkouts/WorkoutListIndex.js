@@ -38,9 +38,10 @@ function WorkoutListIndex({ route }) {
     setRefreshing(true);
     setTimeout(() => {
       getLiveData();
-      setStatus('success');
+
       setRefreshing(false);
-    }, 2000);
+      setStatus('success');
+    }, 3000);
   }, []);
 
   const getUserBasicData = async () => {

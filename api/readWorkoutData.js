@@ -71,13 +71,18 @@ const readWorkoutData = async () => {
     const value = await AsyncStorage.getItem('workoutsList');
     if (value !== null) {
       const workoutsList = JSON.parse(value);
-      const addedDateTime = workoutsList.addedDateTime;
-      const workoutPlanData = workoutsList.data;
-      const totalSession = workoutsList.data?.totalSessions
-        ? workoutsList.data.totalSessions
-        : workoutsList.data?.DaysPerWeek * workoutsList.data.duration;
 
-      return { workoutPlanData, totalSession, addedDateTime };
+      const workoutPlanData = workoutsList;
+      // console.log('workoutPlanData in readWorkoutdata', workoutsList);
+      const weeklyPlan = workoutsList.data?.weeklyPlan;
+      const planName = workoutsList.data?.packageName;
+      const location = workoutsList.data?.location;
+      // const totalSession = workoutsList.data?.totalSessions
+      //   ? workoutsList.data.totalSessions
+      //   : workoutsList.data?.DaysPerWeek * workoutsList.data.duration;
+      // console.log('weeklyPlan in readWorkoutData', weeklyPlan);
+      // console.log('planName in readWorkoutData', planName);
+      return { weeklyPlan, planName, location };
       // return {
       //   dataObject: dataObject.data,
       //   totalSessions: dataObject.item.DaysPerWeek * dataObject.item.duration,

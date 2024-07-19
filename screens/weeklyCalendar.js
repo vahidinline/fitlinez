@@ -243,11 +243,11 @@ const WeeklyCal = () => {
   const _handlePressButtonAsync = async () => {
     if (userLocation !== 'Iran') {
       let result = await WebBrowser.openBrowserAsync(
-        `https://www.fitlinez.com/service/2?email=${userAuth.email}`
+        `https://www.fitlinez.com/service/2?email=${userAuth?.email}`
       );
     } else {
       let result = await WebBrowser.openBrowserAsync(
-        `https://fitlinez.com/service/2?email=${userAuth.email}`
+        `https://fitlinez.com/service/2?email=${userAuth?.email}`
       );
     }
     setResult(result);

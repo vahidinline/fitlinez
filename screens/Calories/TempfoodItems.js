@@ -6,6 +6,7 @@ import { Button } from '@rneui/base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
+  console.log('TempfoodItems -> foodItems', foodItems);
   // Initialize state with an empty array
   const [items, setItems] = useState(foodItems.data);
   const [selectedItem, setSelectedItem] = useState();
@@ -56,12 +57,12 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
             i18n={i18n}
             userId={userId}
             // key={index}
-            current={items.currentFood}
+            current={items?.currentFood}
             item={items.data}
-            foodItems={items.foodItems}
-            foodId={foodItems.data.foodId}
+            foodItems={items?.foodItems}
+            foodId={foodItems?.data?.foodId}
             handleInputChange={handleInputChange}
-            selectedMeal={items.selectedMeal}
+            selectedMeal={items?.selectedMeal}
             handleDeleteItem={handleDeleteItem}
             setMainStatus={setStatus}
           />

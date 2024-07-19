@@ -15,7 +15,6 @@ import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
-import axios from 'axios';
 import { useState } from 'react';
 import { useContext } from 'react';
 import AuthContext from '../../api/context';
@@ -27,10 +26,12 @@ import {
   IconArrowLeft,
   IconArrowRight,
   IconLang,
+  IconLogo,
 } from '../marketplace/filters/icons';
 import ChangeLanguage from '../settings/changeLanguage';
 import { FlatList } from 'react-native-gesture-handler';
 import langs from '../../data/langs';
+import api from '../../api/api';
 
 function SignUpIndex(props) {
   const authContext = useContext(AuthContext);
@@ -83,8 +84,8 @@ function SignUpIndex(props) {
 
   const handleSubmit = async () => {
     setStatus('loading');
-    axios
-      .post('https://jobitta.com/api/register', {
+    api
+      .post('/api/register', {
         email,
         password,
         name,
@@ -113,7 +114,6 @@ function SignUpIndex(props) {
           }
           //Redirect(email, password);
         } else {
-          alert(res.data.error);
           setStatus('error');
         }
         // } else {
@@ -148,7 +148,7 @@ function SignUpIndex(props) {
           onPress={() => handleShowLang()}
           style={{
             position: 'absolute',
-            top: Dimensions.get('window').height / 9,
+            top: Dimensions.get('window').height / 9.5,
             left: 0,
             right: 0,
             bottom: 0,
@@ -219,17 +219,28 @@ function SignUpIndex(props) {
               width: '100%',
               height: Dimensions.get('window').height / 3,
             }}>
-            <Image
+            <View
               style={{
-                width: 200,
+                // width: 200,
                 height: 100,
                 marginTop: 100,
                 resizeMode: 'cover',
                 alignSelf: 'center',
                 borderRadius: 10,
-              }}
-              source={require('../../assets/logo.png')}
-            />
+              }}>
+              <IconLogo />
+            </View>
+            <Text
+              style={{
+                color: theme.colors.text,
+                fontSize: 8,
+                fontFamily: 'Vazirmatn',
+                textAlign: 'center',
+                marginVertical: 10,
+              }}>
+              {' '}
+              v. {process.env.EXPO_PUBLIC_VERSION}
+            </Text>
           </View>
         </View>
 

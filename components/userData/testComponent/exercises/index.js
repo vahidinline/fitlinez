@@ -15,6 +15,7 @@ import AuthContext from '../../../../api/context';
 import Evaluate from '../evaluate';
 import evaluateUserAbility from '../../../../api/oneRmEva';
 import * as SQLite from 'expo-sqlite';
+import api from '../../../../api/api';
 const db = SQLite.openDatabase('userAbilities.db');
 
 function TestExercise({ route }) {
@@ -68,11 +69,8 @@ function TestExercise({ route }) {
           ]);
         });
 
-        axios
-          .put(
-            `https://jobitta.com/userdata/firstassessment/${assessmentId}`,
-            evaluation
-          )
+        api
+          .put(`/userdata/firstassessment/${assessmentId}`, evaluation)
           .then((res) => {
             setIsLoading(false);
             setShowResult(true);

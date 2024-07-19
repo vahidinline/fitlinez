@@ -9,11 +9,17 @@ import { I18n } from 'i18n-js';
 import AuthContext from '../../api/context';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 import DailyTaskIndex from '../DailyTasks/DailyTaskIndex';
-import { IconDelete, IconEdit } from '../marketplace/filters/icons';
+import { IconEdit } from '../marketplace/filters/icons';
 
-function CurrentWorkoutCard({ title, location, RTL }) {
+function CurrentWorkoutCard({
+  title,
+  location,
+  RTL,
+  taskStatus,
+  setTaskStatus,
+}) {
+  // console.log('taskStatus in current', taskStatus);
   const { userPrivilege, setUserPrivilege } = useContext(UserPrivilegeContext);
-
   const { theme } = useTheme();
   const navigation = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
@@ -89,7 +95,12 @@ function CurrentWorkoutCard({ title, location, RTL }) {
           marginHorizontal: 10,
           marginTop: 45,
         }}>
-        <DailyTaskIndex title={title} location={location} />
+        <DailyTaskIndex
+          title={title}
+          location={location}
+          taskStatus={taskStatus}
+          setTaskStatus={setTaskStatus}
+        />
       </View>
     </View>
   );

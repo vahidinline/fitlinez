@@ -98,25 +98,25 @@ function DailyReport({ userId }) {
         style={[styles.container, { direction: RTL ? 'rtl' : 'ltr' }]}>
         {status === 'success' && (
           <>
-            <View style={[styles.baseContainer]}>
+            <View style={styles.baseContainer}>
               {/* <RoundAnimationChart
-              borderColor="blue" // Custom border color
-              borderWidth={4}
-              size={200}
-              i18n={i18n}
-              shownumber={
-                result.length > 0
-                  ? convertToPersianNumbers(
-                      dailyCalories - result[0]?.totalCalories.toFixed(0),
-                      RTL
-                    )
-                  : convertToPersianNumbers(dailyCalories, RTL)
-              }
-              takenCalories={
-                dailyCalories - result[0]?.totalCalories.toFixed(0)
-              }
-              dailyGoal={dailyCalories}
-            /> */}
+                borderColor="blue" // Custom border color
+                borderWidth={2}
+                size={200}
+                i18n={i18n}
+                shownumber={
+                  result.length > 0
+                    ? convertToPersianNumbers(
+                        dailyCalories - result[0]?.totalCalories.toFixed(0),
+                        RTL
+                      )
+                    : convertToPersianNumbers(dailyCalories, RTL)
+                }
+                takenCalories={
+                  dailyCalories - result[0]?.totalCalories.toFixed(0)
+                }
+                dailyGoal={dailyCalories}
+              /> */}
               <Text style={styles.caloriesText}>
                 {result.length > 0
                   ? convertToPersianNumbers(
@@ -147,12 +147,12 @@ function DailyReport({ userId }) {
                   {i18n.t('g')}
                 </Text>
                 <Text style={styles.nutrientText}>
-                  {i18n.t('protein')}:
+                  {i18n.t('protein')}:{' '}
                   {result &&
                     convertToPersianNumbers(
                       result[0]?.totalProtein.toFixed(0),
                       RTL
-                    )}
+                    )}{' '}
                   {i18n.t('g')}
                 </Text>
 
@@ -193,16 +193,16 @@ const getStyles = (theme, RTL) =>
       justifyContent: 'center',
       alignItems: 'center',
       //marginHorizontal: 20,
-      flexDirection: 'row',
-      padding: 30,
+      //flexDirection: 'row',
+      //padding: 30,
       borderRadius: 14,
       width: Dimensions.get('window').width / 1.1,
       marginVertical: 10,
       // minHeight: Dimensions.get('window').height / 5,
       flex: 1,
 
-      marginHorizontal: 10,
-      padding: 10,
+      //marginHorizontal: 10,
+      //padding: 10,
       borderRadius: 10,
       //backgroundColor: theme.colors.secondary,
     },
@@ -222,11 +222,11 @@ const getStyles = (theme, RTL) =>
     },
     baseContainer: {
       borderWidth: 5,
-      borderColor: theme.colors.primary,
+      borderColor: theme.colors.grey0,
       borderRadius: 75,
       width: 150,
       height: 150,
-      margin: 5,
+      //margin: 5,
       borderOpacity: 0.2,
       justifyContent: 'center',
       alignItems: 'center',

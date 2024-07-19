@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import WalkThrough from '../components/walkThrough';
 // import customPlanNavigator from './CustomPlanNavigator';
-import PlanPlusNavigator from './planPlusNavigator';
+// import PlanPlusNavigator from './planPlusNavigator';
 // import UserLevelSelector from '../components/newPlan/UserLevelSelector';
 import TabNavigator from './newBottomNavigator';
 import { ContactStackNavigator } from './AuthNavigator';
@@ -25,6 +25,7 @@ import PlanDetailsIndex from '../screens/planDetails/planDetailsIndex';
 import SessionNavigator from './SessionNavigator';
 import CaloriesIndex from '../screens/Calories/CaloriesIndex';
 import CustomCalorieReport from '../screens/Calories/customReport';
+import WorkoutNavigator from './WorkoutNavigation';
 
 const Stack = createStackNavigator();
 
@@ -64,7 +65,7 @@ const HomeNavigator = () => {
           },
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="PlanPlus"
         component={PlanPlusNavigator}
         options={{
@@ -79,7 +80,7 @@ const HomeNavigator = () => {
             fontWeight: 'bold',
           },
         }}
-      />
+      /> */}
       <Stack.Screen
         name="WorkoutListIndex"
         component={WorkoutListIndex}

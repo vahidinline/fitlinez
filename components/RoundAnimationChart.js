@@ -7,35 +7,31 @@ import { VictoryPie, VictoryAnimation, VictoryLabel } from 'victory-native';
 
 // Helper function to generate data based on percent
 function getData(percent, total) {
-  // Percent can be over 100 if takenCalories exceed dailyGoal
   if (percent > 100) {
     return [
-      { x: 1, y: 100 }, // The goal portion (100%)
-      { x: 2, y: percent - 100 }, // The excess portion
+      { x: 1, y: 100 },
+      { x: 2, y: percent - 100 },
     ];
   }
   return [
-    { x: 1, y: percent }, // The consumed portion
-    { x: 2, y: total - percent }, // The remaining portion
+    { x: 1, y: percent },
+    { x: 2, y: total - percent },
   ];
 }
 
 const getColorBasedOnValue = (datum, theme) => {
-  // Apply colors based on the slice
   if (datum.x === 1) {
-    // If it's the primary portion
     if (datum.y > 100) {
-      return theme.colors.error; // Red for overconsumption
+      return theme.colors.error;
     } else if (datum.y > 75) {
-      return theme.colors.warning; // Yellow for close to goal
+      return theme.colors.warning;
     } else if (datum.y > 50) {
-      return theme.colors.lightSuccess; // Blue for halfway to goal
+      return theme.colors.lightSuccess;
     } else {
-      return theme.colors.success; // Green for below halfway
+      return theme.colors.success;
     }
   } else {
-    // The remaining or excess portion
-    return theme.colors.white; // Grey for the remaining or excess
+    return theme.colors.success;
   }
 };
 
@@ -43,37 +39,40 @@ const RoundAnimationChart = ({
   shownumber,
   dailyGoal,
   takenCalories,
-
   size,
 }) => {
-  console.log('dailyGoal', dailyGoal);
-  console.log('takenCalories', takenCalories);
   const { theme } = useTheme();
   const [state, setState] = useState({
     percent: 0,
-    data: getData(0, dailyGoal),
+    data: getData(0, 100),
   });
-  const [status, setStatus] = useState('idle');
 
   useEffect(() => {
     let currentPercent = 0;
-    const targetPercent = (takenCalories ? takenCalories : 0 / dailyGoal) * 100; // Calculate the target percent
-    const increment = targetPercent / 20; // This controls the speed of the animation
-    const intervalTime = 100; // Time in milliseconds between updates
+    const validDailyGoal = dailyGoal > 0 ? dailyGoal : 1; // Ensure dailyGoal is not zero or negative
+    const validTakenCalories = takenCalories >= 0 ? takenCalories : 0; // Ensure takenCalories is not negative
+    const targetPercent = (validTakenCalories / validDailyGoal) * 100;
+
+    if (isNaN(targetPercent) || !isFinite(targetPercent)) {
+      console.error('Invalid targetPercent value:', targetPercent);
+      return;
+    }
+
+    const increment = targetPercent / 20;
+    const intervalTime = 100;
 
     const setStateInterval = setInterval(() => {
       currentPercent += increment;
       if (currentPercent >= targetPercent) {
         currentPercent = targetPercent;
-        clearInterval(setStateInterval); // Stop the interval once we reach the target value
+        clearInterval(setStateInterval);
       }
       setState({
         percent: currentPercent,
-        data: getData(currentPercent, 100), // Always treat as percentage for the pie chart
+        data: getData(currentPercent, 100),
       });
     }, intervalTime);
 
-    // Cleanup interval on component unmount
     return () => {
       clearInterval(setStateInterval);
     };
@@ -99,33 +98,27 @@ const RoundAnimationChart = ({
         />
 
         <VictoryAnimation duration={1000} data={state}>
-          {(newProps) => {
-            return (
-              <VictoryLabel
-                textAnchor="middle"
-                verticalAnchor="middle"
-                x={200}
-                y={200}
-                text={
-                  shownumber
-                  // ? `${
-                  //     Math.round(takenCalories)
-                  //       ? Math.round(takenCalories)
-                  //       : 0
-                  //   }/${dailyGoal}`
-                  // : takenCalories > dailyGoal
-                  // ? `Over ${Math.round(newProps.percent - 100)}%`
-                  // : `${Math.round(newProps.percent)}%`
-                }
-                style={{
-                  fontSize: 30,
-                  fontWeight: 'bold',
-                  fill: 'white',
-                  fontFamily: 'Vazirmatn',
-                }} // Use 'fill' instead of 'color' for SVG text
-              />
-            );
-          }}
+          {(newProps) => (
+            <VictoryLabel
+              textAnchor="middle"
+              verticalAnchor="middle"
+              x={200}
+              y={200}
+              text={
+                shownumber
+                  ? `${Math.round(takenCalories)}/${dailyGoal}`
+                  : takenCalories > dailyGoal
+                  ? `Over ${Math.round(newProps.percent - 100)}%`
+                  : `${Math.round(newProps.percent)}%`
+              }
+              style={{
+                fontSize: 30,
+                fontWeight: 'bold',
+                fill: 'white',
+                fontFamily: 'Vazirmatn',
+              }}
+            />
+          )}
         </VictoryAnimation>
       </Svg>
     </View>

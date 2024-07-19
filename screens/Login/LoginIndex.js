@@ -17,13 +17,12 @@ import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import AuthContext from '../../api/context';
 import { I18n } from 'i18n-js';
-import { useContext } from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import axios from 'axios';
+import { useContext, useState, useEffect, useRef } from 'react';
 import jwtDecode from 'jwt-decode';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import authStorage from '../../api/storage';
 import api from '../../api/api';
+import { IconLogo } from '../marketplace/filters/icons';
 
 function LoginIndex(props) {
   const { userLanguage } = useContext(LanguageContext);
@@ -34,34 +33,51 @@ function LoginIndex(props) {
   const authContext = useContext(AuthContext);
   const [token, setToken] = useState(null);
   const [showPass, setShowPass] = useState(false);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [btnDisable, setBtnDisable] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [status, setStatus] = useState('idle');
 
-  const buttonDisabled = () => {
-    if (email !== null && password !== null) {
-      setBtnDisable(false);
-    } else {
-      setBtnDisable(true);
-    }
+  const emailInputRef = useRef(null);
+  const passwordInputRef = useRef(null);
+
+  const validateFields = () => {
+    return email !== '' && password !== '';
   };
 
   useEffect(() => {
-    buttonDisabled();
+    const buttonDisabled = !validateFields();
+    setBtnDisable(buttonDisabled);
   }, [email, password]);
+
+  useEffect(() => {
+    const loadStoredCredentials = async () => {
+      try {
+        const storedEmail = await AsyncStorage.getItem('email');
+        const storedPassword = await AsyncStorage.getItem('password');
+        if (storedEmail) {
+          setEmail(storedEmail);
+        }
+        if (storedPassword) {
+          setPassword(storedPassword);
+        }
+        //emailInputRef.current.focus(); // Focus on email input when the component mounts
+      } catch (error) {
+        console.error('Failed to load stored credentials', error);
+      }
+    };
+    loadStoredCredentials();
+  }, []);
 
   const handleSubmit = async () => {
     setStatus('loading');
 
-    console.log('Sending request with data:'); // Log the request data
     api
       .post('/api/login', {
         userEmail: email,
         password: password,
         deviceType: Platform.OS,
-        //token: token.data,
       })
       .then((res) => {
         if (res.data) {
@@ -74,6 +90,10 @@ function LoginIndex(props) {
               setStatus('success');
               authContext.setUserAuth(user);
               authStorage.storeToken(user);
+
+              // Store email and password
+              AsyncStorage.setItem('email', email);
+              AsyncStorage.setItem('password', password);
             } else {
               setStatus('error');
             }
@@ -98,20 +118,18 @@ function LoginIndex(props) {
 
   const emailValidate = (text) => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    //lowercase validation
-
     if (reg.test(text) === false) {
-      setEmail(null);
+      setEmail('');
       return false;
     } else {
       setEmail(text.trim().toLowerCase());
+      //passwordInputRef.current.focus(); // Focus on password input after email validation
     }
   };
 
   const passwordValidate = (text) => {
-    //password length validation
     if (text.length < 6) {
-      setPassword(null);
+      setPassword('');
       return false;
     } else {
       setPassword(text.trim());
@@ -124,14 +142,7 @@ function LoginIndex(props) {
       style={{
         backgroundColor: theme.colors.background,
         flex: 1,
-        // position: 'absolute',
-        // top: -10,
-        // left: 0,
-        // right: 0,
-        // bottom: 0,
-        backgroundColor: theme.colors.background,
         width: Dimensions.get('window').width,
-        // height: Dimensions.get('window').height,
       }}>
       <View style={{ backgroundColor: theme.colors.background }}>
         <View>
@@ -141,7 +152,19 @@ function LoginIndex(props) {
               width: '100%',
               height: Dimensions.get('window').height / 3,
             }}>
-            <Image
+            <View
+              style={{
+                // width: 200,
+                height: 100,
+                marginTop: 100,
+                resizeMode: 'cover',
+                alignSelf: 'center',
+                borderRadius: 10,
+              }}>
+              <IconLogo />
+            </View>
+
+            {/* <Image
               style={{
                 width: 200,
                 height: 100,
@@ -151,7 +174,19 @@ function LoginIndex(props) {
                 borderRadius: 10,
               }}
               source={require('../../assets/logo.png')}
-            />
+            /> */}
+
+            <Text
+              style={{
+                color: theme.colors.text,
+                fontSize: 8,
+                fontFamily: 'Vazirmatn',
+                textAlign: 'center',
+                marginVertical: 10,
+              }}>
+              {' '}
+              v. {process.env.EXPO_PUBLIC_VERSION}
+            </Text>
           </View>
         </View>
 
@@ -163,24 +198,25 @@ function LoginIndex(props) {
           }}>
           <FloatingPlaceholderInput
             placeholder={i18n.t('email')}
-            onChange={(e) => setEmail(e)}
-            onChangeText={(text) => emailValidate(text)}
+            value={email}
+            onChangeText={emailValidate}
+            ref={emailInputRef}
             type="email"
           />
           <FloatingPlaceholderInput
-            //hid the password
-            secureTextEntry={showPass}
+            secureTextEntry={!showPass}
             icon="eye"
             placeholder={i18n.t('password')}
-            onChange={(e) => setPassword(e)}
-            onChangeText={(text) => passwordValidate(text)}
+            value={password}
+            onChangeText={passwordValidate}
             setShowPass={setShowPass}
             showPass={showPass}
+            ref={passwordInputRef}
             type="password"
           />
 
           <Button
-            loading={status === 'loading' ? true : false}
+            loading={status === 'loading'}
             type="outline"
             disabled={btnDisable}
             onPress={handleSubmit}
@@ -210,7 +246,6 @@ function LoginIndex(props) {
               onPress={() =>
                 Linking.openURL('https://www.fitlinez.com/forgot-password')
               }
-              //onPress={() => navigation.navigate('ForgotPassIndex')}
               style={{
                 color: theme.colors.secondary,
                 alignSelf: 'flex-end',
@@ -246,10 +281,10 @@ function LoginIndex(props) {
             />
           )}
         </View>
+
         <View
           style={{
             position: 'absolute',
-
             alignSelf: 'center',
             bottom: 100,
           }}>
@@ -284,9 +319,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#000',
   },
-
   input: {
-    paddingVertical: 10, // Adjust as needed
+    paddingVertical: 10,
   },
 });
 

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   RefreshControl,
+  SafeAreaView,
 } from 'react-native';
 import AuthContext from '../../../api/context';
 import getDailyCaloriesDetails from '../../../api/getDailyCaloriesDetails';
@@ -34,6 +35,8 @@ function DailyDetailsIndex(mainStatus, setMainStatus) {
   const [result, setResult] = useState([]);
   const [status, setStatus] = useState('idle');
   const [totalCalories, setTotalCalories] = useState([]);
+  const [totalCarbs, setTotalCarbs] = useState([]);
+  //console.log('totalCarbs', totalCarbs);
   const [totalProteins, setTotalProteins] = useState([]);
   const [totalFats, setTotalFats] = useState([]);
   const [totalSugars, setTotalSugars] = useState([]);
@@ -56,6 +59,7 @@ function DailyDetailsIndex(mainStatus, setMainStatus) {
     try {
       setStatus('loading');
       const res = await getDailyCaloriesDetails(userId, today);
+      console.log('res', res.data);
       if (res.data.length === 0) {
         setStatus('noData');
       } else {
@@ -67,28 +71,35 @@ function DailyDetailsIndex(mainStatus, setMainStatus) {
             totalCalories: meal.totalCalories,
           }))
         );
+        setTotalCarbs(
+          res.aggregatedNutritionalValues.map((meal) => ({
+            name: meal.name,
+            totalCarbs: meal.totalCarbs.toFixed(0),
+          }))
+        );
         setTotalProteins(
           res.aggregatedNutritionalValues.map((meal) => ({
             name: meal.name,
-            totalProteins: meal.totalProteins,
+            totalProteins: meal.totalProteins.toFixed(0),
           }))
         );
+
         setTotalFats(
           res.aggregatedNutritionalValues.map((meal) => ({
             name: meal.name,
-            totalFats: meal.totalFat,
+            totalFats: meal.totalFat.toFixed(0),
           }))
         );
         setTotalSugars(
           res.aggregatedNutritionalValues.map((meal) => ({
             name: meal.name,
-            totalSugars: meal.totalSugars,
+            totalSugars: meal.totalSugars.toFixed(0),
           }))
         );
         setTotalFibers(
           res.aggregatedNutritionalValues.map((meal) => ({
             name: meal.name,
-            totalFibers: meal.totalFibers,
+            totalFibers: meal.totalFibers.toFixed(0),
           }))
         );
         setStatus('succeeded');
@@ -111,92 +122,104 @@ function DailyDetailsIndex(mainStatus, setMainStatus) {
   const groupedMeals = groupByMealName(result);
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollViewContent} // Added to set flexGrow
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        {status === 'noData' && (
-          <Text style={styles.noData}>{i18n.t('noFoodSubmittedToday')}</Text>
-        )}
-        {status === 'loading' && (
-          <Text style={styles.loadingText}>{i18n.t('loading')}...</Text>
-        )}
-        {status === 'failed' && (
-          <Text style={styles.errorText}>{i18n.t('errorLoadingData')}</Text>
-        )}
-        {Object.keys(groupedMeals).map((mealName, i) => (
-          <View key={i} style={styles.mealSection}>
-            <View style={styles.MealMainSection}>
-              <Text style={styles.mealName}>{i18n.t(mealName)}</Text>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollViewContent} // Added to set flexGrow
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
+          {status === 'noData' && (
+            <Text style={styles.noData}>{i18n.t('noFoodSubmittedToday')}</Text>
+          )}
+          {status === 'loading' && (
+            <Text style={styles.loadingText}>{i18n.t('loading')}...</Text>
+          )}
+          {status === 'failed' && (
+            <Text style={styles.errorText}>{i18n.t('errorLoadingData')}</Text>
+          )}
+          {Object.keys(groupedMeals).map((mealName, i) => (
+            <View key={i} style={styles.mealSection}>
+              <View style={styles.MealMainSection}>
+                <Text style={styles.mealName}>{i18n.t(mealName)}</Text>
 
-              {totalCalories.map((calorie, i) => {
-                if (calorie?.name === mealName) {
-                  return (
-                    <Text key={i} style={styles.nutritionalValueText}>
-                      {calorie.totalCalories} {i18n.t('kcal')}
-                    </Text>
-                  );
-                }
-              })}
-              {totalProteins.map((protein, i) => {
-                if (protein?.name === mealName) {
-                  return (
-                    <Text key={i} style={styles.nutritionalValueText}>
-                      {protein.totalProteins} {i18n.t('g')} {i18n.t('protein')}
-                    </Text>
-                  );
-                }
-              })}
-              {totalFats.map((fat, i) => {
-                if (fat?.name === mealName) {
-                  return (
-                    <Text key={i} style={styles.nutritionalValueText}>
-                      {fat.totalFats} {i18n.t('g')} {i18n.t('fat')}
-                    </Text>
-                  );
-                }
-              })}
-              {totalSugars.map((sugar, i) => {
-                if (sugar?.name === mealName) {
-                  return (
-                    <Text key={i} style={styles.nutritionalValueText}>
-                      {sugar.totalSugars} {i18n.t('g')} {i18n.t('sugar')}
-                    </Text>
-                  );
-                }
-              })}
-              {totalFibers.map((fiber, i) => {
-                if (fiber?.name === mealName) {
-                  return (
-                    <Text key={i} style={styles.nutritionalValueText}>
-                      {fiber.totalFibers} {i18n.t('g')} {i18n.t('fiber')}
-                    </Text>
-                  );
-                }
-              })}
-            </View>
-            {status === 'succeeded' && (
-              <View style={styles.mealItemsContainer}>
-                {groupedMeals[mealName].map((meal, j) => (
-                  <View key={j} style={styles.mealItem}>
-                    {meal.foodItems.map((foodItem, k) => (
-                      <View key={k} style={styles.foodItemContainer}>
-                        <Text style={styles.foodItem}>
-                          {foodItem.food_item}
-                        </Text>
-                      </View>
-                    ))}
-                  </View>
-                ))}
+                {totalCalories.map((calorie, i) => {
+                  if (calorie?.name === mealName) {
+                    return (
+                      <Text key={i} style={styles.nutritionalValueText}>
+                        {calorie.totalCalories} {i18n.t('kcal')}
+                      </Text>
+                    );
+                  }
+                })}
+                {totalCarbs.map((carbs, i) => {
+                  if (carbs?.name === mealName) {
+                    return (
+                      <Text key={i} style={styles.nutritionalValueText}>
+                        {carbs.totalCarbs} {i18n.t('carbs')}
+                      </Text>
+                    );
+                  }
+                })}
+                {totalProteins.map((protein, i) => {
+                  if (protein?.name === mealName) {
+                    return (
+                      <Text key={i} style={styles.nutritionalValueText}>
+                        {protein.totalProteins} {i18n.t('g')}{' '}
+                        {i18n.t('protein')}
+                      </Text>
+                    );
+                  }
+                })}
+                {totalFats.map((fat, i) => {
+                  if (fat?.name === mealName) {
+                    return (
+                      <Text key={i} style={styles.nutritionalValueText}>
+                        {fat.totalFats} {i18n.t('g')} {i18n.t('fat')}
+                      </Text>
+                    );
+                  }
+                })}
+                {totalSugars.map((sugar, i) => {
+                  if (sugar?.name === mealName) {
+                    return (
+                      <Text key={i} style={styles.nutritionalValueText}>
+                        {sugar.totalSugars} {i18n.t('g')} {i18n.t('sugar')}
+                      </Text>
+                    );
+                  }
+                })}
+                {totalFibers.map((fiber, i) => {
+                  if (fiber?.name === mealName) {
+                    return (
+                      <Text key={i} style={styles.nutritionalValueText}>
+                        {fiber.totalFibers} {i18n.t('g')} {i18n.t('fiber')}
+                      </Text>
+                    );
+                  }
+                })}
               </View>
-            )}
-          </View>
-        ))}
-      </ScrollView>
-    </View>
+              {status === 'succeeded' && (
+                <View style={styles.mealItemsContainer}>
+                  {groupedMeals[mealName].map((meal, j) => (
+                    <View key={j} style={styles.mealItem}>
+                      {meal.foodItems.map((foodItem, k) => (
+                        <View key={k} style={styles.foodItemContainer}>
+                          <Text style={styles.foodItem}>
+                            {foodItem.food_item}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                  ))}
+                </View>
+              )}
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -205,6 +228,7 @@ const getStyles = (theme, RTL) =>
     container: {
       flex: 1, // Ensures the container takes up the available space
       marginHorizontal: 10,
+      marginBottom: 100,
     },
     scrollView: {
       flexGrow: 1, // Allows the ScrollView to fill its parent container

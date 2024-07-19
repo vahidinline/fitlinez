@@ -13,6 +13,7 @@ function HeaderListPage({
   loc,
   i18n,
 }) {
+  console.log('header item title of plan', category);
   const { theme } = useTheme();
   return (
     <View
@@ -35,6 +36,7 @@ function HeaderListPage({
             color: theme.colors.secondary,
           }}>
           {`${userLanguage === 'fa' ? catTname : category} at ${loc}`}
+          {category}
         </Text>
       </View>
 

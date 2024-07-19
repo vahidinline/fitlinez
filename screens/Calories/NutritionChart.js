@@ -110,7 +110,7 @@ function NutritionChart({
           borderRadius: 20,
           // backgroundColor: '#232B5D',
         }}>
-        {renderLegendComponent()}
+        {/* {renderLegendComponent()} */}
         <View style={{ padding: 0, alignItems: 'center' }}>
           <PieChart
             data={pieData}

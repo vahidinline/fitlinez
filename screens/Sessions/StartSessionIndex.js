@@ -24,6 +24,7 @@ import Header from '../../components/header';
 import { userLevelCheck, userStatusCheck } from '../../api/GetData';
 // import BannerAdMob from '../../api/AdMob/BannerComponent';
 import { Divider } from 'react-native-paper';
+import { readWorkoutData } from '../../api/readWorkoutData';
 
 require('moment/locale/fa');
 require('moment/locale/en-gb');
@@ -40,34 +41,29 @@ const StartSessionIndex = ({ route }) => {
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   const [timestamp, setTimestamp] = useState([]);
+  const [location, setLocation] = useState();
+  const [title, setTitle] = useState();
 
-  const [title, setTitle] = useState(
-    route.params && route.params.title ? route.params.title : 'your Plan'
-  );
-  const [location, setLocation] = useState(
-    route.params && route.params.location ? route.params.location : 'gym'
-  );
   //console.log('route in index newPlan', route);
-  //console.log('location in index newPlan', location);
-  //console.log('location in index newPlan', location);
+
   i18n.locale = userLanguage;
   const navigation = useNavigation();
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const RTL = userLanguage === 'fa' ? true : false;
   //console.log('timeSpent in index new plan', timeSpent);
-  const saveWorkoutsList = async () => {
-    await AsyncStorage.getItem('workoutsList').then((value) => {
-      if (value !== null) {
-        // console.log('value in index from async', JSON.parse(value).data.data);
-        const workoutsList = JSON.parse(value).data.data;
-        const title = JSON.parse(value).data.name;
-        setTitle(title);
-        setWorkoutPlan(workoutsList);
-      } else {
-        console.log('doesnt have value');
-      }
-    });
+  const getData = async () => {
+    try {
+      const { weeklyPlan, planName, location } = await readWorkoutData();
+      console.log('location in index newPlan', location);
+      setWorkoutPlan(weeklyPlan);
+      setTitle(planName);
+      setLocation(location);
+    } catch (error) {
+      setWorkoutPlan(null);
+
+      return false;
+    }
   };
 
   useEffect(() => {
@@ -128,7 +124,7 @@ const StartSessionIndex = ({ route }) => {
   };
 
   useEffect(() => {
-    saveWorkoutsList();
+    getData();
   }, []);
   const daysOfWeek = [
     {
@@ -191,10 +187,10 @@ const StartSessionIndex = ({ route }) => {
   const goToWorkOut = (item) => {
     navigation.navigate('WeeklyPlan', {
       baseLocation: location,
-      data: item.data,
-      title: item.title,
+      weeklyPlan: workoutPlan,
+      title: title,
       day: item.day,
-      category: item.data[0]?.category,
+
       planName: title,
     });
   };

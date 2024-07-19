@@ -332,6 +332,7 @@ const getStyles = (theme) =>
       padding: 10,
       borderRadius: 10,
       backgroundColor: theme.colors.background,
+      marginBottom: Dimensions.get('window').height / 4,
     },
     buttonTitle: {
       color: theme.colors.primary,

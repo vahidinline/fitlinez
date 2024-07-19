@@ -1,16 +1,21 @@
 import api from './api';
 
-const getNewTasks = async (userId, setStatus) => {
-  console.log('userId in getNewTasks', userId);
+const getNewTasks = async (userId, setTaskStatus) => {
   try {
     const tasks = await api.post(`/dailyTask/${userId}`);
-    console.log(tasks.data);
+    // console.log(tasks.data);
     if (tasks.data) {
       //console.log('tasks.data', tasks.data);
       //   reload the page to get the new tasks
-
-      return tasks.data;
+      if (tasks.data.length >= 0) {
+        setTaskStatus('noTasks');
+        return null;
+      } else {
+        setTaskStatus('success');
+        return tasks.data;
+      }
     } else {
+      setTaskStatus('idle');
       console.log('no tasks data');
       return null;
     }

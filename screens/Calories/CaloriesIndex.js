@@ -1,8 +1,20 @@
 import React, { useContext, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import MealSection from './MealSection';
 import TempfoodItems from './TempfoodItems';
-import { IconArrowLeft, IconWarning } from '../marketplace/filters/icons';
+import {
+  IconArrowDown,
+  IconArrowLeft,
+  IconMenu,
+  IconWarning,
+} from '../marketplace/filters/icons';
 import DailyReport from './dailyReport';
 import InputSelector from './foodInput/InputSelector';
 import AuthContext from '../../api/context';
@@ -17,6 +29,8 @@ import { I18n } from 'i18n-js';
 import CustomReport from './customReport';
 import { Button } from '@rneui/base';
 import DailyDetailsIndex from './DailyDetails/DailyDetailsIndex';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ActivityIndicator } from 'react-native-paper';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -36,7 +50,7 @@ function CaloriesIndex() {
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1, backgroundColor: theme.colors.secondary }}>
         <ScrollView>
-          <View
+          {/* <View
             style={{
               flex: 1,
               flexDirection: 'row',
@@ -53,7 +67,7 @@ function CaloriesIndex() {
                   flexDirection: 'row',
                 }}
                 onPress={() => setStatus('idle')}>
-                <IconArrowLeft color={theme.colors.primary} size={30} />
+                <IconArrowLeft color={theme.colors.primary} size={40} />
                 <Text
                   style={{
                     color: theme.colors.primary,
@@ -64,14 +78,48 @@ function CaloriesIndex() {
                 </Text>
               </Pressable>
             )}
-          </View>
+          </View> */}
 
-          {status === 'loading' && <FitlinezLoading />}
+          {status === 'loading' && (
+            <View
+              style={{
+                flex: 1,
+                top: Dimensions.get('window').height / 2,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <ActivityIndicator
+                animating={true}
+                color={theme.colors.primary}
+                size="large"
+              />
+            </View>
+          )}
           {status === 'idle' && (
             <DailyDetailsIndex mainStatus={status} setMainStatus={setStatus} />
           )}
+          {status === 'seeDetails' && (
+            <DailyDetailsIndex mainStatus={status} setMainStatus={setStatus} />
+          )}
         </ScrollView>
-
+        <View
+          style={{
+            position: 'absolute',
+            //right: 10,
+            bottom: 1,
+            zIndex: 10,
+            height: 60,
+            width: Dimensions.get('window').width / 1,
+            backgroundColor: theme.colors.primary,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity onPress={() => setStatus('idle')}>
+            <IconArrowDown color={theme.colors.secondary} size={30} />
+          </TouchableOpacity>
+        </View>
         {status === 'idle' && (
           <View
             style={{
@@ -199,7 +247,7 @@ export default CaloriesIndex;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     padding: 20,
   },
   footerContainer: {

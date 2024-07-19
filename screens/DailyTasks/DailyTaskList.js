@@ -15,7 +15,7 @@ import { I18n } from 'i18n-js';
 import AuthContext from '../../api/context';
 
 function DailyTaskList(item, { title }) {
-  console.log('title in daily task', title);
+  //console.log('title in daily task', title);
   const { theme } = useTheme();
   const navigation = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
@@ -55,7 +55,7 @@ function DailyTaskList(item, { title }) {
         marginHorizontal: 5,
         height: Dimensions.get('window').height / 12,
         width: Dimensions.get('window').width / 1.2,
-        top: 30,
+        top: 20,
         marginVertical: 8,
         borderRadius: 16,
         borderColor: theme.colors.border,

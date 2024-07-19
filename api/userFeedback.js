@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from './api';
 
 export const sendUserFeedback = async (
   { userId, value, category, location, timeSpent, performance } // assuming performance is also an argument of this function
@@ -12,9 +12,9 @@ export const sendUserFeedback = async (
     performance: performance,
   };
 
-  const response = await axios.post(
-    'https://jobitta.com/sessionfeedback',
-    //'http://172.20.10.6:8080/sessionfeedback',
+  const response = await api.post(
+    '/sessionfeedback',
+
     data
   );
   console.log(response.data);

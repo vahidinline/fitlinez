@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import FoodTextInput from './FoodTextInput';
-import {
-  Dimensions,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Dimensions, TouchableOpacity, View } from 'react-native';
 import VoiceGetter from './VoiceGetter';
 import { Badge, Button } from '@rneui/base';
 import {
@@ -151,7 +145,7 @@ function InputSelector({
 
             borderColor: theme.colors.primary,
             borderWidth: 0.2,
-
+            marginBottom: 50,
             margin: 10,
             borderRadius: 10,
           }}

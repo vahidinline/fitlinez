@@ -34,6 +34,8 @@ import { useFonts } from 'expo-font';
 import i18nt from './locales';
 import { I18n } from 'i18n-js';
 import { forceSolveError } from './api/forceSolveError';
+import FlashMessage from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 
 const errorHandler = (error, stackTrace) => {
   /* Log the error to an error reporting service */
@@ -244,6 +246,7 @@ export default function App() {
 
   return (
     <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
+      <FlashMessage position="top" />
       <ThemeContext.Provider value={{ currentTheme, toggleTheme }}>
         <AuthContext.Provider value={{ userAuth, setUserAuth }}>
           <MsgContext.Provider value={{ msg, setMsg }}>

@@ -1,21 +1,13 @@
-import { Button, Icon, Skeleton, Text, useTheme } from '@rneui/themed';
-import { SearchBar } from '@rneui/themed';
-import { StatusBar } from 'expo-status-bar';
+import { Skeleton, Text, useTheme } from '@rneui/themed';
 import React from 'react';
 import { Dimensions, FlatList, View } from 'react-native';
-import { SafeAreaView } from 'react-native';
 import * as SQLite from 'expo-sqlite';
-import axios from 'axios';
 import { I18n } from 'i18n-js';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { Pressable } from 'react-native';
 import CardItem from './CardItem';
 import LanguageContext from '../../api/langcontext';
 import { useContext } from 'react';
 import i18nt from '../../locales';
-import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
+
 const db = SQLite.openDatabase('packeges.db');
 
 function ListItems({ packages, name, navigation }) {

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import foodapi from './foodApi';
 
 const getDailyCalorieInTake = async (userId) => {

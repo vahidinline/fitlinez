@@ -2,9 +2,14 @@ import { useNavigation } from '@react-navigation/native';
 import { BottomSheet, ListItem } from '@rneui/base';
 import { Direct } from 'iconsax-react-native';
 import React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { List, Text } from 'react-native-paper';
-import { IconArrow, IconArrowLeft } from '../marketplace/filters/icons';
+import {
+  IconArrow,
+  IconArrowLeft,
+  IconArrowUp,
+  IconMenu,
+} from '../marketplace/filters/icons';
 import { useTheme } from '@rneui/themed';
 
 function CalorieMenu({
@@ -77,7 +82,7 @@ function CalorieMenu({
         position: 'absolute',
         bottom: 10,
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 2.8,
+        height: Dimensions.get('window').height / 2.5,
         backgroundColor: '#fff',
         borderRadius: 10,
         borderTopColor: 'lightgrey',
@@ -87,6 +92,13 @@ function CalorieMenu({
       }}
       modalProps={{}}
       isVisible={status === 'idle'}>
+      <TouchableOpacity
+        style={{
+          alignItems: 'center',
+        }}
+        onPress={() => setStatus('seeDetails')}>
+        <IconArrowUp color={theme.colors.secondary} size={40} />
+      </TouchableOpacity>
       {menuList.map((l, i) => (
         <ListItem
           key={i}

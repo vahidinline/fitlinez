@@ -155,7 +155,7 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
             <Text
               style={{
                 textAlign: 'center',
-                fontSize: 16,
+                fontSize: 14,
                 color: theme.colors.secondary,
                 fontWeight: '500',
                 margin: 14,
@@ -188,7 +188,7 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
         <Button
           buttonStyle={{
             backgroundColor: theme.colors.secondary,
-
+            marginBottom: 10,
             borderColor: theme.colors.primary,
             borderWidth: 0.2,
 

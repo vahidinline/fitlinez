@@ -1,9 +1,8 @@
 import { Button, Text } from '@rneui/themed';
-import axios from 'axios';
+
 import { useContext, useEffect, useState } from 'react';
 import { SafeAreaView, View, StyleSheet, Platform, Alert } from 'react-native';
 import AuthContext from './context';
-import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useRef } from 'react';

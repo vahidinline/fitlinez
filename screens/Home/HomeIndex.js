@@ -27,7 +27,7 @@ import DailyReport from '../Calories/dailyReport';
 import { Button } from '@rneui/base';
 import FitlinezLoading from '../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
-import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
+// import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
 
 import { getNewTasks } from '../../api/getNewTasks';
 import StepcounterIndex from '../StepCounter/StepcounterIndex';
@@ -49,9 +49,10 @@ function HomeIndex() {
   i18n.locale = userLanguage;
   const isRTL = userLanguage === 'fa';
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(null);
   const [status, setStatus] = useState('loading');
+  const [taskStatus, setTaskStatus] = useState('idle');
   const userLevel = userAuth.level;
+  const [planName, setPlanName] = useState('');
   // console.log('status', status);
   const styles = getStyles(theme);
   const [modalVisible, setModalVisible] = useState(false);
@@ -73,7 +74,7 @@ function HomeIndex() {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(async () => {
-      const result = await getNewTasks(userAuth.id);
+      const result = await getNewTasks(userAuth.id, setTaskStatus);
       if (result) {
         setModalVisible(true);
       }
@@ -93,7 +94,7 @@ function HomeIndex() {
         setLoading(false);
         setIsPlanAssigned(true);
       }
-    }, 5000);
+    }, 1000);
     // Cleanup function to clear the timeout if currentPlan is not null
     return () => {
       clearTimeout(timeout);
@@ -101,9 +102,9 @@ function HomeIndex() {
     };
   }, [currentPlan]);
 
-  useEffect(() => {
-    getUsercurrentWorkoutPlan(userAuth.id, i18n);
-  }, []);
+  // useEffect(() => {
+  //   getUsercurrentWorkoutPlan(userAuth.id, i18n);
+  // }, []);
 
   // async function registerBackgroundFetchAsync() {
   //   return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
@@ -160,12 +161,10 @@ function HomeIndex() {
 
   const getData = async () => {
     try {
-      const { workoutPlanData, totalSession, addedDateTime } =
-        await readWorkoutData();
+      const { weeklyPlan, planName } = await readWorkoutData();
 
-      setCurrentPlan(workoutPlanData);
-      setTotalSessions(totalSession);
-      setPlanStartDate(addedDateTime);
+      setCurrentPlan(weeklyPlan);
+      setPlanName(planName);
     } catch (error) {
       setCurrentPlan(null);
       setLoading(false);
@@ -207,11 +206,14 @@ function HomeIndex() {
             }}>
             <CurrentWorkoutCard
               RTL={isRTL}
-              title={currentPlan?.name || ''}
+              title={planName || ''}
               trainer={currentPlan?.creator || ''}
               totalSessions={totalSessions || 0}
               location={currentPlan?.location || ''}
               userPervilage={userPervilage}
+              taskStatus={taskStatus}
+              setTaskStatus={setTaskStatus}
+              workOutPlan={currentPlan}
             />
           </View>
         )}

@@ -1,8 +1,8 @@
-import axios from 'axios';
+import api from './api';
 
 const getPackages = async () => {
   try {
-    const response = await axios.get('https://jobitta.com/newplan/prebuild');
+    const response = await api.get('/newplan/prebuild');
 
     return response.data;
   } catch (error) {
