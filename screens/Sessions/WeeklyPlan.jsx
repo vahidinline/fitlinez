@@ -37,7 +37,7 @@ const ButtonsheetComponent = ({
   isRTL,
 }) => {
   const { theme } = useTheme();
-  console.log('baseLocation', locSelector);
+  //console.log('baseLocation', locSelector);
   let [painStatus, setPainStatus] = useState('hide');
   return (
     <BottomSheet modalProps={{}} isVisible={isVisible}>
@@ -206,14 +206,15 @@ const WeeklyPlan = (props) => {
   const { userLanguage } = useContext(LanguageContext);
   const { weeklyPlan, day, title, baseLocation, planName } = props.route.params;
 
-  console.log('data in weeklyPlan', weeklyPlan, title, baseLocation);
+  //console.log('data in weeklyPlan', weeklyPlan, title, baseLocation);
   let isRTL = userLanguage === 'fa' ? true : false;
   const { theme } = useTheme();
   const [refreshing, setRefreshing] = useState(false);
   const [reloadComponent, setReloadComponent] = useState(false); // State variable for reloading the component
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [status, setStatus] = useState('');
   const [filteredWorkoutsList, setFilteredWorkoutsList] = useState([]);
   const [confirmEating, setConfirmEating] = useState(false);
   const [locSelector, setLocSelector] = useState('');
@@ -265,7 +266,7 @@ const WeeklyPlan = (props) => {
         ) || [];
 
       setFilteredWorkoutsList(filteredWorkoutsList);
-      setIsLoading(false);
+      setStatus('success');
     } catch (error) {
       alert(error);
     }
@@ -287,10 +288,6 @@ const WeeklyPlan = (props) => {
       return a.order - b.order;
     }
   });
-
-  // const toggleOverlay = () => {
-  //   setVisible(!visible);
-  // };
 
   useEffect(() => {
     saveWorkoutsList();

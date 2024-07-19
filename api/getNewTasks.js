@@ -5,7 +5,7 @@ const getNewTasks = async (userId, setTaskStatus) => {
     const tasks = await api.post(`/dailyTask/${userId}`);
     // console.log(tasks.data);
     if (tasks.data) {
-      //console.log('tasks.data', tasks.data);
+      console.log('tasks.data', tasks.data);
       //   reload the page to get the new tasks
       if (tasks.data.length >= 0) {
         setTaskStatus('noTasks');

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -10,21 +10,18 @@ import {
 import * as SQLite from 'expo-sqlite';
 import { I18n } from 'i18n-js';
 import { Text } from '@rneui/themed';
-import { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import { useTheme } from '@rneui/themed';
 import AuthContext from '../../api/context';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
-import { IconArrowLeft, IconArrowRight } from '../marketplace/filters/icons';
+import { IconArrowRight, IconEdit } from '../marketplace/filters/icons';
 import Header from '../../components/header';
 import { userLevelCheck, userStatusCheck } from '../../api/GetData';
-// import BannerAdMob from '../../api/AdMob/BannerComponent';
-import { Divider } from 'react-native-paper';
 import { readWorkoutData } from '../../api/readWorkoutData';
+import DaySelectionModal from '../../components/ChangeWorkoutDay/ChangeWorkoutDay';
 
 require('moment/locale/fa');
 require('moment/locale/en-gb');
@@ -36,33 +33,29 @@ const StartSessionIndex = ({ route }) => {
   const { theme } = useTheme();
   const { userAuth, setUserAuth } = useContext(AuthContext);
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
-  //console.log('timeSpent in index new plan', timeSpent);
   const [workoutPlan, setWorkoutPlan] = useState([]);
-  console.log('workoutPlan in index new plan', workoutPlan);
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   const [timestamp, setTimestamp] = useState([]);
   const [location, setLocation] = useState();
   const [title, setTitle] = useState();
-
-  //console.log('route in index newPlan', route);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   i18n.locale = userLanguage;
   const navigation = useNavigation();
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
-  const RTL = userLanguage === 'fa' ? true : false;
-  //console.log('timeSpent in index new plan', timeSpent);
+  const RTL = userLanguage === 'fa';
+
   const getData = async () => {
     try {
       const { weeklyPlan, planName, location } = await readWorkoutData();
-      console.log('location in index newPlan', location);
       setWorkoutPlan(weeklyPlan);
       setTitle(planName);
       setLocation(location);
     } catch (error) {
       setWorkoutPlan(null);
-
       return false;
     }
   };
@@ -72,99 +65,9 @@ const StartSessionIndex = ({ route }) => {
   }, []);
 
   useEffect(() => {
-    db1.transaction((tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS packeges (id INTEGER PRIMARY KEY NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, data TEXT);'
-      );
-    });
-  }, []);
-
-  const retrieveTimestampsByCategory = (category) => {
-    setTimestamp([]);
-    // console.log('category in retrieveTimestampsByCategory', category);
-    db0.transaction(
-      (tx) => {
-        tx.executeSql(
-          'SELECT * FROM totalWeight WHERE category = ? ORDER BY timestamp DESC LIMIT 1;',
-          [category],
-          (tx, results) => {
-            const numRows = results.rows.length;
-            if (numRows > 0) {
-              for (let i = 0; i < numRows; i++) {
-                //update setTimestamp array here
-
-                setTimestamp((prev) => [
-                  ...prev,
-                  {
-                    timestamp: results.rows.item(i).timestamp,
-                    category: results.rows.item(i).category,
-                  },
-                ]);
-                // console.log(
-                //   'Database response:',
-                //   results.rows.item(i).timestamp,
-                //   results.rows.item(i).category
-                // );
-              }
-            } else {
-              return;
-            }
-          },
-          (tx, error) => {
-            return;
-          }
-        );
-      },
-      (error) => {
-        return;
-      },
-      () => {
-        return;
-      }
-    );
-  };
-
-  useEffect(() => {
     getData();
   }, []);
-  const daysOfWeek = [
-    {
-      id: 1,
-      nameT: 'شنبه',
-      name: 'Saturday',
-    },
-    {
-      id: 2,
-      nameT: 'یکشنبه',
-      name: 'Sunday',
-    },
-    {
-      id: 3,
-      nameT: 'دوشنبه',
-      name: 'Monday',
-    },
 
-    {
-      id: 4,
-      nameT: 'سه شنبه',
-      name: 'Tuesday',
-    },
-    {
-      id: 5,
-      nameT: 'چهارشنبه',
-      name: 'Wednesday',
-    },
-    {
-      id: 6,
-      nameT: 'پنجشنبه',
-      name: 'Thursday',
-    },
-    {
-      id: 7,
-      nameT: 'جمعه',
-      name: 'Friday',
-    },
-  ];
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
       if (
@@ -174,10 +77,8 @@ const StartSessionIndex = ({ route }) => {
         userStatusCheck();
         userLevelCheck(userAuth, setUserAuth);
       }
-
       appState.current = nextAppState;
       setAppStateVisible(appState.current);
-      //console.log('AppState', appState.current);
     });
 
     return () => {
@@ -191,21 +92,8 @@ const StartSessionIndex = ({ route }) => {
       weeklyPlan: item,
       title: title,
       day: item.dayName,
-
       planName: title,
     });
-  };
-
-  //show timetamp value for each category
-
-  const showDate = (category, userLanguage) => {
-    moment.locale(userLanguage); // set the locale based on userLanguage
-    for (let i = 0; i < timestamp.length; i++) {
-      if (timestamp[i].category === category) {
-        //return moment(timestamp[i].timestamp).endOf('day').fromNow();
-        return moment(timestamp[i].timestamp).format('DD/MM/YYYY');
-      }
-    }
   };
 
   const findMatchingDay = (day, daysOfWeeks) => {
@@ -218,208 +106,145 @@ const StartSessionIndex = ({ route }) => {
         }
       }
     }
-    return null; // Return null if no matching workoutCategory.name is found
+    return null;
   };
 
-  useEffect(() => {
-    const fetchTimestamps = async () => {
-      const uniqueCategories = [
-        ...new Set(workoutPlan.map((item) => item.title)),
-      ];
-      //console.log('uniqueCategories', uniqueCategories);
-      for (let category of uniqueCategories) {
-        try {
-          const lastTimestamp = await retrieveTimestampsByCategory(category);
-
-          // Store this timestamp in a suitable state or some data structure.
-          // For example, you can have an object where the key is the category and value is the last timestamp.
-        } catch (error) {
-          console.error(
-            `Error fetching timestamp for category ${category}:`,
-            error
-          );
-        }
-      }
-    };
-
-    fetchTimestamps();
-    //saveWorkoutsList();
-  }, [workoutPlan]);
-
-  const today = new Date();
-  let startSunday = new Date();
-
-  // If today is Sunday, set the start date as today. Otherwise, find the next Sunday.
-  if (today.getDay() === 0) {
-    startSunday = today;
-  } else {
-    startSunday.setDate(today.getDate() + (7 - today.getDay()));
-  }
-
-  const formatDate = (date) => {
-    return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  const handleSelectDay = (newDay) => {
+    const updatedPlan = workoutPlan.map((workout) =>
+      workout === selectedWorkout ? { ...workout, dayName: newDay } : workout
+    );
+    setWorkoutPlan(updatedPlan);
+    setModalVisible(false);
+    // Here, you would send the updated plan to the server
+    // sendUpdatedPlanToServer(updatedPlan);
   };
+
+  const daysOfWeek = [
+    { id: 1, nameT: 'شنبه', name: 'Saturday' },
+    { id: 2, nameT: 'یکشنبه', name: 'Sunday' },
+    { id: 3, nameT: 'دوشنبه', name: 'Monday' },
+    { id: 4, nameT: 'سه شنبه', name: 'Tuesday' },
+    { id: 5, nameT: 'چهارشنبه', name: 'Wednesday' },
+    { id: 6, nameT: 'پنجشنبه', name: 'Thursday' },
+    { id: 7, nameT: 'جمعه', name: 'Friday' },
+  ];
+  const selectedDays = workoutPlan.map((workout) => workout.dayName);
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: theme.colors.background,
-        //direction: RTL ? 'rtl' : 'ltr',
-      }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <Header title={title} />
       <ScrollView>
-        {/* sort by day */}
-
         {workoutPlan
           ?.sort((a, b) => {
             const indexA = daysOfWeek.findIndex((day) => day.name === a.day);
             const indexB = daysOfWeek.findIndex((day) => day.name === b.day);
-
             return indexA - indexB;
           })
           .map((item, i) => {
             return (
-              <View key={`item-${i}`}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  borderRadius: 16,
+                  borderColor: theme.colors.border,
+                  borderWidth: 1,
+                  marginHorizontal: 16,
+                  height: 90,
+                  marginVertical: 8,
+                }}
+                key={`item-${i}`}>
+                <TouchableOpacity
+                  // onPress={() => {
+                  //   setSelectedWorkout(item);
+                  //   setModalVisible(true);
+                  // }}
+                  style={{ marginLeft: 10, marginTop: 10 }}>
+                  <Text style={{ color: theme.colors.secondary }}>
+                    {/* <IconEdit /> */}
+                    <Text
+                      style={{
+                        color:
+                          item.title !== 'Rest'
+                            ? theme.colors.secondary
+                            : '#C7C4DC',
+                        fontSize: 12,
+                        fontWeight: '500',
+                        marginTop: 0,
+                        fontFamily: 'Vazirmatn',
+                      }}>
+                      {findMatchingDay(item.dayName, daysOfWeek)}
+                    </Text>
+                  </Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                   disabled={
                     item.title === 'Rest' ||
-                    //lower case walking and running
                     item.title.toLowerCase() === 'walking' ||
                     item.title.toLowerCase() === 'running'
-                      ? true
-                      : false
                   }
-                  onPress={() => {
-                    item.title === 'Rest' ? null : goToWorkOut(item.exercises);
-                  }}
+                  onPress={() =>
+                    item.title === 'Rest' ? null : goToWorkOut(item.exercises)
+                  }
                   style={{
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    backgroundColor:
-                      item.title !== 'Rest'
-                        ? theme.colors.background
-                        : theme.colors.disabled,
-                    marginHorizontal: 16,
-                    height: item.title !== 'Rest' ? 120 : 80,
-                    marginVertical: 8,
-                    borderRadius: 16,
-                    borderColor: theme.colors.border,
-                    borderWidth: 1,
-                  }}
-                  key={i}>
+                    backgroundColor: 'transparent',
+                    // item.title !== 'Rest'
+                    //   ? theme.colors.background
+                    //   : theme.colors.disabled,
+
+                    width: '100%',
+                    zIndex: 1000,
+                  }}>
                   <View
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      marginHorizontal: 16,
+                      marginHorizontal: 0,
                     }}>
-                    <View style={{}}>
-                      <Text
-                        style={{
-                          color:
-                            item.title !== 'Rest'
-                              ? theme.colors.secondary
-                              : '#C7C4DC',
-                          fontSize: 16,
-                          fontWeight: '500',
-                          // marginHorizontal: 16,
-                          marginTop: 16,
-                          fontFamily: 'Vazirmatn',
-                        }}>
-                        {findMatchingDay(item.dayName, daysOfWeek)}
-                      </Text>
+                    <View>
                       <Text
                         style={{
                           color:
                             item.title !== 'Rest'
                               ? theme.colors.text
                               : '#C7C4DC',
-                          fontSize: 14,
-                          //fontWeight: '500',
-                          marginTop: 8,
+                          fontSize: 18,
+                          marginTop: 50,
                           fontFamily: 'Vazirmatn',
-                          //marginHorizontal: 16,
                         }}>
                         {item.title}
                       </Text>
                     </View>
-
-                    <View
-                      style={{
-                        marginLeft: 16,
-                        marginTop: 16,
-                      }}>
-                      <IconArrowRight color={theme.colors.secondary} />
-                    </View>
                   </View>
-
-                  {showDate(item.title) !== undefined && (
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginHorizontal: 16,
-                      }}>
-                      <Text
-                        style={{
-                          borderRadius: 10,
-                          color: theme.colors.secondary,
-                          fontFamily: 'Vazirmatn',
-                          marginBottom: 16,
-                        }}>
-                        {i18n.t('lastPerformance')}
-                      </Text>
-                      <Text
-                        style={{
-                          borderRadius: 10,
-                          color: theme.colors.secondary,
-                          marginBottom: 16,
-                          fontFamily: 'Vazirmatn',
-                        }}>
-                        {showDate(item.dayName, userLanguage)}
-                      </Text>
-                    </View>
-                  )}
                 </TouchableOpacity>
-                <View
-                  stylw={{
-                    marginHorizontal: 16,
-                    marginTop: 16,
-                  }}
-                />
-                {/* <Divider
-                  style={{
-                    marginVertical: 20,
-                    marginHorizontal: 20,
-                    backgroundColor: 'transparent',
-                  }}
-                /> */}
-                {/* <BannerAdMob key={`ad-${i}`} /> */}
-                {/* <Divider
-                  style={{
-                    marginVertical: 20,
-                    marginHorizontal: 20,
-                    backgroundColor: theme.colors.border,
-                  }}
-                /> */}
+
+                <View style={{ marginHorizontal: 16, marginTop: 16 }} />
               </View>
             );
           })}
       </ScrollView>
+      <DaySelectionModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onSelectDay={handleSelectDay}
+        daysOfWeek={daysOfWeek}
+        selectedDays={selectedDays}
+      />
     </SafeAreaView>
   );
 };
+
 const styles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      //backgroundColor: '#f2f4f5',
     },
     text: {
       fontSize: 10,
       fontWeight: '500',
     },
   });
+
 export default StartSessionIndex;

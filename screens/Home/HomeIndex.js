@@ -73,12 +73,17 @@ function HomeIndex() {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
+    setStatus('loading');
     setTimeout(async () => {
       const result = await getNewTasks(userAuth.id, setTaskStatus);
       if (result) {
+        console.log('new tasks in homeIndex onReferesh', result);
         setModalVisible(true);
+        setStatus('hasPlan');
       }
+      console.log('NO results in new tasks in homeIndex onReferesh');
       setRefreshing(false);
+      setStatus('hasPlan');
     }, 2000);
   }, []);
 
@@ -178,7 +183,6 @@ function HomeIndex() {
   };
   return (
     <SafeAreaView>
-      {status === 'loading' && <FitlinezLoading />}
       <View
         style={{
           marginBottom: 0,
@@ -196,9 +200,11 @@ function HomeIndex() {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
+        {status === 'loading' && <FitlinezLoading />}
         {status === 'hasPlan' && (
           <View
             style={{
+              flex: 1,
               width: Dimensions.get('window').width,
               marginTop: 0,
               height: Dimensions.get('window').height / 4.3,
