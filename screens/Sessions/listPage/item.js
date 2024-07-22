@@ -130,7 +130,7 @@ function Item({
 
   const saveToCloud = async (childDataMap) => {
     const sessionId = await AsyncStorage.getItem('sessionId');
-    console.log('sessionId', sessionId);
+    console.log('title in item', title);
     const response = await api
       .post('/workouthistory', {
         userId,
@@ -262,6 +262,10 @@ function Item({
     //   { cancelable: false }
     // );
   };
+  const handleDrawer = () => {
+    setShowDrawer(!showDrawer);
+  };
+
   const closeSession = async () => {
     console.log('closing session');
     const sessionId = await AsyncStorage.getItem('sessionId');
@@ -295,7 +299,7 @@ function Item({
           exerciseId={exerciseId}
           sessionData={sessionData}
           showDrawer={showDrawer}
-          setShowDrawer={setShowDrawer}
+          handleDrawer={handleDrawer}
           title={title}
           sortedData={sortedData}
           userLanguage={userLanguage}
@@ -314,9 +318,9 @@ function Item({
           backgroundColor: theme.colors.background,
           paddingHorizontal: 10,
         }}>
-        <TouchableOpacity onPress={() => setShowDrawer(!showDrawer)}>
+        {/* <TouchableOpacity onPress={() => handleDrawer()}>
           <IconMenu />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View
           style={{
             flexDirection: 'column',

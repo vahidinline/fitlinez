@@ -203,7 +203,7 @@ const StartPlan = (props) => {
       setFilteredWorkoutsList(filteredWorkoutsList);
       setIsLoading(false);
     } catch (error) {
-      alert(error);
+      console.log('Error in saving workouts list', error);
     }
   };
   const updateWorkoutData = useCallback(async () => {

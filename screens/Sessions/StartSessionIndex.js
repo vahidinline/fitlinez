@@ -29,7 +29,7 @@ require('moment/locale/en-gb');
 const db0 = SQLite.openDatabase('totalWeight.db');
 const db1 = SQLite.openDatabase('packeges.db');
 
-const StartSessionIndex = ({ route }) => {
+const StartSessionIndex = () => {
   const { theme } = useTheme();
   const { userAuth, setUserAuth } = useContext(AuthContext);
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
@@ -51,6 +51,10 @@ const StartSessionIndex = ({ route }) => {
   const getData = async () => {
     try {
       const { weeklyPlan, planName, location } = await readWorkoutData();
+
+      console.log('weeklyPlan', weeklyPlan);
+      console.log('planName', planName);
+      console.log('location', location);
       setWorkoutPlan(weeklyPlan);
       setTitle(planName);
       setLocation(location);
@@ -87,11 +91,14 @@ const StartSessionIndex = ({ route }) => {
   }, []);
 
   const goToWorkOut = (item) => {
+    //console.log('item in statrt session', item);
+
     navigation.navigate('WeeklyPlan', {
       baseLocation: location,
-      weeklyPlan: item,
-      title: title,
-      day: item.dayName,
+      weeklyPlan: item.exercises,
+      title: item.title,
+
+      dayName: item.dayName,
       planName: title,
     });
   };
@@ -179,11 +186,11 @@ const StartSessionIndex = ({ route }) => {
                 <TouchableOpacity
                   disabled={
                     item.title === 'Rest' ||
-                    item.title.toLowerCase() === 'walking' ||
-                    item.title.toLowerCase() === 'running'
+                    item.title?.toLowerCase() === 'walking' ||
+                    item.title?.toLowerCase() === 'running'
                   }
                   onPress={() =>
-                    item.title === 'Rest' ? null : goToWorkOut(item.exercises)
+                    item.title === 'Rest' ? null : goToWorkOut(item)
                   }
                   style={{
                     flexDirection: 'column',

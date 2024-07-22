@@ -36,7 +36,7 @@ const SessionMainPage = (props) => {
   const [visible, setVisible] = useState(false);
   const { workouts, category, location, catTname, planName } =
     props.route.params;
-  console.log('planName', planName);
+
   const [data, setData] = useState(workouts);
   const flatListRef = useRef(null);
   const hideDialog = () => setVisible(false);
@@ -250,7 +250,7 @@ const SessionMainPage = (props) => {
                 setFinish={setFinish}
                 length={data.length}
                 exerciseId={item._id}
-                title={item.name}
+                title={item.exerciseName}
                 index={index}
                 gifUrl={item.gifUrl}
                 isDone={item.isDone}

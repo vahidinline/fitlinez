@@ -204,9 +204,9 @@ const WeeklyPlan = (props) => {
   }, []);
   const { setSessionData } = useContext(SessionContext);
   const { userLanguage } = useContext(LanguageContext);
-  const { weeklyPlan, day, title, baseLocation, planName } = props.route.params;
+  const { weeklyPlan, dayName, title, baseLocation, planName } =
+    props.route.params;
 
-  //console.log('data in weeklyPlan', weeklyPlan, title, baseLocation);
   let isRTL = userLanguage === 'fa' ? true : false;
   const { theme } = useTheme();
   const [refreshing, setRefreshing] = useState(false);
@@ -252,7 +252,7 @@ const WeeklyPlan = (props) => {
       catTname: title,
       workouts: weeklyPlan,
       location: locSelector,
-      day: day,
+      day: dayName,
     });
     // timeContext.setWorkoutDuration(newDate);
   }, [navigation, locSelector]);
@@ -268,7 +268,7 @@ const WeeklyPlan = (props) => {
       setFilteredWorkoutsList(filteredWorkoutsList);
       setStatus('success');
     } catch (error) {
-      alert(error);
+      console.log('Error in saving workouts list', error);
     }
   };
   const updateWorkoutData = useCallback(async () => {
@@ -301,7 +301,7 @@ const WeeklyPlan = (props) => {
         flex: 1,
         backgroundColor: theme.colors.background,
       }}>
-      <Header title={title} />
+      <Header title={`${title} - ${dayName}`} />
       <View
         style={{
           flexDirection: 'row',
