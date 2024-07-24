@@ -82,7 +82,7 @@ function CalorieMenu({
         position: 'absolute',
         bottom: 10,
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 2.5,
+        height: Dimensions.get('window').height / 2,
         backgroundColor: '#fff',
         borderRadius: 10,
         borderTopColor: 'lightgrey',

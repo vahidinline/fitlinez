@@ -167,7 +167,7 @@ const CustomReport = () => {
                           borderColor: theme.colors.border,
                           borderWidth: 1,
                         }}>
-                        <View
+                        {/* <View
                           style={{
                             position: 'absolute',
                             top: -10,
@@ -217,7 +217,7 @@ const CustomReport = () => {
                               </Text>
                             </G>
                           </Svg>
-                        </View>
+                        </View> */}
 
                         <Text style={Styles.date}>
                           {moment(item.sessionStartDate).format('YYYY-MM-DD')}
@@ -237,17 +237,17 @@ const CustomReport = () => {
 
 */}
                         <Text style={Styles.title}>{item.planName}</Text>
-                        <Text style={Styles.subtitle}>
+                        {/* <Text style={Styles.subtitle}>
                           {}
 
                           {i18n.t('doneWorkoutAt', {
                             workout: item.dayName,
                             location:
-                              item.location === 'Gym'
+                              item.location === 'gym'
                                 ? i18n.t('workOutAtGym')
                                 : i18n.t('workOutAtHome'),
                           })}
-                        </Text>
+                        </Text> */}
 
                         {item.burnedCalories != null && (
                           <Text style={Styles.calories}>

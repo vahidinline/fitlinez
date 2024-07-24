@@ -73,7 +73,7 @@ const SingleItem = ({ title, sub, level, location, mainTitle }) => {
                 marginHorizontal: 0,
                 fontFamily: 'Vazirmatn',
               }}>
-              {location === 'both' ? 'Gym/Home' : location}
+              {location === 'both' ? 'Gym & Home' : location}
             </Text>
           </View>
         </View>
@@ -157,7 +157,7 @@ function CardItem({ item }) {
           <SingleItem title={i18n.t('trainer')} sub={item.creator} />
           <SingleItem
             title={i18n.t('sutablefor')}
-            sub={item.location === 'both' ? 'Gym/Home' : item.location}
+            sub={item.location === 'both' ? 'Gym & Home' : item.location}
           />
           <SingleItem title={i18n.t('target')} sub={item.target} />
           <SingleItem

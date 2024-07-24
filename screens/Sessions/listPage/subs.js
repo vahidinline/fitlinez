@@ -35,7 +35,8 @@ function Subs({
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-
+  //console.log('selectedItem in sub', selectedItem);
+  //console.log('subList in sub', subList);
   const styles = getStyles(theme); // Call the function inside the component
   const subListGetter = async () => {
     const subList = await getSubWorkOutData(

@@ -42,19 +42,19 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
           // console.log('tasks', tasks);
           if (tasks?.length === 0) {
             setTaskStatus('noTasks');
-            setStatus('noTask');
+            setStatus('noTasks');
           } else {
             setDailyTasks(tasks);
           }
           //console.log('tasks', tasks);
         })
         .catch((error) => {
-          setStatus('noTask');
+          setStatus('noTasks');
           console.log(error);
         });
     } catch (error) {
       console.log('error in getting new task', error);
-      setStatus('noTask');
+      setStatus('noTasks');
     }
   };
 
@@ -110,7 +110,7 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
           </View>
         )}
         {/* {status === 'loading' && <CircleLoading />} */}
-        {status === 'noTask' && taskStatus !== 'noTasks' && (
+        {status === 'noTasks' && taskStatus !== 'noTasks' && (
           <View
             style={{
               flexDirection: 'column',

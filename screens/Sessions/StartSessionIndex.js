@@ -41,7 +41,8 @@ const StartSessionIndex = () => {
   const [title, setTitle] = useState();
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [selectedWorkoutTitle, setSelectedWorkoutTitle] = useState('');
+  const userId = userAuth?.id;
   i18n.locale = userLanguage;
   const navigation = useNavigation();
   const appState = useRef(AppState.currentState);
@@ -52,9 +53,9 @@ const StartSessionIndex = () => {
     try {
       const { weeklyPlan, planName, location } = await readWorkoutData();
 
-      console.log('weeklyPlan', weeklyPlan);
-      console.log('planName', planName);
-      console.log('location', location);
+      // console.log('weeklyPlan', weeklyPlan);
+      // console.log('planName', planName);
+      // console.log('location', location);
       setWorkoutPlan(weeklyPlan);
       setTitle(planName);
       setLocation(location);
@@ -97,7 +98,6 @@ const StartSessionIndex = () => {
       baseLocation: location,
       weeklyPlan: item.exercises,
       title: item.title,
-
       dayName: item.dayName,
       planName: title,
     });
@@ -151,7 +151,7 @@ const StartSessionIndex = () => {
             return (
               <View
                 style={{
-                  flexDirection: 'row',
+                  flexDirection: 'column',
                   borderRadius: 16,
                   borderColor: theme.colors.border,
                   borderWidth: 1,
@@ -163,6 +163,8 @@ const StartSessionIndex = () => {
                 <TouchableOpacity
                   // onPress={() => {
                   //   setSelectedWorkout(item);
+                  //   setSelectedWorkoutTitle(item.title); // Set the selected workout title
+
                   //   setModalVisible(true);
                   // }}
                   style={{ marginLeft: 10, marginTop: 10 }}>
@@ -194,21 +196,22 @@ const StartSessionIndex = () => {
                   }
                   style={{
                     flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    backgroundColor: 'transparent',
-                    // item.title !== 'Rest'
-                    //   ? theme.colors.background
-                    //   : theme.colors.disabled,
+                    //justifyContent: 'space-between',
+                    backgroundColor:
+                      item.title !== 'Rest'
+                        ? theme.colors.background
+                        : theme.colors.disabled,
 
-                    width: '100%',
+                    //width: '50%',
+
                     zIndex: 1000,
                   }}>
                   <View
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginHorizontal: 0,
+                      // alignItems: 'center',
+                      marginHorizontal: 10,
                     }}>
                     <View>
                       <Text
@@ -218,16 +221,16 @@ const StartSessionIndex = () => {
                               ? theme.colors.text
                               : '#C7C4DC',
                           fontSize: 18,
-                          marginTop: 50,
-                          fontFamily: 'Vazirmatn',
+                          justifyContent: 'center',
+                          fontWeight: '500',
+                          // marginTop: 50,
+                          // fontFamily: 'Vazirmatn',
                         }}>
                         {item.title}
                       </Text>
                     </View>
                   </View>
                 </TouchableOpacity>
-
-                <View style={{ marginHorizontal: 16, marginTop: 16 }} />
               </View>
             );
           })}
@@ -238,6 +241,9 @@ const StartSessionIndex = () => {
         onSelectDay={handleSelectDay}
         daysOfWeek={daysOfWeek}
         selectedDays={selectedDays}
+        workoutTitle={selectedWorkoutTitle} // Pass the selected workout title
+        RTL={RTL}
+        userId={userId}
       />
     </SafeAreaView>
   );

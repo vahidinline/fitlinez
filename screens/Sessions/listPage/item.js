@@ -42,12 +42,12 @@ function Item({
   title,
   index,
   gifUrl,
-  image,
+
   faInstructor,
   inputType,
   setFinish,
   type,
-  userLevel,
+
   loc,
   bodyPart,
   category,
@@ -58,11 +58,12 @@ function Item({
   target,
   userLocation,
   stoptimer,
-  sortedData,
-  goToIndex,
+
   dataLength,
   description,
 }) {
+  console.log('exerciseId in item', exerciseId);
+  //console.log('index in item', index);
   const { userLanguage } = useContext(LanguageContext);
   const { IconArrowRight, IconInfo, IconMenu, IconSub } = Icons;
   const i18n = new I18n(i18nt);
@@ -95,7 +96,7 @@ function Item({
   useEffect(() => {
     handleAccess();
   }, []);
-
+  const RTL = userLanguage === 'fa';
   const handleStoreData = async ({
     weight,
     reps,
@@ -294,20 +295,9 @@ function Item({
         width: Dimensions.get('window').width,
         // height: Dimensions.get('window').height,
       }}>
-      {showDrawer && (
-        <DrawerList
-          exerciseId={exerciseId}
-          sessionData={sessionData}
-          showDrawer={showDrawer}
-          handleDrawer={handleDrawer}
-          title={title}
-          sortedData={sortedData}
-          userLanguage={userLanguage}
-          goToIndex={goToIndex}
-          index={index}
-          //img={gifUrl}
-        />
-      )}
+      {/* {showDrawer && ( */}
+
+      {/* )} */}
       <View
         style={{
           flexDirection: 'row',
@@ -325,6 +315,7 @@ function Item({
           style={{
             flexDirection: 'column',
             justifyContent: 'center',
+
             alignItems: 'center',
           }}>
           <Text
@@ -335,7 +326,7 @@ function Item({
                 fontWeight: 'bold',
                 fontFamily: 'Vazirmatn',
                 flexWrap: 'wrap',
-                width: Dimensions.get('window').width / 2,
+                //width: Dimensions.get('window').width / 2,
                 textAlign: 'center',
                 top: 5,
               },
@@ -361,7 +352,7 @@ function Item({
           borderWidth: 0.5,
           borderColor: theme.colors.border,
           borderRadius: 16,
-          margin: 20,
+          margin: 15,
         }}>
         <TouchableOpacity
           //onPress={() => PremiumChecker(userLevel, setVisible)}
@@ -417,7 +408,7 @@ function Item({
           borderRadius: 16,
           borderWidth: 1,
           borderColor: theme.colors.border,
-          marginHorizontal: 20,
+          marginHorizontal: 15,
         }}>
         <View
           style={{
@@ -445,6 +436,7 @@ function Item({
       </View>
 
       {inputType !== 'timer' && inputType !== 'rep' && <Recommand />}
+
       <View
         style={{
           flexDirection: 'column',
@@ -452,101 +444,131 @@ function Item({
           marginTop: 5,
           width: Dimensions.get('window').width - 25,
         }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginHorizontal: 10,
-            marginVertical: 10,
-          }}>
-          <Text
-            style={{
-              fontSize: 16,
-              //fontWeight: 'bold',
-              color: theme.colors.text,
-              fontFamily: 'Vazirmatn',
-            }}>
-            {i18n.t('set')} {currentIndex + 1} / {adjustedNumberOfSets}
-          </Text>
-        </View>
         {/* <ScrollView
           style={{
             marginTop: 5,
             marginHorizontal: 10,
             width: Dimensions.get('window').width - 20,
           }}> */}
-        {inputType === 'timer' ? (
-          <TimerInput
-            key={0}
-            index={index}
-            setIndex={0}
-            title={title}
-            exerciseId={exerciseId}
-            category={category}
-            type={type}
-            doneItem={doneItem}
-            inputType={inputType}
-            setFinish={setFinish}
-            numberOfSets={adjustedNumberOfSets}
-            onStoreData={handleStoreData}
-            currentIndex={currentIndex}
-          />
-        ) : (
-          Array.from(Array(adjustedNumberOfSets), (e, i) => {
-            if (inputType === 'rep' && type !== 'cooldown') {
-              return (
-                <RepsInput
-                  key={i}
-                  index={index}
-                  setIndex={i}
-                  title={title}
-                  exerciseId={exerciseId}
-                  category={category}
-                  type={type}
-                  doneItem={doneItem}
-                  inputType={inputType}
-                  numberOfSets={adjustedNumberOfSets}
-                  onStoreData={handleStoreData}
-                  currentIndex={currentIndex}
-                />
-              );
-            } else if (type !== 'cooldown') {
-              return (
-                <WeightAndSetsInput
-                  sessionData={sessionData}
-                  key={i}
-                  index={index}
-                  setIndex={i}
-                  title={title}
-                  exerciseId={exerciseId}
-                  category={category}
-                  type={type}
-                  doneItem={doneItem}
-                  inputType={inputType}
-                  numberOfSets={adjustedNumberOfSets}
-                  onStoreData={handleStoreData}
-                  currentIndex={currentIndex}
-                />
-              );
+        <View
+          style={
+            {
+              // width: Dimensions.get('window').width / 1.3,
+              //flexDirection: 'row',
             }
-          })
-        )}
-
-        {description && (
+          }>
+          {/* <DrawerList
+            currentIndex={currentIndex}
+            exerciseId={exerciseId}
+            sessionData={sessionData}
+            showDrawer={showDrawer}
+            handleDrawer={setShowDrawer}
+            title={title}
+            sortedData={sortedData}
+            userLanguage={userLanguage}
+            goToIndex={goToIndex}
+            index={index}
+            //img={gifUrl}
+          /> */}
           <View
             style={{
-              marginHorizontal: 10,
-              marginVertical: 10,
+              width: Dimensions.get('window').width / 1.3,
+              marginLeft: 65,
+              position: 'absolute',
             }}>
-            <Text
+            {inputType === 'timer' ? (
+              <TimerInput
+                key={0}
+                index={index}
+                setIndex={0}
+                title={title}
+                exerciseId={exerciseId}
+                category={category}
+                type={type}
+                doneItem={doneItem}
+                inputType={inputType}
+                setFinish={setFinish}
+                numberOfSets={adjustedNumberOfSets}
+                onStoreData={handleStoreData}
+                currentIndex={currentIndex}
+              />
+            ) : (
+              Array.from(Array(adjustedNumberOfSets), (e, i) => {
+                if (inputType === 'rep' && type !== 'cooldown') {
+                  return (
+                    <RepsInput
+                      key={i}
+                      index={index}
+                      setIndex={i}
+                      title={title}
+                      exerciseId={exerciseId}
+                      category={category}
+                      type={type}
+                      doneItem={doneItem}
+                      inputType={inputType}
+                      numberOfSets={adjustedNumberOfSets}
+                      onStoreData={handleStoreData}
+                      currentIndex={currentIndex}
+                    />
+                  );
+                } else if (type !== 'cooldown') {
+                  return (
+                    <WeightAndSetsInput
+                      sessionData={sessionData}
+                      key={i}
+                      index={index}
+                      setIndex={i}
+                      title={title}
+                      exerciseId={exerciseId}
+                      category={category}
+                      type={type}
+                      doneItem={doneItem}
+                      inputType={inputType}
+                      numberOfSets={adjustedNumberOfSets}
+                      onStoreData={handleStoreData}
+                      currentIndex={currentIndex}
+                    />
+                  );
+                }
+              })
+            )}
+            <View
               style={{
-                fontFamily: 'Vazirmatn',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginHorizontal: 10,
+                marginVertical: 10,
               }}>
-              {i18n.t('description')}: {description}
-            </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  //fontWeight: 'bold',
+                  color: theme.colors.text,
+                  fontFamily: 'Vazirmatn',
+                }}>
+                {i18n.t('set')} {currentIndex + 1} / {adjustedNumberOfSets}
+              </Text>
+            </View>
+            {description && (
+              <View
+                style={{
+                  marginHorizontal: 10,
+                  marginVertical: 10,
+                  direction: 'rtl',
+                }}>
+                <Text
+                  style={{
+                    fontFamily: 'Vazirmatn',
+                    fontSize: 16,
+                    textAlign: RTL ? 'left' : 'right',
+                  }}>
+                  {i18n.t('description')}: {description}
+                </Text>
+              </View>
+            )}
           </View>
-        )}
+        </View>
 
         {/* </ScrollView> */}
 

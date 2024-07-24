@@ -29,6 +29,7 @@ import {
 } from '../marketplace/filters/icons-';
 import { UnitContext } from '../../api/unitContext';
 import moment from 'moment';
+import { IconWeight } from '../marketplace/filters/icons';
 
 function ProfileIndex() {
   const key = 'fitlinez-session';
@@ -122,7 +123,7 @@ function ProfileIndex() {
     {
       id: 7,
       name: i18n.t('changeWorkoutPlan'),
-      icon: IconProfile,
+      icon: IconWeight,
       func: () => navigation.navigate('WorkoutListIndex'),
     },
     {

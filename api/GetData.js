@@ -84,6 +84,21 @@ const getSubWorkOutData = async (
   target,
   userLocation
 ) => {
+  console.log(
+    'getSubWorkOutData',
+    userId,
+    exerciseId,
+    bodyPart,
+    loc,
+    category,
+    allExcerciesIds,
+    type,
+    title,
+    mainTarget,
+    otherTarget,
+    target,
+    userLocation
+  );
   try {
     const response = await api
       .get('/workout/subworkout', {

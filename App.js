@@ -1,6 +1,6 @@
 import Bugsnag from '@bugsnag/expo';
 Bugsnag.start();
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import AuthContext from './api/context';
 import AuthStorage from './api/storage';
@@ -59,7 +59,7 @@ export default function App() {
   const [initialState, setInitialState] = useState();
   const [routeNamesHistory, setRouteNamesHistory] = useState([]);
   const [status, setStatus] = useState('idle');
-  const { theme } = useTheme();
+
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === DefaultTheme ? SecondTheme : DefaultTheme);
   };
@@ -219,33 +219,38 @@ export default function App() {
     );
   }
 
-  const ErrorFallback = () => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text
+  const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
+
+  const onError = (event) => {
+    // callback will only run for errors caught by boundary
+  };
+
+  const ErrorView = ({ clearError }) => {
+    return (
+      <View
         style={{
-          fontSize: 20,
-          fontWeight: 'bold',
-          textAlign: 'center',
-          marginTop: 20,
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          //  backgroundColor: theme.colors.background,
         }}>
-        {i18n.t('errorMessage')}
-      </Text>
-      <Button
-        buttonStyle={{
-          marginTop: 20,
-          width: Dimensions.get('window').width - 40,
-          borderRadius: 10,
-        }}
-        color="primary"
-        onPress={() => forceSolveError(setUserAuth)}
-        size="lg">
-        {i18n.t('errorButtonTitle')}
-      </Button>
-    </View>
-  );
+        <Text
+          style={{
+            color: '#000',
+            fontSize: 18,
+            fontFamily: 'Vazirmatn',
+            marginVertical: 30,
+          }}>
+          An error occurred in the app
+        </Text>
+
+        <Button onPress={clearError} title="Reset" />
+      </View>
+    );
+  };
 
   return (
-    <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
+    <ErrorBoundary FallbackComponent={ErrorView} onError={onError}>
       <FlashMessage position="top" />
       <ThemeContext.Provider value={{ currentTheme, toggleTheme }}>
         <AuthContext.Provider value={{ userAuth, setUserAuth }}>

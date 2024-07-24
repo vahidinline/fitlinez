@@ -82,8 +82,9 @@ function RepsInput(props) {
           style={{
             flexDirection: 'row',
             backgroundColor: theme.colors.background,
-            width: Dimensions.get('window').width / 1.1,
-            marginHorizontal: 5,
+            width: Dimensions.get('window').width / 1.35,
+            marginRight: 0,
+            marginLeft: 0,
           }}>
           {/* <View
             style={{
@@ -130,13 +131,14 @@ function RepsInput(props) {
 
               borderWidth: 1,
 
-              borderRadius: 16,
+              borderRadius: 12,
 
               borderColor: theme.colors.border,
               marginStart: 0,
 
               marginTop: 5,
               marginBottom: 5,
+              width: '50%',
             }}
             skin="clean"
             //rounded={false}

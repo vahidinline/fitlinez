@@ -1,5 +1,7 @@
+import { Button } from '@rneui/base';
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import updatePlanDay from '../../api/changePlanDay';
 
 const DaySelectionModal = ({
   visible,
@@ -7,40 +9,55 @@ const DaySelectionModal = ({
   onSelectDay,
   daysOfWeek,
   selectedDays,
+  dayExerciseName,
+  workoutTitle,
+  RTL,
+  userId,
 }) => {
+  const handleUpdateDay = async (userId, title, day) => {
+    try {
+      const res = await updatePlanDay(userId, title, day);
+      console.log('res', res);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
-    <Modal visible={visible} transparent={true} animationType="slide">
+    <Modal
+      visible={visible}
+      animationType="slide"
+      transparent={true}
+      onRequestClose={onClose}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Select a Day</Text>
+          <Text style={styles.modalTitle}>{dayExerciseName}</Text>
+          <Text style={styles.modalSubTitle}>{workoutTitle}</Text>
+          {/* Display the workout title here */}
           {daysOfWeek.map((day) => (
             <TouchableOpacity
               key={day.id}
               onPress={() => onSelectDay(day.name)}
-              disabled={selectedDays.includes(day.name)}
-              style={[
-                styles.dayButton,
-                selectedDays.includes(day.name) && styles.disabledDayButton,
-              ]}>
+              // disabled={selectedDays.includes(day.name)}>
+            >
               <Text
                 style={[
-                  styles.dayButtonText,
-                  selectedDays.includes(day.name) &&
-                    styles.disabledDayButtonText,
+                  styles.dayText,
+                  selectedDays.includes(day.name) && styles.dayTextDisabled,
                 ]}>
-                {day.name}
+                {RTL ? day.nameT : day.name}
+                {userId}
               </Text>
             </TouchableOpacity>
           ))}
-          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeButtonText}>Close</Text>
-          </TouchableOpacity>
+          <Button title="Close" onPress={onClose} />
         </View>
       </View>
     </Modal>
   );
 };
 
+// Your styles for the modal
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
@@ -56,39 +73,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalSubTitle: {
+    fontSize: 16,
     marginBottom: 20,
   },
-  dayButton: {
-    padding: 10,
+  dayText: {
+    fontSize: 16,
     marginVertical: 5,
-    backgroundColor: '#007BFF',
-    borderRadius: 5,
-    width: '100%',
-    alignItems: 'center',
   },
-  dayButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  disabledDayButton: {
-    backgroundColor: '#CCCCCC',
-  },
-  disabledDayButtonText: {
-    color: '#666666',
-  },
-  closeButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#FF0000',
-    borderRadius: 5,
-    width: '100%',
-    alignItems: 'center',
-  },
-  closeButtonText: {
-    color: 'white',
-    fontSize: 16,
+  dayTextDisabled: {
+    color: 'gray',
   },
 });
 

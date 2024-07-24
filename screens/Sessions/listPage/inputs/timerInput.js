@@ -138,22 +138,24 @@ function TimerInput({
     <View
       style={{
         alignItems: 'center',
-        borderRadius: 14,
+        borderRadius: 12,
         backgroundColor: theme.colors.background,
       }}>
       <View
         style={{
-          width: Dimensions.get('window').width / 1.13,
+          width: Dimensions.get('window').width / 1.35,
           flexDirection: 'row',
-          height: 90,
+          height: 60,
           justifyContent: 'space-between',
           alignItems: 'center',
           padding: 10,
-          borderRadius: 14,
+          borderRadius: 12,
           backgroundColor: theme.colors.background,
           borderWidth: 1,
           borderColor: theme.colors.border,
-          marginHorizontal: 10,
+          marginHorizontal: 0,
+          marginRight: 10,
+          top: 5,
         }}>
         <CountDown
           handleInputChange={handleInputChange}

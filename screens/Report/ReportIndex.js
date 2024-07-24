@@ -8,7 +8,6 @@ import LanguageContext from '../../api/langcontext';
 import { useContext } from 'react';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import getAllWorkoutHistory from '../../api/getAllHistory';
 import { userWorkoutHistory } from '../../api/workoutSessionTracker';
 import AuthContext from '../../api/context';

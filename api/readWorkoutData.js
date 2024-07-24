@@ -73,15 +73,15 @@ const readWorkoutData = async () => {
       const workoutsList = JSON.parse(value);
 
       const workoutPlanData = workoutsList;
-      // console.log('workoutPlanData in readWorkoutdata', workoutsList);
+      console.log('workoutPlanData in readWorkoutdata', workoutsList);
       const weeklyPlan = workoutsList.data?.weeklyPlan;
       const planName = workoutsList.data?.packageName;
       const location = workoutsList.data?.location;
       // const totalSession = workoutsList.data?.totalSessions
       //   ? workoutsList.data.totalSessions
       //   : workoutsList.data?.DaysPerWeek * workoutsList.data.duration;
-      // console.log('weeklyPlan in readWorkoutData', weeklyPlan);
-      // console.log('planName in readWorkoutData', planName);
+      console.log('weeklyPlan in readWorkoutData', weeklyPlan);
+      console.log('planName in readWorkoutData', planName);
       return { weeklyPlan, planName, location };
       // return {
       //   dataObject: dataObject.data,

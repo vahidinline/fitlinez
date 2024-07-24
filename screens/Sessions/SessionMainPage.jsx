@@ -18,6 +18,7 @@ import LanguageContext from '../../api/langcontext';
 import AuthContext from '../../api/context';
 import Item from './listPage/item';
 import { updateSession } from '../../api/workoutSessionTracker';
+import DrawerList from './listPage/drawer';
 
 const { width, height } = Dimensions.get('window');
 
@@ -44,6 +45,7 @@ const SessionMainPage = (props) => {
   const { setTimeSpent } = useContext(TimeSpentContext);
   const scrollEnabled = true;
   const ITEM_HEIGHT = Dimensions.get('window').height;
+  const ITEM_WEIGHT = Dimensions.get('window').width;
 
   const style = {
     textAlign: 'center',
@@ -112,7 +114,7 @@ const SessionMainPage = (props) => {
     const { _id, name, instructor, gifUrl, inputType } = item;
 
     const updatedData = data.map((item, i) => {
-      if (item._id === exerciseId) {
+      if (item.exerciseId === exerciseId) {
         //update the item with the new exercis
         return {
           ...item,
@@ -122,7 +124,7 @@ const SessionMainPage = (props) => {
           inputType: inputType,
         };
       } else {
-        console.log('item._id', item._id);
+        console.log('item._id in main', item.exerciseId);
       }
 
       return item;
@@ -217,10 +219,12 @@ const SessionMainPage = (props) => {
     }
   });
 
+  //console.log('data', sortedData);
+
   //console.log('sortedData', sortedData.length);
   const getItemLayout = (data, index) => ({
-    length: ITEM_HEIGHT,
-    offset: ITEM_HEIGHT * index,
+    length: ITEM_WEIGHT,
+    offset: ITEM_WEIGHT * index,
     index,
   });
   return (
@@ -234,12 +238,12 @@ const SessionMainPage = (props) => {
           }}
           removeClippedSubviews={true}
           maxToRenderPerBatch={2}
-          //horizontal
+          horizontal
           getItemLayout={getItemLayout}
           ref={flatListRef}
-          keyExtractor={(item) => item._id}
+          keyExtractor={(item) => item.exerciseId.toString()}
           renderItem={({ item, index }) => (
-            <View style={style}>
+            <View key={item.exerciseId} style={style}>
               <Item
                 goToIndex={goToIndex}
                 image={item.image}
@@ -249,7 +253,7 @@ const SessionMainPage = (props) => {
                 stoptimer={stoptimer}
                 setFinish={setFinish}
                 length={data.length}
-                exerciseId={item._id}
+                exerciseId={item.exerciseId}
                 title={item.exerciseName}
                 index={index}
                 gifUrl={item.gifUrl}
@@ -277,7 +281,7 @@ const SessionMainPage = (props) => {
                 undoneItem={undoneItem}
                 userId={userId}
                 bodyPart={item.bodyPart}
-                allExcerciesIds={sortedData.map((item) => item._id)}
+                allExcerciesIds={sortedData.map((item) => item.exerciseId)}
                 mainTarget={item.mainTarget}
                 otherTarget={item.otherTarget}
                 target={item.target}
@@ -298,7 +302,26 @@ const SessionMainPage = (props) => {
             </Text>
           }
         />
-
+        <View
+          style={{
+            position: 'absolute',
+            top: '50%',
+            right: Dimensions.get('window').width - 45,
+            //right: 0,
+            bottom: 10,
+            //justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            zIndex: 1000,
+          }}>
+          <DrawerList
+            sortedData={sortedData}
+            userLanguage={userLanguage}
+            goToIndex={goToIndex}
+            //index={index}
+            //img={gifUrl}
+          />
+        </View>
         <BottomSheet isVisible={finish}>
           <View
             style={{

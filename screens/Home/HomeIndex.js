@@ -71,17 +71,21 @@ function HomeIndex() {
   //   }
   // });
 
+  useEffect(() => {
+    getNewTasks(userAuth.id, setTaskStatus);
+  }, []);
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setStatus('loading');
     setTimeout(async () => {
       const result = await getNewTasks(userAuth.id, setTaskStatus);
       if (result) {
-        console.log('new tasks in homeIndex onReferesh', result);
+        //console.log('new tasks in homeIndex onReferesh', result);
         setModalVisible(true);
         setStatus('hasPlan');
       }
-      console.log('NO results in new tasks in homeIndex onReferesh');
+      //console.log('NO results in new tasks in homeIndex onReferesh');
       setRefreshing(false);
       setStatus('hasPlan');
     }, 2000);
@@ -99,7 +103,7 @@ function HomeIndex() {
         setLoading(false);
         setIsPlanAssigned(true);
       }
-    }, 1000);
+    }, 2000);
     // Cleanup function to clear the timeout if currentPlan is not null
     return () => {
       clearTimeout(timeout);

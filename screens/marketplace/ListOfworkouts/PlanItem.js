@@ -22,6 +22,7 @@ import * as SQLite from 'expo-sqlite';
 import { useEffect } from 'react';
 import { updateWorkoutPlan } from '../../../api/GetData';
 import Header from '../../../components/header';
+import { savePackages } from '../../../api/assignNewPlan';
 
 const db = SQLite.openDatabase('packeges.db'); // Open or create the database
 
@@ -102,23 +103,23 @@ function PlanItem({ route }) {
   );
   const addedDateTime = new Date().toISOString();
 
-  const savePackages = () => {
-    try {
-      const jsonString = JSON.stringify({ item, addedDateTime });
-      updateWorkoutPlan(item, addedDateTime, userId);
-      db.transaction((tx) => {
-        tx.executeSql('INSERT INTO packeges (data) VALUES (?);', [jsonString]);
-      });
+  // const savePackages = () => {
+  //   try {
+  //     const jsonString = JSON.stringify({ item, addedDateTime });
+  //     updateWorkoutPlan(item, addedDateTime, userId);
+  //     db.transaction((tx) => {
+  //       tx.executeSql('INSERT INTO packeges (data) VALUES (?);', [jsonString]);
+  //     });
 
-      console.log('new package saved');
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log('new package saved');
+  //     navigation.reset({
+  //       index: 0,
+  //       routes: [{ name: 'Home' }],
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -456,7 +457,7 @@ function PlanItem({ route }) {
             fontFamily: 'Vazirmatn',
           }}
           type="solid"
-          onPress={() => savePackages(item, userId)}
+          onPress={() => savePackages(item, userId, navigation)}
           //   premium
           //     ? updateWorkoutForPremium({ data: item, userId: userId })
           //     : updateWorkoutForTrial({

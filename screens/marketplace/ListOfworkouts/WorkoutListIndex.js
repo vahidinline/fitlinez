@@ -63,8 +63,8 @@ function WorkoutListIndex({ route }) {
     setStatus('loading');
     const result = await AsyncStorage.getItem('Allpackages');
     try {
-      setStatus('success');
       setPackages(JSON.parse(result));
+      setStatus('success');
     } catch (e) {
       setStatus('error');
       console.log(e);
@@ -76,8 +76,15 @@ function WorkoutListIndex({ route }) {
   }, []);
 
   const getLiveData = async () => {
-    const result = await getPackages();
-    setPackages(result);
+    setStatus('loading');
+    try {
+      const result = await getPackages();
+      setPackages(result);
+      setStatus('success');
+    } catch (e) {
+      setStatus('error');
+      console.log(e);
+    }
   };
 
   return (
