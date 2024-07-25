@@ -47,7 +47,7 @@ function Item({
   inputType,
   setFinish,
   type,
-
+  alertVisible,
   loc,
   bodyPart,
   category,
@@ -57,13 +57,11 @@ function Item({
   otherTarget,
   target,
   userLocation,
-  stoptimer,
-
+  setAlertVisible,
+  setSaveTimer,
   dataLength,
   description,
 }) {
-  console.log('exerciseId in item', exerciseId);
-  //console.log('index in item', index);
   const { userLanguage } = useContext(LanguageContext);
   const { IconArrowRight, IconInfo, IconMenu, IconSub } = Icons;
   const i18n = new I18n(i18nt);
@@ -75,10 +73,8 @@ function Item({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [saveCount, setSaveCount] = useState(0);
   const [buttonTitle, setButtonTitle] = useState(i18n.t('nextSet'));
-  const [saveTimer, setSaveTimer] = useState(false);
   const [showDrawer, setShowDrawer] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [alertVisible, setAlertVisible] = useState(false);
   let adjustedNumberOfSets = 4;
   const [showRest, setShowRest] = useState(false);
   const { sessionData, setSessionData } = useContext(SessionContext);
@@ -246,25 +242,6 @@ function Item({
 
   const handleCloseSession = async () => {
     setAlertVisible(true);
-    // Alert.alert(
-    //   i18n.t('closeSession'),
-    //   i18n.t('closeSessionMessage'),
-    //   [
-    //     {
-    //       text: i18n.t('cancel'),
-    //       onPress: () => console.log('Cancel Pressed'),
-    //       style: 'cancel',
-    //     },
-    //     {
-    //       text: i18n.t('confirm'),
-    //       onPress: async () => closeSession(),
-    //     },
-    //   ],
-    //   { cancelable: false }
-    // );
-  };
-  const handleDrawer = () => {
-    setShowDrawer(!showDrawer);
   };
 
   const closeSession = async () => {
@@ -291,26 +268,20 @@ function Item({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: theme.colors.background,
+        // backgroundColor: theme.colors.warning,
         width: Dimensions.get('window').width,
-        // height: Dimensions.get('window').height,
       }}>
-      {/* {showDrawer && ( */}
-
-      {/* )} */}
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          width: Dimensions.get('window').width,
-          height: Dimensions.get('window').height / 15,
+          width: Dimensions.get('window').width / 1.1,
+          height: Dimensions.get('window').height / 20,
           backgroundColor: theme.colors.background,
+          marginHorizontal: 15,
           paddingHorizontal: 10,
         }}>
-        {/* <TouchableOpacity onPress={() => handleDrawer()}>
-          <IconMenu />
-        </TouchableOpacity> */}
         <View
           style={{
             flexDirection: 'column',
@@ -323,10 +294,10 @@ function Item({
               styles.title,
               {
                 fontSize: PixelRatio.get() > 2 ? 20 : 22,
-                fontWeight: 'bold',
+                // fontWeight: 'bold',
                 fontFamily: 'Vazirmatn',
                 flexWrap: 'wrap',
-                //width: Dimensions.get('window').width / 2,
+                width: Dimensions.get('window').width / 1.1,
                 textAlign: 'center',
                 top: 5,
               },
@@ -334,69 +305,6 @@ function Item({
             {title}
           </Text>
         </View>
-        <TouchableOpacity onPress={() => handleCloseSession()}>
-          {/* <IconInfo /> */}
-          <Icons.IconCloseCircle />
-        </TouchableOpacity>
-      </View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: Dimensions.get('window').width / 1.1,
-          height: Dimensions.get('window').height / 10,
-          backgroundColor: theme.colors.background,
-          paddingHorizontal: 10,
-          borderWidth: 0.5,
-          borderColor: theme.colors.border,
-          borderRadius: 16,
-          margin: 15,
-        }}>
-        <TouchableOpacity
-          //onPress={() => PremiumChecker(userLevel, setVisible)}
-          onPress={() => setVisible(true)}
-          style={{
-            flexDirection: 'row',
-          }}>
-          <Text
-            style={{
-              color: theme.colors.secondary,
-              fontWeight: '600',
-              fontSize: 16,
-              top: 2,
-              marginRight: 10,
-              fontFamily: 'Vazirmatn',
-            }}>
-            {i18n.t('SubstituteWorkout')}
-          </Text>
-          <IconSub />
-        </TouchableOpacity>
-
-        <SessionTimer
-          saveTimer={saveTimer}
-          setSaveTimer={setSaveTimer}
-          stoptimer={stoptimer}
-        />
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-          }}
-          onPress={() => setFinish(true)}>
-          <Text
-            style={{
-              color: theme.colors.secondary,
-              fontWeight: '600',
-              fontSize: 16,
-              top: 2,
-              marginLeft: 10,
-              fontFamily: 'Vazirmatn',
-            }}>
-            {i18n.t('finishWorkout')}
-          </Text>
-          <IconArrowRight />
-        </TouchableOpacity>
       </View>
 
       <View
@@ -427,6 +335,36 @@ function Item({
             i18n={i18n}
           />
         </View>
+        <View
+          style={{
+            position: 'absolute',
+            marginHorizontal: 10,
+            marginVertical: 10,
+            top: 0,
+            right: 0,
+            zIndex: 100,
+          }}>
+          <TouchableOpacity
+            //onPress={() => PremiumChecker(userLevel, setVisible)}
+            onPress={() => setVisible(true)}
+            style={{
+              flexDirection: 'row',
+            }}>
+            <Text
+              style={{
+                color: theme.colors.secondary,
+                fontWeight: '600',
+                fontSize: 12,
+                // top: 2,
+                // marginRight: 10,
+                fontFamily: 'Vazirmatn',
+              }}>
+              {i18n.t('SubstituteWorkout')}
+            </Text>
+            <IconSub />
+          </TouchableOpacity>
+        </View>
+
         <ImageLoader
           i18n={i18n}
           uri={gifUrl}
@@ -441,8 +379,9 @@ function Item({
         style={{
           flexDirection: 'column',
           marginHorizontal: 15,
-          marginTop: 5,
+          top: 5,
           width: Dimensions.get('window').width - 25,
+          height: Dimensions.get('window').height / 2.5,
         }}>
         {/* <ScrollView
           style={{
@@ -621,7 +560,7 @@ function Item({
       <View
         style={{
           position: 'absolute',
-          top: Dimensions.get('window').height / 1.2,
+          top: Dimensions.get('window').height / 1.3,
           left: 0,
           right: 0,
           //height: Dimensions.get('window').height / 15,
@@ -641,7 +580,7 @@ function Item({
             buttonStyle={{
               backgroundColor: theme.colors.button,
               borderRadius: 12,
-              borderWidth: 1,
+              // borderWidth: 1,
               width: Dimensions.get('window').width / 1.1,
               height:
                 PixelRatio.get() < 3

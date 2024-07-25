@@ -7,6 +7,8 @@ import {
   SafeAreaView,
   Platform,
   Alert,
+  TouchableOpacity,
+  PixelRatio,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
@@ -19,6 +21,9 @@ import AuthContext from '../../api/context';
 import Item from './listPage/item';
 import { updateSession } from '../../api/workoutSessionTracker';
 import DrawerList from './listPage/drawer';
+import SessionTimer from '../../components/timer/sessionTimer';
+import { IconArrowRight, IconSub } from '../marketplace/filters/icons-';
+import { IconCloseCircle } from '../marketplace/filters/icons';
 
 const { width, height } = Dimensions.get('window');
 
@@ -37,6 +42,7 @@ const SessionMainPage = (props) => {
   const [visible, setVisible] = useState(false);
   const { workouts, category, location, catTname, planName } =
     props.route.params;
+  const [saveTimer, setSaveTimer] = useState(false);
 
   const [data, setData] = useState(workouts);
   const flatListRef = useRef(null);
@@ -46,6 +52,7 @@ const SessionMainPage = (props) => {
   const scrollEnabled = true;
   const ITEM_HEIGHT = Dimensions.get('window').height;
   const ITEM_WEIGHT = Dimensions.get('window').width;
+  const [alertVisible, setAlertVisible] = useState(false);
 
   const style = {
     textAlign: 'center',
@@ -227,9 +234,77 @@ const SessionMainPage = (props) => {
     offset: ITEM_WEIGHT * index,
     index,
   });
+
+  const handleCloseSession = async () => {
+    setAlertVisible(true);
+    // Alert.alert(
+    //   i18n.t('closeSession'),
+    //   i18n.t('closeSessionMessage'),
+    //   [
+    //     {
+    //       text: i18n.t('cancel'),
+    //       onPress: () => console.log('Cancel Pressed'),
+    //       style: 'cancel',
+    //     },
+    //     {
+    //       text: i18n.t('confirm'),
+    //       onPress: async () => closeSession(),
+    //     },
+    //   ],
+    //   { cancelable: false }
+    // );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
+      <View>
+        <View
+          style={{
+            top: Platform.OS === 'ios' ? 0 : 10,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: Dimensions.get('window').width / 1.1,
+            height: 50,
+            backgroundColor: theme.colors.background,
+            paddingHorizontal: 10,
+            borderWidth: 0.5,
+            borderColor: theme.colors.border,
+            borderRadius: 16,
+            margin: 15,
+          }}>
+          <TouchableOpacity onPress={() => handleCloseSession()}>
+            {/* <IconInfo /> */}
+            <IconCloseCircle
+              color={theme.colors.secondary}
+              size={24}
+              style={{ marginRight: 10 }}
+            />
+          </TouchableOpacity>
+          <SessionTimer
+            saveTimer={saveTimer}
+            setSaveTimer={setSaveTimer}
+            stoptimer={stoptimer}
+          />
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+            }}
+            onPress={() => setFinish(true)}>
+            <Text
+              style={{
+                color: theme.colors.secondary,
+                fontWeight: '400',
+                fontSize: 16,
+                top: 2,
+                marginLeft: 10,
+                fontFamily: 'Vazirmatn',
+              }}>
+              {i18n.t('finishWorkout')}
+            </Text>
+            <IconArrowRight />
+          </TouchableOpacity>
+        </View>
         <FlatList
           initialNumToRender={2} // Adjust according to your need
           onEndReached={() => {
@@ -286,6 +361,9 @@ const SessionMainPage = (props) => {
                 otherTarget={item.otherTarget}
                 target={item.target}
                 userLocation={location}
+                setSaveTimer={setSaveTimer}
+                setAlertVisible={setAlertVisible}
+                alertVisible={alertVisible}
               />
             </View>
           )}
@@ -305,13 +383,16 @@ const SessionMainPage = (props) => {
         <View
           style={{
             position: 'absolute',
-            top: '50%',
+            top:
+              Platform.OS === 'ios'
+                ? Dimensions.get('window').height / 2 - 100
+                : Dimensions.get('window').height / 2 - 80,
             right: Dimensions.get('window').width - 45,
             //right: 0,
             bottom: 10,
             //justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: 'rgba(0,0,0,0.5)',
+            //backgroundColor: 'rgba(0,0,0,0.5)',
             zIndex: 1000,
           }}>
           <DrawerList
@@ -415,8 +496,9 @@ const getStyles = (theme) =>
     item: {
       padding: 20,
       //marginVertical: 8,
-      //marginHorizontal: 16,
-      height: height,
+      marginHorizontal: 16,
+      width: width / 1.2,
+      height: height / 1.1,
     },
     title: {
       fontSize: 25,
