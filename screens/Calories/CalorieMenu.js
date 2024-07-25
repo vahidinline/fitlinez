@@ -1,16 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import { BottomSheet, ListItem } from '@rneui/base';
-import { Direct } from 'iconsax-react-native';
+import { Direct, TextalignCenter } from 'iconsax-react-native';
 import React from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { List, Text } from 'react-native-paper';
 import {
   IconArrow,
+  IconArrowDown,
   IconArrowLeft,
   IconArrowUp,
   IconMenu,
 } from '../marketplace/filters/icons';
 import { useTheme } from '@rneui/themed';
+import { t } from 'i18n-js';
 
 function CalorieMenu({
   status,
@@ -55,87 +57,33 @@ function CalorieMenu({
       onPress: () => handleGoToReport(),
       active: true,
     },
-    // {
-    //   id: 4,
-    //   name: i18n.t('createmeal'),
-    //   onPress: () => setStatus('createMeal'),
-    //   active: false,
-    // },
     {
       id: 5,
       name: i18n.t('previousMenu'),
       onPress: () => handleHideMenu(),
       active: true,
     },
-    {
-      id: 6,
-      name: i18n.t('backtohome'),
-      onPress: () => navigation.reset({ index: 0, routes: [{ name: 'Home' }] }),
-      active: true,
-    },
   ];
 
   return (
     <BottomSheet
-      style={{
-        direction: RTL ? 'rtl' : 'ltr',
-        position: 'absolute',
-        bottom: 10,
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 2,
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        borderTopColor: 'lightgrey',
-        borderTopWidth: 1,
-        padding: 10,
-        marginVertical: 10,
-      }}
+      containerStyle={styles.bottomSheetContainer}
       modalProps={{}}
       isVisible={status === 'idle'}>
       <TouchableOpacity
-        style={{
-          alignItems: 'center',
-        }}
+        style={styles.touchableOpacity}
         onPress={() => setStatus('seeDetails')}>
-        <IconArrowUp color={theme.colors.secondary} size={40} />
+        <IconArrowDown color={theme.colors.secondary} size={40} />
       </TouchableOpacity>
       {menuList.map((l, i) => (
         <ListItem
           key={i}
           containerStyle={styles.containerStyle}
           onPress={l.active ? l.onPress : () => {}}>
-          <ListItem.Content
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <ListItem.Title
-              style={[
-                styles.titleStyle,
-                { color: l.active ? theme.colors.secondary : '#ccc' },
-                { borderBottomColor: l.active ? '#000' : '#ccc' },
-                { borderBottomWidth: l.active ? 1 : 0 },
-                { fontFamily: 'Vazirmatn' },
-              ]}>
+          <ListItem.Content style={styles.listItemContent}>
+            <Text style={[styles.textStyle, { color: theme.colors.text }]}>
               {l.name}
-            </ListItem.Title>
-            <ListItem.Subtitle
-              style={{
-                color: l.active ? theme.colors.secondary : '#ccc',
-                fontFamily: 'Vazirmatn',
-                fontSize: 10,
-              }}>
-              {l.active ? '' : i18n.t('notActive')}
-            </ListItem.Subtitle>
-
-            {RTL ? (
-              <IconArrowLeft
-                size={20}
-                color={l.active ? theme.colors.secondary : '#ccc'}
-              />
-            ) : (
-              <ListItem.Chevron />
-            )}
+            </Text>
           </ListItem.Content>
         </ListItem>
       ))}
@@ -146,20 +94,37 @@ function CalorieMenu({
 export default CalorieMenu;
 
 const styles = StyleSheet.create({
+  bottomSheetContainer: {
+    position: 'absolute',
+    bottom: 40,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height / 3,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    borderTopColor: 'lightgrey',
+    borderTopWidth: 1,
+    padding: 10,
+    marginVertical: 10,
+  },
+  touchableOpacity: {
+    alignItems: 'center',
+    height: 40,
+  },
   containerStyle: {
     backgroundColor: '#fff',
+    justifyContent: 'center',
     padding: 10,
     marginVertical: 5,
-    marginHorizontal: 10,
     borderBottomColor: 'lightgrey',
-    borderBottomWidth: 1,
   },
-  button: {
-    marginHorizontal: 10,
+  listItemContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
   },
-  titleStyle: {
-    color: '#000',
-    borderBottomColor: '#000',
-    borderBottomWidth: 1,
+  textStyle: {
+    fontFamily: 'Vazirmatn',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });

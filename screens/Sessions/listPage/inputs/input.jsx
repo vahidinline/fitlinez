@@ -4,12 +4,9 @@ import { StyleSheet, View } from 'react-native';
 import { Text } from '@rneui/themed';
 import { I18n } from 'i18n-js';
 import InputSpinner from 'react-native-input-spinner';
-import * as SQLite from 'expo-sqlite';
 import { useTheme } from '@rneui/themed';
 import LanguageContext from '../../../../api/langcontext';
 import i18nt from '../../../../locales';
-
-const db = SQLite.openDatabase('totalWeight.db');
 
 function WeightAndSetsInput(props) {
   const {

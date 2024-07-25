@@ -4,7 +4,6 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import AuthContext from './api/context';
 import AuthStorage from './api/storage';
-import ErrorBoundary from 'react-native-error-boundary';
 import InitialNavigation from './navigation/initialNavigation';
 import MsgContext from './api/messageContext';
 import { StatusBar } from 'expo-status-bar';
@@ -13,8 +12,6 @@ import { DefaultTheme, SecondTheme } from './theme/defaultTheme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TimeSpentProvider } from './api/TimeSpentContext';
 import HomeNavigator from './navigation/HomeNavigator';
-import initDB from './api/db';
-import * as SQLite from 'expo-sqlite';
 import * as Updates from 'expo-updates';
 import { Button, Text, ThemeProvider, useTheme } from '@rneui/themed';
 import * as Notifications from 'expo-notifications';
@@ -27,15 +24,12 @@ import { SessionProvider } from './api/sessionContext';
 import { UnitProvider } from './api/unitContext';
 import { ActivityIndicator, PaperProvider } from 'react-native-paper';
 import UserPrivilegeContext from './api/userPrivilegeContext';
-
 import { trackUserData } from './api/tracker';
 import appUpdateTrack from './api/appUpdateTrack';
 import { useFonts } from 'expo-font';
 import i18nt from './locales';
 import { I18n } from 'i18n-js';
-import { forceSolveError } from './api/forceSolveError';
 import FlashMessage from 'react-native-flash-message';
-import { showMessage } from 'react-native-flash-message';
 
 const errorHandler = (error, stackTrace) => {
   /* Log the error to an error reporting service */
@@ -46,7 +40,7 @@ const errorHandler = (error, stackTrace) => {
   //console.log('error', error);
 };
 
-const db = SQLite.openDatabase('totalWeight.db');
+// const db = SQLite.openDatabase('totalWeight.db');
 
 export default function App() {
   const [userAuth, setUserAuth] = useState();
@@ -163,11 +157,6 @@ export default function App() {
 
   useEffect(() => {
     restoreToken();
-  }, []);
-
-  useEffect(() => {
-    initDB();
-    //deleteAllTables();
   }, []);
 
   useEffect(() => {

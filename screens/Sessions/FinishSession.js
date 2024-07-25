@@ -17,7 +17,6 @@ import LowPerformance from './finishPage/lowerPerformance';
 import MidPerformance from './finishPage/midPerformance';
 import HighPerformance from './finishPage/highPerformance';
 import TopPerformance from './finishPage/topPerformance';
-import * as SQLite from 'expo-sqlite';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LanguageContext from '../../api/langcontext';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
@@ -26,40 +25,18 @@ import i18nt from '../../locales';
 import api from '../../api/api';
 import { IconFire, Iconshare } from '../marketplace/filters/icons';
 import formatTime from '../../api/timeFormat';
-import { saveUserData } from '../../api/SaveData';
 import { retrieveAndCalculatePerformance } from '../../api/SaveData';
 import storeDataDB from '../../api/storedata';
 import {
   PerformanceRead,
   calculateWorkoutPercentage,
-  currentPalnPercentage,
+  // currentPalnPercentage,
   readSavedData,
   readWorkoutData,
 } from '../../api/readWorkoutData';
 import { getBurnedCalories } from '../../api/getBurnedCalories';
 
-const UserWorkOutSessionDB = SQLite.openDatabase('userWorkOutSession.db');
-const performanceDB = SQLite.openDatabase('performance.db');
-
 const FinishSession = (props) => {
-  useEffect(() => {
-    UserWorkOutSessionDB.transaction((tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS userWorkOutSession (id INTEGER PRIMARY KEY NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, data TEXT);'
-      );
-    });
-  }, []);
-
-  useEffect(() => {
-    //create performance table
-
-    performanceDB.transaction((tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS performance (id INTEGER PRIMARY KEY AUTOINCREMENT,  category TEXT, location TEXT, timeSpent INTEGER, performance INTEGER, date TEXT);'
-      );
-    });
-  }, []);
-
   const [userWorkoutData, setUserWorkoutData] = useState([]);
   const { category, location } = props.route.params;
   const [totalWeightSum, setToalWeightSum] = useState(0);
@@ -79,17 +56,17 @@ const FinishSession = (props) => {
   const styles = getStyle(theme, PixelRatio);
   const numericCompletionPercentage = parseFloat(completionPercentage);
 
-  const getUserWorkoutData = async () => {
-    try {
-      const data = await currentPalnPercentage();
-      setUserWorkoutData(data);
-      // console.log('data line 81', data);
-    } catch (error) {}
-  };
+  // const getUserWorkoutData = async () => {
+  //   try {
+  //     const data = await currentPalnPercentage();
+  //     setUserWorkoutData(data);
+  //     // console.log('data line 81', data);
+  //   } catch (error) {}
+  // };
 
-  useEffect(() => {
-    getUserWorkoutData();
-  }, []);
+  // useEffect(() => {
+  //   getUserWorkoutData();
+  // }, []);
 
   const getData = async () => {
     // console.log('inside get data');
@@ -172,23 +149,6 @@ const FinishSession = (props) => {
       routes: [{ name: 'Home' }],
     });
   };
-
-  useEffect(() => {
-    saveUserData(
-      category,
-      location,
-      timeSpent,
-      totalWeightSum,
-      completionPercentage
-    );
-    retrieveAndCalculatePerformance(
-      category,
-      location,
-      timeSpent,
-      completionPercentage,
-      today
-    );
-  }, []);
 
   useEffect(() => {
     try {

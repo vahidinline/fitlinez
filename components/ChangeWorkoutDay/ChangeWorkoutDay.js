@@ -43,7 +43,7 @@ const DaySelectionModal = ({
               <Text
                 style={[
                   styles.dayText,
-                  selectedDays.includes(day.name) && styles.dayTextDisabled,
+                  selectedDays?.includes(day.name) && styles.dayTextDisabled,
                 ]}>
                 {RTL ? day.nameT : day.name}
                 {userId}

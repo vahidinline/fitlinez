@@ -1,11 +1,11 @@
-import * as SQLite from 'expo-sqlite';
+// import * as SQLite from 'expo-sqlite';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
-const db = SQLite.openDatabase('totalWeight.db');
-const db1 = SQLite.openDatabase('performance.db');
-const db2 = SQLite.openDatabase('packeges.db');
-const db3 = SQLite.openDatabase('userWorkOutSession.db');
-const db4 = SQLite.openDatabase('userBasicData.db');
+// const db = SQLite.openDatabase('totalWeight.db');
+// const db1 = SQLite.openDatabase('performance.db');
+// const db2 = SQLite.openDatabase('packeges.db');
+// const db3 = SQLite.openDatabase('userWorkOutSession.db');
+// const db4 = SQLite.openDatabase('userBasicData.db');
 
 const filterByDates = async (startDate, endDate) => {
   return new Promise((resolve, reject) => {
@@ -15,53 +15,53 @@ const filterByDates = async (startDate, endDate) => {
     const startISO = moment(startDate).toISOString();
     const endISO = moment(endDate).toISOString();
 
-    db1.transaction(
-      (tx) => {
-        tx.executeSql(
-          'SELECT * FROM performance WHERE date BETWEEN ? AND ?',
-          [startISO, endISO],
+    // db1.transaction(
+    //   (tx) => {
+    //     tx.executeSql(
+    //       'SELECT * FROM performance WHERE date BETWEEN ? AND ?',
+    //       [startISO, endISO],
 
-          (tx, results) => {
-            let filteredData = [];
-            for (let i = 0; i < results.rows.length; i++) {
-              filteredData.push(results.rows.item(i));
-            }
+    //       (tx, results) => {
+    //         let filteredData = [];
+    //         for (let i = 0; i < results.rows.length; i++) {
+    //           filteredData.push(results.rows.item(i));
+    //         }
 
-            //console.log('filteredData', filteredData);
-            resolve(filteredData); // This line was previously commented out
-          },
-          (error) => {
-            reject('Fetch error: ', error);
-          }
-        );
-      },
-      (error) => {
-        console.log('Transaction error:', error);
-      }
-    );
+    //         //console.log('filteredData', filteredData);
+    //         resolve(filteredData); // This line was previously commented out
+    //       },
+    //       (error) => {
+    //         reject('Fetch error: ', error);
+    //       }
+    //     );
+    //   },
+    //   (error) => {
+    //     console.log('Transaction error:', error);
+    //   }
+    // );
   });
 };
 
 const saveUserWeight = async (data) => {
   console.log('data in api', data);
 
-  db4.transaction(
-    (tx) => {
-      tx.executeSql(
-        'INSERT INTO userBasicData (data) VALUES (?);',
-        [JSON.stringify(data)],
-        () => {
-          console.log('data inserted');
-        },
-        (error) => {
-          console.log('error in data insertion', error);
-        }
-      );
-    },
-    (error) => {
-      console.log('main error in data insertion', error);
-    }
-  );
+  // db4.transaction(
+  //   (tx) => {
+  //     tx.executeSql(
+  //       'INSERT INTO userBasicData (data) VALUES (?);',
+  //       [JSON.stringify(data)],
+  //       () => {
+  //         console.log('data inserted');
+  //       },
+  //       (error) => {
+  //         console.log('error in data insertion', error);
+  //       }
+  //     );
+  //   },
+  //   (error) => {
+  //     console.log('main error in data insertion', error);
+  //   }
+  // );
 };
 
 const readWorkoutData = async () => {
@@ -98,128 +98,36 @@ const readWorkoutData = async () => {
 
 const readSavedData = (userId) => {
   // console.log('userId in api', userId);
-  return new Promise((resolve, reject) => {
-    db.transaction(
-      (tx) => {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        tx.executeSql(
-          'SELECT * FROM totalWeight WHERE timestamp >= ?;',
-          [today.getTime()],
-          (tx, results) => {
-            const rows = results.rows;
-
-            const data = [];
-
-            for (let i = 0; i < rows.length; i++) {
-              let row = rows.item(i);
-
-              data.push({
-                ...row,
-                userId: userId,
-              });
-            }
-
-            resolve(data);
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-      },
-      (error) => {
-        reject(error);
-      }
-    );
-  });
-};
-
-const PerformanceRead = (userId) => {
-  //console.log('userId', userId);
-  return new Promise((resolve, reject) => {
-    db1.transaction(
-      (tx) => {
-        tx.executeSql(
-          'SELECT * FROM performance;',
-          [],
-          (tx, results) => {
-            const rows = results.rows;
-
-            const data = [];
-
-            for (let i = 0; i < rows.length; i++) {
-              let row = rows.item(i);
-              data.push({
-                ...row,
-                userId: userId,
-              });
-            }
-
-            resolve(data);
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-      },
-      (error) => {
-        reject(error);
-      }
-    );
-  });
-};
-
-const currentPalnPercentage = () => {
-  return new Promise((resolve, reject) => {
-    db3.transaction(
-      (tx) => {
-        // Check if the userWorkOutSession table exists
-        tx.executeSql(
-          'SELECT name FROM sqlite_master WHERE type="table" AND name="userWorkOutSession";',
-          [],
-          (_, result) => {
-            const tableExists = result.rows.length > 0;
-
-            if (tableExists) {
-              // Proceed with the transaction if the table exists
-              tx.executeSql(
-                'SELECT * FROM userWorkOutSession;',
-                [],
-                (tx, results) => {
-                  const rows = results.rows;
-                  const data = [];
-
-                  for (let i = 0; i < rows.length; i++) {
-                    let row = rows.item(i);
-                    data.push({
-                      ...row,
-                    });
-                  }
-
-                  resolve({
-                    data: data,
-                    totalSessions: data.DaysPerWeek * data.Weeks,
-                  });
-                },
-                (error) => {
-                  reject(error);
-                }
-              );
-            } else {
-              // Table does not exist
-              resolve(null);
-            }
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-      },
-      (error) => {
-        reject(error);
-      }
-    );
-  });
+  // return new Promise((resolve, reject) => {
+  //   db.transaction(
+  //     (tx) => {
+  //       const today = new Date();
+  //       today.setHours(0, 0, 0, 0);
+  //       tx.executeSql(
+  //         'SELECT * FROM totalWeight WHERE timestamp >= ?;',
+  //         [today.getTime()],
+  //         (tx, results) => {
+  //           const rows = results.rows;
+  //           const data = [];
+  //           for (let i = 0; i < rows.length; i++) {
+  //             let row = rows.item(i);
+  //             data.push({
+  //               ...row,
+  //               userId: userId,
+  //             });
+  //           }
+  //           resolve(data);
+  //         },
+  //         (error) => {
+  //           reject(error);
+  //         }
+  //       );
+  //     },
+  //     (error) => {
+  //       reject(error);
+  //     }
+  //   );
+  // });
 };
 
 // const currentPalnPercentage = () => {
@@ -486,9 +394,7 @@ export {
   generateHeaderText,
   readWorkoutPercentageData,
   readSavedData,
-  PerformanceRead,
   readWorkoutData,
-  currentPalnPercentage,
   calculateWorkoutPercentage,
   saveUserWeight,
   filterByDates,

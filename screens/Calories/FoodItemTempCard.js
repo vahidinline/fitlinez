@@ -13,6 +13,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import { IconTickCircle, Iconclose } from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
 import approveFoodItem from '../../api/approveFoodItem';
+import FitlinezLoading from '../../components/FitlinezLoading';
 
 // import { IconClose } from '../marketplace/filters/icons';
 const FoodItemCard = ({
@@ -35,11 +36,6 @@ const FoodItemCard = ({
   const [mealId, setMealId] = useState(null);
   const { userLanguage } = useContext(LanguageContext);
   const RTL = userLanguage === 'fa';
-  //console.log('current food in card', current.foodItems[0]?.calories?.amount);
-  //console.log('foodItems in card', foodItems);
-  //console.log('foodId in card', foodId);
-  //console.log('selectedMeal in card', selectedMeal);
-  //console.log('item in card', item);
 
   const handleSendFoodItemReq = async () => {
     setStatus('loading');
@@ -93,9 +89,7 @@ const FoodItemCard = ({
           direction: RTL ? 'rtl' : 'ltr',
         },
       ]}>
-      {status === 'loading' && (
-        <ActivityIndicator size="large" color={theme.colors.white} />
-      )}
+      {status === 'loading' && <Text>ssffs</Text>}
       {/* {status === 'dataLoaded' && ( */}
       <View style={styles.card}>
         <View style={styles.listTitle}>
@@ -250,14 +244,14 @@ const getStyles = (theme) =>
     buttontitle: {
       color: theme.colors.secondary,
       fontSize: 16,
-      fontWeight: 'bold',
+      //  fontWeight: 'bold',
       fontFamily: 'Vazirmatn',
     },
 
     container: {
       flex: 1,
       justifyContent: 'center',
-      padding: 10,
+      padding: 5,
       borderRadius: 10,
       // borderWidth: 0.3,
       // borderColor: theme.colors.border,
@@ -279,7 +273,7 @@ const getStyles = (theme) =>
     },
     listTitle: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       margin: 10,
       borderWidth: 0.2,
       padding: 10,
@@ -288,6 +282,7 @@ const getStyles = (theme) =>
       //top: 10,
       // backgroundColor: theme.colors.grey2,
       fontFamily: 'Vazirmatn',
+      textAlign: 'center',
     },
     list: {
       flexDirection: 'row',
@@ -297,6 +292,7 @@ const getStyles = (theme) =>
       borderBottomColor: theme.colors.border,
       paddingBottom: 2,
       fontFamily: 'Vazirmatn',
+      textAlign: 'center',
     },
     input: {
       height: 40,
@@ -322,7 +318,7 @@ const getStyles = (theme) =>
     itemText: {
       color: theme.colors.white,
       fontSize: 16,
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       fontFamily: 'Vazirmatn',
     },
     itemValue: {
@@ -334,7 +330,10 @@ const getStyles = (theme) =>
     itemTitle: {
       color: theme.colors.warning,
       fontSize: 18,
-      fontWeight: 'bold',
+      textAlign: 'center',
+      justifyContent: 'center',
+
+      // fontWeight: 'bold',
       fontFamily: 'Vazirmatn',
     },
   });

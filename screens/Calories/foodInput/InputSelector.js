@@ -152,7 +152,7 @@ function InputSelector({
           titleStyle={{
             color: theme.colors.primary,
             fontSize: 15,
-            fontWeight: 'bold',
+            //fontWeight: 'bold',
             fontFamily: 'Vazirmatn',
           }}
           title={i18n.t('back')}

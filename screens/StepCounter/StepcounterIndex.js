@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Platform, StyleSheet, Text, View } from 'react-native';
 import { Pedometer } from 'expo-sensors';
 import { useTheme } from '@rneui/themed';
 import LanguageContext from '../../api/langcontext';
@@ -11,6 +11,7 @@ import WeeklyStepChart from './weeklyChart';
 
 export default function StepcounterIndex() {
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
+  console.log('isPedometerAvailable', isPedometerAvailable);
   const [status, setStatus] = useState('idle');
   const [pastStepCount, setPastStepCount] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);
@@ -73,23 +74,38 @@ export default function StepcounterIndex() {
             status !== 'error' ? Dimensions.get('window').height / 2.8 : 100,
         },
       ]}>
-      {isPedometerAvailable === 'true' ? (
-        <View
-          style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <View>
-              <IconWalking color={theme.colors.secondary} size={64} />
+      {Platform.OS === 'ios' ? (
+        <>
+          {isPedometerAvailable === 'true' ? (
+            <View
+              style={{
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View>
+                  <IconWalking color={theme.colors.secondary} size={64} />
+                </View>
+                <View>
+                  <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
+                  <Text style={styles.steps}>
+                    {convertToPersianNumbers(
+                      pastStepCount + currentStepCount,
+                      RTL
+                    )}
+                  </Text>
+                </View>
+              </View>
+              <WeeklyStepChart theme={theme} RTL={RTL} i18n={i18n} />
             </View>
-            <View>
-              <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
-              <Text style={styles.steps}>
-                {convertToPersianNumbers(pastStepCount + currentStepCount, RTL)}
-              </Text>
-            </View>
-          </View>
-          <WeeklyStepChart theme={theme} RTL={RTL} i18n={i18n} />
-        </View>
+          ) : (
+            <Text style={styles.text}>{i18n.t('stepCounterNotAvailable')}</Text>
+          )}
+        </>
       ) : (
         <Text style={styles.text}>{i18n.t('stepCounterNotAvailable')}</Text>
       )}

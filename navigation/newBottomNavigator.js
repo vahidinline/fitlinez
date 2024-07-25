@@ -106,7 +106,7 @@ function TabNavigator() {
             !focused ? (
               <IconWeightScale fill={'#5B5891'} color={'grey'} />
             ) : (
-              <IconWeightScale color={'#5B5891'} fill={'#grey'} />
+              <IconWeightScale color={'#5B5891'} fill={'grey'} />
             ),
         }}
       />

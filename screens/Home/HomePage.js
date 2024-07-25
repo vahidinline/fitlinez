@@ -26,7 +26,7 @@ import HomeTop from './HomeTop';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
 import { syncMessages } from '../../api/notification';
-const db1 = SQLite.openDatabase('packeges.db');
+// const db1 = SQLite.openDatabase('packeges.db');
 
 // trackEvent('Screen View', { name: 'HomePage' });
 
@@ -195,22 +195,6 @@ const HomePage = (props) => {
       onPress: () => handleButtonPress('Advanced'),
     },
   ];
-
-  const readWorkoutData = () => {
-    try {
-      db1.transaction((tx) => {
-        tx.executeSql('SELECT * FROM packeges;', [], (_, result) => {
-          const rows = result.rows._array;
-          rows.forEach((row) => {
-            const dataObject = JSON.parse(row.data);
-            setCurrentPlan(dataObject);
-          });
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     readWorkoutData();

@@ -229,6 +229,7 @@ const getStyles = (theme, RTL) =>
       flex: 1, // Ensures the container takes up the available space
       marginHorizontal: 10,
       marginBottom: 100,
+      marginTop: 10,
     },
     scrollView: {
       flexGrow: 1, // Allows the ScrollView to fill its parent container
@@ -252,7 +253,7 @@ const getStyles = (theme, RTL) =>
     mealName: {
       fontFamily: 'Vazirmatn',
       fontSize: 16,
-      fontWeight: 'bold',
+      //fontWeight: 'bold',
       marginBottom: 10,
       color: '#fff',
       textAlign: 'center',
@@ -261,7 +262,7 @@ const getStyles = (theme, RTL) =>
     noData: {
       fontFamily: 'Vazirmatn',
       fontSize: 16,
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       marginBottom: 10,
       color: theme.colors.warning,
       textAlign: 'center',
@@ -269,7 +270,7 @@ const getStyles = (theme, RTL) =>
     loadingText: {
       fontFamily: 'Vazirmatn',
       fontSize: 20,
-      fontWeight: 'bold',
+      //   fontWeight: 'bold',
       marginBottom: 10,
       color: '#fff',
       textAlign: 'center',
@@ -277,7 +278,7 @@ const getStyles = (theme, RTL) =>
     errorText: {
       fontFamily: 'Vazirmatn',
       fontSize: 20,
-      fontWeight: 'bold',
+      //  fontWeight: 'bold',
       marginBottom: 10,
       color: '#fff',
       textAlign: 'center',
@@ -307,7 +308,7 @@ const getStyles = (theme, RTL) =>
     foodItem: {
       fontFamily: 'Vazirmatn',
       fontSize: 14,
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       marginBottom: 10,
       marginHorizontal: 10,
       color: '#fff',

@@ -9,8 +9,6 @@ import {
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import { Text } from '@rneui/themed';
-
-import * as SQLite from 'expo-sqlite';
 import { StatusBar } from 'expo-status-bar';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
@@ -21,11 +19,9 @@ import { captureRef } from 'react-native-view-shot';
 import * as MediaLibrary from 'expo-media-library';
 import { userWorkoutHistory } from '../../api/workoutSessionTracker';
 import AuthContext from '../../api/context';
-import { G, Polygon, Svg } from 'react-native-svg';
 import { IconFire } from '../marketplace/filters/icons';
 import convertToPersianNumbers from '../../api/PersianNumber';
 
-const db = SQLite.openDatabase('performance.db');
 const CustomReport = () => {
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
@@ -285,7 +281,7 @@ const getStyles = (theme) =>
       color: theme.colors.text,
       fontSize: 18,
       fontFamily: 'Vazirmatn',
-      fontWeight: 'bold',
+      //fontWeight: 'bold',
       textAlign: 'center',
     },
     date: {

@@ -1,4 +1,4 @@
-import { Button, Icon, LinearProgress, Text, useTheme } from '@rneui/themed';
+import { Button, Text, useTheme } from '@rneui/themed';
 import React, { useContext, useEffect } from 'react';
 import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
@@ -15,8 +15,6 @@ import { useState } from 'react';
 import { IconArrowLeft } from '../marketplace/filters/icons-';
 import FitnessLevel from './fitnessLevel';
 import DayPreferences from './DayPreferences';
-import { saveUserWeight } from '../../api/readWorkoutData';
-import * as SQLite from 'expo-sqlite';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LastPageOnboarding from './LastPage';
 import LanguageContext from '../../api/langcontext';
@@ -24,15 +22,12 @@ import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import api from '../../api/api';
 import AuthContext from '../../api/context';
-import { set } from 'lodash';
 import { StatusBar } from 'expo-status-bar';
-const db = SQLite.openDatabase('userBasicData.db');
 
 function IndexOnBoarding() {
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [currentStep, setCurrentStep] = useState(0);
-
   const [beforeSubmit, setBeforeSubmit] = useState(false);
   const navigation = useNavigation();
   const [buttonDisabled, setButtonDisabled] = useState(true);

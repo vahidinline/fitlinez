@@ -15,9 +15,7 @@ import LanguageContext from '../../api/langcontext';
 import { useNavigation } from '@react-navigation/native';
 
 import moment from 'moment/moment';
-import * as SQLite from 'expo-sqlite';
 
-const db0 = SQLite.openDatabase('totalWeight.db');
 function WorkoutList(props) {
   const {
     durationWeeks,
@@ -87,41 +85,6 @@ function WorkoutList(props) {
   const retrieveTimestampsByCategory = (category) => {
     setTimestamp([]);
     // console.log('category in retrieveTimestampsByCategory', category);
-    db0.transaction(
-      (tx) => {
-        tx.executeSql(
-          'SELECT * FROM totalWeight WHERE category = ? ORDER BY timestamp DESC LIMIT 1;',
-          [category],
-          (tx, results) => {
-            const numRows = results.rows.length;
-            if (numRows > 0) {
-              for (let i = 0; i < numRows; i++) {
-                //update setTimestamp array here
-
-                setTimestamp((prev) => [
-                  ...prev,
-                  {
-                    timestamp: results.rows.item(i).timestamp,
-                    category: results.rows.item(i).category,
-                  },
-                ]);
-              }
-            } else {
-              return;
-            }
-          },
-          (tx, error) => {
-            return;
-          }
-        );
-      },
-      (error) => {
-        return;
-      },
-      () => {
-        return;
-      }
-    );
   };
 
   const generateDates = (startDate, durationWeeks, daysPerWeek, taskData) => {

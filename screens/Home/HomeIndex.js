@@ -1,7 +1,8 @@
-import { Skeleton, Text, useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import React, { useCallback, useContext } from 'react';
 import {
   Dimensions,
+  Platform,
   RefreshControl,
   SafeAreaView,
   ScrollView,
@@ -10,7 +11,6 @@ import {
 } from 'react-native';
 import HomeHeader from './homeHeader';
 import { useEffect, useState } from 'react';
-import { currentPalnPercentage } from '../../api/readWorkoutData';
 import { readWorkoutData } from '../../api/readWorkoutData';
 import CurrentWorkoutCard from './CurrentWorkoutCard';
 import { getPackages } from '../../api/GetData';
@@ -24,13 +24,13 @@ import NoWorkoutCard from './noWorkout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { checkUserAccess } from '../../api/checkTestAccess';
 import DailyReport from '../Calories/dailyReport';
-import { Button } from '@rneui/base';
 import FitlinezLoading from '../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
 // import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
 
 import { getNewTasks } from '../../api/getNewTasks';
 import StepcounterIndex from '../StepCounter/StepcounterIndex';
+import { IconWalking } from '../marketplace/filters/icons';
 // import BannerAdMob from '../../api/AdMob/BannerComponent';
 
 function HomeIndex() {
@@ -135,8 +135,7 @@ function HomeIndex() {
 
   useFocusEffect(
     useCallback(() => {
-      setLoading(true), getUserWorkoutData();
-      getData();
+      setLoading(true), getData();
       getPackagesData();
       checkUserPervilage();
       return () => {
@@ -162,11 +161,11 @@ function HomeIndex() {
   }, []);
 
   // console.log('userAuth.id', userAuth.id);
-  const getUserWorkoutData = async () => {
-    currentPalnPercentage().then((data) => {
-      setUserWorkoutData(data);
-    });
-  };
+  // const getUserWorkoutData = async () => {
+  //   currentPalnPercentage().then((data) => {
+  //     setUserWorkoutData(data);
+  //   });
+  // };
 
   const getData = async () => {
     try {
@@ -189,6 +188,7 @@ function HomeIndex() {
     <SafeAreaView>
       <View
         style={{
+          marginTop: Platform.OS === 'ios' ? 0 : 50,
           marginBottom: 0,
           zIndex: 100,
         }}>
@@ -270,7 +270,48 @@ function HomeIndex() {
             colors={['#5B5891', '#3A366F', '#17124a']}
             style={styles.background}
           />
-          <StepcounterIndex />
+          <View
+            style={{
+              borderBottomColor: 'grey',
+              paddingBottom: 5,
+              borderBottomWidth: 1,
+              paddingHorizontal: 10,
+              marginTop: 10,
+            }}>
+            <Text
+              style={{
+                fontSize: 14,
+                fontFamily: 'Vazirmatn',
+                paddingHorizontal: 10,
+                // marginTop: 5,
+                color: 'white',
+                //direction: 'rtl',
+                textAlign: 'center',
+                justifyContent: 'center',
+              }}>
+              {i18n.t('stepcounter')}
+            </Text>
+          </View>
+          {Platform.OS === 'ios' ? (
+            <StepcounterIndex />
+          ) : (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginVertical: 20,
+                height: Dimensions.get('window').height / 4,
+                backgroundColor: theme.colors.grey2,
+              }}>
+              <View>
+                <IconWalking size={72} />
+              </View>
+              <Text style={styles.text}>
+                {i18n.t('stepCounterNotAvailable')}
+              </Text>
+            </View>
+          )}
         </View>
         <Text
           style={{
@@ -316,5 +357,10 @@ const getStyles = (theme) =>
     background: {
       ...StyleSheet.absoluteFillObject,
       borderRadius: 14,
+    },
+    text: {
+      color: theme.colors.white,
+      fontSize: 12,
+      fontFamily: 'Vazirmatn',
     },
   });

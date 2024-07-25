@@ -188,7 +188,7 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
         <Button
           buttonStyle={{
             backgroundColor: theme.colors.secondary,
-            marginBottom: 10,
+            marginBottom: 50,
             borderColor: theme.colors.primary,
             borderWidth: 0.2,
 
@@ -197,8 +197,8 @@ function MealSection({ userId, setStatus, setSelectedMeal, i18n, status }) {
           }}
           titleStyle={{
             color: theme.colors.primary,
-            fontSize: 15,
-            fontWeight: 'bold',
+            fontSize: 14,
+            //  fontWeight: 'bold',
             fontFamily: 'Vazirmatn',
           }}
           title={i18n.t('back')}

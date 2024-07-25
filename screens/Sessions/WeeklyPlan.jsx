@@ -12,7 +12,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { BottomSheet, Button, Divider } from '@rneui/themed';
 import { I18n } from 'i18n-js';
-import * as SQLite from 'expo-sqlite';
 import { useTheme } from '@rneui/themed';
 import RadioButtonfitlinez from '../../components/RadioButtonFitlinez';
 import { SessionContext } from '../../api/sessionContext';
@@ -23,8 +22,6 @@ import DailyWorkloutListComponent from './dailyWorkloutListComponent';
 import { addSession } from '../../api/workoutSessionTracker';
 import AuthContext from '../../api/context';
 import { IconCloseCircle } from '../marketplace/filters/icons-';
-
-const db = SQLite.openDatabase('totalWeight.db');
 
 const ButtonsheetComponent = ({
   isVisible,
@@ -171,37 +168,6 @@ const ButtonsheetComponent = ({
 };
 
 const WeeklyPlan = (props) => {
-  const retrieveAndCalculateSum = () => {
-    db.transaction(
-      (tx) => {
-        tx.executeSql(
-          'SELECT * FROM totalWeight WHERE title = ?;',
-          [title],
-          (tx, results) => {
-            if (results.rows.length > 0) {
-              const title = results.rows.item(0).totalWeightSum;
-              setTotalWeightSum(sum || 0);
-            } else {
-              return 0;
-            }
-          },
-          (tx, error) => {
-            console.log('Error executing SQL query:', error);
-          }
-        );
-      },
-      (error) => {
-        console.log('Transaction error:', error);
-      },
-      () => {
-        console.log('Transaction completed successfully');
-      }
-    );
-  };
-
-  useEffect(() => {
-    retrieveAndCalculateSum();
-  }, []);
   const { setSessionData } = useContext(SessionContext);
   const { userLanguage } = useContext(LanguageContext);
   const { weeklyPlan, dayName, title, baseLocation, planName } =

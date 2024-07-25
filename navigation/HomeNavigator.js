@@ -1,21 +1,14 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import WalkThrough from '../components/walkThrough';
-// import customPlanNavigator from './CustomPlanNavigator';
-// import PlanPlusNavigator from './planPlusNavigator';
-// import UserLevelSelector from '../components/newPlan/UserLevelSelector';
 import TabNavigator from './newBottomNavigator';
 import { ContactStackNavigator } from './AuthNavigator';
-import PackageNavigator from './packageNavigator';
 import TrainersNavigator from './TrainersNavigation';
-import PackagePage from '../components/packeges/package';
 import GetUserData from '../components/userData';
 import Evaluate from '../components/userData/testComponent/evaluate';
 import TestExercise from '../components/userData/testComponent/exercises';
 import CustomReport from '../screens/customReport';
 import MessageCenter from '../screens/message';
-import MarketPlaceIndex from '../screens/marketplace/MarketPlaceIndex';
 import WorkoutListIndex from '../screens/marketplace/ListOfworkouts/WorkoutListIndex';
-import MarketPlaceNavigation from './MarketPlaceNavigation';
 import IndexOnBoarding from '../screens/onBoarding/IndexOnBoarding';
 import PlanItem from '../screens/marketplace/ListOfworkouts/PlanItem';
 import LastPageOnboarding from '../screens/onBoarding/LastPage';
@@ -25,7 +18,6 @@ import PlanDetailsIndex from '../screens/planDetails/planDetailsIndex';
 import SessionNavigator from './SessionNavigator';
 import CaloriesIndex from '../screens/Calories/CaloriesIndex';
 import CustomCalorieReport from '../screens/Calories/customReport';
-import WorkoutNavigator from './WorkoutNavigation';
 
 const Stack = createStackNavigator();
 
@@ -65,22 +57,7 @@ const HomeNavigator = () => {
           },
         }}
       />
-      {/* <Stack.Screen
-        name="PlanPlus"
-        component={PlanPlusNavigator}
-        options={{
-          headerShown: false,
-          gestureEnabled: false,
-          title: 'HPage',
-          headerStyle: {
-            backgroundColor: '#3F3B6C',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      /> */}
+
       <Stack.Screen
         name="WorkoutListIndex"
         component={WorkoutListIndex}
@@ -88,10 +65,6 @@ const HomeNavigator = () => {
           headerShown: false,
         }}
       />
-
-      {/* old plan workout */}
-
-      {/* new plan workout */}
 
       <Stack.Screen
         name="IndexOnBoarding"
@@ -108,13 +81,6 @@ const HomeNavigator = () => {
         }}
       />
 
-      <Stack.Screen
-        name="packageNavigator"
-        component={PackageNavigator}
-        options={{
-          headerShown: false,
-        }}
-      />
       <Stack.Screen
         name="PlanItem"
         component={PlanItem}

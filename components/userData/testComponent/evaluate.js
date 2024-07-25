@@ -5,9 +5,7 @@ import { Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
 import CategoryList from '../../../screens/Home/categoryList';
 import getPackages from '../../../api/getLatestPackage';
 import { useNavigation } from '@react-navigation/native';
-import * as SQLite from 'expo-sqlite';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const db = SQLite.openDatabase('userAbilities.db');
 function Evaluate(props) {
   const { route, message } = props;
   const [oneRM, setOneRM] = useState(null);
@@ -33,14 +31,6 @@ function Evaluate(props) {
   }, []);
 
   useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS userAbilities (id INTEGER PRIMARY KEY NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, data TEXT);'
-      );
-    });
-  }, []);
-
-  useEffect(() => {
     //removeDB();
     if (buttonIndex === 1) {
       navigation.navigate('packageNavigator');
@@ -51,28 +41,6 @@ function Evaluate(props) {
       });
     }
   }, [buttonIndex]);
-
-  const removeDB = () =>
-    db.transaction((tx) => {
-      tx.executeSql('DROP TABLE userAbilities');
-      console.log('table dropped');
-    });
-
-  // const readData = () => {
-  //   db.transaction((tx) => {
-  //     tx.executeSql('SELECT * FROM userAbilities', [], (_, { rows }) => {
-  //       const lastEntry = rows._array[rows._array.length - 1];
-  //       const rawData = lastEntry.data;
-  //       const keyValuePairs = rawData
-  //         .split(';')
-  //         .map((pair) => pair.trim().split(' = '));
-  //       const parsedData = Object.fromEntries(keyValuePairs);
-  //       const oneRMValue = parsedData['"Body Weight Squat 1RM"'];
-
-  //       setOneRM(oneRMValue);
-  //     });
-  //   });
-  // };
 
   useEffect(() => {
     if (userScore <= 6.5) {

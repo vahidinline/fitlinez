@@ -13,7 +13,7 @@ import { Dimensions, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '@rneui/themed';
 import { material } from './theme';
-const db = SQLite.openDatabase('userWeight.db'); // Open or create the database
+//const db = SQLite.openDatabase('userWeight.db'); // Open or create the database
 
 const LineChartWeight = () => {
   const navigation = useNavigation();
@@ -27,13 +27,13 @@ const LineChartWeight = () => {
     { x: 'Oct 30', y: 70 },
   ]);
 
-  useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS userWeight (id INTEGER PRIMARY KEY NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, weight NUMBER);'
-      );
-    });
-  }, []);
+  // useEffect(() => {
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       'CREATE TABLE IF NOT EXISTS userWeight (id INTEGER PRIMARY KEY NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, weight NUMBER);'
+  //     );
+  //   });
+  // }, []);
 
   useEffect(() => {
     //drop table
@@ -43,36 +43,36 @@ const LineChartWeight = () => {
     // });
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        db.transaction(async (tx) => {
-          await tx.executeSql('SELECT * FROM userWeight', [], (_, results) => {
-            let temp = [];
-            for (let i = 0; i < results.rows.length; ++i) {
-              const row = results.rows.item(i);
-              const formattedDate = new Date(row.timestamp).toLocaleDateString(
-                'en-US',
-                {
-                  month: 'short',
-                  day: 'numeric',
-                }
-              );
-              temp.push({
-                y: row.weight,
-                x: formattedDate,
-              });
-            }
-            setData(temp);
-          });
-        });
-      } catch (err) {
-        console.error('Database error:', err);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       db.transaction(async (tx) => {
+  //         await tx.executeSql('SELECT * FROM userWeight', [], (_, results) => {
+  //           let temp = [];
+  //           for (let i = 0; i < results.rows.length; ++i) {
+  //             const row = results.rows.item(i);
+  //             const formattedDate = new Date(row.timestamp).toLocaleDateString(
+  //               'en-US',
+  //               {
+  //                 month: 'short',
+  //                 day: 'numeric',
+  //               }
+  //             );
+  //             temp.push({
+  //               y: row.weight,
+  //               x: formattedDate,
+  //             });
+  //           }
+  //           setData(temp);
+  //         });
+  //       });
+  //     } catch (err) {
+  //       console.error('Database error:', err);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const fill = theme.colors.secondary;
 

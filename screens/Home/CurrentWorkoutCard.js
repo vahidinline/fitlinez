@@ -60,31 +60,57 @@ function CurrentWorkoutCard({
       />
       <View
         style={{
-          direction: RTL ? 'rtl' : 'ltr',
-          flexDirection: 'row',
-          // justifyContent: 'space-between',
-          alignItems: 'center',
-          marginHorizontal: 10,
+          // flexDirection: 'row',
+          //  justifyContent: 'space-between',
+          // alignItems: 'center',
+          paddingHorizontal: 10,
           marginTop: 10,
+          borderBottomColor: 'grey',
+          paddingBottom: 5,
+          borderBottomWidth: 1,
         }}>
-        {title && (
+        {title ? (
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              textAlign: 'center',
+            }}
+            onPress={() => {
+              navigation.navigate('WorkoutListIndex');
+            }}>
+            <Text
+              style={{
+                fontSize: 14,
+                fontFamily: 'Vazirmatn',
+                marginHorizontal: 10,
+                marginTop: 5,
+                color: 'white',
+                //direction: 'rtl',
+                textAlign: 'right',
+                justifyContent: 'center',
+              }}>
+              {i18n.t('yourWorkoutPlan')} : {title}
+            </Text>
+            <IconEdit color={theme.colors.white} size={24} />
+          </TouchableOpacity>
+        ) : (
           <Text
             style={{
-              fontSize: 12,
+              fontSize: 14,
               fontFamily: 'Vazirmatn',
               marginHorizontal: 10,
-              marginTop: 5,
+              marginTop: 0,
               color: 'white',
+              //direction: 'rtl',
+              textAlign: 'right',
+              justifyContent: 'center',
+              textAlign: 'center',
             }}>
-            {i18n.t('yourWorkoutPlan')} : {title}
+            {i18n.t('title')}
           </Text>
         )}
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('WorkoutListIndex');
-          }}>
-          <IconEdit color={theme.colors.white} size={24} />
-        </TouchableOpacity>
       </View>
       <View
         style={{

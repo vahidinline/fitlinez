@@ -9,12 +9,7 @@ import {
 } from 'react-native';
 import MealSection from './MealSection';
 import TempfoodItems from './TempfoodItems';
-import {
-  IconArrowDown,
-  IconArrowLeft,
-  IconMenu,
-  IconWarning,
-} from '../marketplace/filters/icons';
+import { IconArrowUp, IconWarning } from '../marketplace/filters/icons';
 import DailyReport from './dailyReport';
 import InputSelector from './foodInput/InputSelector';
 import AuthContext from '../../api/context';
@@ -47,7 +42,7 @@ function CaloriesIndex() {
   const RTL = userLanguage === 'fa';
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, backgroundColor: theme.colors.secondary }}>
         <ScrollView>
           {/* <View
@@ -84,13 +79,13 @@ function CaloriesIndex() {
             <View
               style={{
                 flex: 1,
-                top: Dimensions.get('window').height / 2,
+                top: Dimensions.get('window').height / 4,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
               <ActivityIndicator
                 animating={true}
-                color={theme.colors.primary}
+                color={theme.colors.warning}
                 size="large"
               />
             </View>
@@ -108,7 +103,7 @@ function CaloriesIndex() {
             //right: 10,
             bottom: 1,
             zIndex: 10,
-            height: 60,
+            height: 40,
             width: Dimensions.get('window').width / 1,
             backgroundColor: theme.colors.primary,
             borderTopLeftRadius: 10,
@@ -117,7 +112,7 @@ function CaloriesIndex() {
             alignItems: 'center',
           }}>
           <TouchableOpacity onPress={() => setStatus('idle')}>
-            <IconArrowDown color={theme.colors.secondary} size={30} />
+            <IconArrowUp color={theme.colors.secondary} size={30} />
           </TouchableOpacity>
         </View>
         {status === 'idle' && (
@@ -153,7 +148,7 @@ function CaloriesIndex() {
             style={{
               textAlign: 'center',
               fontSize: 16,
-              fontWeight: 'bold',
+              //  fontWeight: 'bold',
               color: theme.colors.primary,
               margin: 20,
               marginBottom: 10,
@@ -220,7 +215,7 @@ function CaloriesIndex() {
               titleStyle={{
                 color: theme.colors.primary,
                 fontSize: 15,
-                fontWeight: 'bold',
+                // fontWeight: 'bold',
                 fontFamily: 'Vazirmatn',
               }}
               title={i18n.t('retry')}
@@ -238,7 +233,7 @@ function CaloriesIndex() {
           />
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

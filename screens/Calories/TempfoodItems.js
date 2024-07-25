@@ -6,7 +6,7 @@ import { Button } from '@rneui/base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
-  console.log('TempfoodItems -> foodItems', foodItems);
+  // console.log('TempfoodItems -> foodItems', foodItems);
   // Initialize state with an empty array
   const [items, setItems] = useState(foodItems.data);
   const [selectedItem, setSelectedItem] = useState();
@@ -25,12 +25,12 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
   };
 
   const handleDeleteItem = (index) => {
-    console.log('Before deletion:', items);
-    console.log('Index to delete:', index);
+    // console.log('Before deletion:', items);
+    // console.log('Index to delete:', index);
 
     const newItems = items.filter((_, i) => i !== index); // More functional approach to filtering
 
-    console.log('After deletion:', newItems);
+    // console.log('After deletion:', newItems);
 
     setItems(newItems);
   };
@@ -69,7 +69,7 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
           {/* ))} */}
         </View>
       </ScrollView>
-      <View>
+      {/* <View>
         <Button
           buttonStyle={{
             backgroundColor: theme.colors.secondary,
@@ -89,7 +89,7 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
           title={i18n.t('back')}
           onPress={() => handleEndSession()}
         />
-      </View>
+      </View> */}
     </View>
   );
 }

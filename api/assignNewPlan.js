@@ -1,6 +1,4 @@
 import { getPlanUsage, updateWorkoutPlan } from './GetData';
-import * as SQLite from 'expo-sqlite';
-const db = SQLite.openDatabase('packeges.db');
 const savePackages = (item, userId, navigation) => {
   const addedDateTime = new Date().toISOString();
   const packageId = item._id;
@@ -11,9 +9,6 @@ const savePackages = (item, userId, navigation) => {
   try {
     const jsonString = JSON.stringify({ item, addedDateTime });
     getPlanUsage({ packageId, userId });
-    db.transaction((tx) => {
-      tx.executeSql('INSERT INTO packeges (data) VALUES (?);', [jsonString]);
-    });
 
     console.log('new package saved');
     navigation.reset({

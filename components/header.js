@@ -1,7 +1,13 @@
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext } from 'react';
-import { Dimensions, Touchable, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  Platform,
+  Touchable,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Button, Icon, Text } from '@rneui/themed';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@rneui/themed';

@@ -17,7 +17,6 @@ import AuthContext from '../../api/context';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
-import { IconArrowRight, IconEdit } from '../marketplace/filters/icons';
 import Header from '../../components/header';
 import { userLevelCheck, userStatusCheck } from '../../api/GetData';
 import { readWorkoutData } from '../../api/readWorkoutData';
@@ -25,9 +24,6 @@ import DaySelectionModal from '../../components/ChangeWorkoutDay/ChangeWorkoutDa
 
 require('moment/locale/fa');
 require('moment/locale/en-gb');
-
-const db0 = SQLite.openDatabase('totalWeight.db');
-const db1 = SQLite.openDatabase('packeges.db');
 
 const StartSessionIndex = () => {
   const { theme } = useTheme();
@@ -135,7 +131,7 @@ const StartSessionIndex = () => {
     { id: 6, nameT: 'پنجشنبه', name: 'Thursday' },
     { id: 7, nameT: 'جمعه', name: 'Friday' },
   ];
-  const selectedDays = workoutPlan.map((workout) => workout.dayName);
+  const selectedDays = workoutPlan?.map((workout) => workout.dayName);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>

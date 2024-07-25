@@ -24,8 +24,6 @@ import { updateWorkoutPlan } from '../../../api/GetData';
 import Header from '../../../components/header';
 import { savePackages } from '../../../api/assignNewPlan';
 
-const db = SQLite.openDatabase('packeges.db'); // Open or create the database
-
 const SingleItem = ({ title, sub, icon }) => {
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -102,32 +100,6 @@ function PlanItem({ route }) {
     'days'
   );
   const addedDateTime = new Date().toISOString();
-
-  // const savePackages = () => {
-  //   try {
-  //     const jsonString = JSON.stringify({ item, addedDateTime });
-  //     updateWorkoutPlan(item, addedDateTime, userId);
-  //     db.transaction((tx) => {
-  //       tx.executeSql('INSERT INTO packeges (data) VALUES (?);', [jsonString]);
-  //     });
-
-  //     console.log('new package saved');
-  //     navigation.reset({
-  //       index: 0,
-  //       routes: [{ name: 'Home' }],
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS packeges (id INTEGER PRIMARY KEY NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, data TEXT);'
-      );
-    });
-  }, []);
 
   const categorizedData = (Array.isArray(data) ? data : []).reduce(
     (acc, item) => {

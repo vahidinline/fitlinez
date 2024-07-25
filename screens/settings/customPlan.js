@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import LanguageContext from '../../api/langcontext';
 import { useContext } from 'react';
 import { I18n } from 'i18n-js';
-import { List } from 'react-native-paper';
 import AuthContext from '../../api/context';
 import i18nt from '../../locales';
 import Header from '../../components/header';
@@ -14,8 +13,6 @@ import RadioButtonfitlinez from '../../components/RadioButtonFitlinez';
 import api from '../../api/api';
 import { useEffect } from 'react';
 import { updateWorkoutPlan } from '../../api/GetData';
-import * as SQLite from 'expo-sqlite';
-const db = SQLite.openDatabase('packeges.db'); // Open or create the database
 
 function CustomPlan() {
   const key = 'fitlinez-session';
@@ -48,9 +45,6 @@ function CustomPlan() {
     try {
       const jsonString = JSON.stringify({ item, addedDateTime });
       updateWorkoutPlan(item, addedDateTime, userId);
-      db.transaction((tx) => {
-        tx.executeSql('INSERT INTO packeges (data) VALUES (?);', [jsonString]);
-      });
 
       console.log('new package saved');
       navigation.reset({

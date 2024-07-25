@@ -79,17 +79,17 @@ const FinishSession = (props) => {
   const styles = getStyle(theme, PixelRatio);
   const numericCompletionPercentage = parseFloat(completionPercentage);
 
-  const getUserWorkoutData = async () => {
-    try {
-      const data = await currentPalnPercentage();
-      setUserWorkoutData(data);
-      // console.log('data line 81', data);
-    } catch (error) {}
-  };
+  // const getUserWorkoutData = async () => {
+  //   try {
+  //     const data = await currentPalnPercentage();
+  //     setUserWorkoutData(data);
+  //     // console.log('data line 81', data);
+  //   } catch (error) {}
+  // };
 
-  useEffect(() => {
-    getUserWorkoutData();
-  }, []);
+  // useEffect(() => {
+  //   getUserWorkoutData();
+  // }, []);
 
   const getData = async () => {
     // console.log('inside get data');

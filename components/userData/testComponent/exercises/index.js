@@ -5,27 +5,16 @@ import Dip from '../../../../assets/videos/Dip.mp4';
 import PushUp from '../../../../assets/videos/PushUp.mp4';
 import Circle from '../../../../assets/videos/CirclesElbowShoulders.mp4';
 import Cat from '../../../../assets/videos/CatStretch.mp4';
-import { Dimensions, ScrollView, View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { Icon, Text, useTheme } from '@rneui/themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import AppDisclaimer from '../../../../screens/AppDisclaimer';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
 import AuthContext from '../../../../api/context';
-import Evaluate from '../evaluate';
 import evaluateUserAbility from '../../../../api/oneRmEva';
-import * as SQLite from 'expo-sqlite';
 import api from '../../../../api/api';
-const db = SQLite.openDatabase('userAbilities.db');
 
 function TestExercise({ route }) {
-  useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS userAbilities (id INTEGER PRIMARY KEY NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, data TEXT);'
-      );
-    });
-  }, []);
   //get params
   const { assessmentId, userScore, gender, weight } = route.params;
   const [currentScreen, setCurrentScreen] = useState(0);
@@ -63,11 +52,11 @@ function TestExercise({ route }) {
           weight
         );
 
-        db.transaction((tx) => {
-          tx.executeSql('INSERT INTO userAbilities (data) VALUES (?);', [
-            evaluation,
-          ]);
-        });
+        // db.transaction((tx) => {
+        //   tx.executeSql('INSERT INTO userAbilities (data) VALUES (?);', [
+        //     evaluation,
+        //   ]);
+        // });
 
         api
           .put(`/userdata/firstassessment/${assessmentId}`, evaluation)

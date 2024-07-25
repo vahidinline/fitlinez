@@ -65,7 +65,7 @@ function FoodTextInput({
         // styles.footerContainer,
         {
           bottom:
-            typeStatus === 'focused' ? Dimensions.get('window').height / 3 : 0,
+            typeStatus === 'focused' ? Dimensions.get('window').height / 4 : 0,
         },
       ]}>
       {/* <Pressable

@@ -1,13 +1,9 @@
 import { Badge, Text, useTheme, Button } from '@rneui/themed';
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, TouchableOpacity, FlatList } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import Header from '../../components/header';
-import api from '../../api/api';
-import * as SQLite from 'expo-sqlite';
-const db = SQLite.openDatabase('messages.db');
-import { Modal, Image } from 'react-native';
+import { Modal } from 'react-native';
 import moment from 'moment';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
@@ -15,8 +11,6 @@ import LanguageContext from '../../api/langcontext';
 import { useContext } from 'react';
 import MsgContext from '../../api/messageContext';
 import {
-  fetchMessages,
-  deleteTable,
   markMessageAsRead,
   markMessageAsDeleted,
 } from '../../api/notification';
@@ -30,7 +24,6 @@ function MessageCenter() {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const { msg, setMsg } = useContext(MsgContext);
 
-  const [unreadMsgCount, setUnreadMsgCount] = useState(0);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [deletedMsg, setDeletedMsg] = useState(false);

@@ -70,10 +70,10 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
         <Text
           style={{
             //color: theme.colors.text,
-            fontSize: 17,
-            fontWeight: '700',
+            fontSize: 16,
+
             marginHorizontal: 15,
-            // marginVertical: 5,
+            marginBottom: 5,
             color: theme.colors.primary,
             fontFamily: 'Vazirmatn',
             textAlign: 'center',

@@ -14,58 +14,13 @@ import { DataPicker, NumPicker } from './picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthContext from '../../api/context';
 import TestExercise from './testComponent/exercises/';
-import * as SQLite from 'expo-sqlite';
 import UserImagePicker from './userImage';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import api from '../../api/api';
-// const db = SQLite.openDatabase('userWeight.db'); // Open or create the database
-const userDb = SQLite.openDatabase('user.db'); // Open or create the database
 
 const GetUserData = () => {
-  useEffect(() => {
-    // db.transaction((tx) => {
-    //   tx.executeSql(
-    //     'CREATE TABLE IF NOT EXISTS userWeight (id INTEGER PRIMARY KEY NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, weight NUMBER);'
-    //   );
-    // });
-    userDb.transaction((tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS userData (id INTEGER PRIMARY KEY NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, name TEXT, age NUMBER, height NUMBER, gender TEXT, targetWeight NUMBER,  weight NUMBER, unit TEXT,mainGoal TEXT,preferedLocation TEXT,level TEXT,dayPrefered TEXT);'
-      );
-    });
-  }, []);
-
-  const saveUserWeight = (data) => {
-    userDb.transaction(
-      (tx) => {
-        tx.executeSql(
-          'INSERT INTO user (name, age, height, gender, targetWeight, level, goal, weight) VALUES (?, ?, ?, ?, ?, ?, ?, ?);',
-          [
-            data.name,
-            data.age,
-            data.height,
-            data.gender,
-            data.targetWeight,
-            data.level,
-            data.goal,
-
-            data.weight,
-          ],
-          () => {
-            console.log('Data successfully inserted into userDB');
-          },
-          (error) => {
-            console.log('Error inserting data into userDB', error);
-          }
-        );
-      },
-      (error) => {
-        console.log('Transaction error:', error);
-      }
-    );
-  };
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
@@ -95,31 +50,6 @@ const GetUserData = () => {
       setCurrentScreen(currentScreen + 1);
     }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      userDb.transaction(async (tx) => {
-        await tx.executeSql('SELECT * FROM user', [], (_, results) => {
-          let temp = [];
-          for (let i = 0; i < results.rows.length; ++i) {
-            const row = results.rows.item(i);
-            //add value to state
-            setName(row.name);
-            setAge(row.age);
-            setWeight(row.weight);
-            setGender(row.gender);
-            setSelectedIndex(gender === 'female' ? 0 : 1);
-            setHeight(row.height);
-            setGoal(row.goal);
-            setLevel(row.level);
-            setTargetWeight(row.targetWeight);
-          }
-        });
-      });
-    };
-
-    fetchData();
-  }, []);
 
   useEffect(() => {
     if (gender === '') {
