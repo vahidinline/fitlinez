@@ -23,6 +23,7 @@ import DrawerList from './listPage/drawer';
 import SessionTimer from '../../components/timer/sessionTimer';
 import { IconArrowRight } from '../marketplace/filters/icons-';
 import { IconCloseCircle } from '../marketplace/filters/icons';
+import AdModal from '../../components/AdModal/AdModalIndex';
 
 const { width, height } = Dimensions.get('window');
 
@@ -50,7 +51,7 @@ const SessionMainPage = (props) => {
   const ITEM_HEIGHT = Dimensions.get('window').height;
   const ITEM_WEIGHT = Dimensions.get('window').width;
   const [alertVisible, setAlertVisible] = useState(false);
-
+  const RTL = userLanguage === 'fa';
   const style = {
     textAlign: 'center',
     alignItems: 'center',
@@ -232,8 +233,26 @@ const SessionMainPage = (props) => {
     index,
   });
 
+  const closeSession = async () => {
+    console.log('closing session');
+    const sessionId = await AsyncStorage.getItem('sessionId');
+    const res = await updateSession({
+      sessionId,
+      status: 'uncompleted',
+    });
+    if (res) {
+      console.log('session closed');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
+    }
+  };
+
   const handleCloseSession = async () => {
     setAlertVisible(true);
+    console.log('close session', alertVisible);
+
     // Alert.alert(
     //   i18n.t('closeSession'),
     //   i18n.t('closeSessionMessage'),
@@ -261,6 +280,7 @@ const SessionMainPage = (props) => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
+
             width: Dimensions.get('window').width / 1.1,
             height: 50,
             backgroundColor: theme.colors.background,
@@ -270,7 +290,11 @@ const SessionMainPage = (props) => {
             borderRadius: 16,
             margin: 15,
           }}>
-          <TouchableOpacity onPress={() => handleCloseSession()}>
+          <TouchableOpacity
+            style={{
+              width: '30%',
+            }}
+            onPress={() => handleCloseSession()}>
             {/* <IconInfo /> */}
             <IconCloseCircle
               color={theme.colors.secondary}
@@ -282,10 +306,13 @@ const SessionMainPage = (props) => {
             saveTimer={saveTimer}
             setSaveTimer={setSaveTimer}
             stoptimer={stoptimer}
+            RTL={RTL}
           />
           <TouchableOpacity
             style={{
               flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
             onPress={() => setFinish(true)}>
             <Text
@@ -293,7 +320,6 @@ const SessionMainPage = (props) => {
                 color: theme.colors.secondary,
                 fontWeight: '400',
                 fontSize: 16,
-                top: 2,
                 marginLeft: 10,
                 fontFamily: 'Vazirmatn',
               }}>
@@ -396,10 +422,20 @@ const SessionMainPage = (props) => {
             sortedData={sortedData}
             userLanguage={userLanguage}
             goToIndex={goToIndex}
+            RTL={RTL}
             //index={index}
             //img={gifUrl}
           />
         </View>
+        {alertVisible && (
+          <AdModal
+            visible={alertVisible}
+            title={i18n.t('closeSession')}
+            message={i18n.t('closeSessionMessage')}
+            onConfirm={closeSession}
+            onCancel={() => setAlertVisible(false)}
+          />
+        )}
         <BottomSheet isVisible={finish}>
           <View
             style={{

@@ -4,9 +4,11 @@ import { Icon } from '@rneui/themed';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
 import { useTheme } from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const SessionTimer = ({ stoptimer, saveTimer, setSaveTimer }) => {
+import convertToPersianNumbers from '../../api/PersianNumber';
+const SessionTimer = ({ stoptimer, saveTimer, setSaveTimer, RTL }) => {
   const [timeSpentLocal, setTimeSpentLocal] = useState(0);
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
+
   const { theme } = useTheme();
   useEffect(() => {
     const startTime = new Date().getTime();
@@ -62,7 +64,13 @@ const SessionTimer = ({ stoptimer, saveTimer, setSaveTimer }) => {
     const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
     const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
 
-    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+    return `${convertToPersianNumbers(
+      formattedHours,
+      RTL
+    )}:${convertToPersianNumbers(
+      formattedMinutes,
+      RTL
+    )}:${convertToPersianNumbers(formattedSeconds, RTL)}`;
   };
 
   return (
@@ -70,19 +78,20 @@ const SessionTimer = ({ stoptimer, saveTimer, setSaveTimer }) => {
       style={{
         flexDirection: 'row',
       }}>
-      <Icon
+      {/* <Icon
         name="timer"
         type="material"
         color={theme.colors.secondary}
         size={15}
         style={{ marginTop: 5 }}
-      />
+      /> */}
       <Text
         style={{
           textAlign: 'center',
           margin: 5,
           color: theme.colors.secondary,
-          fontSize: 15,
+          fontSize: 18,
+          fontFamily: 'Vazirmatn',
         }}>
         {formatTime(timeSpentLocal)}
       </Text>

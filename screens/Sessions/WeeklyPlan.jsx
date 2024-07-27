@@ -22,6 +22,7 @@ import DailyWorkloutListComponent from './dailyWorkloutListComponent';
 import { addSession } from '../../api/workoutSessionTracker';
 import AuthContext from '../../api/context';
 import { IconCloseCircle } from '../marketplace/filters/icons-';
+import convertToPersianNumbers from '../../api/PersianNumber';
 
 const ButtonsheetComponent = ({
   isVisible,
@@ -306,7 +307,7 @@ const WeeklyPlan = (props) => {
               marginHorizontal: 20,
               fontFamily: 'Vazirmatn',
             }}>
-            {estimatedTime} {i18n.t('minute')}
+            {convertToPersianNumbers(estimatedTime, isRTL)} {i18n.t('minute')}
           </Text>
         </View>
         <View
@@ -361,7 +362,9 @@ const WeeklyPlan = (props) => {
           data={sortedData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => {
-            return <DailyWorkloutListComponent item={item} i={index} />;
+            return (
+              <DailyWorkloutListComponent item={item} i={index} RTL={isRTL} />
+            );
           }}
         />
         <Button

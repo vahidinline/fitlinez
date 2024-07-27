@@ -10,10 +10,17 @@ import {
   Image,
 } from 'react-native';
 import { Divider } from '@rneui/base';
+import convertToPersianNumbers from '../../../api/PersianNumber';
 
 const screenWidth = Dimensions.get('window').width;
 
-function DrawerList({ sortedData, index: exerciseId, sessionData, goToIndex }) {
+function DrawerList({
+  sortedData,
+  index: exerciseId,
+  sessionData,
+  goToIndex,
+  RTL,
+}) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [status, setStatus] = useState('idle');
@@ -57,7 +64,9 @@ function DrawerList({ sortedData, index: exerciseId, sessionData, goToIndex }) {
                 onPress={() => handlePress(index)}>
                 <View style={styles.listItem}>
                   <View style={styles.textContainer}>
-                    <Text style={styles.index}>{index + 1}</Text>
+                    <Text style={styles.index}>
+                      {convertToPersianNumbers(index + 1, RTL)}
+                    </Text>
 
                     <Image
                       source={{ uri: item.gifUrl }}
@@ -79,16 +88,12 @@ const getStyles = (theme) =>
   StyleSheet.create({
     container: {
       backgroundColor: theme.colors.white,
-      //  flex: 0.2,
       position: 'absolute',
-      //borderTopEndRadius: 0,
-      // borderTopStartRadius: 0,
       borderRadius: 12,
       top: 19,
       width: Dimensions.get('window').width / 8,
       height: Dimensions.get('window').height / 3,
       zIndex: 1000,
-      // borderTopWidth: 0,
       borderWidth: 1,
 
       borderColor: theme.colors.border,

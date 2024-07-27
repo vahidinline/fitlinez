@@ -7,6 +7,7 @@ import InputSpinner from 'react-native-input-spinner';
 import { useTheme } from '@rneui/themed';
 import LanguageContext from '../../../../api/langcontext';
 import i18nt from '../../../../locales';
+import convertToPersianNumbers from '../../../../api/PersianNumber';
 
 function WeightAndSetsInput(props) {
   const {
@@ -27,7 +28,7 @@ function WeightAndSetsInput(props) {
   const [setDone, setSetDone] = useState(false);
   const i18n = new I18n(i18nt);
   const timestamp = new Date().toISOString();
-
+  const RTL = userLanguage === 'fa';
   const [sessionDone, setSessionDone] = useState(false);
 
   useEffect(() => {
@@ -187,9 +188,10 @@ const getStyles = (theme) =>
       backgroundColor: '#fff',
       height: 30,
       top: 0,
-      left: 0,
+      left: 3,
       backgroundColor: theme.colors.background,
       color: 'gray',
+      fontFamily: 'Vazirmatn',
     },
     button: {
       backgroundColor: '#fff',

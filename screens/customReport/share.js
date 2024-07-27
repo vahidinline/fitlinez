@@ -4,7 +4,6 @@ import { View, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 import { I18n } from 'i18n-js';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
-import { useNavigation } from '@react-navigation/native';
 import * as MediaLibrary from 'expo-media-library';
 import { captureRef } from 'react-native-view-shot';
 import * as ImagePicker from 'expo-image-picker';
@@ -12,17 +11,16 @@ import { Text, useTheme } from '@rneui/themed';
 import { Divider } from 'react-native-paper';
 
 import {
-  Iconclose,
+  IconArrowLeft,
+  IconFire,
   IconImage,
   IconLogo,
   Iconshare,
   IxonArrow3,
 } from '../marketplace/filters/icons';
-
 import { TouchableOpacity } from 'react-native';
-import AuthContext from '../../api/context';
-import moment from 'moment';
 import convertToPersianNumbers from '../../api/PersianNumber';
+import moment from 'moment';
 
 const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
   const [open, setOpen] = useState(false);
@@ -102,11 +100,26 @@ const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
       }}
       collapsable={false}>
       <TouchableOpacity
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          // justifyContent: 'center',
+          marginVertical: 10,
+        }}
         onPress={() => {
           setShareStatus('idle');
         }}>
-        <Iconclose />
+        <IconArrowLeft color={theme.colors.secondary} />
+        <Text
+          style={{
+            fontFamily: 'Vazirmatn',
+            fontSize: 18,
+            color: theme.colors.secondary,
+          }}>
+          {i18n.t('back')}
+        </Text>
       </TouchableOpacity>
+
       <View
         style={{
           borderRadius: 16,
@@ -129,22 +142,13 @@ const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
             width: Dimensions.get('window').width,
             height: Dimensions.get('window').height / 1.9,
           }}>
-          <View style={!cardPosition ? styles.topCard : styles.bottomCard}>
-            <View
-              style={{
-                marginLeft: 20,
-                marginHorizontal: 20,
-                justifyContent: 'center',
-                alignItems: 'center',
-                alignSelf: 'center',
-                // marginTop: 20,
-                zIndex: 100,
-              }}>
-              <IconLogo
-                width={Dimensions.get('window').width / 3}
-                height={Dimensions.get('window').height / 5}
-              />
-            </View>
+          <View
+            style={[
+              styles.topCard,
+              cardPosition
+                ? { top: 0 }
+                : { top: Dimensions.get('window').height / 3 },
+            ]}>
             <View
               style={{
                 flexDirection: 'column',
@@ -155,20 +159,22 @@ const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
                 borderRadius: 16,
               }}>
               <View style={styles.view}>
-                <Text style={styles.title}>من با ورزش قدرتی فیتلایز </Text>
+                <Text style={styles.title}>من با ورزش قدرتی فیتلایز</Text>
                 <Text style={styles.title}>
-                  {/* {convertToPersianNumbers(
+                  تو{' '}
+                  {convertToPersianNumbers(
                     moment(item.sessionEndDate).diff(
                       moment(item.sessionStartDate),
                       'minutes'
-                    )
-                  )}{' '} */}
-                  {/* دقیقه ورزش،{' '} */}
-                  {convertToPersianNumbers(
-                    item.burnedCalories.toFixed(0),
+                    ),
                     RTL
                   )}{' '}
+                  دقیقه ورزش،{' '}
+                </Text>
+                <Text style={styles.title}>
+                  {convertToPersianNumbers(item.burnedCalories.toFixed(0), RTL)}{' '}
                   کالری سوزوندم!
+                  <IconFire size={32} />
                 </Text>
               </View>
             </View>
@@ -189,7 +195,7 @@ const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
               pickImage();
             }}>
             <IconImage />
-            <Text style={styles.subtitle}>1- {i18n.t('selectPhoto')}</Text>
+            <Text style={styles.subtitle}>{i18n.t('selectPhoto')}</Text>
           </TouchableOpacity>
           <Divider style={styles.buttondivider} />
           <TouchableOpacity
@@ -198,7 +204,7 @@ const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
               setCardPosition(!cardPosition);
             }}>
             <IxonArrow3 />
-            <Text style={styles.subtitle}>2- {i18n.t('updown')}</Text>
+            <Text style={styles.subtitle}> {i18n.t('updown')}</Text>
           </TouchableOpacity>
           <Divider style={styles.buttondivider} />
           <TouchableOpacity
@@ -207,7 +213,7 @@ const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
               onSaveImageAsync();
             }}>
             <Iconshare />
-            <Text style={styles.subtitle}>3- {i18n.t('share')}</Text>
+            <Text style={styles.subtitle}>{i18n.t('share')}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -215,7 +221,7 @@ const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
   );
 };
 
-const getStyle = (theme) =>
+const getStyle = (theme, cardPosition) =>
   StyleSheet.create({
     buttonContainer: {
       //position: 'absolute',
@@ -241,12 +247,14 @@ const getStyle = (theme) =>
       backgroundColor: theme.colors.border,
     },
     view: {
-      // height: 150,
-      //borderEndWidth: 1,
-      // width: Dimensions.get('window').width / 2 - 30,
-      // justifyContent: 'space-between',
-      //alignItems: 'center',
-
+      height: 150,
+      borderEndWidth: 1,
+      width: Dimensions.get('window').width / 1 - 30,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: theme.colors.background,
+      borderRadius: 16,
+      opacity: 0.8,
       padding: 5,
       marginHorizontal: 10,
       //marginVertical: 10,
@@ -322,21 +330,6 @@ const getStyle = (theme) =>
       marginVertical: 10,
       borderColor: theme.colors.border,
       //borderWidth: 1,
-    },
-    bottomCard: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      flexDirection: 'column',
-      borderRadius: 16,
-      width: '95%',
-      height: '60%',
-      marginHorizontal: 10,
-      //  backgroundColor: '#D4D4D480',
-      //marginRight: 25,
-      marginVertical: 10,
-      borderColor: theme.colors.border,
-      // borderWidth: 1,
     },
   });
 

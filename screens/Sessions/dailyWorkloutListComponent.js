@@ -1,8 +1,9 @@
 import { Text, useTheme } from '@rneui/themed';
 import React from 'react';
 import { Dimensions, View } from 'react-native';
+import convertToPersianNumbers from '../../api/PersianNumber';
 
-function DailyWorkloutListComponent({ item, i }) {
+function DailyWorkloutListComponent({ item, i, RTL }) {
   const { theme } = useTheme();
   return (
     <View
@@ -38,7 +39,7 @@ function DailyWorkloutListComponent({ item, i }) {
             fontFamily: 'Vazirmatn',
             //padding: 10,
           }}>
-          {i + 1}
+          {convertToPersianNumbers(i + 1, RTL)}
         </Text>
       </View>
       <View

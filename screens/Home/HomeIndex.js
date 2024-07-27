@@ -27,6 +27,7 @@ import { getNewTasks } from '../../api/getNewTasks';
 import StepcounterIndex from '../StepCounter/StepcounterIndex';
 import { IconWalking } from '../marketplace/filters/icons';
 import { Skeleton } from '@rneui/base';
+import BannerAdMob from '../../api/AdMob/BannerComponent';
 
 function HomeIndex() {
   const [refreshing, setRefreshing] = useState(false);
@@ -150,55 +151,63 @@ function HomeIndex() {
             />
           </View>
         )}
+
         {status === 'hasPlan' && (
-          <View
-            style={{
-              flex: 1,
-              width: Dimensions.get('window').width,
-              marginTop: 0,
-              height: Dimensions.get('window').height / 4.3,
-              marginBottom: 0,
-            }}>
-            <CurrentWorkoutCard
-              RTL={isRTL}
-              title={planName || ''}
-              trainer={currentPlan?.creator || ''}
-              location={currentPlan?.location || ''}
-              userPervilage={userPervilage}
-              taskStatus={taskStatus}
-              setTaskStatus={setTaskStatus}
-              workOutPlan={currentPlan}
-            />
+          <View style={styles.box}>
+            <View
+              style={{
+                flex: 1,
+                width: Dimensions.get('window').width,
+                marginTop: 0,
+                height: Dimensions.get('window').height / 4.3,
+                marginBottom: 0,
+              }}>
+              <CurrentWorkoutCard
+                RTL={isRTL}
+                title={planName || ''}
+                trainer={currentPlan?.creator || ''}
+                location={currentPlan?.location || ''}
+                userPervilage={userPervilage}
+                taskStatus={taskStatus}
+                setTaskStatus={setTaskStatus}
+                workOutPlan={currentPlan}
+              />
+            </View>
           </View>
         )}
+
         {status === 'noPlan' && (
-          <View
-            style={{
-              width: Dimensions.get('window').width,
-              marginTop: 30,
+          <View style={styles.box}>
+            <View
+              style={{
+                width: Dimensions.get('window').width,
+                marginTop: 30,
 
-              height: Dimensions.get('window').height / 4,
-            }}>
-            <NoWorkoutCard />
+                height: Dimensions.get('window').height / 4,
+              }}>
+              <NoWorkoutCard />
+            </View>
           </View>
         )}
 
-        <View
-          style={{
-            //  backgroundColor: theme.colors.background,
-            marginHorizontal: 20,
-            borderRadius: 14,
-            marginVertical: 0,
-            // height: Dimensions.get('window').height / 3.3,
-            // top: Dimensions.get('window').height / 8,
-          }}>
-          <LinearGradient
-            colors={['#5B5891', '#3A366F', '#17124a']}
-            style={styles.background}
-          />
+        <View style={styles.box}>
+          <View
+            style={{
+              //  backgroundColor: theme.colors.background,
+              marginHorizontal: 20,
+              borderRadius: 14,
+              marginVertical: 0,
+              // height: Dimensions.get('window').height / 3.3,
+              // top: Dimensions.get('window').height / 8,
+            }}>
+            <LinearGradient
+              colors={['#5B5891', '#3A366F', '#17124a']}
+              style={styles.background}
+            />
 
-          <View>
-            <DailyReport userId={userAuth.id} />
+            <View>
+              <DailyReport userId={userAuth.id} />
+            </View>
           </View>
         </View>
         <View
@@ -236,26 +245,28 @@ function HomeIndex() {
               {i18n.t('stepcounter')}
             </Text>
           </View>
-          {Platform.OS === 'ios' ? (
-            <StepcounterIndex />
-          ) : (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginVertical: 20,
-                height: Dimensions.get('window').height / 4,
-                backgroundColor: theme.colors.grey2,
-              }}>
-              <View>
-                <IconWalking size={72} />
+          <View style={styles.box}>
+            {Platform.OS === 'ios' ? (
+              <StepcounterIndex />
+            ) : (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginVertical: 20,
+                  height: Dimensions.get('window').height / 4,
+                  backgroundColor: theme.colors.grey2,
+                }}>
+                <View>
+                  <IconWalking size={72} />
+                </View>
+                <Text style={styles.text}>
+                  {i18n.t('stepCounterNotAvailable')}
+                </Text>
               </View>
-              <Text style={styles.text}>
-                {i18n.t('stepCounterNotAvailable')}
-              </Text>
-            </View>
-          )}
+            )}
+          </View>
         </View>
         <Text
           style={{
@@ -286,6 +297,16 @@ export default HomeIndex;
 
 const getStyles = (theme) =>
   StyleSheet.create({
+    box: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      //backgroundColor: theme.colors.background,
+      marginHorizontal: 20,
+      marginVertical: 0,
+
+      height: Dimensions.get('window').height / 4,
+    },
     container: {
       flex: 1,
       backgroundColor: '#5B5891',

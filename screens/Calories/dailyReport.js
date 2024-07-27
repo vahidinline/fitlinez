@@ -13,7 +13,6 @@ import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import convertToPersianNumbers from '../../api/PersianNumber';
-import RoundAnimationChart from '../../components/RoundAnimationChart';
 import { useNavigation } from '@react-navigation/native';
 
 function DailyReport({ userId }) {
@@ -69,12 +68,7 @@ function DailyReport({ userId }) {
       if (dailyCaloriesGoals) {
         setDailyGoalStatus('success');
         const parsedDailyCaloriesGoals = JSON.parse(dailyCaloriesGoals);
-
         setDailyCalories(Number(parsedDailyCaloriesGoals.dailyCalories));
-        setDailyCarbs(Number(parsedDailyCaloriesGoals.dailyCarbs));
-        setDailyProtein(Number(parsedDailyCaloriesGoals.dailyProtein));
-        setDailyFat(Number(parsedDailyCaloriesGoals.dailyFat));
-        setDailyFiber(Number(parsedDailyCaloriesGoals.dailyFiber));
       }
       if (!dailyCaloriesGoals || dailyCaloriesGoals === null) {
         setDailyGoalStatus('noDailyCalories');
@@ -83,6 +77,56 @@ function DailyReport({ userId }) {
 
     getDailyCaloriesGoals();
   }, []);
+
+  const NutritionDataSection = ({
+    dailyCarbs,
+    dailyProtein,
+    dailyFat,
+    dailyFiber,
+  }) => {
+    return (
+      <View style={styles.nutrientContainer}>
+        <View style={styles.row}>
+          <Text style={styles.nutrientText}>
+            {i18n.t('carbs')} :{' '}
+            <Text style={styles.errorText}>
+              {dailyCarbs
+                ? convertToPersianNumbers(dailyCarbs, RTL) + ' ' + i18n.t('g')
+                : i18n.t('noData')}
+            </Text>
+          </Text>
+
+          <Text style={styles.nutrientText}>
+            {i18n.t('protein')} :{' '}
+            <Text style={styles.errorText}>
+              {dailyProtein
+                ? convertToPersianNumbers(dailyProtein, RTL) + ' ' + i18n.t('g')
+                : i18n.t('noData')}
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.nutrientText}>
+            {i18n.t('fats')} :{' '}
+            <Text style={styles.errorText}>
+              {dailyProtein
+                ? convertToPersianNumbers(dailyFat, RTL) + ' ' + i18n.t('g')
+                : i18n.t('noData')}
+            </Text>
+          </Text>
+
+          <Text style={styles.nutrientText}>
+            {i18n.t('fiber')} :{' '}
+            <Text style={styles.errorText}>
+              {dailyFiber
+                ? convertToPersianNumbers(dailyFiber, RTL) + ' ' + i18n.t('g')
+                : i18n.t('noData')}
+            </Text>
+          </Text>
+        </View>
+      </View>
+    );
+  };
 
   return (
     <>
@@ -127,7 +171,10 @@ function DailyReport({ userId }) {
           }}
           style={[styles.container, { direction: RTL ? 'rtl' : 'ltr' }]}>
           {status === 'success' && (
-            <View>
+            <View
+              style={{
+                marginBottom: 15,
+              }}>
               <View style={styles.baseContainer}>
                 <Text style={styles.caloriesText}>
                   {result.length > 0 ? (
@@ -140,60 +187,36 @@ function DailyReport({ userId }) {
                       {dailyGoalStatus === 'success' && (
                         <>
                           <Text style={styles.remainingText}>
+                            {i18n.t('of')} {i18n.t('todayscalorie')}{' '}
                             {i18n.t('remaining')}
                           </Text>
                         </>
                       )}
                     </Text>
                   ) : (
-                    convertToPersianNumbers(dailyCalories, RTL)
+                    <Text
+                      style={{
+                        color: theme.colors.primary,
+                        fontSize: 22,
+                        textAlign: 'center',
+                        fontFamily: 'Vazirmatn',
+                      }}>
+                      {convertToPersianNumbers(dailyCalories, RTL)}{' '}
+                      {i18n.t('calories')} {i18n.t('of')}{' '}
+                      {i18n.t('todayscalorie')} {i18n.t('remaining')}
+                    </Text>
                   )}
                 </Text>
               </View>
-
-              {result.length != 0 && (
-                <View style={styles.nutrientContainer}>
-                  <View style={styles.row}>
-                    <Text style={styles.nutrientText}>
-                      {i18n.t('carbs')}:{' '}
-                      {result &&
-                        convertToPersianNumbers(
-                          result[0]?.totalCarbs.toFixed(0),
-                          RTL
-                        )}{' '}
-                      {i18n.t('g')}
-                    </Text>
-                    <Text style={styles.nutrientText}>
-                      {i18n.t('protein')}:{' '}
-                      {result &&
-                        convertToPersianNumbers(
-                          result[0]?.totalProtein.toFixed(0),
-                          RTL
-                        )}{' '}
-                      {i18n.t('g')}
-                    </Text>
-                  </View>
-                  <View style={styles.row}>
-                    <Text style={styles.nutrientText}>
-                      {i18n.t('fats')}:{' '}
-                      {result &&
-                        convertToPersianNumbers(
-                          result[0]?.totalFat.toFixed(0),
-                          RTL
-                        )}{' '}
-                      {i18n.t('g')}
-                    </Text>
-                    <Text style={styles.nutrientText}>
-                      {i18n.t('fiber')}:{' '}
-                      {result &&
-                        convertToPersianNumbers(
-                          result[0]?.totalFiber.toFixed(0),
-                          RTL
-                        )}{' '}
-                      {i18n.t('g')}
-                    </Text>
-                  </View>
-                </View>
+              {result.length > 0 ? (
+                <NutritionDataSection
+                  dailyCarbs={result[0]?.totalCarbs.toFixed(0)}
+                  dailyProtein={result[0]?.totalProtein.toFixed(0)}
+                  dailyFat={result[0]?.totalFat.toFixed(0)}
+                  dailyFiber={result[0]?.totalFiber.toFixed(0)}
+                />
+              ) : (
+                <NutritionDataSection />
               )}
             </View>
           )}
@@ -232,7 +255,19 @@ const getStyles = (theme, RTL) =>
     },
     row: {
       flexDirection: 'row',
+      justifyContent: 'space-around',
+      // width: Dimensions.get('window').width / 2,
+    },
+    macroItem: {
+      borderRadius: 8,
+      flexDirection: 'row',
       justifyContent: 'space-between',
+      //backgroundColor: theme.colors.background,
+      //width: Dimensions.get('window').width / 2.3,
+      height: 40,
+      alignItems: 'center',
+      paddingHorizontal: 4,
+      margin: 4,
     },
     background: {
       ...StyleSheet.absoluteFillObject,
@@ -245,64 +280,51 @@ const getStyles = (theme, RTL) =>
       fontFamily: 'Vazirmatn',
     },
     baseContainer: {
-      //  borderWidth: 5,
       flexDirection: 'row',
       borderColor: theme.colors.grey0,
       borderRadius: 75,
-      // width: 150,
-      height: 50,
-      //margin: 5,
+      height: 60,
       borderOpacity: 0.2,
       justifyContent: 'center',
-      alignItems: 'center',
     },
     caloriesText: {
       color: theme.colors.primary,
       fontFamily: 'Vazirmatn',
       fontSize: 30,
       textAlign: 'center',
-      //fontWeight: 'bold',
-      // margin: 10,
     },
     kcalText: {
       color: theme.colors.primary,
       fontSize: 20,
-      // textAlign: 'center',
       fontFamily: 'Vazirmatn',
-
-      // marginHorizontal: 15,
     },
     remainingText: {
-      // position: 'absolute',
-      // top: 80,
-      // right: 10,
-      //  marginHorizontal: 12,
       color: theme.colors.primary,
       fontSize: 10,
       textAlign: 'center',
       fontFamily: 'Vazirmatn',
-      //fontWeight: 'bold',
+      flexWrap: 'wrap',
       margin: 5,
     },
     errorText: {
       color: theme.colors.warning,
-      fontSize: 12,
-      textAlign: 'center',
+      fontSize: 14,
       fontFamily: 'Vazirmatn',
-      //fontWeight: 'bold',
-      margin: 10,
+      margin: 5,
     },
     nutrientContainer: {
-      //  alignItems: 'right',
-      width: Dimensions.get('window').width / 1.3,
+      width: Dimensions.get('window').width / 1.2,
+      backgroundColor: theme.colors.background,
+      borderRadius: 12,
+      height: 80,
+      //ustifyContent: 'center',
+      //alignItems: 'center',
+      padding: 15,
     },
     nutrientText: {
       direction: RTL ? 'rtl' : 'ltr',
-      color: theme.colors.primary,
-      fontSize: 14,
-      // textAlign: 'center',
-      // fontWeight: 'bold',
+      color: theme.colors.secondary,
+      fontSize: 16,
       fontFamily: 'Vazirmatn',
-      margin: 5,
     },
   });

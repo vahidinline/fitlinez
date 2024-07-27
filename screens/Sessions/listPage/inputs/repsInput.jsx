@@ -82,31 +82,7 @@ function RepsInput(props) {
           style={{
             flexDirection: 'row',
             backgroundColor: theme.colors.background,
-            // width: Dimensions.get('window').width / 1.35,
-            // marginRight: 0,
-            // marginLeft: 0,
           }}>
-          {/* <View
-            style={{
-              borderRadius: 16,
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-              marginTop: 5,
-              marginBottom: 5,
-              borderWidth: 1,
-              borderColor: theme.colors.border,
-            }}>
-            <Text
-              style={{
-                margin: 5,
-                color: '#787680',
-                fontSize: 14,
-                fontWeight: '500',
-                padding: 10,
-              }}>
-              {i18n.t('set')} {setIndex + 1}
-            </Text>
-          </View> */}
           <InputSpinner
             background={theme.colors.background}
             typingTimeout={2000}
@@ -135,13 +111,11 @@ function RepsInput(props) {
 
               borderColor: theme.colors.border,
               marginStart: 0,
-
               marginTop: 5,
               marginBottom: 5,
               width: '50%',
             }}
             skin="clean"
-            //rounded={false}
             returnKeyType="done"
           />
 

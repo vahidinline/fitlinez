@@ -1,9 +1,7 @@
 import { Button, Text, useTheme } from '@rneui/themed';
 import React, { useContext, useEffect, useState } from 'react';
 import {
-  Alert,
   Dimensions,
-  KeyboardAvoidingView,
   PixelRatio,
   Platform,
   SafeAreaView,
@@ -14,12 +12,10 @@ import WeightAndSetsInput from './inputs/input';
 import RepsInput from './inputs/repsInput';
 import { StyleSheet } from 'react-native';
 import { I18n } from 'i18n-js';
-import SessionTimer from '../../../components/timer/sessionTimer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18nt from '../../../locales';
 import LanguageContext from '../../../api/langcontext';
 import { SessionContext } from '../../../api/sessionContext';
-import DrawerList from './drawer';
 import ImageLoader from './image';
 import TimerInput from './inputs/timerInput';
 import RestCounterComponent from './inputs/counter';
@@ -27,13 +23,8 @@ import Instruction from './instruction';
 import Subs from './subs';
 import * as Icons from '../../marketplace/filters/icons';
 import AiAskHelpIndex from '../../AiAskHelp/AiAskHelpIndex';
-import { checkUserAccess } from '../../../api/checkTestAccess';
-import Recommand from './recomand';
 import api from '../../../api/api';
-import { updateSession } from '../../../api/workoutSessionTracker';
-import { useNavigation } from '@react-navigation/native';
-// import BannerAdMob from '../../../api/AdMob/BannerComponent';
-import AdModal from '../../../components/AdModal/AdModalIndex';
+import convertToPersianNumbers from '../../../api/PersianNumber';
 const { width, height } = Dimensions.get('window');
 
 function Item({
@@ -43,12 +34,10 @@ function Item({
   title,
   index,
   gifUrl,
-
   faInstructor,
   inputType,
   setFinish,
   type,
-  alertVisible,
   loc,
   bodyPart,
   category,
@@ -58,41 +47,29 @@ function Item({
   otherTarget,
   target,
   userLocation,
-  setAlertVisible,
   setSaveTimer,
   dataLength,
   description,
 }) {
   const { userLanguage } = useContext(LanguageContext);
-  const { IconArrowRight, IconInfo, IconMenu, IconSub } = Icons;
+  const { IconSub } = Icons;
   const i18n = new I18n(i18nt);
   const [showInstruction, setShowInstruction] = useState(false);
   i18n.locale = userLanguage;
   const { theme } = useTheme();
-  const styles = getStyles(theme);
   const [childDataMap, setChildDataMap] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const [saveCount, setSaveCount] = useState(0);
   const [buttonTitle, setButtonTitle] = useState(i18n.t('nextSet'));
-  const [showDrawer, setShowDrawer] = useState(false);
   const [visible, setVisible] = useState(false);
   let adjustedNumberOfSets = 4;
   const [showRest, setShowRest] = useState(false);
   const { sessionData, setSessionData } = useContext(SessionContext);
-  const [userTestAccess, setUserTestAccess] = useState(false);
   let buttonVisible = true;
-  const [currentSet, setCurrentSet] = useState(0);
-  const navigation = useNavigation();
   if (index >= dataLength - 1) {
     buttonVisible = false;
   }
-  // const handleAccess = async () => {
-  //   const status = await checkUserAccess(userId);
-  //   setUserTestAccess(status);
-  // };
-  // useEffect(() => {
-  //   handleAccess();
-  // }, []);
+
   const RTL = userLanguage === 'fa';
   const handleStoreData = async ({
     weight,
@@ -261,7 +238,7 @@ function Item({
             fontFamily: 'Vazirmatn',
             flexWrap: 'wrap',
             color: theme.colors.secondary,
-            // width: Dimensions.get('window').width / 1.5,
+
             textAlign: 'center',
             //marginVertical: 10,
           }}>
@@ -275,7 +252,7 @@ function Item({
           width: Dimensions.get('window').width / 1.34,
           height: Dimensions.get('window').height / 4,
           backgroundColor: '#fff',
-          //  borderEndStartRadius: 0,
+
           borderRadius: 16,
           borderWidth: 1,
           borderColor: theme.colors.border,
@@ -318,8 +295,6 @@ function Item({
           height={Dimensions.get('window').height / 4.1}
         />
       </View>
-
-      {inputType !== 'timer' && inputType !== 'rep' && <Recommand />}
 
       <View
         style={{
@@ -407,7 +382,9 @@ function Item({
                   color: theme.colors.text,
                   fontFamily: 'Vazirmatn',
                 }}>
-                {i18n.t('set')} {currentIndex + 1} / {adjustedNumberOfSets}
+                {i18n.t('set')} {convertToPersianNumbers(currentIndex + 1, RTL)}{' '}
+                {i18n.t('of')}{' '}
+                {convertToPersianNumbers(adjustedNumberOfSets, RTL)}
               </Text>
             </View>
             {description && (
@@ -434,8 +411,8 @@ function Item({
             position: 'absolute',
             marginHorizontal: 10,
             marginVertical: 10,
-            top: 150,
-            right: 0,
+            top: 100,
+            left: 0,
             zIndex: 100,
           }}>
           <AiAskHelpIndex
@@ -456,13 +433,7 @@ function Item({
           />
         )}
       </View>
-      {/* <AdModal
-        visible={alertVisible}
-        title={i18n.t('closeSession')}
-        message={i18n.t('closeSessionMessage')}
-        onConfirm={closeSession}
-        onCancel={() => setAlertVisible(false)}
-      /> */}
+
       {showInstruction ? (
         <Instruction
           title={i18n.t('description')}
