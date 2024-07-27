@@ -5,12 +5,10 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   FlatList,
   Text,
   Image,
 } from 'react-native';
-import { IconTick } from '../../../screens/marketplace/filters/icons';
 import { Divider } from '@rneui/base';
 
 const screenWidth = Dimensions.get('window').width;
@@ -83,12 +81,16 @@ const getStyles = (theme) =>
       backgroundColor: theme.colors.white,
       //  flex: 0.2,
       position: 'absolute',
+      //borderTopEndRadius: 0,
+      // borderTopStartRadius: 0,
       borderRadius: 12,
-      top: 5,
+      top: 19,
       width: Dimensions.get('window').width / 8,
       height: Dimensions.get('window').height / 3,
       zIndex: 1000,
+      // borderTopWidth: 0,
       borderWidth: 1,
+
       borderColor: theme.colors.border,
       overflow: 'hidden',
     },

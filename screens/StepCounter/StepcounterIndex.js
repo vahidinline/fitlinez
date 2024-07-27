@@ -11,7 +11,7 @@ import WeeklyStepChart from './weeklyChart';
 
 export default function StepcounterIndex() {
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
-  console.log('isPedometerAvailable', isPedometerAvailable);
+  //console.log('isPedometerAvailable', isPedometerAvailable);
   const [status, setStatus] = useState('idle');
   const [pastStepCount, setPastStepCount] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);

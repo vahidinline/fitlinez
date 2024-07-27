@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   PixelRatio,
   Platform,
+  SafeAreaView,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -85,13 +86,13 @@ function Item({
   if (index >= dataLength - 1) {
     buttonVisible = false;
   }
-  const handleAccess = async () => {
-    const status = await checkUserAccess(userId);
-    setUserTestAccess(status);
-  };
-  useEffect(() => {
-    handleAccess();
-  }, []);
+  // const handleAccess = async () => {
+  //   const status = await checkUserAccess(userId);
+  //   setUserTestAccess(status);
+  // };
+  // useEffect(() => {
+  //   handleAccess();
+  // }, []);
   const RTL = userLanguage === 'fa';
   const handleStoreData = async ({
     weight,
@@ -240,101 +241,46 @@ function Item({
     });
   };
 
-  const handleCloseSession = async () => {
-    setAlertVisible(true);
-  };
-
-  const closeSession = async () => {
-    console.log('closing session');
-    const sessionId = await AsyncStorage.getItem('sessionId');
-    const res = await updateSession({
-      sessionId,
-      status: 'uncompleted',
-    });
-    if (res) {
-      console.log('session closed');
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
-    }
-  };
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'position' : 'height'}
-      style={{
-        position: 'absolute',
-        top: -10,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        // backgroundColor: theme.colors.warning,
-        width: Dimensions.get('window').width,
-      }}>
+    <SafeAreaView>
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           alignItems: 'center',
           width: Dimensions.get('window').width / 1.1,
           height: Dimensions.get('window').height / 20,
-          backgroundColor: theme.colors.background,
+          // backgroundColor: theme.colors.background,
           marginHorizontal: 15,
-          paddingHorizontal: 10,
+          //paddingHorizontal: 10,
         }}>
-        <View
+        <Text
           style={{
-            flexDirection: 'column',
-            justifyContent: 'center',
-
-            alignItems: 'center',
+            fontSize: PixelRatio.get() > 2 ? 20 : 22,
+            // fontWeight: 'bold',
+            fontFamily: 'Vazirmatn',
+            flexWrap: 'wrap',
+            color: theme.colors.secondary,
+            // width: Dimensions.get('window').width / 1.5,
+            textAlign: 'center',
+            //marginVertical: 10,
           }}>
-          <Text
-            style={[
-              styles.title,
-              {
-                fontSize: PixelRatio.get() > 2 ? 20 : 22,
-                // fontWeight: 'bold',
-                fontFamily: 'Vazirmatn',
-                flexWrap: 'wrap',
-                width: Dimensions.get('window').width / 1.1,
-                textAlign: 'center',
-                top: 5,
-              },
-            ]}>
-            {title}
-          </Text>
-        </View>
+          {title}
+        </Text>
       </View>
 
       <View
         style={{
           position: 'relative',
-          width: Dimensions.get('window').width / 1.1,
-          height: Dimensions.get('window').height / 3.8,
+          width: Dimensions.get('window').width / 1.34,
+          height: Dimensions.get('window').height / 4,
           backgroundColor: '#fff',
+          //  borderEndStartRadius: 0,
           borderRadius: 16,
           borderWidth: 1,
           borderColor: theme.colors.border,
-          marginHorizontal: 15,
+          marginLeft: 75,
         }}>
-        <View
-          style={{
-            position: 'absolute',
-            marginHorizontal: 10,
-            marginVertical: 10,
-            top: 0,
-            left: 0,
-            zIndex: 100,
-          }}>
-          <AiAskHelpIndex
-            title={title}
-            category={category}
-            userLanguage={userLanguage}
-            exerciseId={exerciseId}
-            i18n={i18n}
-          />
-        </View>
         <View
           style={{
             position: 'absolute',
@@ -383,36 +329,11 @@ function Item({
           width: Dimensions.get('window').width - 25,
           height: Dimensions.get('window').height / 2.5,
         }}>
-        {/* <ScrollView
-          style={{
-            marginTop: 5,
-            marginHorizontal: 10,
-            width: Dimensions.get('window').width - 20,
-          }}> */}
-        <View
-          style={
-            {
-              // width: Dimensions.get('window').width / 1.3,
-              //flexDirection: 'row',
-            }
-          }>
-          {/* <DrawerList
-            currentIndex={currentIndex}
-            exerciseId={exerciseId}
-            sessionData={sessionData}
-            showDrawer={showDrawer}
-            handleDrawer={setShowDrawer}
-            title={title}
-            sortedData={sortedData}
-            userLanguage={userLanguage}
-            goToIndex={goToIndex}
-            index={index}
-            //img={gifUrl}
-          /> */}
+        <View>
           <View
             style={{
-              width: Dimensions.get('window').width / 1.3,
-              marginLeft: 65,
+              width: width / 1.3,
+              marginLeft: 55,
               position: 'absolute',
             }}>
             {inputType === 'timer' ? (
@@ -508,7 +429,23 @@ function Item({
             )}
           </View>
         </View>
-
+        <View
+          style={{
+            position: 'absolute',
+            marginHorizontal: 10,
+            marginVertical: 10,
+            top: 150,
+            right: 0,
+            zIndex: 100,
+          }}>
+          <AiAskHelpIndex
+            title={title}
+            category={category}
+            userLanguage={userLanguage}
+            exerciseId={exerciseId}
+            i18n={i18n}
+          />
+        </View>
         {/* </ScrollView> */}
 
         {showRest && (
@@ -519,13 +456,13 @@ function Item({
           />
         )}
       </View>
-      <AdModal
+      {/* <AdModal
         visible={alertVisible}
         title={i18n.t('closeSession')}
         message={i18n.t('closeSessionMessage')}
         onConfirm={closeSession}
         onCancel={() => setAlertVisible(false)}
-      />
+      /> */}
       {showInstruction ? (
         <Instruction
           title={i18n.t('description')}
@@ -607,7 +544,7 @@ function Item({
         }}>
         <BannerAdMob />
       </View> */}
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
@@ -632,10 +569,10 @@ const getStyles = (theme) =>
     title: {
       fontSize: 20,
       fontWeight: '400',
-      color: '#3e3b6c',
-      textAlign: 'left',
+      //color: '#3e3b6c',
+      // textAlign: 'left',
       //alignItems: 'left',
-      marginLeft: 10,
+      //marginLeft: 10,
     },
     doneText: {
       fontSize: 16,

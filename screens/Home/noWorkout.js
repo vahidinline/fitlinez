@@ -8,7 +8,6 @@ import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import { useState } from 'react';
 import AuthContext from '../../api/context';
-import UserPrivilegeContext from '../../api/userPrivilegeContext';
 import { getUserFirstData } from '../../api/getUserBasicData';
 
 function NoWorkoutCard() {

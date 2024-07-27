@@ -39,8 +39,8 @@ function LoginIndex(props) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [status, setStatus] = useState('idle');
 
-  const emailInputRef = useRef(null);
-  const passwordInputRef = useRef(null);
+  // const emailInputRef = useRef(null);
+  // const passwordInputRef = useRef(null);
 
   const validateFields = () => {
     return email !== '' && password !== '';
@@ -200,7 +200,7 @@ function LoginIndex(props) {
             placeholder={i18n.t('email')}
             value={email}
             onChangeText={emailValidate}
-            ref={emailInputRef}
+            // ref={emailInputRef}
             type="email"
           />
           <FloatingPlaceholderInput
@@ -211,7 +211,7 @@ function LoginIndex(props) {
             onChangeText={passwordValidate}
             setShowPass={setShowPass}
             showPass={showPass}
-            ref={passwordInputRef}
+            //  ref={passwordInputRef}
             type="password"
           />
 

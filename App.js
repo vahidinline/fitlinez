@@ -83,10 +83,27 @@ export default function App() {
         console.log('No updates available');
       }
     } catch (error) {
-      // You can also add an alert() here if needed for your purposes
       console.log(`Error fetching latest Expo update: ${error}`);
     }
   }
+
+  // async function onFetchUpdateAsync() {
+  //   try {
+  //     const update = await Updates.checkForUpdateAsync();
+  //     if (update.isAvailable) {
+  //       setStatus('loading');
+  //       await Updates.fetchUpdateAsync();
+  //       await Updates.reloadAsync();
+  //       appUpdateTrack(userAuth?.userId);
+  //       Alert.alert('Update', 'App is updated');
+  //     } else {
+  //       console.log('No updates available');
+  //     }
+  //   } catch (error) {
+  //     // You can also add an alert() here if needed for your purposes
+  //     console.log(`Error fetching latest Expo update: ${error}`);
+  //   }
+  // }
 
   useEffect(() => {
     onFetchUpdateAsync();

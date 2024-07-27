@@ -143,7 +143,7 @@ function TimerInput({
       }}>
       <View
         style={{
-          width: Dimensions.get('window').width / 1.35,
+          // width: Dimensions.get('window').width / 1.35,
           flexDirection: 'row',
           height: 60,
           justifyContent: 'space-between',
@@ -154,7 +154,7 @@ function TimerInput({
           borderWidth: 1,
           borderColor: theme.colors.border,
           marginHorizontal: 0,
-          marginRight: 10,
+          // marginRight: 10,
           top: 5,
         }}>
         <CountDown

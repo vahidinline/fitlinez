@@ -6,7 +6,7 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import { Divider, Text, useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import CardItem from './CardItem';
 import Header from '../../../components/header';
@@ -16,11 +16,13 @@ import LanguageContext from '../../../api/langcontext';
 import AuthContext from '../../../api/context';
 import i18nt from '../../../locales';
 import { I18n } from 'i18n-js';
-import { Button } from '@rneui/base';
+import { Button, Skeleton } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
+import FitlinezLoading from '../../../components/FitlinezLoading';
+import { LinearGradient } from 'expo-linear-gradient';
 // import BannerAdMob from '../../../api/AdMob/BannerComponent';
 
-function WorkoutListIndex({ route }) {
+function WorkoutListIndex() {
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const { theme } = useTheme();
@@ -29,35 +31,40 @@ function WorkoutListIndex({ route }) {
   const [status, setStatus] = useState('idle');
   const { userLanguage } = useContext(LanguageContext);
   const { userAuth } = useContext(AuthContext);
+  const defaultSkeleton = Array.from({ length: 5 });
   const userId = userAuth.id;
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-
+  console.log('WorkoutListIndex status', status);
   const onRefresh = useCallback(() => {
     setStatus('loading');
     setRefreshing(true);
     setTimeout(() => {
-      getLiveData();
+      try {
+        getLiveData();
 
-      setRefreshing(false);
-      setStatus('success');
+        setRefreshing(false);
+        setStatus('success');
+      } catch (e) {
+        setStatus('error');
+      }
     }, 3000);
   }, []);
 
-  const getUserBasicData = async () => {
-    setStatus('loading');
-    const result = await AsyncStorage.getItem('userBasicData');
-    setUserBasic(JSON.parse(result));
-    setStatus('success');
-  };
+  // const getUserBasicData = async () => {
+  //   setStatus('loading');
+  //   const result = await AsyncStorage.getItem('userBasicData');
+  //   setUserBasic(JSON.parse(result));
+  //   setStatus('loading');
+  // };
 
-  useEffect(() => {
-    getUserBasicData();
+  // useEffect(() => {
+  //   getUserBasicData();
 
-    return () => {
-      setUserBasic([]);
-    };
-  }, []);
+  //   return () => {
+  //     setUserBasic([]);
+  //   };
+  // }, []);
 
   const getPackagesData = async () => {
     setStatus('loading');
@@ -105,22 +112,30 @@ function WorkoutListIndex({ route }) {
           }}>
           <Header />
           {status === 'loading' && (
-            <Text
+            <View
               style={{
-                fontSize: 16,
-                fontWeight: '500',
-                color: theme.colors.text,
-                margin: 20,
-                flexShrink: 1,
-                flexWrap: 'wrap',
+                // flex: 1,
                 justifyContent: 'center',
-                alignContent: 'center',
-                alignSelf: 'center',
-                textAlign: 'center',
-                fontFamily: 'Vazirmatn',
+                alignItems: 'center',
+                backgroundColor: theme.colors.background,
+                // marginHorizontal: 10,
               }}>
-              {i18n.t('loading')}
-            </Text>
+              {defaultSkeleton.map((_, i) => (
+                <Skeleton
+                  skeletonStyle={{
+                    borderRadius: 16,
+                    marginVertical: 10,
+                    marginHorizontal: 10,
+                    backgroundColor: theme.colors.background,
+                  }}
+                  key={`skeleton-${i}`}
+                  LinearGradientComponent={LinearGradient}
+                  animation="wave"
+                  width={Dimensions.get('window').width / 1.1}
+                  height={Dimensions.get('window').height / 4}
+                />
+              ))}
+            </View>
           )}
           {status === 'success' && (
             <View>

@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   Dimensions,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import moment from 'moment';
@@ -14,13 +15,13 @@ import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { useTheme } from '@rneui/themed';
-import Header from '../../components/header';
-import { captureRef } from 'react-native-view-shot';
-import * as MediaLibrary from 'expo-media-library';
 import { userWorkoutHistory } from '../../api/workoutSessionTracker';
 import AuthContext from '../../api/context';
 import { IconFire } from '../marketplace/filters/icons';
 import convertToPersianNumbers from '../../api/PersianNumber';
+import { Skeleton } from '@rneui/base';
+import { LinearGradient } from 'react-native-svg';
+import ShareWorkoutSession from './share';
 
 const CustomReport = () => {
   const { userLanguage } = useContext(LanguageContext);
@@ -29,75 +30,34 @@ const CustomReport = () => {
   const { theme } = useTheme();
   const Styles = getStyles(theme);
   const [status, setStatus] = useState('idle');
+  const [shareStatus, setShareStatus] = useState('idle');
   const imageRef = useRef();
   const [filteredData, setFilteredData] = useState([]);
   const { userAuth } = useContext(AuthContext);
+  const [selectedItem, setSelectedItem] = useState(null);
   const userId = userAuth.id;
   const RTL = userLanguage === 'fa';
   const handleHistoryData = async () => {
     setStatus('loading');
-    const res = await userWorkoutHistory(userId);
-    setStatus('success');
-    // console.log('history result', res);
-    setFilteredData(res);
+    try {
+      const res = await userWorkoutHistory(userId);
+      setStatus('success');
+      // console.log('history result', res);
+      setFilteredData(res);
+    } catch (error) {
+      console.log('error', error);
+      setStatus('noData');
+    }
   };
-
-  //console.log('filteredData', filteredData);
-  // New state variable for filtered data
-  const today = new Date().toISOString().slice(0, 10); // Get today's date in YYYY-MM-DD format
-  const tomorrow = moment().add(1, 'days').format('YYYY-MM-DD'); // Get tomorrow's date in YYYY-MM-DD format
-  const pastSevenDays = moment().subtract(7, 'days').format('YYYY-MM-DD'); // Get the date 7 days ago
-  const pastThirtyDays = moment().subtract(30, 'days').format('YYYY-MM-DD'); // Get the date 30 days ago
-
-  const takeScreenshot = () => {
-    captureRef(imageRef, {
-      format: 'jpg',
-      quality: 0.8,
-    }).then(
-      async (uri) => {
-        alert(i18n.t('ScreenshotCaptured'));
-        await MediaLibrary.saveToLibraryAsync(uri);
-        // Here you can save the image to the gallery or share it
-      },
-      (error) => console.error('Oops, snapshot failed', error)
-    );
-  };
-
-  // const getResult = async () => {
-  //   try {
-  //     const res = await filterByDates(pastSevenDays, tomorrow);
-  //     setFilteredData(res); // pass the fetched data to setFilteredData function
-  //   } catch (error) {
-  //     console.log('error', error);
-  //   }
-  // };
 
   useEffect(() => {
-    // getResult();
     handleHistoryData();
   }, []);
 
-  const groupByDateAndCategory = (data) => {
-    //console.log('data', data);
-    const grouped = {};
-    data?.forEach((item) => {
-      const date = item?.date || 'Unknown';
-      const category = item?.category || 'Unknown';
-      const location = item?.location || 'Unknown';
-      const performance = item?.performance || 'Unknown';
-
-      if (!grouped[date]) {
-        grouped[date] = {};
-      }
-
-      if (!grouped[date][category]) {
-        grouped[date][category] = [];
-      }
-
-      grouped[date][category].push({ location, performance, date });
-    });
-
-    return grouped;
+  const handleShowItem = (item) => {
+    // console.log('item', item);
+    setSelectedItem(item);
+    setShareStatus('share');
   };
 
   return (
@@ -108,162 +68,134 @@ const CustomReport = () => {
         height: Dimensions.get('window').height,
       }}>
       <StatusBar style="auto" />
-      <Header title={i18n.t('report')} />
-      <ScrollView>
-        <View>
-          <View ref={imageRef}>
-            <View
-              style={{
-                backgroundColor: theme.colors.background,
-                margin: 5,
-                borderRadius: 10,
-                padding: 5,
-                flex: 1,
-                borderRadius: 10,
-
-                borderColor: theme.colors.secondary,
-                // top: Platform.OS === 'ios' ? 30 : 40,
-              }}>
+      {/* <Header title={i18n.t('report')} /> */}
+      {shareStatus === 'idle' && (
+        <ScrollView>
+          <View>
+            <View ref={imageRef}>
               <View
                 style={{
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
+                  backgroundColor: theme.colors.background,
                   margin: 5,
                   borderRadius: 10,
                   padding: 5,
+                  flex: 1,
+                  borderRadius: 10,
+
+                  borderColor: theme.colors.secondary,
+                  // top: Platform.OS === 'ios' ? 30 : 40,
                 }}>
-                <Text style={Styles.title}>{i18n.t('workoutHistorydesc')}</Text>
-                {/* {filteredData?.length > 0 && (
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    margin: 5,
+                    borderRadius: 10,
+                    padding: 5,
+                  }}>
                   <Text style={Styles.title}>
-                    {filteredData.length} {i18n.t('workouts')}
+                    {i18n.t('workoutHistorydesc')}
                   </Text>
-                )} */}
-                {status === 'noData' && (
-                  <Text style={Styles.title}>{i18n.t('noWorkouts')}</Text>
-                )}
 
-                {filteredData
-                  ?.sort(
-                    (a, b) =>
-                      new Date(b.sessionStartDate) -
-                      new Date(a.sessionStartDate)
-                  )
-                  //filter sessionStatus to completed and uncompleted
-                  .filter((item) => item.sessionStatus === 'completed')
-                  .map((item, index) => {
-                    return (
-                      <View
-                        key={index}
-                        style={{
-                          flexDirection: 'column',
-                          justifyContent: 'space-between',
-                          margin: 5,
-                          borderRadius: 10,
-                          padding: 5,
-                          borderColor: theme.colors.border,
-                          borderWidth: 1,
-                        }}>
-                        {/* <View
+                  {status === 'noData' && (
+                    <Text style={Styles.title}>{i18n.t('noWorkouts')}</Text>
+                  )}
+                  {status === 'loading' && (
+                    <View
+                      style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: theme.colors.background,
+                        marginHorizontal: 20,
+                        marginVertical: 20,
+                        borderRadius: 14,
+                      }}>
+                      <Skeleton
+                        skeletonStyle={{
+                          borderRadius: 16,
+                          marginVertical: 10,
+                          marginHorizontal: 10,
+                          backgroundColor: theme.colors.background,
+                        }}
+                        LinearGradientComponent={LinearGradient}
+                        animation="wave"
+                        width={Dimensions.get('window').width / 1.1}
+                        height={Dimensions.get('window').height / 4}
+                      />
+                    </View>
+                  )}
+
+                  {filteredData
+                    ?.sort(
+                      (a, b) =>
+                        new Date(b.sessionStartDate) -
+                        new Date(a.sessionStartDate)
+                    )
+                    .filter((item) => item.sessionStatus === 'completed')
+                    .map((item, index) => {
+                      return (
+                        <View
+                          key={index}
                           style={{
-                            position: 'absolute',
-                            top: -10,
-                            right: -10,
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            margin: 5,
+                            borderRadius: 10,
+                            padding: 5,
+                            borderColor: theme.colors.border,
+                            borderWidth: 1,
                           }}>
-                          <Svg height="70" width="70">
-                            <Polygon
-                              points="0 0, 0 10, 10 10"
-                              fill={
-                                item.sessionStatus === 'completed'
-                                  ? theme.colors.success
-                                  : theme.colors.warning
-                              }
-                              strokeWidth="0"
-                            />
-                            <Polygon
-                              points="0 0, 70 70, 70 40, 30 0"
-                              fill={
-                                item.sessionStatus === 'completed'
-                                  ? theme.colors.success
-                                  : theme.colors.warning
-                              }
-                              strokeWidth="0"
-                            />
-                            <Polygon
-                              points="60 60, 60 70, 70 70"
-                              fill={
-                                item.sessionStatus === 'completed'
-                                  ? theme.colors.success
-                                  : theme.colors.warning
-                              }
-                              strokeWidth="0"
-                            />
-                            <G rotation="45" origin="130, -10">
-                              <Text style={Styles.status}>
-                                {item.sessionStatus === 'pending' &&
-                                  i18n.t('pending')}
-                                {item.sessionStatus === 'started' &&
-                                  i18n.t('pending')}
-                                {item.sessionStatus === 'uncompleted' &&
-                                  i18n.t('missed')}
-
-                                {item.sessionStatus === 'completed' &&
-                                  i18n.t('completed')}
-                                {item.sessionStatus === 'missed' &&
-                                  i18n.t('missed')}
+                          <TouchableOpacity
+                            onPress={() => {
+                              handleShowItem(item);
+                            }}>
+                            <Text style={Styles.date}>
+                              {moment(item.sessionStartDate).format(
+                                'YYYY-MM-DD'
+                              )}
+                            </Text>
+                            {item.sessionEndDate != null && (
+                              <Text style={Styles.date}>
+                                {i18n.t('sessionDuration')} :{' '}
+                                {moment(item.sessionEndDate).diff(
+                                  moment(item.sessionStartDate),
+                                  'minutes'
+                                )}{' '}
+                                {i18n.t('minute')}
                               </Text>
-                            </G>
-                          </Svg>
-                        </View> */}
+                            )}
 
-                        <Text style={Styles.date}>
-                          {moment(item.sessionStartDate).format('YYYY-MM-DD')}
-                        </Text>
-                        {item.sessionEndDate != null && (
-                          <Text style={Styles.date}>
-                            {i18n.t('sessionDuration')} :{' '}
-                            {moment(item.sessionEndDate).diff(
-                              moment(item.sessionStartDate),
-                              'minutes'
-                            )}{' '}
-                            {i18n.t('minute')}
-                          </Text>
-                        )}
-                        {/*
-                      moment difference between two dates in minutes
+                            <Text style={Styles.title}>{item.planName}</Text>
 
-*/}
-                        <Text style={Styles.title}>{item.planName}</Text>
-                        {/* <Text style={Styles.subtitle}>
-                          {}
-
-                          {i18n.t('doneWorkoutAt', {
-                            workout: item.dayName,
-                            location:
-                              item.location === 'gym'
-                                ? i18n.t('workOutAtGym')
-                                : i18n.t('workOutAtHome'),
-                          })}
-                        </Text> */}
-
-                        {item.burnedCalories != null && (
-                          <Text style={Styles.calories}>
-                            {`${i18n.t(
-                              'burnedCalories'
-                            )} ${convertToPersianNumbers(
-                              item.burnedCalories.toFixed(0),
-                              RTL
-                            )}`}{' '}
-                            {i18n.t('calories')} <IconFire />
-                          </Text>
-                        )}
-                      </View>
-                    );
-                  })}
+                            {item.burnedCalories != null && (
+                              <Text style={Styles.calories}>
+                                {`${i18n.t(
+                                  'burnedCalories'
+                                )} ${convertToPersianNumbers(
+                                  item.burnedCalories.toFixed(0),
+                                  RTL
+                                )}`}{' '}
+                                {i18n.t('calories')} <IconFire />
+                              </Text>
+                            )}
+                          </TouchableOpacity>
+                        </View>
+                      );
+                    })}
+                </View>
               </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
+      {shareStatus === 'share' && (
+        <ShareWorkoutSession
+          setShareStatus={setShareStatus}
+          shareStatus={shareStatus}
+          item={selectedItem}
+        />
+      )}
     </SafeAreaView>
   );
 };

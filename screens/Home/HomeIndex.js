@@ -13,82 +13,53 @@ import HomeHeader from './homeHeader';
 import { useEffect, useState } from 'react';
 import { readWorkoutData } from '../../api/readWorkoutData';
 import CurrentWorkoutCard from './CurrentWorkoutCard';
-import { getPackages } from '../../api/GetData';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
 import NoWorkoutCard from './noWorkout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { checkUserAccess } from '../../api/checkTestAccess';
 import DailyReport from '../Calories/dailyReport';
-import FitlinezLoading from '../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
-// import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
-
 import { getNewTasks } from '../../api/getNewTasks';
 import StepcounterIndex from '../StepCounter/StepcounterIndex';
 import { IconWalking } from '../marketplace/filters/icons';
-// import BannerAdMob from '../../api/AdMob/BannerComponent';
+import { Skeleton } from '@rneui/base';
 
 function HomeIndex() {
   const [refreshing, setRefreshing] = useState(false);
   const [currentPlan, setCurrentPlan] = useState(null);
-  const [currentPlanAsync, setCurrentPlanAsync] = useState(null);
-  const [isPlanAssigned, setIsPlanAssigned] = useState(false);
-  const [totalSessions, setTotalSessions] = useState(0);
   const { theme } = useTheme();
-  const [packages, setPackages] = useState([]);
   const { userLanguage } = useContext(LanguageContext);
-  const [userWorkoutData, setUserWorkoutData] = useState([]);
-  const [planStartDate, setPlanStartDate] = useState(null);
   const { userAuth } = useContext(AuthContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const isRTL = userLanguage === 'fa';
-  const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState('loading');
   const [taskStatus, setTaskStatus] = useState('idle');
-  const userLevel = userAuth.level;
   const [planName, setPlanName] = useState('');
-  // console.log('status', status);
+  console.log('status homeindex', status);
   const styles = getStyles(theme);
   const [modalVisible, setModalVisible] = useState(false);
-
-  const navigator = useNavigation();
-  const [userTestAccess, setUserTestAccess] = useState(
-    checkUserAccess(userAuth.id)
-  );
-  // const BACKGROUND_FETCH_TASK = 'background-fetch';
-  // TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
-  //   try {
-  //     await syncMessages();
-  //     return BackgroundFetch.Result.NewData;
-  //   } catch (err) {
-  //     return BackgroundFetch.Result.Failed;
-  //   }
-  // });
 
   useEffect(() => {
     getNewTasks(userAuth.id, setTaskStatus);
   }, []);
 
   const onRefresh = useCallback(() => {
-    setRefreshing(true);
+    // setRefreshing(true);
     setStatus('loading');
     setTimeout(async () => {
       const result = await getNewTasks(userAuth.id, setTaskStatus);
       if (result) {
-        //console.log('new tasks in homeIndex onReferesh', result);
-        setModalVisible(true);
+        //setModalVisible(true);
         setStatus('hasPlan');
       }
-      //console.log('NO results in new tasks in homeIndex onReferesh');
-      setRefreshing(false);
+      //setRefreshing(false);
       setStatus('hasPlan');
-    }, 2000);
+    }, 3000);
   }, []);
 
   useEffect(() => {
@@ -96,32 +67,16 @@ function HomeIndex() {
       setStatus('loading');
       if (currentPlan === null) {
         setStatus('noPlan');
-        setLoading(false);
-        setIsPlanAssigned(false);
       } else {
         setStatus('hasPlan');
-        setLoading(false);
-        setIsPlanAssigned(true);
       }
     }, 2000);
     // Cleanup function to clear the timeout if currentPlan is not null
     return () => {
       clearTimeout(timeout);
-      setLoading(false);
+      setStatus('idle');
     };
   }, [currentPlan]);
-
-  // useEffect(() => {
-  //   getUsercurrentWorkoutPlan(userAuth.id, i18n);
-  // }, []);
-
-  // async function registerBackgroundFetchAsync() {
-  //   return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-  //     minimumInterval: 60 * 15, // 15 minutes
-  //     stopOnTerminate: false, // android only
-  //     startOnBoot: true, // android only
-  //   });
-  // }
 
   const [userPervilage, setUserPervilage] = useState(false);
 
@@ -129,43 +84,17 @@ function HomeIndex() {
     setUserPervilage(checkFreeTrial(userAuth.date));
   };
 
-  // useEffect(() => {
-  //   registerBackgroundFetchAsync();
-  // }, []);
-
   useFocusEffect(
     useCallback(() => {
-      setLoading(true), getData();
-      getPackagesData();
+      setStatus('loading');
+      getData();
+
       checkUserPervilage();
       return () => {
-        setLoading(false);
+        setStatus('idle');
       };
     }, [])
   );
-
-  const getPlanFromAsyncStorage = async () => {
-    await AsyncStorage.getItem('workoutsList').then((value) => {
-      // alert('workoutsList');
-      if (value !== null) {
-        const workoutsList = JSON.parse(value);
-
-        setCurrentPlanAsync(workoutsList[0]);
-      } else {
-        //alert('workoutsList without data');
-      }
-    });
-  };
-  useEffect(() => {
-    getPlanFromAsyncStorage();
-  }, []);
-
-  // console.log('userAuth.id', userAuth.id);
-  // const getUserWorkoutData = async () => {
-  //   currentPalnPercentage().then((data) => {
-  //     setUserWorkoutData(data);
-  //   });
-  // };
 
   const getData = async () => {
     try {
@@ -173,17 +102,14 @@ function HomeIndex() {
 
       setCurrentPlan(weeklyPlan);
       setPlanName(planName);
+      setStatus('hasPlan');
     } catch (error) {
       setCurrentPlan(null);
-      setLoading(false);
+      setStatus('noPlan');
       return false;
     }
   };
 
-  const getPackagesData = async () => {
-    const result = await getPackages();
-    setPackages(result);
-  };
   return (
     <SafeAreaView>
       <View
@@ -192,19 +118,38 @@ function HomeIndex() {
           marginBottom: 0,
           zIndex: 100,
         }}>
-        <HomeHeader
-          planStartDate={planStartDate}
-          data={userWorkoutData?.data}
-          i18n={i18n}
-          title={currentPlan?.name}
-        />
+        <HomeHeader i18n={i18n} title={currentPlan?.name} />
       </View>
 
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        {status === 'loading' && <FitlinezLoading />}
+        {status === 'loading' && (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: theme.colors.background,
+              marginHorizontal: 20,
+              marginVertical: 20,
+              borderRadius: 14,
+            }}>
+            <Skeleton
+              skeletonStyle={{
+                borderRadius: 16,
+                marginVertical: 10,
+                marginHorizontal: 10,
+                backgroundColor: theme.colors.background,
+              }}
+              LinearGradientComponent={LinearGradient}
+              animation="wave"
+              width={Dimensions.get('window').width / 1.1}
+              height={Dimensions.get('window').height / 4}
+            />
+          </View>
+        )}
         {status === 'hasPlan' && (
           <View
             style={{
@@ -218,7 +163,6 @@ function HomeIndex() {
               RTL={isRTL}
               title={planName || ''}
               trainer={currentPlan?.creator || ''}
-              totalSessions={totalSessions || 0}
               location={currentPlan?.location || ''}
               userPervilage={userPervilage}
               taskStatus={taskStatus}
@@ -235,7 +179,7 @@ function HomeIndex() {
 
               height: Dimensions.get('window').height / 4,
             }}>
-            <NoWorkoutCard packages={packages} userPervilage={userPervilage} />
+            <NoWorkoutCard />
           </View>
         )}
 

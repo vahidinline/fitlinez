@@ -82,9 +82,9 @@ function RepsInput(props) {
           style={{
             flexDirection: 'row',
             backgroundColor: theme.colors.background,
-            width: Dimensions.get('window').width / 1.35,
-            marginRight: 0,
-            marginLeft: 0,
+            // width: Dimensions.get('window').width / 1.35,
+            // marginRight: 0,
+            // marginLeft: 0,
           }}>
           {/* <View
             style={{

@@ -6225,8 +6225,8 @@ const IconRest = ({ size, color }) => {
 const IconLogo = ({ width, height }) => {
   return (
     <Svg
-      width={261}
-      height={59}
+      width={width || 261}
+      height={height || 59}
       viewBox="0 0 261 59"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">

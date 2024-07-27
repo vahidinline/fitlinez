@@ -8,7 +8,6 @@ import {
   Platform,
   Alert,
   TouchableOpacity,
-  PixelRatio,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
@@ -22,7 +21,7 @@ import Item from './listPage/item';
 import { updateSession } from '../../api/workoutSessionTracker';
 import DrawerList from './listPage/drawer';
 import SessionTimer from '../../components/timer/sessionTimer';
-import { IconArrowRight, IconSub } from '../marketplace/filters/icons-';
+import { IconArrowRight } from '../marketplace/filters/icons-';
 import { IconCloseCircle } from '../marketplace/filters/icons';
 
 const { width, height } = Dimensions.get('window');
@@ -40,10 +39,8 @@ const SessionMainPage = (props) => {
   const [finish, setFinish] = useState(false);
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
-  const { workouts, category, location, catTname, planName } =
-    props.route.params;
+  const { workouts, category, location } = props.route.params;
   const [saveTimer, setSaveTimer] = useState(false);
-
   const [data, setData] = useState(workouts);
   const flatListRef = useRef(null);
   const hideDialog = () => setVisible(false);
@@ -105,7 +102,7 @@ const SessionMainPage = (props) => {
   };
   const undoneItem = (index) => {
     // Scroll to the previous item if it exists
-    if (index >= 1) {
+    if (index > 0) {
       //console.log('iside undoneItem', index);
       flatListRef.current.scrollToIndex({ index: index - 1, animated: true });
       setProgress(progress - 1);
@@ -385,9 +382,9 @@ const SessionMainPage = (props) => {
             position: 'absolute',
             top:
               Platform.OS === 'ios'
-                ? Dimensions.get('window').height / 2 - 100
+                ? Dimensions.get('window').height / 8.2
                 : Dimensions.get('window').height / 2 - 80,
-            right: Dimensions.get('window').width - 45,
+            right: Dimensions.get('window').width - 38,
             //right: 0,
             bottom: 10,
             //justifyContent: 'center',

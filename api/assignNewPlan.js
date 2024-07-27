@@ -1,5 +1,5 @@
 import { getPlanUsage, updateWorkoutPlan } from './GetData';
-const savePackages = (item, userId, navigation) => {
+const savePackages = async (item, userId, navigation) => {
   const addedDateTime = new Date().toISOString();
   const packageId = item._id;
   // console.log('item in assign new plan', item);
@@ -8,7 +8,7 @@ const savePackages = (item, userId, navigation) => {
 
   try {
     const jsonString = JSON.stringify({ item, addedDateTime });
-    getPlanUsage({ packageId, userId });
+    const res = await getPlanUsage({ packageId, userId });
 
     console.log('new package saved');
     navigation.reset({
