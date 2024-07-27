@@ -6,6 +6,7 @@ import * as TaskManager from 'expo-task-manager';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 import { Button, Overlay, useTheme } from '@rneui/themed';
 import { Audio } from 'expo-av';
+import convertToPersianNumbers from '../../../../api/PersianNumber';
 
 const BACKGROUND_TASK_NAME = 'BACKGROUND_COUNTER_TASK';
 
@@ -24,7 +25,7 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, () => {
   }
 });
 
-const RestCounterComponent = ({ setVisible, visible, buttonTitle }) => {
+const RestCounterComponent = ({ setVisible, visible, buttonTitle, RTL }) => {
   // console.log('visible in RestCounter', visible);
   const [count, setCount] = useState(60);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -128,8 +129,14 @@ const RestCounterComponent = ({ setVisible, visible, buttonTitle }) => {
         updateInterval={1}
         onUpdate={onTimerUpdate}>
         {({ remainingTime, color }) => (
-          <Text style={{ color, fontSize: 20, fontWeight: '500' }}>
-            {remainingTime}
+          <Text
+            style={{
+              color,
+              fontSize: 20,
+              fontWeight: '500',
+              fontFamily: 'Vazirmatn',
+            }}>
+            {convertToPersianNumbers(remainingTime, RTL)}
           </Text>
         )}
       </CountdownCircleTimer>

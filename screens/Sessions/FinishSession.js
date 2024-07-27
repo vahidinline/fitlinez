@@ -35,6 +35,7 @@ import {
   readWorkoutData,
 } from '../../api/readWorkoutData';
 import { getBurnedCalories } from '../../api/getBurnedCalories';
+import convertToPersianNumbers from '../../api/PersianNumber';
 
 const FinishSession = (props) => {
   const [userWorkoutData, setUserWorkoutData] = useState([]);
@@ -55,18 +56,7 @@ const FinishSession = (props) => {
   const { theme } = useTheme();
   const styles = getStyle(theme, PixelRatio);
   const numericCompletionPercentage = parseFloat(completionPercentage);
-
-  // const getUserWorkoutData = async () => {
-  //   try {
-  //     const data = await currentPalnPercentage();
-  //     setUserWorkoutData(data);
-  //     // console.log('data line 81', data);
-  //   } catch (error) {}
-  // };
-
-  // useEffect(() => {
-  //   getUserWorkoutData();
-  // }, []);
+  const RTL = userLanguage === 'fa';
 
   const getData = async () => {
     // console.log('inside get data');
@@ -89,13 +79,13 @@ const FinishSession = (props) => {
 
     getData();
     deleteSessiondata();
-    navigation.navigate('SahreResult', {
-      timeSpent: timeSpent,
-      totalWeightSum: totalWeightSum,
-      category: category,
-      location: location,
-      performance: completionPercentage,
-    });
+    // navigation.navigate('SahreResult', {
+    //   timeSpent: timeSpent,
+    //   totalWeightSum: totalWeightSum,
+    //   category: category,
+    //   location: location,
+    //   performance: completionPercentage,
+    // });
   };
 
   useEffect(() => {
@@ -125,20 +115,6 @@ const FinishSession = (props) => {
     };
     getTempTimeSpend();
   }, []);
-
-  // useEffect(() => {
-  //   const getTempPerformance = async () => {
-  //     const value = await AsyncStorage.getItem(`@SessionPerformance`);
-  //     if (value !== null) {
-  //       console.log('value of async temp performance', value);
-  //       setCompletionPercentage(value);
-  //     } else {
-  //       console.log('value of async temp performance s', value);
-  //       setCompletionPercentage(0);
-  //     }
-  //   };
-  //   getTempPerformance();
-  // }, []);
 
   const goHome = () => {
     storeDataDB();
@@ -251,7 +227,7 @@ const FinishSession = (props) => {
             alignSelf: 'center',
             height: Dimensions.get('window').height / 2 - 100,
           }}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => goShare()}
             style={{
               position: 'absolute',
@@ -260,42 +236,15 @@ const FinishSession = (props) => {
               zIndex: 100,
             }}>
             <Iconshare />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View
             style={{
               height: Dimensions.get('window').height / 2.2,
             }}>
-            {typeof numericCompletionPercentage === 'number' &&
-              !isNaN(numericCompletionPercentage) && (
-                <>
-                  {numericCompletionPercentage < 50 && (
-                    <LowPerformance
-                      completionPercentage={numericCompletionPercentage}
-                      text={i18n.t('lowerPerformanceText')}
-                    />
-                  )}
-                  {numericCompletionPercentage >= 50 &&
-                    numericCompletionPercentage < 70 && (
-                      <MidPerformance
-                        completionPercentage={numericCompletionPercentage}
-                        text={i18n.t('midPerformanceText')}
-                      />
-                    )}
-                  {numericCompletionPercentage >= 70 &&
-                    numericCompletionPercentage < 90 && (
-                      <HighPerformance
-                        completionPercentage={numericCompletionPercentage}
-                        text={i18n.t('highPerformanceText')}
-                      />
-                    )}
-                  {numericCompletionPercentage >= 90 && (
-                    <TopPerformance
-                      completionPercentage={numericCompletionPercentage}
-                      text={i18n.t('hiestPerformanceText')}
-                    />
-                  )}
-                </>
-              )}
+            <TopPerformance
+              completionPercentage={numericCompletionPercentage}
+              text={i18n.t('hiestPerformanceText')}
+            />
           </View>
 
           <View
@@ -314,7 +263,7 @@ const FinishSession = (props) => {
               <>
                 <View style={styles.view}>
                   <Text style={styles.title}>
-                    {totalWeightSum}
+                    {convertToPersianNumbers(totalWeightSum, RTL)}
                     <Text style={styles.subtitle}> {i18n.t('kg')}</Text>
                   </Text>
                   <Text style={styles.subtitle}>{i18n.t('liftedweight')}</Text>
@@ -325,7 +274,11 @@ const FinishSession = (props) => {
             {burnedCalories && (
               <View style={styles.view}>
                 <Text style={styles.title}>
-                  {burnedCalories.totalCaloriesBurned.toFixed(0)} kcal
+                  {convertToPersianNumbers(
+                    burnedCalories.totalCaloriesBurned.toFixed(0),
+                    RTL
+                  )}
+                  <Text style={styles.subtitle}> {i18n.t('calories')} </Text>
                 </Text>
                 <Pressable
                   style={{
@@ -342,7 +295,7 @@ const FinishSession = (props) => {
             )}
             <Divider style={styles.divider} />
             <View style={styles.view}>
-              <Text style={styles.title}>{formatTime(timeSpent)}</Text>
+              <Text style={styles.title}>{formatTime(timeSpent, RTL)}</Text>
               <Text style={styles.subtitle}>{i18n.t('sessionDuration')}</Text>
             </View>
           </View>

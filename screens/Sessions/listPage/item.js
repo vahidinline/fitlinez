@@ -430,6 +430,7 @@ function Item({
             setVisible={setShowRest}
             visible={showRest}
             buttonTitle={i18n.t('skip')}
+            RTL={RTL}
           />
         )}
       </View>

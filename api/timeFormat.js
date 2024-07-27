@@ -1,4 +1,6 @@
-const formatTime = (totalSeconds) => {
+import convertToPersianNumbers from './PersianNumber';
+
+const formatTime = (totalSeconds, RTL) => {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
@@ -7,7 +9,13 @@ const formatTime = (totalSeconds) => {
   const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
   const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
 
-  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  return `${convertToPersianNumbers(
+    formattedHours,
+    RTL
+  )}:${convertToPersianNumbers(
+    formattedMinutes,
+    RTL
+  )}:${convertToPersianNumbers(formattedSeconds, RTL)}`;
 };
 
 export default formatTime;

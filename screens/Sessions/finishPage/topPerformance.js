@@ -48,6 +48,8 @@ function TopPerformance({ text, completionPercentage }) {
             fontWeight: '500',
             color: theme.colors.text,
             textAlign: 'center',
+            fontFamily: 'Vazirmatn',
+            color: theme.colors.secondary,
           }}>
           {generateText(completionPercentage)}
         </Text>
