@@ -79,13 +79,6 @@ const FinishSession = (props) => {
 
     getData();
     deleteSessiondata();
-    // navigation.navigate('SahreResult', {
-    //   timeSpent: timeSpent,
-    //   totalWeightSum: totalWeightSum,
-    //   category: category,
-    //   location: location,
-    //   performance: completionPercentage,
-    // });
   };
 
   useEffect(() => {
