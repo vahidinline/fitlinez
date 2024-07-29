@@ -1,67 +1,16 @@
 // import * as SQLite from 'expo-sqlite';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
-// const db = SQLite.openDatabase('totalWeight.db');
-// const db1 = SQLite.openDatabase('performance.db');
-// const db2 = SQLite.openDatabase('packeges.db');
-// const db3 = SQLite.openDatabase('userWorkOutSession.db');
-// const db4 = SQLite.openDatabase('userBasicData.db');
 
 const filterByDates = async (startDate, endDate) => {
   return new Promise((resolve, reject) => {
-    //console.log('Filtering data between', startDate, 'and', endDate);
-
-    // Convert dates to ISO format for consistency
     const startISO = moment(startDate).toISOString();
     const endISO = moment(endDate).toISOString();
-
-    // db1.transaction(
-    //   (tx) => {
-    //     tx.executeSql(
-    //       'SELECT * FROM performance WHERE date BETWEEN ? AND ?',
-    //       [startISO, endISO],
-
-    //       (tx, results) => {
-    //         let filteredData = [];
-    //         for (let i = 0; i < results.rows.length; i++) {
-    //           filteredData.push(results.rows.item(i));
-    //         }
-
-    //         //console.log('filteredData', filteredData);
-    //         resolve(filteredData); // This line was previously commented out
-    //       },
-    //       (error) => {
-    //         reject('Fetch error: ', error);
-    //       }
-    //     );
-    //   },
-    //   (error) => {
-    //     console.log('Transaction error:', error);
-    //   }
-    // );
   });
 };
 
 const saveUserWeight = async (data) => {
   console.log('data in api', data);
-
-  // db4.transaction(
-  //   (tx) => {
-  //     tx.executeSql(
-  //       'INSERT INTO userBasicData (data) VALUES (?);',
-  //       [JSON.stringify(data)],
-  //       () => {
-  //         console.log('data inserted');
-  //       },
-  //       (error) => {
-  //         console.log('error in data insertion', error);
-  //       }
-  //     );
-  //   },
-  //   (error) => {
-  //     console.log('main error in data insertion', error);
-  //   }
-  // );
 };
 
 const readWorkoutData = async () => {
@@ -73,20 +22,21 @@ const readWorkoutData = async () => {
       const workoutsList = JSON.parse(value);
 
       const workoutPlanData = workoutsList;
-      console.log('workoutPlanData in readWorkoutdata', workoutsList);
-      const weeklyPlan = workoutsList.data?.weeklyPlan;
+
+      const weeklyPlan = workoutsList?.weeklyPlan;
       const planName = workoutsList.data?.packageName;
       const location = workoutsList.data?.location;
-      // const totalSession = workoutsList.data?.totalSessions
-      //   ? workoutsList.data.totalSessions
-      //   : workoutsList.data?.DaysPerWeek * workoutsList.data.duration;
-      console.log('weeklyPlan in readWorkoutData', weeklyPlan);
-      console.log('planName in readWorkoutData', planName);
-      return { weeklyPlan, planName, location };
-      // return {
-      //   dataObject: dataObject.data,
-      //   totalSessions: dataObject.item.DaysPerWeek * dataObject.item.duration,
-      // };
+      const packageId = workoutsList.data?.packageId;
+      console.log(
+        'data s in readWorkoutdata',
+        workoutsList.data?.weeklyPlan.weeklyPlan
+      );
+      console.log(
+        'workoutPlanData in readWorkoutdata',
+        workoutPlanData.weeklyPlan
+      );
+
+      return { weeklyPlan, planName, location, packageId };
     } else {
       //console.error('No data in AsyncStorage');
       return null;
@@ -96,87 +46,7 @@ const readWorkoutData = async () => {
   }
 };
 
-const readSavedData = (userId) => {
-  // console.log('userId in api', userId);
-  // return new Promise((resolve, reject) => {
-  //   db.transaction(
-  //     (tx) => {
-  //       const today = new Date();
-  //       today.setHours(0, 0, 0, 0);
-  //       tx.executeSql(
-  //         'SELECT * FROM totalWeight WHERE timestamp >= ?;',
-  //         [today.getTime()],
-  //         (tx, results) => {
-  //           const rows = results.rows;
-  //           const data = [];
-  //           for (let i = 0; i < rows.length; i++) {
-  //             let row = rows.item(i);
-  //             data.push({
-  //               ...row,
-  //               userId: userId,
-  //             });
-  //           }
-  //           resolve(data);
-  //         },
-  //         (error) => {
-  //           reject(error);
-  //         }
-  //       );
-  //     },
-  //     (error) => {
-  //       reject(error);
-  //     }
-  //   );
-  // });
-};
-
-// const currentPalnPercentage = () => {
-//   console.log('inside currentPlanPercentage');
-//   return new Promise((resolve, reject) => {
-//     db3.transaction(
-//       (tx) => {
-//         tx.executeSql(
-//           'SELECT * FROM userWorkOutSession;',
-//           [],
-//           (tx, results) => {
-//             const rows = results.rows.raw(); // get rows in a simpler format
-//             console.log('rows in currentPlanPercentage', rows);
-//             const data = [];
-//             let totalSessions = 0;
-
-//             for (let i = 0; i < rows.length; i++) {
-//               let row = rows[i];
-//               data.push(row);
-
-//               totalSessions += row.DaysPerWeek * row.Weeks; // Calculate totalSessions for each row
-//             }
-
-//             resolve({
-//               data: data,
-//               totalSessions: totalSessions,
-//             });
-//           },
-//           (error) => {
-//             reject('error in currentPlanPercentage line217 ', error);
-//           }
-//         );
-//       },
-//       (error) => {
-//         reject('error in currentPlanPercentage line 226', error);
-//       },
-//       () => {
-//         console.log('Read transaction completed successfully.');
-//       }
-//     );
-//   });
-// };
-
-// const calculateWorkoutPercentage = (total, startDate, done, planName) => {
-//   const percentage = (done / total) * 100;
-//   console.log('percentage', percentage);
-
-//   return percentage;
-// };
+const readSavedData = (userId) => {};
 
 const calculateWorkoutPercentage = async (total, startDate, done, planName) => {
   console.log(
@@ -226,9 +96,6 @@ const calculateWorkoutPercentage = async (total, startDate, done, planName) => {
     console.error('Error fetching data', error);
   }
 
-  //console.log('percentage in line 183', finalPercentage);
-
-  // Storing the workout data in AsyncStorage
   try {
     const workoutData = {
       ...(storedData ? JSON.parse(storedData) : {}),
@@ -250,85 +117,10 @@ const calculateWorkoutPercentage = async (total, startDate, done, planName) => {
   return finalPercentage;
 };
 
-// const calculateWorkoutPercentage = async (total, startDate, done, planName) => {
-//   try {
-//     console.log(
-//       'Calculating workout percentage:',
-//       total,
-//       startDate,
-//       done,
-//       planName
-//     );
-
-//     const startDateObj = new Date(startDate);
-//     const filteredArray = done?.filter(
-//       (item) => new Date(item.timestamp) > startDateObj
-//     );
-
-//     console.log(
-//       'Length of array with timestamps after startDate:',
-//       filteredArray?.length
-//     );
-
-//     const arrayLength = filteredArray?.length || 0;
-
-//     let percentage = (arrayLength / total) * 100;
-//     let finalPercentage = Math.min(100, percentage.toFixed(2));
-//     console.log('Calculated percentage:', finalPercentage);
-
-//     let storedData = null;
-
-//     try {
-//       storedData = await AsyncStorage.getItem('workoutDataPercentage');
-//       console.log('Stored data from AsyncStorage:', storedData);
-
-//       let workoutData = storedData ? JSON.parse(storedData) : {};
-
-//       if (
-//         workoutData[planName] &&
-//         typeof workoutData[planName] === 'object' &&
-//         workoutData[planName].startDate === startDate &&
-//         workoutData[planName].planName === planName
-//       ) {
-//         // If startDate and planName are the same, use the stored percentage
-//         finalPercentage = workoutData[planName].percentage;
-//       } else {
-//         // Reset the percentage and update workoutData
-//         finalPercentage = 0;
-//         workoutData[planName] = {
-//           planName: planName,
-//           startDate: startDate,
-//           percentage: finalPercentage,
-//         };
-//       }
-
-//       storedData = JSON.stringify(workoutData);
-//     } catch (error) {
-//       console.error('Error fetching or parsing data from AsyncStorage:', error);
-//     }
-
-//     // Store the workout data in AsyncStorage
-//     try {
-//       await AsyncStorage.setItem('workoutDataPercentage', storedData);
-//       console.log('Workout data stored in AsyncStorage:', storedData);
-//     } catch (error) {
-//       console.error('Error saving data to AsyncStorage:', error);
-//     }
-
-//     return finalPercentage;
-//   } catch (error) {
-//     console.error('Error in calculateWorkoutPercentage:', error);
-//     throw error;
-//   }
-// };
-
 const readWorkoutPercentageData = async (planName) => {
   try {
     const storedData = await AsyncStorage.getItem('workoutDataPercentage');
-    // console.log(
-    //   'Stored data from AsyncStorage readWorkoutPercentageData:',
-    //   storedData
-    // );
+
     if (storedData !== null) {
       const workoutData = JSON.parse(storedData);
 

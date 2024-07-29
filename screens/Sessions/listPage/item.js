@@ -307,8 +307,8 @@ function Item({
         <View>
           <View
             style={{
-              width: width / 1.3,
-              marginLeft: 55,
+              width: width / 1.35,
+              marginLeft: 60,
               position: 'absolute',
             }}>
             {inputType === 'timer' ? (
@@ -379,7 +379,7 @@ function Item({
                 style={{
                   fontSize: 16,
                   //fontWeight: 'bold',
-                  color: theme.colors.text,
+                  color: theme.colors.secondary,
                   fontFamily: 'Vazirmatn',
                 }}>
                 {i18n.t('set')} {convertToPersianNumbers(currentIndex + 1, RTL)}{' '}
@@ -399,6 +399,7 @@ function Item({
                     fontFamily: 'Vazirmatn',
                     fontSize: 16,
                     textAlign: RTL ? 'left' : 'right',
+                    color: theme.colors.secondary,
                   }}>
                   {i18n.t('description')}: {description}
                 </Text>

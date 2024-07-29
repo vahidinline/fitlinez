@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Alert, Linking } from 'react-native';
 import api from './api';
+import { savePackages } from './assignNewPlan';
 
 const getPlanUsage = async ({ packageId, userId }) => {
   console.log('getPlanUsage', packageId);
@@ -387,6 +388,27 @@ const getPackages = async (userId) => {
   });
 };
 
+const getUpdatedWorkoutPlan = async ({ userId, packageId }) => {
+  console.log('getUpdatedWorkoutPlan', userId, packageId);
+  try {
+    const response = await api.post('/newplan/currentPlan', {
+      userId: userId,
+      packageId: packageId,
+    });
+    console.log('response', response.data);
+    const savePlan = await savePackages(response.data, userId);
+    const res = await AsyncStorage.setItem(
+      'workoutsList',
+      JSON.stringify(savePlan)
+    );
+    console.log('response in getUpdatedWorkoutPlan', res);
+  } catch (error) {
+    console.log(error);
+    return false;
+    // Possible 404 error (e.g., endpoint not found)
+  }
+};
+
 export {
   userStatusCheck,
   getWorkOutData,
@@ -397,4 +419,5 @@ export {
   createGoogleCalendarEvent,
   getPackages,
   getPlanUsage,
+  getUpdatedWorkoutPlan,
 };

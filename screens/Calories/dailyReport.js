@@ -197,13 +197,12 @@ function DailyReport({ userId }) {
                     <Text
                       style={{
                         color: theme.colors.primary,
-                        fontSize: 22,
+                        fontSize: 16,
                         textAlign: 'center',
                         fontFamily: 'Vazirmatn',
                       }}>
                       {convertToPersianNumbers(dailyCalories, RTL)}{' '}
-                      {i18n.t('calories')} {i18n.t('of')}{' '}
-                      {i18n.t('todayscalorie')} {i18n.t('remaining')}
+                      {i18n.t('calories')} {i18n.t('remaining')}
                     </Text>
                   )}
                 </Text>
@@ -290,7 +289,7 @@ const getStyles = (theme, RTL) =>
     caloriesText: {
       color: theme.colors.primary,
       fontFamily: 'Vazirmatn',
-      fontSize: 30,
+      fontSize: 20,
       textAlign: 'center',
     },
     kcalText: {
@@ -308,23 +307,25 @@ const getStyles = (theme, RTL) =>
     },
     errorText: {
       color: theme.colors.warning,
-      fontSize: 14,
+      fontSize: 12,
       fontFamily: 'Vazirmatn',
       margin: 5,
     },
     nutrientContainer: {
+      //width: '99%',
       width: Dimensions.get('window').width / 1.2,
       backgroundColor: theme.colors.background,
       borderRadius: 12,
       height: 80,
-      //ustifyContent: 'center',
+      marginHorizontal: 15,
+      //justifyContent: 'center',
       //alignItems: 'center',
       padding: 15,
     },
     nutrientText: {
       direction: RTL ? 'rtl' : 'ltr',
       color: theme.colors.secondary,
-      fontSize: 16,
+      fontSize: 14,
       fontFamily: 'Vazirmatn',
     },
   });

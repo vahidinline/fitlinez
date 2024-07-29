@@ -15,7 +15,7 @@ import { IconArrowLeft } from '../screens/marketplace/filters/icons-';
 import LanguageContext from '../api/langcontext';
 import { IconArrowRight } from '../screens/marketplace/filters/icons';
 
-function Header({ title, rightIconPress }) {
+function Header({ title, rightIconPress, left }) {
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
   const { userLanguage } = useContext(LanguageContext);
@@ -32,7 +32,8 @@ function Header({ title, rightIconPress }) {
   return (
     <View
       style={{
-        width: Dimensions.get('window').width,
+        flexDirection: 'row',
+        width: Dimensions.get('window').width / 1,
         height: 50,
         marginTop: Platform.OS === 'ios' ? 30 : 80,
         marginBottom: 10,
@@ -42,7 +43,7 @@ function Header({ title, rightIconPress }) {
         style={{
           flexDirection: 'row',
           backgroundColor: theme.colors.background,
-          width: Dimensions.get('window').width,
+          width: Dimensions.get('window').width / 2,
           alignSelf: 'center',
         }}>
         <Text
@@ -64,6 +65,12 @@ function Header({ title, rightIconPress }) {
           }>
           <IconArrowLeft />
         </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          width: Dimensions.get('window').width / 3,
+        }}>
+        {left}
       </View>
     </View>
   );

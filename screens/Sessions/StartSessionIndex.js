@@ -6,21 +6,25 @@ import {
   ScrollView,
   AppState,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
-import * as SQLite from 'expo-sqlite';
 import { I18n } from 'i18n-js';
 import { Text } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
-import moment from 'moment';
 import { useTheme } from '@rneui/themed';
 import AuthContext from '../../api/context';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import Header from '../../components/header';
-import { userLevelCheck, userStatusCheck } from '../../api/GetData';
+import {
+  getUpdatedWorkoutPlan,
+  userLevelCheck,
+  userStatusCheck,
+} from '../../api/GetData';
 import { readWorkoutData } from '../../api/readWorkoutData';
 import DaySelectionModal from '../../components/ChangeWorkoutDay/ChangeWorkoutDay';
+import { IconEdit, IconSave } from '../marketplace/filters/icons';
 
 require('moment/locale/fa');
 require('moment/locale/en-gb');
@@ -29,10 +33,10 @@ const StartSessionIndex = () => {
   const { theme } = useTheme();
   const { userAuth, setUserAuth } = useContext(AuthContext);
   const { timeSpent, setTimeSpent } = useContext(TimeSpentContext);
+  const [packageId, setPackageId] = useState();
   const [workoutPlan, setWorkoutPlan] = useState([]);
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
-  const [timestamp, setTimestamp] = useState([]);
   const [location, setLocation] = useState();
   const [title, setTitle] = useState();
   const [selectedWorkout, setSelectedWorkout] = useState(null);
@@ -44,17 +48,16 @@ const StartSessionIndex = () => {
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const RTL = userLanguage === 'fa';
-
+  const [showEdit, setShowEdit] = useState(false);
   const getData = async () => {
+    console.log('getData');
     try {
-      const { weeklyPlan, planName, location } = await readWorkoutData();
-
-      // console.log('weeklyPlan', weeklyPlan);
-      // console.log('planName', planName);
-      // console.log('location', location);
+      const { weeklyPlan, planName, location, packageId } =
+        await readWorkoutData();
       setWorkoutPlan(weeklyPlan);
       setTitle(planName);
       setLocation(location);
+      setPackageId(packageId);
     } catch (error) {
       setWorkoutPlan(null);
       return false;
@@ -112,6 +115,11 @@ const StartSessionIndex = () => {
     return null;
   };
 
+  const handleUpdateDay = async (day) => {
+    setShowEdit(!showEdit);
+    //const res = await getUpdatedWorkoutPlan({ packageId, userId });
+  };
+
   const handleSelectDay = (newDay) => {
     const updatedPlan = workoutPlan.map((workout) =>
       workout === selectedWorkout ? { ...workout, dayName: newDay } : workout
@@ -134,8 +142,33 @@ const StartSessionIndex = () => {
   const selectedDays = workoutPlan?.map((workout) => workout.dayName);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <Header title={title} />
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+        // justifyContent: 'center',
+        //     alignItems: 'center',
+      }}>
+      <Header
+        title={title}
+        left={
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              //marginHorizontal: 16,
+              marginVertical: 8,
+            }}>
+            <TouchableOpacity onPress={() => setShowEdit(!showEdit)}>
+              {showEdit && <IconEdit size={32} />}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleUpdateDay()}>
+              {!showEdit && <IconSave size={32} />}
+            </TouchableOpacity>
+          </View>
+        }
+      />
+
       <ScrollView>
         {workoutPlan
           ?.sort((a, b) => {
@@ -147,40 +180,60 @@ const StartSessionIndex = () => {
             return (
               <View
                 style={{
-                  flexDirection: 'column',
+                  flexDirection: 'row',
                   borderRadius: 16,
                   borderColor: theme.colors.border,
                   borderWidth: 1,
                   marginHorizontal: 16,
-                  height: 90,
+                  height: Dimensions.get('window').height / 10,
                   marginVertical: 8,
                 }}
                 key={`item-${i}`}>
-                <TouchableOpacity
-                  // onPress={() => {
-                  //   setSelectedWorkout(item);
-                  //   setSelectedWorkoutTitle(item.title); // Set the selected workout title
+                <View
+                  style={{
+                    marginLeft: 10,
+                    //marginTop: 10,
+                    borderTopWidth: 0,
+                    borderBottomWidth: 0,
+                    borderLeftWidth: 0,
+                    borderWidth: 1,
+                    borderColor: theme.colors.grey3,
+                    width: '25%',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    // paddingTop: Dimensions.get('window').height / 25,
+                  }}>
+                  {!showEdit && (
+                    <TouchableOpacity
+                      onPress={() => {
+                        setSelectedWorkout(item);
+                        setSelectedWorkoutTitle(item.title); // Set the selected workout title
 
-                  //   setModalVisible(true);
-                  // }}
-                  style={{ marginLeft: 10, marginTop: 10 }}>
+                        setModalVisible(true);
+                      }}>
+                      <IconEdit />
+                    </TouchableOpacity>
+                  )}
+
                   <Text style={{ color: theme.colors.secondary }}>
-                    {/* <IconEdit /> */}
                     <Text
                       style={{
                         color:
                           item.title !== 'Rest'
                             ? theme.colors.secondary
                             : '#C7C4DC',
-                        fontSize: 12,
-                        fontWeight: '500',
+                        fontSize: 14,
+                        // fontWeight: '500',
                         marginTop: 0,
                         fontFamily: 'Vazirmatn',
+
+                        textAlign: 'center',
                       }}>
                       {findMatchingDay(item.dayName, daysOfWeek)}
                     </Text>
                   </Text>
-                </TouchableOpacity>
+                </View>
                 <TouchableOpacity
                   disabled={
                     item.title === 'Rest' ||
@@ -205,26 +258,27 @@ const StartSessionIndex = () => {
                   <View
                     style={{
                       flexDirection: 'row',
-                      justifyContent: 'space-between',
+                      // justifyContent: 'space-between',
                       // alignItems: 'center',
                       marginHorizontal: 10,
                     }}>
-                    <View>
-                      <Text
-                        style={{
-                          color:
-                            item.title !== 'Rest'
-                              ? theme.colors.text
-                              : '#C7C4DC',
-                          fontSize: 18,
-                          justifyContent: 'center',
-                          fontWeight: '500',
-                          // marginTop: 50,
-                          // fontFamily: 'Vazirmatn',
-                        }}>
-                        {item.title}
-                      </Text>
-                    </View>
+                    <Text
+                      style={{
+                        color:
+                          item.title !== 'Rest'
+                            ? theme.colors.secondary
+                            : '#C7C4DC',
+                        fontSize: 22,
+                        justifyContent: 'center',
+                        paddingTop: Dimensions.get('window').height / 30,
+                        fontWeight: '500',
+                        // marginTop: 50,
+                        fontFamily: 'Vazirmatn',
+                        //center the text
+                        textAlign: 'center',
+                      }}>
+                      {item.title}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -240,6 +294,7 @@ const StartSessionIndex = () => {
         workoutTitle={selectedWorkoutTitle} // Pass the selected workout title
         RTL={RTL}
         userId={userId}
+        theme={theme}
       />
     </SafeAreaView>
   );

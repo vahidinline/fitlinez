@@ -90,6 +90,10 @@ function WeightAndSetsInput(props) {
           style={{
             flexDirection: 'row',
             backgroundColor: theme.colors.background,
+            borderRadius: 12,
+            borderWidth: 1,
+            borderColor: theme.colors.border,
+            top: 5,
           }}>
           <InputSpinner
             name="weight"
@@ -112,7 +116,7 @@ function WeightAndSetsInput(props) {
             onChange={(value) => handleInputChange('weight', value)}
             style={{
               flex: 1,
-              margin: 5,
+              margin: 0,
               marginEnd: 0,
               marginStart: 0,
               shadowColor: 'transparent',
@@ -122,9 +126,10 @@ function WeightAndSetsInput(props) {
               borderBottomRightRadius: 0,
               borderTopLeftRadius: 12,
               borderRadius: 12,
-              borderWidth: 1,
-              borderStartWidth: 1,
               borderEndWidth: 1,
+              //borderWidth: 1,
+              //borderStartWidth: 1,
+              // borderEndWidth: 1,
               borderColor: theme.colors.border,
             }}
             skin="clean"
@@ -149,7 +154,7 @@ function WeightAndSetsInput(props) {
             onChange={(value) => handleInputChange('reps', value)}
             style={{
               flex: 1,
-              margin: 5,
+              margin: 0,
               justifyContent: 'center',
               shadowColor: 'transparent',
               shadowOpacity: 0,
@@ -157,8 +162,8 @@ function WeightAndSetsInput(props) {
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
 
-              borderStartWidth: 1,
-              borderWidth: 1,
+              borderStartWidth: 0,
+              //borderWidth: 1,
               borderColor: theme.colors.border,
               marginStart: 0,
             }}

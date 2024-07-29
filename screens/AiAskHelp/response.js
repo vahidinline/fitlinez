@@ -42,6 +42,8 @@ function ChatResponse({
         borderColor: theme.colors.border,
         borderWidth: 1,
         direction: isRTl ? 'rtl' : 'ltr',
+        width: Dimensions.get('window').width / 1.15,
+        marginHorizontal: 0,
       }}>
       <View
         style={{
@@ -69,6 +71,7 @@ function ChatResponse({
               color: theme.colors.text,
               textAlign: 'center',
               marginHorizontal: 10,
+              fontFamily: 'Vazirmatn',
               //textAlign: !isRTL ? 'right' : 'left',
             }}>
             {i18n.t('aiResponse')}
@@ -79,6 +82,7 @@ function ChatResponse({
             flexDirection: 'row',
             alignItems: 'center',
             //justifyContent: 'center',
+            fontFamily: 'Vazirmatn',
             marginTop: 0,
           }}>
           <TouchableOpacity onPress={() => setIsHide(!isHide)}>
@@ -113,6 +117,7 @@ function ChatResponse({
               fontWeight: '400',
               color: theme.colors.text,
               textAlign: isRTL ? 'right' : 'left',
+              fontFamily: 'Vazirmatn',
             }}>
             {response}
           </Text>
@@ -129,10 +134,11 @@ function ChatResponse({
           <Text
             style={{
               fontSize: 12,
-              fontWeight: '500',
-              color: theme.colors.text,
+              //fontWeight: '500',
+              color: theme.colors.secondary,
               textAlign: 'center',
               marginHorizontal: 10,
+              fontFamily: 'Vazirmatn',
               //textAlign: !isRTL ? 'right' : 'left',
             }}>
             {i18n.t('aiResponseRate')}

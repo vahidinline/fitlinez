@@ -268,7 +268,7 @@ const WeeklyPlan = (props) => {
         flex: 1,
         backgroundColor: theme.colors.background,
       }}>
-      <Header title={`${title} - ${dayName}`} />
+      <Header title={dayName} />
       <View
         style={{
           flexDirection: 'row',

@@ -597,7 +597,7 @@ const i18nt = {
     selectSubs: 'انتخاب حرکت جایگزین',
     noSubs: 'حرکت جایگزین موجود نیست',
     happyNoruwz: 'نوروز مبارک',
-    aiResponse: 'پاسخ هوش مصنوعی',
+    aiResponse: 'پاسخ دستیار هوشمند',
     aiResponseRate: 'پاسخ چطور بود؟',
     ShoulderPain: 'درد شانه',
     KneePain: 'درد زانو',

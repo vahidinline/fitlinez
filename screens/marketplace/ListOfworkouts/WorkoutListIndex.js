@@ -20,6 +20,7 @@ import { Button, Skeleton } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
 import FitlinezLoading from '../../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
+import TrainersList from '../../Trainers/TrainerIndex';
 // import BannerAdMob from '../../../api/AdMob/BannerComponent';
 
 function WorkoutListIndex() {
@@ -137,6 +138,7 @@ function WorkoutListIndex() {
               ))}
             </View>
           )}
+          <TrainersList />
           {status === 'success' && (
             <View>
               <Text

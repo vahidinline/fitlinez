@@ -1,14 +1,20 @@
 import api from './api';
 
 const updatePlanDay = async (userId, title, day) => {
+  console.log('userId', userId);
+  console.log('title', title);
+  console.log('day', day);
   try {
-    const response = await api.put('/changePlanDay', {
+    const response = await api.put('/newPlan/singleDay', {
       userId,
       title,
       day,
     });
-    const data = await response.json();
-    return data;
+
+    //update the plan day in async storage
+
+    // console.log('response', response);
+    return response;
   } catch (error) {
     console.error('Error:', error);
   }
