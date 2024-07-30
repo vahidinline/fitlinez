@@ -1,16 +1,8 @@
 import { Button } from '@rneui/base';
 import React, { useEffect } from 'react';
-import {
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-} from 'react-native';
+import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import updatePlanDay from '../../api/changePlanDay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { dismissBrowser } from 'expo-web-browser';
 
 const DaySelectionModal = ({
   visible,
@@ -21,7 +13,6 @@ const DaySelectionModal = ({
   workoutTitle,
   RTL,
   userId,
-  theme,
 }) => {
   const handleUpdateDay = async (day) => {
     console.log('day', day);
@@ -31,38 +22,48 @@ const DaySelectionModal = ({
 
       // Update local storage after cloud update
       const data = await AsyncStorage.getItem('workoutsList');
-      const parsedData = JSON.parse(data);
-      //console.log('parsedData', parsedData);
+      const parsedData = JSON.parse(data) || {};
 
-      const updatedWeeklyPlan = parsedData.data.weeklyPlan.map((plan) => {
-        if (plan.title === workoutTitle) {
-          return { ...plan, dayName: day };
-        }
-        return plan;
-      });
+      if (
+        parsedData.data &&
+        parsedData.data.weeklyPlan &&
+        Array.isArray(parsedData.data.weeklyPlan)
+      ) {
+        const updatedWeeklyPlan = parsedData.data.weeklyPlan.map((plan) => {
+          if (plan.title === workoutTitle) {
+            return { ...plan, dayName: day };
+          }
+          return plan;
+        });
 
-      const updatedData = {
-        ...parsedData,
-        weeklyPlan: updatedWeeklyPlan,
-      };
+        const updatedData = {
+          ...parsedData,
+          data: {
+            ...parsedData.data,
+            weeklyPlan: updatedWeeklyPlan,
+          },
+        };
 
-      await AsyncStorage.setItem('workoutsList', JSON.stringify(updatedData));
+        await AsyncStorage.setItem('workoutsList', JSON.stringify(updatedData));
 
-      console.log('Local data updated:', updatedData);
+        console.log('Local data updated:', updatedData);
+      } else {
+        console.error('weeklyPlan is missing or not an array');
+      }
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
-  // const getLocalPackageData = async () => {
-  //   const data = await AsyncStorage.getItem('workoutsList');
-  //   const parsedData = JSON.parse(data);
-  //   console.log('parsedData', parsedData);
-  // };
+  const getLocalPackageData = async () => {
+    const data = await AsyncStorage.getItem('workoutsList');
+    const parsedData = JSON.parse(data);
+    console.log('parsedData', parsedData);
+  };
 
-  // useEffect(() => {
-  //   getLocalPackageData();
-  // }, []);
+  useEffect(() => {
+    getLocalPackageData();
+  }, []);
 
   return (
     <Modal
@@ -72,26 +73,11 @@ const DaySelectionModal = ({
       onRequestClose={onClose}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          {/* <Text style={styles.modalTitle}>{dayExerciseName}</Text> */}
           <Text style={styles.modalSubTitle}>{workoutTitle}</Text>
-          {/* Display the workout title here */}
           {daysOfWeek.map((day) => (
             <TouchableOpacity
-              style={{
-                backgroundColor: selectedDays?.includes(day.name)
-                  ? theme.colors.primary
-                  : theme.colors.white,
-                width: Dimensions.get('window').width / 1.5,
-                borderRadius: 10,
-                padding: 10,
-                marginVertical: 5,
-                borderWidth: 1,
-                borderColor: theme.colors.border,
-              }}
               key={day.id}
-              onPress={() => handleUpdateDay(day.name)}
-              // disabled={selectedDays.includes(day.name)}>
-            >
+              onPress={() => handleUpdateDay(day.name)}>
               <Text
                 style={[
                   styles.dayText,
@@ -101,19 +87,7 @@ const DaySelectionModal = ({
               </Text>
             </TouchableOpacity>
           ))}
-          <Button
-            title="Close"
-            onPress={onClose}
-            buttonStyle={{
-              backgroundColor: theme.colors.secondary,
-              width: Dimensions.get('window').width / 1.5,
-              borderRadius: 10,
-              padding: 10,
-              marginVertical: 5,
-              // borderWidth: 1,
-              //borderColor: theme.colors.border,
-            }}
-          />
+          <Button title="Close" onPress={onClose} />
         </View>
       </View>
     </Modal>
@@ -139,11 +113,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#5c5c5c',
   },
-
   modalSubTitle: {
-    fontSize: 24,
+    fontSize: 16,
     marginBottom: 20,
   },
   dayText: {
@@ -151,7 +123,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   dayTextDisabled: {
-    color: 'grey',
+    color: 'gray',
   },
 });
 

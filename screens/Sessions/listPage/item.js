@@ -470,7 +470,7 @@ function Item({
       <View
         style={{
           position: 'absolute',
-          top: Dimensions.get('window').height / 1.3,
+          top: Dimensions.get('window').height / 1.4,
           left: 0,
           right: 0,
           //height: Dimensions.get('window').height / 15,

@@ -22,19 +22,19 @@ const readWorkoutData = async () => {
       const workoutsList = JSON.parse(value);
 
       const workoutPlanData = workoutsList;
-
-      const weeklyPlan = workoutsList?.weeklyPlan;
+      //console.log('workoutPlanData', workoutPlanData);
+      const weeklyPlan = workoutsList?.data.weeklyPlan;
       const planName = workoutsList.data?.packageName;
       const location = workoutsList.data?.location;
       const packageId = workoutsList.data?.packageId;
-      console.log(
-        'data s in readWorkoutdata',
-        workoutsList.data?.weeklyPlan.weeklyPlan
-      );
-      console.log(
-        'workoutPlanData in readWorkoutdata',
-        workoutPlanData.weeklyPlan
-      );
+      // console.log(
+      //   'data s in readWorkoutdata',
+      //   workoutsList.data?.weeklyPlan.weeklyPlan
+      // );
+      // console.log(
+      //   'workoutPlanData in readWorkoutdata',
+      //   workoutPlanData.weeklyPlan
+      // );
 
       return { weeklyPlan, planName, location, packageId };
     } else {

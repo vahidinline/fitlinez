@@ -13,9 +13,9 @@ import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
 import { Button, useTheme } from '@rneui/themed';
 import { Divider } from 'react-native-paper';
-import LowPerformance from './finishPage/lowerPerformance';
-import MidPerformance from './finishPage/midPerformance';
-import HighPerformance from './finishPage/highPerformance';
+// import LowPerformance from './finishPage/lowerPerformance';
+// import MidPerformance from './finishPage/midPerformance';
+// import HighPerformance from './finishPage/highPerformance';
 import TopPerformance from './finishPage/topPerformance';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LanguageContext from '../../api/langcontext';
@@ -25,7 +25,7 @@ import i18nt from '../../locales';
 import api from '../../api/api';
 import { IconFire, Iconshare } from '../marketplace/filters/icons';
 import formatTime from '../../api/timeFormat';
-import { retrieveAndCalculatePerformance } from '../../api/SaveData';
+// import { retrieveAndCalculatePerformance } from '../../api/SaveData';
 import storeDataDB from '../../api/storedata';
 import {
   PerformanceRead,
@@ -119,16 +119,16 @@ const FinishSession = (props) => {
     });
   };
 
-  useEffect(() => {
-    try {
-      retrieveAndCalculatePerformance();
-      sendData();
-      sendPerformanceData();
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     // retrieveAndCalculatePerformance();
+  //     //sendData();
+  //   //  sendPerformanceData();
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
 
   const handleShowBurnedCalories = async () => {
     const sessionId = await AsyncStorage.getItem('sessionId');
@@ -156,45 +156,45 @@ const FinishSession = (props) => {
     handleShowBurnedCalories();
   }, []);
 
-  const sendData = async () => {
-    const data = await readSavedData(userId);
+  // const sendData = async () => {
+  //   const data = await readSavedData(userId);
 
-    try {
-      const response = await api
-        .post('/workouthistory', {
-          data,
-        })
-        .then((response) => {
-          setLoading(false);
-        });
-    } catch (error) {
-      console.log('error');
-      setLoading(false);
-      return false;
-    }
-  };
+  //   try {
+  //     const response = await api
+  //       .post('/workouthistory', {
+  //         data,
+  //       })
+  //       .then((response) => {
+  //         setLoading(false);
+  //       });
+  //   } catch (error) {
+  //     console.log('error');
+  //     setLoading(false);
+  //     return false;
+  //   }
+  // };
 
-  const sendPerformanceData = async () => {
-    // console.log(await PerformanceRead(userId));
+  // const sendPerformanceData = async () => {
+  //   // console.log(await PerformanceRead(userId));
 
-    const data = await PerformanceRead(userId);
-    setLoading(false);
-    try {
-      const response = await api
-        .post('/performancethistory', {
-          data,
-        })
-        .then((res) => {
-          setLoading(false);
-          // console.log('res for performance');
-        });
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
+  //   const data = await PerformanceRead(userId);
+  //   setLoading(false);
+  //   try {
+  //     const response = await api
+  //       .post('/performancethistory', {
+  //         data,
+  //       })
+  //       .then((res) => {
+  //         setLoading(false);
+  //         // console.log('res for performance');
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
 
-      return false;
-    }
-  };
+  //     return false;
+  //   }
+  // };
 
   const deleteSessiondata = async () => {
     await AsyncStorage.removeItem('@current_exercise_state');
@@ -235,7 +235,7 @@ const FinishSession = (props) => {
               height: Dimensions.get('window').height / 2.2,
             }}>
             <TopPerformance
-              completionPercentage={numericCompletionPercentage}
+              //completionPercentage={numericCompletionPercentage}
               text={i18n.t('hiestPerformanceText')}
             />
           </View>
@@ -270,20 +270,17 @@ const FinishSession = (props) => {
                   {convertToPersianNumbers(
                     burnedCalories.totalCaloriesBurned.toFixed(0),
                     RTL
-                  )}
-                  <Text style={styles.subtitle}> {i18n.t('calories')} </Text>
-                </Text>
-                <Pressable
-                  style={{
-                    flexDirection: 'row',
-                  }}
-                  //</View> onPress={() => handleShowBurnedCalories()}
-                >
-                  <Text style={styles.subtitle}>
-                    {i18n.t('burnedCalories')}
-                  </Text>
+                  )}{' '}
                   <IconFire />
-                </Pressable>
+                </Text>
+
+                <Text
+                  style={{
+                    color: theme.colors.secondary,
+                    fontSize: PixelRatio.get() < 3 ? 10 : 12,
+                  }}>
+                  {i18n.t('burnedCalories')}
+                </Text>
               </View>
             )}
             <Divider style={styles.divider} />
