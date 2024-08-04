@@ -17,11 +17,7 @@ import { TimeSpentContext } from '../../api/TimeSpentContext';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import Header from '../../components/header';
-import {
-  getUpdatedWorkoutPlan,
-  userLevelCheck,
-  userStatusCheck,
-} from '../../api/GetData';
+import { userLevelCheck, userStatusCheck } from '../../api/GetData';
 import { readWorkoutData } from '../../api/readWorkoutData';
 import DaySelectionModal from '../../components/ChangeWorkoutDay/ChangeWorkoutDay';
 import { IconEdit, IconSave } from '../marketplace/filters/icons';
@@ -48,7 +44,8 @@ const StartSessionIndex = () => {
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const RTL = userLanguage === 'fa';
-  const [showEdit, setShowEdit] = useState(false);
+  const [showEdit, setShowEdit] = useState('notActive');
+  console.log('showEdit', showEdit);
   const getData = async () => {
     console.log('getData');
     try {
@@ -116,7 +113,11 @@ const StartSessionIndex = () => {
   };
 
   const handleUpdateDay = async (day) => {
-    setShowEdit(!showEdit);
+    if (showEdit === 'notActive') {
+      setShowEdit('active');
+    } else {
+      setShowEdit('notActive');
+    }
     //const res = await getUpdatedWorkoutPlan({ packageId, userId });
   };
 
@@ -149,31 +150,33 @@ const StartSessionIndex = () => {
         // justifyContent: 'center',
         //     alignItems: 'center',
       }}>
-      <Header
-        title={title}
-        left={
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              //marginHorizontal: 16,
-              marginVertical: 8,
-            }}>
-            <TouchableOpacity onPress={() => setShowEdit(!showEdit)}>
-              {showEdit && <IconEdit size={32} />}
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleUpdateDay()}>
-              {!showEdit && <IconSave size={32} />}
-            </TouchableOpacity>
-          </View>
-        }
-      />
+      <Header title={title} />
+
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          marginHorizontal: 16,
+          marginVertical: 8,
+          width: '90%',
+        }}>
+        <TouchableOpacity onPress={() => handleUpdateDay()}>
+          {showEdit === 'notActive' && <IconEdit size={32} />}
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleUpdateDay()}>
+          {showEdit === 'active' && <IconSave size={32} />}
+        </TouchableOpacity>
+      </View>
 
       <ScrollView>
         {workoutPlan
           ?.sort((a, b) => {
-            const indexA = daysOfWeek.findIndex((day) => day.name === a.day);
-            const indexB = daysOfWeek.findIndex((day) => day.name === b.day);
+            const indexA = daysOfWeek.findIndex(
+              (day) => day.name === a.dayName
+            );
+            const indexB = daysOfWeek.findIndex(
+              (day) => day.name === b.dayName
+            );
             return indexA - indexB;
           })
           .map((item, i) => {
@@ -204,7 +207,7 @@ const StartSessionIndex = () => {
                     alignItems: 'center',
                     // paddingTop: Dimensions.get('window').height / 25,
                   }}>
-                  {!showEdit && (
+                  {showEdit === 'active' && (
                     <TouchableOpacity
                       onPress={() => {
                         setSelectedWorkout(item);

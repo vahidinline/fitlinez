@@ -16,7 +16,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import {
   IconHeaderNotStarted,
   IconStarted,
-} from '../marketplace/filters/icons-';
+} from '../marketplace/filters/icons';
 import {
   checkVersion,
   userLevelCheck,

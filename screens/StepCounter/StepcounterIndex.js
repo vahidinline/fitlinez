@@ -90,7 +90,10 @@ export default function StepcounterIndex() {
                 <View>
                   <IconWalking color={theme.colors.secondary} size={64} />
                 </View>
-                <View>
+                <View
+                  style={{
+                    flexDirection: 'column',
+                  }}>
                   <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
                   <Text style={styles.steps}>
                     {convertToPersianNumbers(

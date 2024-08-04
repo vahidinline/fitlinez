@@ -18,7 +18,6 @@ import i18nt from '../../../locales';
 import { I18n } from 'i18n-js';
 import { Button, Skeleton } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
-import FitlinezLoading from '../../../components/FitlinezLoading';
 import { LinearGradient } from 'expo-linear-gradient';
 import TrainersList from '../../Trainers/TrainerIndex';
 // import BannerAdMob from '../../../api/AdMob/BannerComponent';
@@ -52,24 +51,11 @@ function WorkoutListIndex() {
     }, 3000);
   }, []);
 
-  // const getUserBasicData = async () => {
-  //   setStatus('loading');
-  //   const result = await AsyncStorage.getItem('userBasicData');
-  //   setUserBasic(JSON.parse(result));
-  //   setStatus('loading');
-  // };
-
-  // useEffect(() => {
-  //   getUserBasicData();
-
-  //   return () => {
-  //     setUserBasic([]);
-  //   };
-  // }, []);
-
   const getPackagesData = async () => {
+    getLiveData();
     setStatus('loading');
     const result = await AsyncStorage.getItem('Allpackages');
+
     try {
       setPackages(JSON.parse(result));
       setStatus('success');
@@ -138,14 +124,22 @@ function WorkoutListIndex() {
               ))}
             </View>
           )}
-          <TrainersList />
+          <View
+            style={{
+              marginHorizontal: 10,
+              borderBottomColor: theme.colors.secondary,
+              borderBottomWidth: 0.3,
+            }}>
+            <TrainersList i18n={i18n} />
+          </View>
+
           {status === 'success' && (
             <View>
               <Text
                 style={{
                   fontSize: 16,
                   fontWeight: '500',
-                  color: theme.colors.text,
+                  color: theme.colors.secondary,
                   margin: 20,
                   flexShrink: 1,
                   flexWrap: 'wrap',

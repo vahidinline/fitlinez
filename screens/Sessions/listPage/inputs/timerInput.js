@@ -8,7 +8,7 @@ import LanguageContext from '../../../../api/langcontext';
 import { useTheme } from '@rneui/themed';
 import { SessionContext } from '../../../../api/sessionContext';
 import CountDown from './countDown';
-import { saveSetsData } from '../../../../api/inputApis';
+//import { saveSetsData } from '../../../../api/inputApis';
 import { duration } from 'moment';
 
 function TimerInput({
@@ -115,7 +115,7 @@ function TimerInput({
       exercideType: 'timer',
       duration: stopwatchTime,
     };
-    saveSetsData(dataToSave);
+    // saveSetsData(dataToSave);
   };
 
   useEffect(() => {

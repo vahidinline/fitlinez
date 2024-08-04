@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { saveSetsData } from './inputApis';
+//import { saveSetsData } from './inputApis';
 
 const storeDataDB = async () => {
   try {
@@ -9,9 +9,9 @@ const storeDataDB = async () => {
       const currentExerciseState = JSON.parse(jsonValue);
 
       // Add a delay to ensure FlatList is fully loaded.
-      setTimeout(() => {
-        saveSetsData(currentExerciseState);
-      }, 1000); // Adjust delay as needed.
+      // setTimeout(() => {
+      //   saveSetsData(currentExerciseState);
+      // }, 1000); // Adjust delay as needed.
 
       // Dispatch action or call function to resume set. Depends on your implementation.
     }

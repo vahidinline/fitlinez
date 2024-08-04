@@ -245,7 +245,16 @@ function HomeIndex() {
               {i18n.t('stepcounter')}
             </Text>
           </View>
-          <View style={styles.box}>
+          <View
+            style={[
+              styles.box,
+              {
+                height:
+                  Platform.OS === 'ios'
+                    ? Dimensions.get('window').height / 2.5
+                    : Dimensions.get('window').height / 4,
+              },
+            ]}>
             {Platform.OS === 'ios' ? (
               <StepcounterIndex />
             ) : (

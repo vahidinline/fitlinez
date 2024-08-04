@@ -43,7 +43,7 @@ function Header({ title, rightIconPress, left }) {
         style={{
           flexDirection: 'row',
           backgroundColor: theme.colors.background,
-          width: Dimensions.get('window').width / 2,
+          width: Dimensions.get('window').width / 1.5,
           alignSelf: 'center',
         }}>
         <Text
@@ -59,18 +59,13 @@ function Header({ title, rightIconPress, left }) {
           }}>
           {title}
         </Text>
+
         <TouchableOpacity
           onPress={() =>
             rightIconPress ? rightIconPress() : navigation.goBack()
           }>
           <IconArrowLeft />
         </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          width: Dimensions.get('window').width / 3,
-        }}>
-        {left}
       </View>
     </View>
   );

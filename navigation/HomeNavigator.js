@@ -18,6 +18,7 @@ import PlanDetailsIndex from '../screens/planDetails/planDetailsIndex';
 import SessionNavigator from './SessionNavigator';
 import CaloriesIndex from '../screens/Calories/CaloriesIndex';
 import CustomCalorieReport from '../screens/Calories/customReport';
+import SingleTrainer from '../screens/Trainers/SingleTrainer';
 
 const Stack = createStackNavigator();
 
@@ -66,6 +67,13 @@ const HomeNavigator = () => {
         }}
       />
 
+      <Stack.Screen
+        name="trainer"
+        component={SingleTrainer}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="IndexOnBoarding"
         component={IndexOnBoarding}

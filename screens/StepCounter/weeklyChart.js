@@ -38,7 +38,7 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
           topLabelComponent: () => (
             <Text
               style={{
-                color: isToday ? theme.colors.gold : theme.colors.text,
+                color: isToday ? 'transparent' : theme.colors.text,
                 fontSize: 10,
 
                 width: 50,

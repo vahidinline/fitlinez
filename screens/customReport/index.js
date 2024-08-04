@@ -37,6 +37,7 @@ const CustomReport = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const userId = userAuth.id;
   const RTL = userLanguage === 'fa';
+
   const handleHistoryData = async () => {
     setStatus('loading');
     try {
@@ -157,16 +158,18 @@ const CustomReport = () => {
                             </Text>
                             {item.sessionEndDate != null && (
                               <Text style={Styles.date}>
-                                {i18n.t('sessionDuration')} :{' '}
-                                {moment(item.sessionEndDate).diff(
-                                  moment(item.sessionStartDate),
-                                  'minutes'
+                                {convertToPersianNumbers(
+                                  moment(item.sessionEndDate).diff(
+                                    moment(item.sessionStartDate),
+                                    'minutes'
+                                  ),
+                                  RTL
                                 )}{' '}
                                 {i18n.t('minute')}
                               </Text>
                             )}
 
-                            <Text style={Styles.title}>{item.planName}</Text>
+                            <Text style={Styles.title}>{item.dayName}</Text>
 
                             {item.burnedCalories != null && (
                               <Text style={Styles.calories}>
