@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import FoodTextInput from './FoodTextInput';
-import { Dimensions, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import VoiceGetter from './VoiceGetter';
 import { Badge, Button } from '@rneui/base';
 import {
@@ -10,20 +16,25 @@ import {
 } from '../../marketplace/filters/icons';
 import { useTheme } from '@rneui/themed';
 import BarcodeScanner from './barcode/BarcodeScanner';
+import LanguageContext from '../../../api/langcontext';
+import i18nt from '../../../locales';
+import { I18n } from 'i18n-js';
 
 function InputSelector({
   setFoodItems,
-  setStatus,
-  userInput,
-  status,
-  setUserInput,
+
   selectedMeal,
-  i18n,
+
   userId,
   RTL,
 }) {
   const { theme } = useTheme();
   const [inputStatus, setInputStatus] = useState('idle');
+  const { userLanguage } = useContext(LanguageContext);
+  const i18n = new I18n(i18nt);
+  const [status, setStatus] = useState('idle');
+  i18n.locale = userLanguage;
+  const [userInput, setUserInput] = useState('');
   //console.log('selectedMeal in InputSelector', selectedMeal);
   const handleSetStatus = (status) => {
     //setStatus('mealInitialized');
@@ -55,111 +66,119 @@ function InputSelector({
   ];
 
   return (
-    <View
-      style={{
-        padding: 20,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        //backgroundColor: 'white',
-      }}>
-      {inputStatus === 'idle' && (
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            padding: 20,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            //backgroundColor: 'white',
           }}>
-          {inputType.map((item, i) => (
-            <TouchableOpacity
-              key={i}
+          {inputStatus === 'idle' && (
+            <View
               style={{
-                width: Dimensions.get('window').width / 4,
-                height: Dimensions.get('window').width / 4,
-                backgroundColor: 'lightgrey',
-                borderRadius: 10,
-                justifyContent: 'center',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
                 alignItems: 'center',
-                margin: 10,
-              }}
-              onPress={() => (item.active ? item.func() : null)}>
-              <View
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                {!item.active && <Badge status="warning" value={'Inactive'} />}
-              </View>
-              {item.icon}
-            </TouchableOpacity>
-          ))}
+              }}>
+              {inputType.map((item, i) => (
+                <TouchableOpacity
+                  key={i}
+                  style={{
+                    width: Dimensions.get('window').width / 4,
+                    height: Dimensions.get('window').width / 4,
+                    backgroundColor: 'lightgrey',
+                    borderRadius: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: 10,
+                  }}
+                  onPress={() => (item.active ? item.func() : null)}>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      right: 0,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    {!item.active && (
+                      <Badge status="warning" value={'Inactive'} />
+                    )}
+                  </View>
+                  {item.icon}
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+          {inputStatus === 'voiceInput' && (
+            <VoiceGetter
+              setInputStatus={setInputStatus}
+              setFoodItems={setFoodItems}
+              setStatus={setStatus}
+              userInput={userInput}
+              setUserInput={setUserInput}
+              i18n={i18n}
+              selectedMeal={selectedMeal.value}
+            />
+          )}
+          {inputStatus === 'textInput' && (
+            <FoodTextInput
+              selectedMeal={selectedMeal}
+              RTL={RTL}
+              setInputStatus={setInputStatus}
+              setFoodItems={setFoodItems}
+              setStatus={setStatus}
+              userInput={userInput}
+              setUserInput={setUserInput}
+              i18n={i18n}
+              status={status}
+              userId={userId}
+            />
+          )}
+
+          {inputStatus === 'barcodeInput' && (
+            <BarcodeScanner
+              selectedMeal={selectedMeal}
+              RTL={RTL}
+              setInputStatus={setInputStatus}
+              setFoodItems={setFoodItems}
+              setStatus={setStatus}
+              userInput={userInput}
+              setUserInput={setUserInput}
+              i18n={i18n}
+              status={status}
+              userId={userId}
+            />
+          )}
+        </View>
+      </ScrollView>
+
+      {status !== 'idle' && (
+        <View style={{ flex: 1 }}>
+          <Button
+            buttonStyle={{
+              backgroundColor: theme.colors.secondary,
+
+              borderColor: theme.colors.primary,
+              borderWidth: 0.2,
+              //marginBottom: 50,
+              margin: 10,
+              borderRadius: 10,
+            }}
+            titleStyle={{
+              color: theme.colors.primary,
+              fontSize: 15,
+              //fontWeight: 'bold',
+              fontFamily: 'Vazirmatn',
+            }}
+            title={i18n.t('back')}
+            onPress={() => setStatus('idle')}
+          />
         </View>
       )}
-      {inputStatus === 'voiceInput' && (
-        <VoiceGetter
-          setInputStatus={setInputStatus}
-          setFoodItems={setFoodItems}
-          setStatus={setStatus}
-          userInput={userInput}
-          setUserInput={setUserInput}
-          i18n={i18n}
-          selectedMeal={selectedMeal.value}
-        />
-      )}
-      {inputStatus === 'textInput' && (
-        <FoodTextInput
-          selectedMeal={selectedMeal}
-          RTL={RTL}
-          setInputStatus={setInputStatus}
-          setFoodItems={setFoodItems}
-          setStatus={setStatus}
-          userInput={userInput}
-          setUserInput={setUserInput}
-          i18n={i18n}
-          status={status}
-          userId={userId}
-        />
-      )}
-
-      {inputStatus === 'barcodeInput' && (
-        <BarcodeScanner
-          selectedMeal={selectedMeal}
-          RTL={RTL}
-          setInputStatus={setInputStatus}
-          setFoodItems={setFoodItems}
-          setStatus={setStatus}
-          userInput={userInput}
-          setUserInput={setUserInput}
-          i18n={i18n}
-          status={status}
-          userId={userId}
-        />
-      )}
-
-      <View>
-        <Button
-          buttonStyle={{
-            backgroundColor: theme.colors.secondary,
-
-            borderColor: theme.colors.primary,
-            borderWidth: 0.2,
-            marginBottom: 50,
-            margin: 10,
-            borderRadius: 10,
-          }}
-          titleStyle={{
-            color: theme.colors.primary,
-            fontSize: 15,
-            //fontWeight: 'bold',
-            fontFamily: 'Vazirmatn',
-          }}
-          title={i18n.t('back')}
-          onPress={() => setStatus('idle')}
-        />
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

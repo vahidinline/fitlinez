@@ -23,6 +23,7 @@ import {
   IconWeightScale,
 } from '../screens/marketplace/filters/icons';
 import CaloriesIndex from '../screens/Calories/CaloriesIndex';
+// import CaloriesNavigator from './CaloriesNavigator';
 
 const Tab = createBottomTabNavigator();
 

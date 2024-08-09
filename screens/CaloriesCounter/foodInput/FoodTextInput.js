@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
   Alert,
+  SafeAreaView,
 } from 'react-native';
 import { sendInitialReq } from '../../../api/sendFoodQuery';
 import { Button } from '@rneui/base';
@@ -53,55 +54,50 @@ function FoodTextInput({
     if (res) {
       console.log('res in FoodTextInput', res);
       setFoodItems(res);
-      setStatus('initialReqSent');
+      setStatus('idle');
     } else {
       setStatus('error');
     }
   };
 
   return (
-    <View
-      style={[
-        // styles.footerContainer,
-        {
-          bottom:
-            typeStatus === 'focused' ? Dimensions.get('window').height / 4 : 0,
-        },
-      ]}>
-      {/* <Pressable
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={[styles.footerContainer]}>
+        {/* <Pressable
         onPress={() => setInputStatus('idle')}
         style={styles.closeButton}>
         <Iconclose size={30} color={theme.colors.grey2} />
       </Pressable> */}
-      <TextInput
-        value={userInput}
-        returnKeyType="done"
-        returnKeyLabel="Done"
-        onFocus={() => setTypeStatus('focused')}
-        onBlur={() => setTypeStatus('idle')}
-        multiline={true}
-        //numberOfLines={4}
-        onChangeText={setUserInput}
-        style={[
-          styles.verticallySpaced,
-          { direction: RTL ? 'rtl' : 'ltr', backgroundColor: '#fff' },
-        ]}
-        placeholder={i18n.t('enterFoodPlaceholder')}
-      />
-      <View style={styles.buttonContainer}>
-        <Button
-          disabled={!userInput || userInput.length < 5}
-          buttonStyle={styles.saveButton}
-          titleStyle={{
-            fontFamily: 'Vazirmatn',
-
-            color: theme.colors.secondary,
-          }}
-          onPress={handleInput}
-          title={i18n.t('foodsearch')}
+        <TextInput
+          value={userInput}
+          returnKeyType="done"
+          returnKeyLabel="Done"
+          onFocus={() => setTypeStatus('focused')}
+          onBlur={() => setTypeStatus('idle')}
+          multiline={true}
+          numberOfLines={4}
+          onChangeText={setUserInput}
+          style={[
+            styles.verticallySpaced,
+            { direction: RTL ? 'rtl' : 'ltr', backgroundColor: '#fff' },
+          ]}
+          placeholder={i18n.t('enterFoodPlaceholder')}
         />
+        <View style={styles.buttonContainer}>
+          <Button
+            disabled={!userInput || userInput.length < 5}
+            buttonStyle={styles.saveButton}
+            titleStyle={{
+              fontFamily: 'Vazirmatn',
+
+              color: theme.colors.secondary,
+            }}
+            onPress={handleInput}
+            title={i18n.t('foodsearch')}
+          />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -1,17 +1,35 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, ListItem, Text } from '@rneui/base';
 import { useTheme } from '@rneui/themed';
-import React, { useState, useEffect } from 'react';
-import { Alert, Dimensions, StyleSheet, TextInput, View } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import {
+  Alert,
+  Dimensions,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import { setDailyCaloriesGoals } from '../../../api/calculateCaloriesPercentage';
 import NutritionChart from '../NutritionChart';
 import { Picker } from '@react-native-picker/picker';
 import { schedulePushNotification } from '../../../api/notification';
+import LanguageContext from '../../../api/langcontext';
+import i18nt from '../../../locales';
+import { I18n } from 'i18n-js';
+import AuthContext from '../../../api/context';
+import Header from '../../../components/header';
 
 const pickerData = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 
-function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
-  // const [status, setStatus] = useState('idle');
+function SetDailyCalories() {
+  const { userAuth } = useContext(AuthContext);
+  const userId = userAuth.id;
+  const { userLanguage } = useContext(LanguageContext);
+  const i18n = new I18n(i18nt);
+  i18n.locale = userLanguage;
+  const RTL = userLanguage === 'fa';
+  const [status, setStatus] = useState('idle');
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [dailyCalories, setDailyCalories] = useState(0);
@@ -146,24 +164,31 @@ function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
     }
   };
   return (
-    <View
+    <SafeAreaView
       style={{
-        height: '100%',
-        direction: RTL ? 'rtl' : 'ltr',
-        top: 30,
-        bottom:
-          typeStatus === 'focused' ? Dimensions.get('window').height / 4 : 20,
+        backgroundColor: theme.colors.background,
+        //
       }}>
-      <NutritionChart
-        i18n={i18n}
-        dailyCalories={dailyCalories}
-        fatPercentage={fatPercentage}
-        proteinPercentage={proteinPercentage}
-        carbsPercentage={carbsPercentage}
-        fatGrams={fatGrams}
-        proteinGrams={proteinGrams}
-        carbsGrams={carbsGrams}
-      />
+      <Header title={i18n.t('setdailycalories')} />
+      <View
+        style={{
+          height: '30%',
+
+          top: 30,
+          bottom:
+            typeStatus === 'focused' ? Dimensions.get('window').height / 4 : 20,
+        }}>
+        <NutritionChart
+          i18n={i18n}
+          dailyCalories={dailyCalories}
+          fatPercentage={fatPercentage}
+          proteinPercentage={proteinPercentage}
+          carbsPercentage={carbsPercentage}
+          fatGrams={fatGrams}
+          proteinGrams={proteinGrams}
+          carbsGrams={carbsGrams}
+        />
+      </View>
       <View style={styles.container}>
         <ListItem>
           <ListItem.Content
@@ -318,17 +343,18 @@ function SetDailyCalories({ userId, setStatus, i18n, RTL }) {
           />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 export default SetDailyCalories;
 
-const getStyles = (theme) =>
+const getStyles = (theme, RTL) =>
   StyleSheet.create({
     container: {
       // flex: 1,
       marginHorizontal: 10,
+      direction: RTL ? 'rtl' : 'ltr',
       padding: 10,
       borderRadius: 10,
       backgroundColor: theme.colors.background,

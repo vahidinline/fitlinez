@@ -25,13 +25,12 @@ import authStorage from '../../api/storage';
 import {
   IconArrowLeft,
   IconArrowRight,
-  IconLang,
   IconLogo,
 } from '../marketplace/filters/icons';
-import ChangeLanguage from '../settings/changeLanguage';
-import { FlatList } from 'react-native-gesture-handler';
+
 import langs from '../../data/langs';
 import api from '../../api/api';
+import { Chip } from '@rneui/base';
 
 function SignUpIndex(props) {
   const authContext = useContext(AuthContext);
@@ -50,6 +49,8 @@ function SignUpIndex(props) {
   const toggleCheckbox = () => setChecked(!checked);
   const [status, setStatus] = useState('idle');
   const [showLang, setShowLang] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  console.log('errorMessage', errorMessage);
   const buttonDisabled = () => {
     if (email !== null && password !== null && name !== null && checked) {
       setBtnDisable(false);
@@ -93,9 +94,11 @@ function SignUpIndex(props) {
         //expoPushToken: expoPushToken.data,
       })
       .then((res) => {
-        console.log('res', res.data);
+        setErrorMessage(res.data.error);
+        console.log('res', res.data.error);
         if (res.data.status === 'ok') {
           setStatus('success');
+
           try {
             const user = jwtDecode(res.data.data);
 
@@ -106,10 +109,11 @@ function SignUpIndex(props) {
               authStorage.storeToken(user);
             } else {
               setStatus('error');
+              setErrorMessage(res.data.error);
             }
           } catch (decodeError) {
             console.error(decodeError, 'JWT Decoding Error:');
-
+            setErrorMessage(res.data.error);
             setStatus('error');
           }
           //Redirect(email, password);
@@ -339,6 +343,31 @@ function SignUpIndex(props) {
               }
             />
           </View>
+          {status === 'error' && (
+            <Chip
+              title={errorMessage}
+              icon={{
+                name: 'alert-circle',
+                type: 'material-community',
+                size: 20,
+                color: theme.colors.primary,
+              }}
+              titleStyle={{
+                color: theme.colors.primary,
+                fontSize: 14,
+                fontWeight: 'bold',
+                textAlign: 'left',
+                fontFamily: 'Vazirmatn',
+              }}
+              type="outline"
+              containerStyle={{
+                marginVertical: 15,
+                backgroundColor: theme.colors.warning,
+                borderColor: theme.colors.error,
+                borderRadius: 8,
+              }}
+            />
+          )}
           <Button
             loading={status === 'loading' ? true : false}
             disabled={btnDisable}
@@ -363,6 +392,7 @@ function SignUpIndex(props) {
             title={i18n.t('signUp')}
           />
         </View>
+
         <View
           style={{
             position: 'absolute',
