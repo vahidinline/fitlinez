@@ -13,7 +13,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@rneui/themed';
 import { IconArrowLeft } from '../screens/marketplace/filters/icons-';
 import LanguageContext from '../api/langcontext';
-import { IconArrowRight } from '../screens/marketplace/filters/icons';
 
 function Header({ title, rightIconPress, left, color }) {
   const insets = useSafeAreaInsets();
@@ -43,15 +42,15 @@ function Header({ title, rightIconPress, left, color }) {
         style={{
           flexDirection: 'row',
           backgroundColor: color ? color : '',
-          width: Dimensions.get('window').width / 1.5,
+          width: Dimensions.get('window').width / 1.2,
           alignSelf: 'center',
         }}>
         <Text
           style={{
             fontSize: 20,
             position: 'absolute',
-            alignSelf: 'center',
-            left: 0,
+            //alignSelf: 'center',
+            left: 30,
             right: 20,
             textAlign: 'center',
             fontFamily: 'Vazirmatn',

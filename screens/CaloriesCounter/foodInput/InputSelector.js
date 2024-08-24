@@ -25,7 +25,7 @@ function InputSelector({ route }) {
   const { mealValue, mealName } = route.params;
   console.log('props in input selector', mealValue, mealName);
   const { theme } = useTheme();
-  const [inputStatus, setInputStatus] = useState('idle');
+  const [inputStatus, setInputStatus] = useState('textInput');
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   const [status, setStatus] = useState('idle');
@@ -64,7 +64,7 @@ function InputSelector({ route }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header
-        title={i18n.t('foodinserttypetitle', { mealType: mealValue })}
+        title={i18n.t('foodinserttypetitle', { mealType: mealName })}
         color={theme.colors.primary}
       />
       <ScrollView>
@@ -123,20 +123,20 @@ function InputSelector({ route }) {
             // selectedMeal={selectedMeal.value}
             />
           )}
-          {inputStatus === 'textInput' && (
-            <FoodTextInput
-              selectedMeal={mealValue}
-              // RTL={RTL}
-              // setInputStatus={setInputStatus}
-              // setFoodItems={setFoodItems}
-              // setStatus={setStatus}
-              // userInput={userInput}
-              // setUserInput={setUserInput}
-              // i18n={i18n}
-              // status={status}
-              // userId={userId}
-            />
-          )}
+          {/* {inputStatus === 'textInput' && ( */}
+          <FoodTextInput
+            selectedMeal={mealValue}
+            // RTL={RTL}
+            // setInputStatus={setInputStatus}
+            // setFoodItems={setFoodItems}
+            // setStatus={setStatus}
+            // userInput={userInput}
+            // setUserInput={setUserInput}
+            // i18n={i18n}
+            // status={status}
+            // userId={userId}
+          />
+          {/* )} */}
 
           {inputStatus === 'barcodeInput' && (
             <BarcodeScanner

@@ -120,7 +120,7 @@ function CaloriesIndex() {
             />
           </View>
         )}
-        <MealList />
+        <MealList userId={userId} />
       </ScrollView>
 
       {status === 'error' && (

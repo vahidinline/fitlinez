@@ -6,20 +6,19 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  ScrollView,
   SafeAreaView,
   RefreshControl,
 } from 'react-native';
 import { selectMeal } from '../../api/AsyncTempSessionStorage';
 import { useTheme } from '@rneui/themed';
-
+import { IconAdd } from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
 import getDailyCaloriesDetails from '../../api/getDailyCaloriesDetails';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import { useNavigation } from '@react-navigation/native';
 
-function MealList() {
+function MealList({ userId }) {
   const { theme } = useTheme();
   const navigator = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
@@ -74,8 +73,8 @@ function MealList() {
     },
     {
       id: 6,
-      name: i18n.t('desert'),
-      value: 'desert',
+      name: i18n.t('dessert'),
+      value: 'dessert',
       color: 'error',
       img: require('../../assets/icons/dessert.png'),
     },
@@ -87,16 +86,6 @@ function MealList() {
       img: require('../../assets/icons/drink.png'),
     },
   ];
-
-  const handleMealSelection = async (meal) => {
-    setStatus('loading');
-    const res = await selectMeal(meal.value, userId);
-    if (res) {
-      setSelectedMeal(meal.value);
-      setSelectedMealLocal(meal.value);
-      setStatus('mealInitialized');
-    }
-  };
 
   useEffect(() => {
     if (selectedMeal) {
@@ -111,6 +100,10 @@ function MealList() {
       setRefreshing(false);
     }, 2000);
   }, [selectedMeal]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -138,58 +131,47 @@ function MealList() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.mealSelectionContainer}>
-        <FlatList
-          data={meals}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
+      <FlatList
+        data={meals}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.mealSection}>
             <TouchableOpacity
               onPress={() =>
                 navigator.navigate('FoodInput', {
                   mealValue: item.value,
-                  maealName: item.name,
+                  mealName: item.name,
                 })
               }
               style={styles.mealButton}>
               <Text style={styles.mealText}>{item.name}</Text>
+              <IconAdd />
             </TouchableOpacity>
-          )}
-        />
-      </View>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollViewContent}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        {status === 'noData' && (
-          <Text style={styles.noData}>{i18n.t('noFoodSubmittedToday')}</Text>
-        )}
-        {status === 'loading' && (
-          <Text style={styles.loadingText}>{i18n.t('loading')}...</Text>
-        )}
-        {status === 'failed' && (
-          <Text style={styles.errorText}>{i18n.t('errorLoadingData')}</Text>
-        )}
-        {Object.keys(groupedMeals).map((mealName, i) => (
-          <View key={i} style={styles.mealSection}>
-            <View style={styles.mealHeader}>
-              <Text style={styles.mealName}>{i18n.t(mealName)}</Text>
-              {/* Display nutritional info if available */}
-              {status === 'succeeded' &&
-                groupedMeals[mealName].map((meal, j) => (
-                  <View key={j} style={styles.mealDetail}>
-                    {meal.foodItems.map((foodItem, k) => (
-                      <Text key={k} style={styles.foodItem}>
-                        {foodItem.food_item}
-                      </Text>
-                    ))}
-                  </View>
-                ))}
-            </View>
+
+            {/* Display food items under the meal name */}
+            {groupedMeals[item.value] &&
+              groupedMeals[item.value].map((meal, j) => (
+                <View key={j} style={styles.mealDetail}>
+                  {meal.foodItems.map((foodItem, k) => (
+                    <Text key={k} style={styles.foodItem}>
+                      {foodItem.food_item}
+                    </Text>
+                  ))}
+                </View>
+              ))}
           </View>
-        ))}
-      </ScrollView>
+        )}
+      />
+
+      {status === 'noData' && (
+        <Text style={styles.noData}>{i18n.t('noFoodSubmittedToday')}</Text>
+      )}
+      {status === 'loading' && (
+        <Text style={styles.loadingText}>{i18n.t('loading')}...</Text>
+      )}
+      {status === 'failed' && (
+        <Text style={styles.errorText}>{i18n.t('errorLoadingData')}</Text>
+      )}
     </SafeAreaView>
   );
 }

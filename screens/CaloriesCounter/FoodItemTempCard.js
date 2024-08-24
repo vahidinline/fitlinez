@@ -72,8 +72,8 @@ const FoodItemCard = ({
     //console.log('mealId', mealId);
   };
 
-  const handleUpdatefoodItem = (foodId, status) => {
-    approveFoodItem(foodId, status);
+  const handleUpdatefoodItem = async (foodId, status) => {
+    await approveFoodItem(foodId, status);
     setMainStatus('idle');
   };
 

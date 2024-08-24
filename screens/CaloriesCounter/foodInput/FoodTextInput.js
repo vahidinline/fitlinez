@@ -97,7 +97,7 @@ function FoodTextInput({ selectedMeal }) {
           onChangeText={setUserInput}
           style={[
             styles.verticallySpaced,
-            { textAlign: !RTL ? 'right' : 'left' },
+            { textAlign: RTL ? 'right' : 'left' },
           ]}
           placeholder={i18n.t('enterFoodPlaceholder')}
         />

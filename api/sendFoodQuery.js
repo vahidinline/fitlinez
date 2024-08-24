@@ -2,13 +2,13 @@ import foodapi from './foodApi';
 
 const sendInitialReq = async (userInput, userId, selectedMeal, setStatus) => {
   //setStatus('initialReqSent');
-  console.log(
-    'selectedMeal in sendInitialReq',
-    userInput,
-    userId,
+  // console.log(
+  //   'selectedMeal in sendInitialReq',
+  //   userInput,
+  //   userId,
 
-    selectedMeal
-  );
+  //   selectedMeal
+  // );
 
   try {
     const response = await foodapi.post(
