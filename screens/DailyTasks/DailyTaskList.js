@@ -53,7 +53,7 @@ function DailyTaskList(item, { title }) {
         justifyContent: 'space-between',
         backgroundColor: theme.colors.background,
         marginHorizontal: 5,
-        height: Dimensions.get('window').height / 12,
+        height: Dimensions.get('window').height / 10,
         width: Dimensions.get('window').width / 1.2,
         top: 20,
         marginVertical: 8,
@@ -76,10 +76,10 @@ function DailyTaskList(item, { title }) {
             marginHorizontal: 0,
             alignItems: 'center',
           }}>
-          {item.item.taskType === 'workout' && (
+          {item?.item?.taskType === 'workout' && (
             <IconWorkout color={theme.colors.secondary} size={48} />
           )}
-          {item.item.taskType === 'NEAT' && (
+          {item?.item?.taskType === 'NEAT' && (
             <IconWalking color={theme.colors.secondary} size={48} />
           )}
           <Text
@@ -94,7 +94,7 @@ function DailyTaskList(item, { title }) {
                 item.item.status === 'completed' ? 'line-through' : 'none',
               fontFamily: 'Vazirmatn',
             }}>
-            {item.item.task}
+            {item?.item?.task}
           </Text>
         </View>
         <View

@@ -142,12 +142,12 @@ function ProfileIndex() {
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           marginTop: 20,
           marginBottom: 0,
           marginHorizontal: 10,
         }}>
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -165,7 +165,7 @@ function ProfileIndex() {
             justifyContent: 'center',
           }}>
           <IconInbox />
-        </View>
+        </View> */}
         <View
           style={{
             flexDirection: 'row',
@@ -176,7 +176,7 @@ function ProfileIndex() {
 
             alignContent: 'center',
             alignItems: 'center',
-            //alignSelf: 'center',
+            alignSelf: 'center',
             justifyContent: 'center',
           }}>
           <UserImagePicker setAvatar={setAvatar} />
@@ -203,7 +203,7 @@ function ProfileIndex() {
           </View>
         </View>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate('IndexLeaderBoard')}
           style={{
             flexDirection: 'row',
@@ -222,7 +222,7 @@ function ProfileIndex() {
             justifyContent: 'center',
           }}>
           <IconLeaderboard />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <View

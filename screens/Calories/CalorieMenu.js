@@ -1,18 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import { BottomSheet, ListItem } from '@rneui/base';
-import { Direct, TextalignCenter } from 'iconsax-react-native';
 import React from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { List, Text } from 'react-native-paper';
-import {
-  IconArrow,
-  IconArrowDown,
-  IconArrowLeft,
-  IconArrowUp,
-  IconMenu,
-} from '../marketplace/filters/icons';
+import { Text } from 'react-native-paper';
+import { IconArrowDown } from '../marketplace/filters/icons';
 import { useTheme } from '@rneui/themed';
-import { t } from 'i18n-js';
 
 function CalorieMenu({
   status,
@@ -39,12 +31,12 @@ function CalorieMenu({
   };
 
   const menuList = [
-    {
-      id: 1,
-      name: i18n.t('addfood'),
-      onPress: () => setStatus('addFood'),
-      active: true,
-    },
+    // {
+    //   id: 1,
+    //   name: i18n.t('addfood'),
+    //   onPress: () => setStatus('addFood'),
+    //   active: true,
+    // },
     {
       id: 2,
       name: i18n.t('setdailycalories'),
@@ -57,12 +49,12 @@ function CalorieMenu({
       onPress: () => handleGoToReport(),
       active: true,
     },
-    {
-      id: 5,
-      name: i18n.t('previousMenu'),
-      onPress: () => handleHideMenu(),
-      active: true,
-    },
+    // {
+    //   id: 5,
+    //   name: i18n.t('previousMenu'),
+    //   onPress: () => handleHideMenu(),
+    //   active: true,
+    // },
   ];
 
   return (

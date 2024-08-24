@@ -406,10 +406,8 @@ const SessionMainPage = (props) => {
         <View
           style={{
             position: 'absolute',
-            top:
-              Platform.OS === 'ios'
-                ? Dimensions.get('window').height / 8.2
-                : Dimensions.get('window').height / 2 - 80,
+            top: 95,
+
             right: Dimensions.get('window').width - 38,
             //right: 0,
             bottom: 10,

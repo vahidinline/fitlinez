@@ -4,7 +4,7 @@ import DailyReport from '../screens/Calories/dailyReport';
 const i18nt = {
   en: {
     aboutme: 'About Me',
-    brand: 'Fitlinez',
+    brand: 'FITLINEZ',
     workout: `You have`,
     profile: 'Profile',
     history: 'History',
@@ -486,9 +486,13 @@ const i18nt = {
     trainerPlan: 'Trainer Plans',
     bookSession: 'Book Session',
     trainerslist: 'Trainers List',
+    shareResultText:
+      'I have done {{dayName}} with {{brand}} App and Burned {{calories}} calorie(s) in {{minutes}} minute(s)',
   },
 
   fa: {
+    shareResultText:
+      'من با اپلیکیشن {{brand}} و تمرین {{dayName}} تو {{minutes}} دقیقه، {{calories}} کالری سوزوندم!',
     trainerslist: 'لیست مربیان',
     bookSession: 'رزرو جلسه',
     trainerPlan: 'برنامه های مربی',
@@ -710,7 +714,7 @@ const i18nt = {
     upgradeSubHeaderText: 'دسترسی نامحدود',
     upgradeSmallText: 'با خرید اشتراک، دسترسی نامحدود دریافت می کنید',
     clearcash: 'پاک کردن کش',
-    brand: 'فیتلاینز',
+    brand: 'فیت‌لا‌‌ینز',
     todaysactivity: 'فعالیت امروز',
     workout: 'آماده شروع تمرین امروز هستی؟',
     progress: 'گزارش پیشرفت',

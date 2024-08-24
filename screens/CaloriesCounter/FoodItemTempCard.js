@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import {
-  TextInput,
   View,
   StyleSheet,
   Text,
@@ -9,11 +8,9 @@ import {
 } from 'react-native';
 import { deleteFoodItem, sendFoodQuery } from '../../api/sendFoodQuery';
 import { useTheme } from '@rneui/themed';
-import { ActivityIndicator } from 'react-native-paper';
 import { IconTickCircle, Iconclose } from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
 import approveFoodItem from '../../api/approveFoodItem';
-import FitlinezLoading from '../../components/FitlinezLoading';
 
 // import { IconClose } from '../marketplace/filters/icons';
 const FoodItemCard = ({
@@ -77,7 +74,7 @@ const FoodItemCard = ({
 
   const handleUpdatefoodItem = (foodId, status) => {
     approveFoodItem(foodId, status);
-    setMainStatus('mealInitialized');
+    setMainStatus('idle');
   };
 
   return (
@@ -89,8 +86,6 @@ const FoodItemCard = ({
           direction: RTL ? 'rtl' : 'ltr',
         },
       ]}>
-      {status === 'loading' && <Text>ssffs</Text>}
-      {/* {status === 'dataLoaded' && ( */}
       <View style={styles.card}>
         <View style={styles.listTitle}>
           <Text style={styles.itemTitle}>
@@ -199,7 +194,7 @@ const FoodItemCard = ({
             flexDirection: 'row',
             justifyContent: 'space-around',
 
-            width: Dimensions.get('window').width / 1.1,
+            width: Dimensions.get('window').width / 1.25,
 
             marginHorizontal: 0,
             marginVertical: 10,
@@ -309,7 +304,7 @@ const getStyles = (theme) =>
     button: {
       //margin: 10,
       padding: 10,
-      width: Dimensions.get('window').width / 2.4,
+      width: Dimensions.get('window').width / 3,
       height: 40,
       borderRadius: 10,
       borderColor: theme.colors.primary,

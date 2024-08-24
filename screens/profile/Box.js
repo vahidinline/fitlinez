@@ -21,10 +21,10 @@ function Box({ title, subTitle, dayLeft, type }) {
       <View
         style={{
           direction: RTL ? 'rtl' : 'ltr',
-          flexDirection: 'row',
+          flexDirection: 'column',
           //marginLeft: 10,
           width: Dimensions.get('window').width / 1.1,
-          height: Dimensions.get('window').height / 14,
+          height: 100,
         }}>
         <View
           style={{
@@ -32,26 +32,16 @@ function Box({ title, subTitle, dayLeft, type }) {
             justifyContent: 'center',
             alignItems: 'center',
             marginHorizontal: 10,
+            marginTop: 20,
           }}>
           <IconPremium size={24} color="white" />
-        </View>
-        <View
-          style={{
-            flexDirection: 'column',
-            // direction: RTL ? 'rtl' : 'ltr',
-            // justifyContent: 'center',
 
-            marginHorizontal: 0,
-            // marginTop: 15,
-            alignSelf: 'center',
-            //alignContent: 'center',
-          }}>
           <Text
             style={{
               fontSize: PixelRatio.get() > 2 ? 15 : 18,
-              fontWeight: '400',
+
               color: 'white',
-              marginLeft: 0,
+              marginHorizontal: 10,
               fontFamily: 'Vazirmatn',
               // position: 'absolute',
               // right: Dimensions.get('window').width,
@@ -60,20 +50,24 @@ function Box({ title, subTitle, dayLeft, type }) {
             {title}
           </Text>
         </View>
-        <Text
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 50,
-            fontSize: PixelRatio.get() > 2 ? 10 : 16,
-            fontWeight: '500',
-            color: 'white',
-            marginLeft: 10,
-            marginTop: 5,
-            fontFamily: 'Vazirmatn',
-          }}>
-          {subTitle}
-        </Text>
+        <View>
+          <Text
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 10,
+              fontSize: PixelRatio.get() > 2 ? 16 : 18,
+              justifyContent: 'center',
+              textAlign: 'center',
+
+              color: 'white',
+              marginHorizontal: 20,
+              marginTop: 5,
+              fontFamily: 'Vazirmatn',
+            }}>
+            {subTitle}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -95,7 +89,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     top: 0,
-    height: Dimensions.get('window').height / 10,
+    height: Dimensions.get('window').height / 8,
     borderRadius: 24,
   },
   button: {

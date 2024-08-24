@@ -23,7 +23,7 @@ import {
   IconWeightScale,
 } from '../screens/marketplace/filters/icons';
 import CaloriesIndex from '../screens/Calories/CaloriesIndex';
-// import CaloriesNavigator from './CaloriesNavigator';
+import CaloriesNavigator from './CaloriesNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -99,7 +99,7 @@ function TabNavigator() {
       <Tab.Screen
         swipEnabled={false}
         name="Calories"
-        component={CaloriesIndex}
+        component={CaloriesNavigator}
         options={{
           headerShown: false,
           title: i18n.t('calorieCounter'),

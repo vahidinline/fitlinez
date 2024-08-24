@@ -9,6 +9,7 @@ const sendInitialReq = async (userInput, userId, selectedMeal, setStatus) => {
 
     selectedMeal
   );
+
   try {
     const response = await foodapi.post(
       //'https://aibackendfitlinez.azurewebsites.net/nutritionextractor',

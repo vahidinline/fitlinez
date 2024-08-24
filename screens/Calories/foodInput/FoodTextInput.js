@@ -13,18 +13,7 @@ import { Iconclose } from '../../marketplace/filters/icons';
 import { useTheme } from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function FoodTextInput({
-  setFoodItems,
-  setStatus,
-  userInput,
-  setUserInput,
-  setInputStatus,
-  selectedMeal,
-  status,
-  i18n,
-  userId,
-  RTL,
-}) {
+function FoodTextInput({ selectedMeal }) {
   const { theme } = useTheme();
   const [typeStatus, setTypeStatus] = useState('idle');
   // Load the existing value from AsyncStorage on component mount

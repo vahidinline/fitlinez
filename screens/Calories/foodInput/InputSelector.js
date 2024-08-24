@@ -99,42 +99,43 @@ function InputSelector({
       )}
       {inputStatus === 'voiceInput' && (
         <VoiceGetter
-          setInputStatus={setInputStatus}
-          setFoodItems={setFoodItems}
-          setStatus={setStatus}
-          userInput={userInput}
-          setUserInput={setUserInput}
-          i18n={i18n}
-          selectedMeal={selectedMeal.value}
+        //   setInputStatus={setInputStatus}
+        //   setFoodItems={setFoodItems}
+        //   setStatus={setStatus}
+        //   userInput={userInput}
+        //   setUserInput={setUserInput}
+        //   i18n={i18n}
+        //   selectedMeal={selectedMeal.value}
+        //
         />
       )}
       {inputStatus === 'textInput' && (
         <FoodTextInput
-          selectedMeal={selectedMeal}
-          RTL={RTL}
-          setInputStatus={setInputStatus}
-          setFoodItems={setFoodItems}
-          setStatus={setStatus}
-          userInput={userInput}
-          setUserInput={setUserInput}
-          i18n={i18n}
-          status={status}
-          userId={userId}
+          selectedMeal={mealValue}
+          // RTL={RTL}
+          // setInputStatus={setInputStatus}
+          // setFoodItems={setFoodItems}
+          // setStatus={setStatus}
+          // userInput={userInput}
+          // setUserInput={setUserInput}
+          // i18n={i18n}
+          // status={status}
+          // userId={userId}
         />
       )}
 
       {inputStatus === 'barcodeInput' && (
         <BarcodeScanner
-          selectedMeal={selectedMeal}
-          RTL={RTL}
-          setInputStatus={setInputStatus}
-          setFoodItems={setFoodItems}
-          setStatus={setStatus}
-          userInput={userInput}
-          setUserInput={setUserInput}
-          i18n={i18n}
-          status={status}
-          userId={userId}
+        // selectedMeal={selectedMeal}
+        // RTL={RTL}
+        // setInputStatus={setInputStatus}
+        // setFoodItems={setFoodItems}
+        // setStatus={setStatus}
+        // userInput={userInput}
+        // setUserInput={setUserInput}
+        // i18n={i18n}
+        // status={status}
+        // userId={userId}
         />
       )}
 

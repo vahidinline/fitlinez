@@ -59,18 +59,11 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
   };
 
   return (
-    <SafeAreaView
-      style={
-        {
-          //backgroundColor: theme.colors.background,
-          //height: Dimensions.get('window').height,
-        }
-      }>
-      <View style={styles.container}>
-        <Text
+    <View style={styles.container}>
+      {/* <Text
           style={{
             //color: theme.colors.text,
-            fontSize: 16,
+            fontSize: 14,
 
             marginHorizontal: 15,
             marginBottom: 5,
@@ -79,69 +72,68 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
             textAlign: 'center',
           }}>
           {i18n.t('todayTasks')}
-        </Text>
+        </Text> */}
 
-        {taskStatus === 'noTasks' && (
-          <View
-            style={{
-              flexDirection: 'column',
-              backgroundColor: theme.colors.background,
-              marginHorizontal: 8,
-              borderRadius: 14,
-              marginVertical: 0,
-              // borderColor: theme.colors.border,
-              // borderWidth: 1,
-            }}>
-            <Text style={styles.text}>
-              {/* {i18n.t('noTasksAvailable')} */}
-              {i18n.t('noTasksAvailable')}
-            </Text>
-            <View style={{ flexDirection: 'row' }}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  navigation.navigate('SessionNavigator');
-                }}>
-                <Text style={styles.buttonTitle}>
-                  {i18n.t('seeLastExercises')}
-                </Text>
-              </TouchableOpacity>
-            </View>
+      {taskStatus === 'noTasks' && (
+        <View
+          style={{
+            flexDirection: 'column',
+            //backgroundColor: theme.colors.background,
+            marginHorizontal: 8,
+            borderRadius: 14,
+            marginVertical: 0,
+            // borderColor: theme.colors.border,
+            // borderWidth: 1,
+          }}>
+          <Text style={styles.text}>
+            {/* {i18n.t('noTasksAvailable')} */}
+            {i18n.t('noTasksAvailable')}
+          </Text>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate('SessionNavigator');
+              }}>
+              <Text style={styles.buttonTitle}>
+                {i18n.t('seeLastExercises')}
+              </Text>
+            </TouchableOpacity>
           </View>
-        )}
-        {/* {status === 'loading' && <CircleLoading />} */}
-        {status === 'noTasks' && taskStatus !== 'noTasks' && (
-          <View
-            style={{
-              flexDirection: 'column',
-              backgroundColor: theme.colors.background,
-              marginHorizontal: 8,
-              borderRadius: 14,
-              marginVertical: 5,
-              // borderColor: theme.colors.border,
-              // borderWidth: 1,
-            }}>
-            <Text style={styles.text}>
-              {/* {i18n.t('noTasksAvailable')} */}
-              {i18n.t('getTodaysTask')}
-            </Text>
-            <View style={{ flexDirection: 'row' }}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  handleGetTodaysTask();
-                }}>
-                <Text style={styles.buttonTitle}>{i18n.t('retry')}</Text>
-              </TouchableOpacity>
-            </View>
+        </View>
+      )}
+      {/* {status === 'loading' && <CircleLoading />} */}
+      {status === 'noTasks' && taskStatus !== 'noTasks' && (
+        <View
+          style={{
+            flexDirection: 'column',
+            //  backgroundColor: theme.colors.background,
+            marginHorizontal: 8,
+            borderRadius: 14,
+            marginVertical: 5,
+            // borderColor: theme.colors.border,
+            // borderWidth: 1,
+          }}>
+          <Text style={styles.text}>
+            {/* {i18n.t('noTasksAvailable')} */}
+            {i18n.t('getTodaysTask')}
+          </Text>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                handleGetTodaysTask();
+              }}>
+              <Text style={styles.buttonTitle}>{i18n.t('retry')}</Text>
+            </TouchableOpacity>
           </View>
-        )}
+        </View>
+      )}
 
-        {dailyTasks?.slice(0, 1).map((item, i) => (
-          <DailyTaskList key={i} item={item} i18n={i18n} title={title.title} />
-        ))}
-      </View>
-    </SafeAreaView>
+      {dailyTasks?.slice(0, 1).map((item, i) => (
+        <DailyTaskList key={i} item={item} i18n={i18n} title={title.title} />
+      ))}
+    </View>
   );
 }
 
@@ -152,7 +144,7 @@ const getStyles = (theme) =>
     container: {},
 
     text: {
-      color: theme.colors.text,
+      color: theme.colors.warning,
       fontSize: 16,
       marginHorizontal: 16,
       marginVertical: 5,
@@ -160,21 +152,22 @@ const getStyles = (theme) =>
       textAlign: 'center',
     },
     buttonTitle: {
-      color: theme.colors.white,
-      fontSize: 10,
+      color: theme.colors.secondary,
+      fontSize: 14,
       marginHorizontal: 16,
       marginVertical: 5,
       fontFamily: 'Vazirmatn',
       textAlign: 'center',
+      alignItems: 'center',
     },
     button: {
-      backgroundColor: theme.colors.secondary,
+      backgroundColor: theme.colors.primary,
       borderRadius: 12,
       paddingTop: 10,
       width: Dimensions.get('window').width / 1.3,
       marginHorizontal: 10,
       marginVertical: 5,
-      height: Dimensions.get('window').height / 20,
+      height: Dimensions.get('window').height / 15,
       //alignSelf: 'center',
     },
   });

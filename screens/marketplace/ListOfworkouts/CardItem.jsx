@@ -1,13 +1,11 @@
 import { useNavigation } from '@react-navigation/core';
-import { Skeleton, Text, useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import React, { useContext } from 'react';
-import { Dimensions, TouchableOpacity, View, PixelRatio } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { Card, Chip } from 'react-native-paper';
 import LanguageContext from '../../../api/langcontext';
 import i18nt from '../../../locales';
 import { I18n } from 'i18n-js';
-import { Iconstar } from '../filters/icons-';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'react-native-expo-image-cache';
 import { Button } from '@rneui/base';
 import { savePackages } from '../../../api/assignNewPlan';

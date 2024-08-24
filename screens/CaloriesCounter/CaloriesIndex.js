@@ -32,7 +32,7 @@ function CaloriesIndex() {
   const [data, setData] = useState(null);
   const [foodItems, setFoodItems] = useState([]);
   const userId = userAuth.id;
-  const [selectedMeal, setSelectedMeal] = useState(null);
+
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
 
@@ -42,12 +42,12 @@ function CaloriesIndex() {
   const navigator = useNavigation();
 
   const menuList = [
-    {
-      id: 1,
-      name: i18n.t('addfood'),
-      onPress: () => setStatus('addFood'),
-      active: true,
-    },
+    // {
+    //   id: 1,
+    //   name: i18n.t('addfood'),
+    //   onPress: () => setStatus('addFood'),
+    //   active: true,
+    // },
     {
       id: 2,
       name: i18n.t('setdailycalories'),
@@ -120,21 +120,7 @@ function CaloriesIndex() {
             />
           </View>
         )}
-        <MealList setSelectedMeal={setSelectedMeal} userId={userId} />
-        {/* <MealSection
-          userId={userId}
-          status={status}
-          setStatus={setStatus}
-          selectedMeal={selectedMeal}
-          setSelectedMeal={setSelectedMeal}
-          foodItems={foodItems}
-          setFoodItems={setFoodItems}
-          data={data}
-          setData={setData}
-          userInput={userInput}
-          setUserInput={setUserInput}
-          i18n={i18n}
-        /> */}
+        <MealList />
       </ScrollView>
 
       {status === 'error' && (
@@ -158,7 +144,7 @@ function CaloriesIndex() {
           </Text>
           <Button
             buttonStyle={{
-              backgroundColor: theme.colors.secondary,
+              //backgroundColor: theme.colors.secondary,
               borderColor: theme.colors.primary,
               borderWidth: 0.2,
               margin: 10,
@@ -187,14 +173,14 @@ const getStyles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background,
+      //  backgroundColor: theme.colors.background,
       padding: 20,
     },
     footerContainer: {
       padding: 20,
       flexDirection: 'column',
       justifyContent: 'center',
-      backgroundColor: 'white',
+      //  backgroundColor: 'white',
       marginHorizontal: 15,
       marginVertical: 10,
       borderRadius: 10,

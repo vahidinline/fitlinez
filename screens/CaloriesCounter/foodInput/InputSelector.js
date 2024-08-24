@@ -19,15 +19,11 @@ import BarcodeScanner from './barcode/BarcodeScanner';
 import LanguageContext from '../../../api/langcontext';
 import i18nt from '../../../locales';
 import { I18n } from 'i18n-js';
+import Header from '../../../components/header';
 
-function InputSelector({
-  setFoodItems,
-
-  selectedMeal,
-
-  userId,
-  RTL,
-}) {
+function InputSelector({ route }) {
+  const { mealValue, mealName } = route.params;
+  console.log('props in input selector', mealValue, mealName);
   const { theme } = useTheme();
   const [inputStatus, setInputStatus] = useState('idle');
   const { userLanguage } = useContext(LanguageContext);
@@ -67,6 +63,10 @@ function InputSelector({
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Header
+        title={i18n.t('foodinserttypetitle', { mealType: mealValue })}
+        color={theme.colors.primary}
+      />
       <ScrollView>
         <View
           style={{
@@ -114,42 +114,42 @@ function InputSelector({
           )}
           {inputStatus === 'voiceInput' && (
             <VoiceGetter
-              setInputStatus={setInputStatus}
-              setFoodItems={setFoodItems}
-              setStatus={setStatus}
-              userInput={userInput}
-              setUserInput={setUserInput}
-              i18n={i18n}
-              selectedMeal={selectedMeal.value}
+            // setInputStatus={setInputStatus}
+            // setFoodItems={setFoodItems}
+            // setStatus={setStatus}
+            // userInput={userInput}
+            // setUserInput={setUserInput}
+            // i18n={i18n}
+            // selectedMeal={selectedMeal.value}
             />
           )}
           {inputStatus === 'textInput' && (
             <FoodTextInput
-              selectedMeal={selectedMeal}
-              RTL={RTL}
-              setInputStatus={setInputStatus}
-              setFoodItems={setFoodItems}
-              setStatus={setStatus}
-              userInput={userInput}
-              setUserInput={setUserInput}
-              i18n={i18n}
-              status={status}
-              userId={userId}
+              selectedMeal={mealValue}
+              // RTL={RTL}
+              // setInputStatus={setInputStatus}
+              // setFoodItems={setFoodItems}
+              // setStatus={setStatus}
+              // userInput={userInput}
+              // setUserInput={setUserInput}
+              // i18n={i18n}
+              // status={status}
+              // userId={userId}
             />
           )}
 
           {inputStatus === 'barcodeInput' && (
             <BarcodeScanner
-              selectedMeal={selectedMeal}
-              RTL={RTL}
-              setInputStatus={setInputStatus}
-              setFoodItems={setFoodItems}
-              setStatus={setStatus}
-              userInput={userInput}
-              setUserInput={setUserInput}
-              i18n={i18n}
-              status={status}
-              userId={userId}
+            // selectedMeal={selectedMeal}
+            // RTL={RTL}
+            // setInputStatus={setInputStatus}
+            // setFoodItems={setFoodItems}
+            // setStatus={setStatus}
+            // userInput={userInput}
+            // setUserInput={setUserInput}
+            // i18n={i18n}
+            // status={status}
+            // userId={userId}
             />
           )}
         </View>

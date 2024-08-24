@@ -10,14 +10,12 @@ import {
 import MealSection from './MealSection';
 import TempfoodItems from './TempfoodItems';
 import { IconArrowUp, IconWarning } from '../marketplace/filters/icons';
-import DailyReport from './dailyReport';
 import InputSelector from './foodInput/InputSelector';
 import AuthContext from '../../api/context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '@rneui/themed';
 import CalorieMenu from './CalorieMenu';
 import SetDailyCalories from './config/SetDailyCalories';
-import FitlinezLoading from '../../components/FitlinezLoading';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
@@ -32,7 +30,6 @@ function CaloriesIndex() {
   const { userAuth } = useContext(AuthContext);
   const { theme } = useTheme();
   const [userInput, setUserInput] = useState('');
-  const [data, setData] = useState(null);
   const [foodItems, setFoodItems] = useState([]);
   const userId = userAuth.id;
   const [selectedMeal, setSelectedMeal] = useState(null);
@@ -45,36 +42,6 @@ function CaloriesIndex() {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, backgroundColor: theme.colors.secondary }}>
         <ScrollView>
-          {/* <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginVertical: 20,
-
-              height: 50,
-            }}>
-            {status !== 'idle' && (
-              <Pressable
-                style={{
-                  marginHorizontal: 20,
-                  flexDirection: 'row',
-                }}
-                onPress={() => setStatus('idle')}>
-                <IconArrowLeft color={theme.colors.primary} size={40} />
-                <Text
-                  style={{
-                    color: theme.colors.primary,
-                    top: 6,
-                    fontFamily: 'Vazirmatn',
-                  }}>
-                  {i18n.t('back')}
-                </Text>
-              </Pressable>
-            )}
-          </View> */}
-
           {status === 'loading' && (
             <View
               style={{
@@ -100,7 +67,7 @@ function CaloriesIndex() {
         <View
           style={{
             position: 'absolute',
-            //right: 10,
+
             bottom: 1,
             zIndex: 10,
             height: 40,
@@ -118,7 +85,6 @@ function CaloriesIndex() {
         {status === 'idle' && (
           <View
             style={{
-              //flex: 1,
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -148,7 +114,7 @@ function CaloriesIndex() {
             style={{
               textAlign: 'center',
               fontSize: 16,
-              //  fontWeight: 'bold',
+
               color: theme.colors.primary,
               margin: 20,
               marginBottom: 10,

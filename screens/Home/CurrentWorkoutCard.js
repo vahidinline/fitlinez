@@ -64,7 +64,7 @@ function CurrentWorkoutCard({
           //  justifyContent: 'space-between',
           // alignItems: 'center',
           paddingHorizontal: 10,
-          marginTop: 10,
+          marginTop: 5,
           borderBottomColor: 'grey',
           paddingBottom: 5,
           borderBottomWidth: 1,
@@ -75,7 +75,6 @@ function CurrentWorkoutCard({
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
-              textAlign: 'center',
             }}
             onPress={() => {
               navigation.navigate('WorkoutListIndex');
@@ -88,7 +87,7 @@ function CurrentWorkoutCard({
                 marginTop: 5,
                 color: 'white',
                 //direction: 'rtl',
-                textAlign: 'right',
+                textAlign: 'center',
                 justifyContent: 'center',
               }}>
               {i18n.t('yourWorkoutPlan')} : {title}
@@ -115,11 +114,12 @@ function CurrentWorkoutCard({
       <View
         style={{
           position: 'absolute',
+          bottom: 0,
+          top: 35,
           flexDirection: 'row',
           justifyContent: 'space-between',
-          alignItems: 'center',
+          //alignItems: 'center',
           marginHorizontal: 10,
-          marginTop: 45,
         }}>
         <DailyTaskIndex
           title={title}

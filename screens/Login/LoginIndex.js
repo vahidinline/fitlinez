@@ -42,9 +42,9 @@ function LoginIndex(props) {
   // const emailInputRef = useRef(null);
   // const passwordInputRef = useRef(null);
 
-  const validateFields = () => {
+  const validateFields = React.useCallback(() => {
     return email !== '' && password !== '';
-  };
+  }, [email, password]);
 
   useEffect(() => {
     const buttonDisabled = !validateFields();
@@ -90,7 +90,7 @@ function LoginIndex(props) {
               setStatus('success');
               authContext.setUserAuth(user);
               authStorage.storeToken(user);
-
+              console.log('user data in login', user);
               // Store email and password
               AsyncStorage.setItem('email', email);
               AsyncStorage.setItem('password', password);
@@ -155,7 +155,7 @@ function LoginIndex(props) {
             <View
               style={{
                 // width: 200,
-                height: 100,
+                height: 70,
                 marginTop: 100,
                 resizeMode: 'cover',
                 alignSelf: 'center',

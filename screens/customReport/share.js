@@ -1,6 +1,12 @@
 import { useContext, useRef, useState } from 'react';
 import * as Sharing from 'expo-sharing';
-import { View, StyleSheet, Dimensions, ImageBackground } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  ImageBackground,
+  Image,
+} from 'react-native';
 import { I18n } from 'i18n-js';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
@@ -9,7 +15,7 @@ import { captureRef } from 'react-native-view-shot';
 import * as ImagePicker from 'expo-image-picker';
 import { Text, useTheme } from '@rneui/themed';
 import { Divider } from 'react-native-paper';
-
+import Logo from '../../assets/logo.png';
 import {
   IconArrowLeft,
   IconFire,
@@ -22,7 +28,7 @@ import { TouchableOpacity } from 'react-native';
 import convertToPersianNumbers from '../../api/PersianNumber';
 import moment from 'moment';
 
-const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
+const ShareWorkoutSession = ({ item, setShareStatus }) => {
   const [open, setOpen] = useState(false);
   const [screenShot, setScreenShot] = useState(true);
   const [status, requestPermission] = MediaLibrary.usePermissions();
@@ -155,11 +161,12 @@ const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
                 //justifyContent: 'space-between',
                 width: Dimensions.get('window').width / 1.1,
                 // marginTop: 15,
-                height: 100,
+                height: 120,
                 borderRadius: 16,
               }}>
               <View style={styles.view}>
-                <Text style={styles.title}>من با ورزش قدرتی فیتلایز</Text>
+                {/* <Text style={styles.title}>من با اپلیکیشن فیتلایز</Text>
+                <Text style={styles.title}> تمرین {item.dayName} و</Text>
                 <Text style={styles.title}>
                   تو{' '}
                   {convertToPersianNumbers(
@@ -169,12 +176,29 @@ const ShareWorkoutSession = ({ item, setShareStatus, shareStatus }) => {
                     ),
                     RTL
                   )}{' '}
-                  دقیقه ورزش،{' '}
+                  دقیقه{' '}
                 </Text>
                 <Text style={styles.title}>
                   {convertToPersianNumbers(item.burnedCalories.toFixed(0), RTL)}{' '}
                   کالری سوزوندم!
                   <IconFire size={32} />
+                </Text> */}
+                <Text style={styles.title}>
+                  {i18n.t('shareResultText', {
+                    dayName: `"${item.dayName}"`,
+                    brand: `${i18n.t('brand')}`,
+                    calories: convertToPersianNumbers(
+                      item.burnedCalories.toFixed(0),
+                      RTL
+                    ),
+                    minutes: convertToPersianNumbers(
+                      moment(item.sessionEndDate).diff(
+                        moment(item.sessionStartDate),
+                        'minutes'
+                      ),
+                      RTL
+                    ),
+                  })}
                 </Text>
               </View>
             </View>
@@ -310,6 +334,7 @@ const getStyle = (theme, cardPosition) =>
       //fontWeight: 'bold',
       color: theme.colors.secondary,
       textAlign: 'center',
+      direction: 'rtl',
       //  marginTop: 20,
       fontFamily: 'Vazirmatn',
       //flexWrap: 'wrap',
@@ -326,7 +351,7 @@ const getStyle = (theme, cardPosition) =>
       marginHorizontal: 10,
       //  backgroundColor: '#D4D4D480',
       //marginRight: 25,
-      height: '50%',
+      height: '60%',
       marginVertical: 10,
       borderColor: theme.colors.border,
       //borderWidth: 1,

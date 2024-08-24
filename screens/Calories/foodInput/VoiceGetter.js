@@ -15,11 +15,12 @@ import { useTheme } from '@rneui/themed';
 const VoiceGetter = ({
   setInputStatus,
   setFoodItems,
-  setStatus,
+
   userInput,
 }) => {
   const [recording, setRecording] = useState();
   const { theme } = useTheme();
+  const [status, setStatus] = useState('recorded');
   const startRecording = async () => {
     try {
       await Audio.requestPermissionsAsync();
@@ -81,36 +82,86 @@ const VoiceGetter = ({
         marginVertical: 10,
         padding: 10,
       }}>
-      <Pressable
-        onPress={() => setInputStatus('idle')}
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          margin: 0,
-          padding: 4,
-          zIndex: 1000,
-        }}>
-        <Iconclose size={30} color={theme.colors.grey2} />
-      </Pressable>
-      <TouchableOpacity
-        onPressIn={startRecording}
-        onPressOut={stopRecording}
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'center',
-          width: Dimensions.get('window').width / 2.7,
-          height: Dimensions.get('window').height / 2,
-          marginHorizontal: 20,
-          alignItems: 'center',
-          borderRadius: Dimensions.get('window').height / 6,
-          borderWidth: 10,
-          borderColor: '#5B5891',
-        }}>
-        <IconMic size={60} color={'#000'} />
-        <Text>Hold</Text>
-      </TouchableOpacity>
+      {status === 'recorded' && (
+        <View>
+          <Text>
+            2 smallboils eggs, 40 grams of whole grain bread, 1 small cup of
+            coffee latte with sugar{' '}
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              setInputStatus('idle');
+              setFoodItems([
+                {
+                  name: 'Pizza',
+                  calories: 285,
+                  quantity: 2,
+                },
+                {
+                  name: 'Coke',
+                  calories: 140,
+                  quantity: 1,
+                },
+                {
+                  name: 'Ice Cream',
+                  calories: 137,
+                  quantity: 1,
+                },
+              ]);
+            }}
+            style={{
+              backgroundColor: theme.colors.secondary,
+              padding: 10,
+              borderRadius: 5,
+              marginTop: 10,
+            }}>
+            <Text
+              style={{
+                color: 'white',
+
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+              }}>
+              Add to Meal
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      {status === 'idle' && (
+        <>
+          <Pressable
+            onPress={() => setStatus('recording')}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              margin: 0,
+              padding: 4,
+              zIndex: 1000,
+            }}>
+            <Iconclose size={30} color={theme.colors.grey2} />
+          </Pressable>
+          <TouchableOpacity
+            onPressIn={startRecording}
+            onPressOut={stopRecording}
+            style={{
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'center',
+              width: Dimensions.get('window').width / 2.7,
+              height: Dimensions.get('window').height / 2,
+              marginHorizontal: 20,
+              alignItems: 'center',
+              borderRadius: Dimensions.get('window').height / 6,
+              borderWidth: 10,
+              borderColor: '#5B5891',
+            }}>
+            <IconMic size={60} color={'#000'} />
+            <Text>Hold</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };

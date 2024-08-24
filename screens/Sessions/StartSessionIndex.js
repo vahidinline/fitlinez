@@ -132,13 +132,13 @@ const StartSessionIndex = () => {
   };
 
   const daysOfWeek = [
-    { id: 1, nameT: 'شنبه', name: 'Saturday' },
-    { id: 2, nameT: 'یکشنبه', name: 'Sunday' },
-    { id: 3, nameT: 'دوشنبه', name: 'Monday' },
-    { id: 4, nameT: 'سه شنبه', name: 'Tuesday' },
-    { id: 5, nameT: 'چهارشنبه', name: 'Wednesday' },
-    { id: 6, nameT: 'پنجشنبه', name: 'Thursday' },
-    { id: 7, nameT: 'جمعه', name: 'Friday' },
+    { id: 1, nameT: 'دوشنبه', name: 'Monday' },
+    { id: 2, nameT: 'سه شنبه', name: 'Tuesday' },
+    { id: 3, nameT: 'چهارشنبه', name: 'Wednesday' },
+    { id: 4, nameT: 'پنجشنبه', name: 'Thursday' },
+    { id: 5, nameT: 'جمعه', name: 'Friday' },
+    { id: 6, nameT: 'شنبه', name: 'Saturday' },
+    { id: 7, nameT: 'یکشنبه', name: 'Sunday' },
   ];
   const selectedDays = workoutPlan?.map((workout) => workout.dayName);
 

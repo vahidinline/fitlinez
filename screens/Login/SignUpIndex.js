@@ -226,7 +226,7 @@ function SignUpIndex(props) {
             <View
               style={{
                 // width: 200,
-                height: 100,
+                height: 70,
                 marginTop: 100,
                 resizeMode: 'cover',
                 alignSelf: 'center',

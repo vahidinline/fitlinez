@@ -15,7 +15,7 @@ import { IconArrowLeft } from '../screens/marketplace/filters/icons-';
 import LanguageContext from '../api/langcontext';
 import { IconArrowRight } from '../screens/marketplace/filters/icons';
 
-function Header({ title, rightIconPress, left }) {
+function Header({ title, rightIconPress, left, color }) {
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
   const { userLanguage } = useContext(LanguageContext);
@@ -42,7 +42,7 @@ function Header({ title, rightIconPress, left }) {
       <View
         style={{
           flexDirection: 'row',
-          backgroundColor: theme.colors.background,
+          backgroundColor: color ? color : '',
           width: Dimensions.get('window').width / 1.5,
           alignSelf: 'center',
         }}>

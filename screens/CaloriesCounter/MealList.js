@@ -19,7 +19,7 @@ import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import { useNavigation } from '@react-navigation/native';
 
-function MealList({ setSelectedMeal, userId }) {
+function MealList() {
   const { theme } = useTheme();
   const navigator = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
@@ -144,7 +144,12 @@ function MealList({ setSelectedMeal, userId }) {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => navigator.navigate('FoodInput')}
+              onPress={() =>
+                navigator.navigate('FoodInput', {
+                  mealValue: item.value,
+                  maealName: item.name,
+                })
+              }
               style={styles.mealButton}>
               <Text style={styles.mealText}>{item.name}</Text>
             </TouchableOpacity>
@@ -192,7 +197,7 @@ function MealList({ setSelectedMeal, userId }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    //  backgroundColor: '#fff',
   },
   mealSelectionContainer: {
     flex: 1,
@@ -202,7 +207,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 15,
     borderRadius: 10,
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#fff',
     alignItems: 'center',
   },
   mealText: {
