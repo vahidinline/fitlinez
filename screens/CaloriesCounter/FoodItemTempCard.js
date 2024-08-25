@@ -11,12 +11,11 @@ import { useTheme } from '@rneui/themed';
 import { IconTickCircle, Iconclose } from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
 import approveFoodItem from '../../api/approveFoodItem';
+import { useNavigation } from '@react-navigation/native';
 
 // import { IconClose } from '../marketplace/filters/icons';
 const FoodItemCard = ({
   item,
-  index,
-  handleInputChange,
   current,
   userId,
   selectedMeal,
@@ -33,7 +32,7 @@ const FoodItemCard = ({
   const [mealId, setMealId] = useState(null);
   const { userLanguage } = useContext(LanguageContext);
   const RTL = userLanguage === 'fa';
-
+  const navigation = useNavigation();
   const handleSendFoodItemReq = async () => {
     setStatus('loading');
     try {
@@ -75,6 +74,10 @@ const FoodItemCard = ({
   const handleUpdatefoodItem = async (foodId, status) => {
     await approveFoodItem(foodId, status);
     setMainStatus('idle');
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'CaloriesIndex' }],
+    });
   };
 
   return (

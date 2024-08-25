@@ -37,6 +37,10 @@ function Header({ title, rightIconPress, left, color }) {
         marginTop: Platform.OS === 'ios' ? 30 : 80,
         marginBottom: 10,
         marginHorizontal: 20,
+        borderBottomColor: theme.colors.border,
+        borderBottomWidth: 1,
+        paddingBottom: 3,
+        width: Dimensions.get('window').width / 1.1,
       }}>
       <View
         style={{

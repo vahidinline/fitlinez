@@ -74,11 +74,24 @@ export default function App() {
     try {
       const update = await Updates.checkForUpdateAsync();
       if (update.isAvailable) {
-        setStatus('loading');
-        await Updates.fetchUpdateAsync();
-        await Updates.reloadAsync();
-        appUpdateTrack(userAuth?.userId);
-        Alert.alert('Update', 'App is updated');
+        // Alert the user about the update
+        Alert.alert(`${i18n.t('updateTitle')}`, `${i18n.t('updateBody')}`, [
+          {
+            text: `${i18n.t('noLater')}`,
+            onPress: () => console.log('User chose to update later'),
+            style: 'cancel',
+          },
+          {
+            text: `${i18n.t('yesUpdate')}`,
+            onPress: async () => {
+              setStatus('loading');
+              await Updates.fetchUpdateAsync();
+              await Updates.reloadAsync(); // This will reload the app to apply the update
+              appUpdateTrack(userAuth?.userId); // Your custom tracking function
+              Alert.alert('Update', 'App is updated');
+            },
+          },
+        ]);
       } else {
         console.log('No updates available');
       }

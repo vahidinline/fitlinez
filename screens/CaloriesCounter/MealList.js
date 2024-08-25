@@ -20,6 +20,7 @@ import { useNavigation } from '@react-navigation/native';
 
 function MealList({ userId }) {
   const { theme } = useTheme();
+  const styles = getStyles(theme);
   const navigator = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
@@ -46,7 +47,7 @@ function MealList({ userId }) {
     {
       id: 2,
       name: i18n.t('snack'),
-      value: 'snack',
+      value: 'snack1',
       color: 'warning',
       img: require('../../assets/icons/snack.png'),
     },
@@ -67,7 +68,7 @@ function MealList({ userId }) {
     {
       id: 5,
       name: i18n.t('snack'),
-      value: 'snack',
+      value: 'snack2',
       color: 'warning',
       img: require('../../assets/icons/snack.png'),
     },
@@ -130,7 +131,7 @@ function MealList({ userId }) {
   const groupedMeals = groupByMealName(result);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <FlatList
         data={meals}
         keyExtractor={(item) => item.id.toString()}
@@ -172,75 +173,89 @@ function MealList({ userId }) {
       {status === 'failed' && (
         <Text style={styles.errorText}>{i18n.t('errorLoadingData')}</Text>
       )}
-    </SafeAreaView>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    //  backgroundColor: '#fff',
-  },
-  mealSelectionContainer: {
-    flex: 1,
-    padding: 10,
-  },
-  mealButton: {
-    margin: 10,
-    padding: 15,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-  },
-  mealText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollViewContent: {
-    padding: 10,
-  },
-  noData: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: 'grey',
-    margin: 20,
-  },
-  loadingText: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: 'grey',
-    margin: 20,
-  },
-  errorText: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: 'red',
-    margin: 20,
-  },
-  mealSection: {
-    marginVertical: 10,
-    padding: 10,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 10,
-  },
-  mealHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  mealName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  mealDetail: {
-    marginTop: 10,
-  },
-  foodItem: {
-    fontSize: 14,
-    color: '#555',
-  },
-});
+const getStyles = (theme, RTL) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+
+      //  backgroundColor: '#fff',
+    },
+    mealSelectionContainer: {
+      flex: 1,
+      padding: 10,
+    },
+    mealButton: {
+      margin: 10,
+      padding: 15,
+      //borderRadius: 10,
+      backgroundColor: theme.colors.background,
+      //width: Dimensions.get('window').width / 4.5,
+      alignItems: 'center',
+      borderBottomColor: theme.colors.border,
+      borderBottomWidth: 1,
+    },
+    mealText: {
+      fontSize: 14,
+      color: '#333',
+    },
+    scrollView: {
+      flex: 1,
+    },
+    scrollViewContent: {
+      padding: 10,
+      backgroundColor: theme.colors.background,
+    },
+    noData: {
+      textAlign: 'center',
+      fontSize: 16,
+      color: 'grey',
+      margin: 20,
+    },
+    loadingText: {
+      textAlign: 'center',
+      fontSize: 16,
+      color: 'grey',
+      margin: 20,
+    },
+    errorText: {
+      textAlign: 'center',
+      fontSize: 16,
+      color: 'red',
+      margin: 20,
+    },
+    mealSection: {
+      flexDirection: 'column',
+      marginVertical: 10,
+      padding: 10,
+      backgroundColor: theme.colors.background,
+      borderRadius: 10,
+      borderColor: theme.colors.border,
+      borderWidth: 1,
+    },
+    mealHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    mealName: {
+      fontSize: 14,
+      fontWeight: 'bold',
+    },
+    mealDetail: {
+      marginTop: 10,
+      // width: Dimensions.get('window').width / 2,
+      // flexWrap: 'wrap',
+      // flexDirection: 'column',
+    },
+    foodItem: {
+      fontSize: 14,
+      color: '#555',
+      flexWrap: 'wrap',
+      width: Dimensions.get('window').width / 1.5,
+    },
+  });
 
 export default MealList;

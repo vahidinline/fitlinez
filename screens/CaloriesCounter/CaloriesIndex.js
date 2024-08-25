@@ -18,10 +18,8 @@ import { I18n } from 'i18n-js';
 import { Button } from '@rneui/base';
 import { ActivityIndicator } from 'react-native-paper';
 import { FlatList } from 'react-native-gesture-handler';
-import DailyReport from './dailyReport';
 import { useNavigation } from '@react-navigation/native';
 import CalorieDetails from './CalorieDetails';
-import MealSection from './MealSection';
 import MealList from './MealList';
 
 function CaloriesIndex() {
@@ -57,14 +55,20 @@ function CaloriesIndex() {
     {
       id: 3,
       name: i18n.t('seeHistory'),
-      onPress: () => handleGoToReport(),
+      onPress: () => navigator.navigate('CalorieCustomReport'),
       active: true,
     },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View
+        style={{
+          borderBottomColor: theme.colors.border,
+          borderBottomWidth: 1,
+          marginBottom: 5,
+          paddingBottom: 10,
+        }}>
         <Text
           style={{
             fontSize: 20,
@@ -98,30 +102,32 @@ function CaloriesIndex() {
       </View>
       <View
         style={{
-          height: Dimensions.get('window').height / 4,
-          //  backgroundColor: theme.colors.secondary,
+          height: Dimensions.get('window').height / 6,
+          widht: Dimensions.get('window').width / 1.2,
+          borderColor: theme.colors.border,
+          borderWidth: 1,
+          borderRadius: 8,
+          backgroundColor: theme.colors.background,
         }}>
         <CalorieDetails userId={userId} />
       </View>
 
-      <ScrollView>
-        {status === 'loading' && (
-          <View
-            style={{
-              flex: 1,
-              top: Dimensions.get('window').height / 4,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <ActivityIndicator
-              animating={true}
-              color={theme.colors.secondary}
-              size="large"
-            />
-          </View>
-        )}
-        <MealList userId={userId} />
-      </ScrollView>
+      {status === 'loading' && (
+        <View
+          style={{
+            flex: 1,
+            top: Dimensions.get('window').height / 4,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <ActivityIndicator
+            animating={true}
+            color={theme.colors.secondary}
+            size="large"
+          />
+        </View>
+      )}
+      <MealList userId={userId} />
 
       {status === 'error' && (
         <View
