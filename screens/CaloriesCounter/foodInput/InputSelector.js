@@ -23,15 +23,14 @@ import Header from '../../../components/header';
 
 function InputSelector({ route }) {
   const { mealValue, mealName } = route.params;
-  console.log('props in input selector', mealValue, mealName);
   const { theme } = useTheme();
   const [inputStatus, setInputStatus] = useState('textInput');
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   const [status, setStatus] = useState('idle');
+  const [foodItems, setFoodItems] = useState([]);
   i18n.locale = userLanguage;
   const [userInput, setUserInput] = useState('');
-  //console.log('selectedMeal in InputSelector', selectedMeal);
   const handleSetStatus = (status) => {
     //setStatus('mealInitialized');
     setInputStatus(status);
@@ -42,22 +41,22 @@ function InputSelector({ route }) {
       id: 1,
       name: 'Voice',
       func: () => handleSetStatus('voiceInput'),
-      icon: <IconMic size={80} color={theme.colors.grey} />,
-      active: false,
+      icon: <IconMic size={40} color={theme.colors.grey} />,
+      active: true,
     },
     {
       id: 2,
       name: 'Text',
       func: () => handleSetStatus('textInput'),
-      icon: <IconType size={80} color={theme.colors.secondary} />,
+      icon: <IconType size={40} color={theme.colors.secondary} />,
       active: true,
     },
     {
       id: 3,
       name: 'Barcode',
       func: () => handleSetStatus('barcodeInput'),
-      icon: <IconBarCode size={80} color={theme.colors.grey} />,
-      active: false,
+      icon: <IconBarCode size={40} color={theme.colors.grey} />,
+      active: true,
     },
   ];
 
@@ -73,89 +72,76 @@ function InputSelector({ route }) {
             padding: 20,
             flexDirection: 'column',
             justifyContent: 'center',
-            //backgroundColor: 'white',
           }}>
-          {inputStatus === 'idle' && (
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
-              {inputType.map((item, i) => (
-                <TouchableOpacity
-                  key={i}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            {inputType.map((item, i) => (
+              <TouchableOpacity
+                key={i}
+                style={{
+                  width: Dimensions.get('window').width / 6,
+                  height: Dimensions.get('window').width / 6,
+                  borderRadius: 10,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  margin: 10,
+                }}
+                onPress={() => (item.active ? item.func() : null)}>
+                <View
                   style={{
-                    width: Dimensions.get('window').width / 4,
-                    height: Dimensions.get('window').width / 4,
-                    backgroundColor: 'lightgrey',
-                    borderRadius: 10,
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    margin: 10,
-                  }}
-                  onPress={() => (item.active ? item.func() : null)}>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      right: 0,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    {!item.active && (
-                      <Badge status="warning" value={'Inactive'} />
-                    )}
-                  </View>
-                  {item.icon}
-                </TouchableOpacity>
-              ))}
-            </View>
-          )}
-          {inputStatus === 'voiceInput' && (
-            <VoiceGetter
-            // setInputStatus={setInputStatus}
-            // setFoodItems={setFoodItems}
-            // setStatus={setStatus}
-            // userInput={userInput}
-            // setUserInput={setUserInput}
-            // i18n={i18n}
-            // selectedMeal={selectedMeal.value}
-            />
-          )}
-          {/* {inputStatus === 'textInput' && ( */}
+                  }}>
+                  {!item.active && (
+                    <Badge status="warning" value={'Inactive'} />
+                  )}
+                </View>
+                {item.icon}
+              </TouchableOpacity>
+            ))}
+          </View>
           <FoodTextInput
             selectedMeal={mealValue}
-            // RTL={RTL}
-            // setInputStatus={setInputStatus}
-            // setFoodItems={setFoodItems}
-            // setStatus={setStatus}
-            // userInput={userInput}
-            // setUserInput={setUserInput}
-            // i18n={i18n}
-            // status={status}
-            // userId={userId}
+            setFoodItems={setFoodItems}
+            foodItems={foodItems}
+            userInput={userInput}
+            setUserInput={setUserInput}
+            setStatus={setStatus}
+            status={status}
           />
-          {/* )} */}
 
+          {inputStatus === 'voiceInput' && (
+            <VoiceGetter
+              setInputStatus={setInputStatus}
+              setFoodItems={setFoodItems}
+              setStatus={setStatus}
+              userInput={userInput}
+              setUserInput={setUserInput}
+              selectedMeal={mealValue}
+            />
+          )}
           {inputStatus === 'barcodeInput' && (
             <BarcodeScanner
-            // selectedMeal={selectedMeal}
-            // RTL={RTL}
-            // setInputStatus={setInputStatus}
-            // setFoodItems={setFoodItems}
-            // setStatus={setStatus}
-            // userInput={userInput}
-            // setUserInput={setUserInput}
-            // i18n={i18n}
-            // status={status}
-            // userId={userId}
+              selectedMeal={mealValue}
+              setFoodItems={setFoodItems}
+              setStatus={setStatus}
+              status={status}
+              userInput={userInput}
+              setUserInput={setUserInput}
+              foodItems={foodItems}
             />
           )}
         </View>
       </ScrollView>
 
-      {status !== 'idle' && (
+      {/* {status !== 'idle' && (
         <View style={{ flex: 1 }}>
           <Button
             buttonStyle={{
@@ -163,21 +149,19 @@ function InputSelector({ route }) {
 
               borderColor: theme.colors.primary,
               borderWidth: 0.2,
-              //marginBottom: 50,
               margin: 10,
               borderRadius: 10,
             }}
             titleStyle={{
               color: theme.colors.primary,
               fontSize: 15,
-              //fontWeight: 'bold',
               fontFamily: 'Vazirmatn',
             }}
             title={i18n.t('back')}
             onPress={() => setStatus('idle')}
           />
         </View>
-      )}
+      )} */}
     </SafeAreaView>
   );
 }

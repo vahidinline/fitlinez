@@ -48,15 +48,16 @@ function DailyTaskList(item, { title }) {
     <TouchableOpacity
       onPress={handleNextStep}
       style={{
-        direction: isRTL ? 'rtl' : 'ltr',
+        position: 'absolute',
+        // direction: isRTL ? 'rtl' : 'ltr',
         flexDirection: 'column',
         justifyContent: 'space-between',
         backgroundColor: theme.colors.background,
         marginHorizontal: 5,
-        height: Dimensions.get('window').height / 10,
+        height: Dimensions.get('window').height / 12,
         width: Dimensions.get('window').width / 1.2,
-        top: 20,
-        marginVertical: 8,
+        top: 50,
+        //marginTop: 35,
         borderRadius: 16,
         borderColor: theme.colors.border,
         borderWidth: 1,
@@ -85,7 +86,6 @@ function DailyTaskList(item, { title }) {
           <Text
             style={{
               color: theme.colors.text,
-
               fontSize: 20,
               fontWeight: 'bold',
               marginHorizontal: 16,

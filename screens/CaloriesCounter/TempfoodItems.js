@@ -46,13 +46,9 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
           textAlign: 'center',
           fontSize: 20,
           color: theme.colors.secondary,
-        }}>
-        {/* {items.length > 0 ? 'Total Items: ' + items.length : 'No items added'} */}
-      </Text>
+        }}></Text>
       <ScrollView>
         <View style={{}}>
-          {/* {items.map((item, index) => ( */}
-
           <FoodItemCard
             i18n={i18n}
             userId={userId}
@@ -66,30 +62,8 @@ function TempfoodItems({ foodItems, userId, selectedMeal, setStatus, i18n }) {
             handleDeleteItem={handleDeleteItem}
             setMainStatus={setStatus}
           />
-          {/* ))} */}
         </View>
       </ScrollView>
-      {/* <View>
-        <Button
-          buttonStyle={{
-            backgroundColor: theme.colors.secondary,
-
-            borderColor: theme.colors.primary,
-            borderWidth: 0.2,
-
-            margin: 10,
-            borderRadius: 10,
-          }}
-          titleStyle={{
-            color: theme.colors.primary,
-            fontSize: 15,
-            fontWeight: 'bold',
-            fontFamily: 'Vazirmatn',
-          }}
-          title={i18n.t('back')}
-          onPress={() => handleEndSession()}
-        />
-      </View> */}
     </View>
   );
 }

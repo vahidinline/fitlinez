@@ -12,6 +12,7 @@ import { IconTickCircle, Iconclose } from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
 import approveFoodItem from '../../api/approveFoodItem';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import { IconClose } from '../marketplace/filters/icons';
 const FoodItemCard = ({
@@ -73,7 +74,9 @@ const FoodItemCard = ({
 
   const handleUpdatefoodItem = async (foodId, status) => {
     await approveFoodItem(foodId, status);
+    await AsyncStorage.removeItem('foodInput');
     setMainStatus('idle');
+
     navigation.reset({
       index: 0,
       routes: [{ name: 'CaloriesIndex' }],
@@ -95,7 +98,9 @@ const FoodItemCard = ({
             {foodItems && foodItems[0]?.userInput}
           </Text>
         </View>
-
+        <Text style={styles.itemServingSize}>
+          {current.foodItems[0]?.serving_size}
+        </Text>
         <View style={styles.list}>
           <Text style={styles.itemText}>{i18n.t('calories')}</Text>
 
@@ -328,6 +333,15 @@ const getStyles = (theme) =>
     itemTitle: {
       color: theme.colors.warning,
       fontSize: 18,
+      textAlign: 'center',
+      justifyContent: 'center',
+
+      // fontWeight: 'bold',
+      fontFamily: 'Vazirmatn',
+    },
+    itemServingSize: {
+      color: theme.colors.white,
+      fontSize: 12,
       textAlign: 'center',
       justifyContent: 'center',
 

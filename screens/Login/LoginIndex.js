@@ -77,7 +77,7 @@ function LoginIndex(props) {
       .post('/api/login', {
         userEmail: email,
         password: password,
-        deviceType: Platform.OS,
+        platform: Platform.OS,
       })
       .then((res) => {
         if (res.data) {
@@ -244,7 +244,8 @@ function LoginIndex(props) {
             }}>
             <Text
               onPress={() =>
-                Linking.openURL('https://www.fitlinez.com/forgot-password')
+                //Linking.openURL('https://www.fitlinez.com/forgot-password')
+                navigation.navigate('ForgotPassIndex')
               }
               style={{
                 color: theme.colors.secondary,

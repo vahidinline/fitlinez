@@ -20,14 +20,12 @@ import { useFocusEffect } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
 import NoWorkoutCard from './noWorkout';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import DailyReport from '../Calories/dailyReport';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getNewTasks } from '../../api/getNewTasks';
 import StepcounterIndex from '../StepCounter/StepcounterIndex';
 import { IconWalking } from '../marketplace/filters/icons';
 import { Skeleton } from '@rneui/base';
-import BannerAdMob from '../../api/AdMob/BannerComponent';
 
 function HomeIndex() {
   const [refreshing, setRefreshing] = useState(false);
@@ -43,7 +41,6 @@ function HomeIndex() {
   const [planName, setPlanName] = useState('');
   console.log('status homeindex', status);
   const styles = getStyles(theme);
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     getNewTasks(userAuth.id, setTaskStatus);
@@ -159,7 +156,7 @@ function HomeIndex() {
                 flex: 1,
                 width: Dimensions.get('window').width,
                 marginTop: 0,
-                height: Dimensions.get('window').height / 4.3,
+                height: Dimensions.get('window').height / 5,
                 marginBottom: 0,
               }}>
               <CurrentWorkoutCard
@@ -312,9 +309,9 @@ const getStyles = (theme) =>
       alignItems: 'center',
       //backgroundColor: theme.colors.background,
       marginHorizontal: 20,
-      marginVertical: 0,
+      marginVertical: 10,
 
-      height: Dimensions.get('window').height / 4,
+      height: Dimensions.get('window').height / 5,
     },
     container: {
       flex: 1,

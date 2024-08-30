@@ -9,6 +9,7 @@ import {
   Linking,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { Button, CheckBox, useTheme } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
@@ -91,6 +92,7 @@ function SignUpIndex(props) {
         password,
         name,
         location,
+        platform: Platform.OS,
         //expoPushToken: expoPushToken.data,
       })
       .then((res) => {

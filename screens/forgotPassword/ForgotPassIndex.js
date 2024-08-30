@@ -1,44 +1,102 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Dimensions,
   Platform,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   View,
 } from 'react-native';
-import { Svg } from 'react-native-svg';
+
 import StepOne from './step1';
-import { Button, Text, useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import StepTwo from './step2';
-import StepThree from './step3';
-import StepFour from './step4';
-import { Icon } from 'iconsax-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { IconArrowLeft } from '../marketplace/filters/icons';
+import api from '../../api/api';
+import FitlinezLoading from '../../components/FitlinezLoading';
+import StepThree from './step3';
+import StepFour from './step4';
 
 function ForgotPassIndex() {
-  const [currentStep, setCurrentStep] = React.useState(0);
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('initial');
   const { theme } = useTheme();
   const navigator = useNavigation();
-  const steps = [<StepOne />, <StepTwo />, <StepThree />, <StepFour />];
-  const onPrev = () => {
-    // move the step back
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    } else {
-      navigator.navigate('Login');
+  const [email, setEmail] = useState('');
+  const [verifCode, setVerifCode] = useState(null);
+  const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+  console.log('status in main forget', status);
+  console.log('verifCode in main forget', verifCode);
+  console.log('email', email);
+
+  const handleSubmitEmail = async () => {
+    setStatus('loading');
+    console.log('inside handleSubmit forget', email);
+    try {
+      const res = await api.post(`/userauth/forgot-password`, {
+        email,
+        baseUrl: Platform.OS,
+      });
+      console.log('forget password result', res);
+
+      if (res.data.status === 'ok') {
+        setStatus('emailSent');
+        setMessage('Email has been sent');
+      } else {
+        setStatus('errorEmail');
+        setMessage('Error: Unable to send email');
+      }
+    } catch (error) {
+      console.log(error);
+      setStatus('errorEmail');
+      setMessage('An error occurred while sending the email');
     }
   };
-  const onNext = () => {
-    // move the step forward
-    if (currentStep < steps.length) {
-      setCurrentStep(currentStep + 1);
+
+  const handleSubmitCode = async () => {
+    try {
+      await api
+        .post(`/userauth/reset-password`, {
+          email,
+          verificationCode: verifCode,
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.status == 'ok') {
+            setStatus('verified');
+            console.log(res.data.data);
+          } else {
+            setStatus('errorCode');
+          }
+        });
+    } catch (error) {
+      console.log(error);
+      setStatus('errorCode');
+    }
+  };
+
+  const handleSubmitPass = async (e) => {
+    try {
+      await api.post(`/userauth/new-password`, {
+        email,
+        password,
+      });
+      setMessage('Password reset successful');
+      setStatus('success');
+    } catch (error) {
+      console.log(error.response.data);
+      setStatus('errorPass');
+      //setMessage(error.response.data);
     }
   };
 
   return (
     <SafeAreaView style={styles.AndroidSafeArea}>
-      <View
+      <Pressable
+        onPress={() => navigation.navigate('Login')}
         style={{
           // flex: 0.07,
           flexDirection: 'row',
@@ -46,24 +104,43 @@ function ForgotPassIndex() {
           marginLeft: 20,
           marginRight: 20,
         }}>
-        <Icon
-          onPress={onPrev}
-          type="font-awesome-5"
-          name="chevron-left"
-          size={30}
-        />
-      </View>
+        <IconArrowLeft />
+      </Pressable>
       <View
         style={{
           flex: 1,
-          //flexDirection: 'row',
-          // justifyContent: 'space-between',
-          // marginTop: 20,
-          // marginLeft: 20,
-          // marginRight: 20,
         }}>
-        {/* all steps will be show here one by one */}
-        {steps[currentStep]}
+        {status === 'loading' && <FitlinezLoading />}
+        {status === 'initial' && (
+          <StepOne
+            setEmail={setEmail}
+            email={email}
+            status={status}
+            handleSubmit={handleSubmitEmail}
+          />
+        )}
+        {status === 'emailSent' && (
+          <StepTwo
+            email={email}
+            status={status}
+            verifCode={verifCode}
+            setVerifCode={setVerifCode}
+            handleSubmit={handleSubmitCode}
+            setStatus={setStatus}
+          />
+        )}
+
+        {status === 'verified' && (
+          <StepThree
+            password={password}
+            setPassword={setPassword}
+            handleSubmit={handleSubmitPass}
+            setEmail={setEmail}
+            status={status}
+            email={email}
+          />
+        )}
+        {status === 'success' && <StepFour />}
       </View>
       <View
         style={{
@@ -73,18 +150,10 @@ function ForgotPassIndex() {
           position: 'absolute',
           bottom: 100,
           width: Dimensions.get('window').width - 40,
-          marginLeft: 20,
-          marginRight: 20,
+
+          marginHorizontal: 20,
         }}>
-        <Button
-          buttonStyle={{
-            marginTop: 20,
-            borderRadius: 8,
-            backgroundColor: theme.colors.button,
-          }}
-          onPress={onNext}
-          title="Next"
-        />
+        {/* <Text>{message}</Text> */}
       </View>
     </SafeAreaView>
   );
@@ -96,6 +165,7 @@ const styles = StyleSheet.create({
   AndroidSafeArea: {
     flex: 1,
     backgroundColor: 'white',
+    height: Dimensions.get('window').height,
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 100,
   },
 });

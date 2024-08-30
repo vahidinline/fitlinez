@@ -39,7 +39,7 @@ const FloatingPlaceholderInput = (props) => {
           <View style={styles.eyeIcon}>
             <Icon
               onPress={() => props.setShowPass((prev) => !prev)}
-              name={props.showPass ? 'eye' : 'eye-slash'}
+              name={!props.showPass ? 'eye' : 'eye-slash'}
               type="font-awesome"
               size={20}
               color={theme.colors.secondary}

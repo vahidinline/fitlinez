@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
   Dimensions,
@@ -25,10 +24,8 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
   const userId = userAuth.id;
   const { userLanguage } = useContext(LanguageContext);
   const [status, setStatus] = useState('idle');
-  //console.log('status in daily', status);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-  const isRTL = userLanguage === 'fa';
   const navigation = useNavigation();
   useEffect(() => {
     handleGetTodaysTask();
@@ -81,7 +78,7 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
             //backgroundColor: theme.colors.background,
             marginHorizontal: 8,
             borderRadius: 14,
-            marginVertical: 0,
+            top: 20,
             // borderColor: theme.colors.border,
             // borderWidth: 1,
           }}>

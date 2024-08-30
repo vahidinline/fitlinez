@@ -6,8 +6,10 @@ import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import { View, Text } from 'react-native';
 import OneSvg from '../../assets/img/one.svg';
 import SvgComponentOne from './assetss/one';
+import { useNavigation } from '@react-navigation/native';
 function StepFour() {
   const { theme } = useTheme();
+  const navigator = useNavigation();
   return (
     <View
       style={{
@@ -56,6 +58,16 @@ function StepFour() {
             }}>
             You can now log in to your account{' '}
           </Text>
+          <Button
+            onPress={() => navigator.navigate('Login')}
+            buttonStyle={{
+              backgroundColor: theme.colors.button,
+              borderRadius: 8,
+              width: Dimensions.get('window').width / 1.2,
+              marginHorizontal: 15,
+            }}
+            title="Back to Login"
+          />
         </View>
       </ScrollView>
     </View>

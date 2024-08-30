@@ -14,6 +14,7 @@ import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import convertToPersianNumbers from '../../api/PersianNumber';
 import { useNavigation } from '@react-navigation/native';
+import { IconAdd } from '../marketplace/filters/icons';
 
 function CalorieDetails({ userId }) {
   const { theme } = useTheme();
@@ -130,12 +131,21 @@ function CalorieDetails({ userId }) {
       {dailyGoalStatus == 'noDailyCalories' ? (
         <TouchableOpacity
           onPress={() => {
-            navigator.navigate('Calories');
+            navigator.navigate('SetDailyCalories');
           }}
           style={styles.container}>
           <Text style={styles.errorText}>
             {i18n.t('Nodailycaloriesgoalsset')}
           </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
+            <Text style={styles.remainingText}>
+              {i18n.t('setdailycalories')}
+            </Text>
+            <IconAdd color={theme.colors.white} />
+          </View>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
@@ -169,7 +179,7 @@ function CalorieDetails({ userId }) {
                   ) : (
                     <Text
                       style={{
-                        color: theme.colors.secondary,
+                        color: theme.colors.primary,
                         fontSize: 16,
                         textAlign: 'center',
                         fontFamily: 'Vazirmatn',
@@ -266,12 +276,12 @@ const getStyles = (theme, RTL) =>
       textAlign: 'center',
     },
     kcalText: {
-      color: theme.colors.secondary,
+      color: theme.colors.primary,
       fontSize: 20,
       fontFamily: 'Vazirmatn',
     },
     remainingText: {
-      color: theme.colors.secondary,
+      color: theme.colors.primary,
       fontSize: 10,
       textAlign: 'center',
       fontFamily: 'Vazirmatn',
@@ -289,7 +299,7 @@ const getStyles = (theme, RTL) =>
       width: Dimensions.get('window').width / 1.2,
       backgroundColor: theme.colors.background,
       borderRadius: 12,
-      height: 80,
+      height: 90,
       marginHorizontal: 15,
       //justifyContent: 'center',
       //alignItems: 'center',

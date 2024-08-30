@@ -20,7 +20,15 @@ import { IconSearch, IconWarning } from '../../marketplace/filters/icons';
 import TempfoodItems from '../TempfoodItems';
 import FitlinezLoading from '../../../components/FitlinezLoading';
 
-function FoodTextInput({ selectedMeal }) {
+function FoodTextInput({
+  selectedMeal,
+  userInput,
+  setUserInput,
+  status,
+  setStatus,
+  setFoodItems,
+  foodItems,
+}) {
   const { userAuth } = useContext(AuthContext);
   const userId = userAuth.id;
   const { theme } = useTheme();
@@ -29,9 +37,6 @@ function FoodTextInput({ selectedMeal }) {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const RTL = userLanguage === 'fa';
-  const [status, setStatus] = useState('idle');
-  const [userInput, setUserInput] = useState('');
-  const [foodItems, setFoodItems] = useState([]);
 
   // Load the existing value from AsyncStorage on component mount
   useEffect(() => {
@@ -108,42 +113,17 @@ function FoodTextInput({ selectedMeal }) {
             }}>
             {i18n.t('error')}
           </Text>
-          {/* <Button
-            buttonStyle={{
-              //backgroundColor: theme.colors.secondary,
-              borderColor: theme.colors.primary,
-              borderWidth: 0.2,
-              margin: 10,
-              borderRadius: 10,
-              height: 40,
-              width: 100,
-            }}
-            titleStyle={{
-              color: theme.colors.primary,
-              fontSize: 15,
-              // fontWeight: 'bold',
-              fontFamily: 'Vazirmatn',
-            }}
-            title={i18n.t('retry')}
-            onPress={() => setStatus('mealInitialized')}
-          /> */}
         </View>
       )}
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View
           style={{
-            // flex: 1,
-            // position: 'absolute',
-            //bottom: 0,
-            // top: Dimensions.get('window').height / 1.8,
             flexDirection: 'column',
           }}>
           <TextInput
             value={userInput}
             returnKeyType="done"
             returnKeyLabel="Done"
-            // onFocus={() => setStatus('focused')}
-            // onBlur={() => setStatus('idle')}
             multiline={true}
             numberOfLines={1}
             onChangeText={setUserInput}
@@ -162,9 +142,7 @@ function FoodTextInput({ selectedMeal }) {
 
                 color: theme.colors.secondary,
               }}
-              onPress={handleInput}
-              // title={i18n.t('foodsearch')}
-            >
+              onPress={handleInput}>
               <IconSearch color={theme.colors.white} />
             </Button>
           </View>
@@ -180,20 +158,25 @@ const getStyles = (theme, RTL) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      direction: RTL ? 'rtl' : 'ltr',
     },
-    hintBox: {},
+    hintBox: {
+      direction: RTL ? 'rtl' : 'ltr',
+    },
     hintText: {
       //padding: 10,
       color: theme.colors.grey2,
       //width: '30%',
-      // height: 50,
+      // height: 50,on:
+      textAlign: 'center',
+
       backgroundColor: 'transparent',
       borderRadius: 5,
       marginHorizontal: 10,
       marginBottom: 10,
       alignItems: 'center',
       fontFamily: 'Vazirmatn',
-      textAlign: RTL ? 'left' : 'right',
+      // textAlign: RTL ? 'left' : 'right',
     },
     footerContainer: {
       position: 'absolute',

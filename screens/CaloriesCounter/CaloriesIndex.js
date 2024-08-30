@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import {
   Dimensions,
+  FlatList,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -17,7 +17,6 @@ import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import { Button } from '@rneui/base';
 import { ActivityIndicator } from 'react-native-paper';
-import { FlatList } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import CalorieDetails from './CalorieDetails';
 import MealList from './MealList';
@@ -26,34 +25,23 @@ function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
   const { userAuth } = useContext(AuthContext);
   const { theme } = useTheme();
-  const [userInput, setUserInput] = useState('');
-  const [data, setData] = useState(null);
-  const [foodItems, setFoodItems] = useState([]);
   const userId = userAuth.id;
-
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
-
   i18n.locale = userLanguage;
   const styles = getStyles(theme);
-  const RTL = userLanguage === 'fa';
+
   const navigator = useNavigation();
 
   const menuList = [
-    // {
-    //   id: 1,
-    //   name: i18n.t('addfood'),
-    //   onPress: () => setStatus('addFood'),
-    //   active: true,
-    // },
     {
-      id: 2,
+      id: 1,
       name: i18n.t('setdailycalories'),
       onPress: () => navigator.navigate('SetDailyCalories'),
       active: true,
     },
     {
-      id: 3,
+      id: 2,
       name: i18n.t('seeHistory'),
       onPress: () => navigator.navigate('CalorieCustomReport'),
       active: true,
@@ -79,55 +67,6 @@ function CaloriesIndex() {
           {i18n.t('calorieCounter')}
         </Text>
       </View>
-      <View>
-        <FlatList
-          horizontal
-          data={menuList}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <Pressable
-              style={styles.footerContainer}
-              onPress={() => item.onPress()}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontFamily: 'Vazirmatn',
-                  color: theme.colors.secondary,
-                }}>
-                {item.name}
-              </Text>
-            </Pressable>
-          )}
-        />
-      </View>
-      <View
-        style={{
-          height: Dimensions.get('window').height / 6,
-          widht: Dimensions.get('window').width / 1.2,
-          borderColor: theme.colors.border,
-          borderWidth: 1,
-          borderRadius: 8,
-          backgroundColor: theme.colors.background,
-        }}>
-        <CalorieDetails userId={userId} />
-      </View>
-
-      {status === 'loading' && (
-        <View
-          style={{
-            flex: 1,
-            top: Dimensions.get('window').height / 4,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <ActivityIndicator
-            animating={true}
-            color={theme.colors.secondary}
-            size="large"
-          />
-        </View>
-      )}
-      <MealList userId={userId} />
 
       {status === 'error' && (
         <View
@@ -169,6 +108,61 @@ function CaloriesIndex() {
           />
         </View>
       )}
+      <View
+        style={{
+          height: Dimensions.get('window').height / 4.5,
+          widht: Dimensions.get('window').width / 1.1,
+          borderColor: theme.colors.border,
+          marginHorizontal: 20,
+          //   borderWidth: 1,
+          borderRadius: 8,
+          backgroundColor: theme.colors.secondary,
+        }}>
+        <CalorieDetails userId={userId} />
+      </View>
+
+      {status === 'loading' && (
+        <View
+          style={{
+            flex: 1,
+            top: Dimensions.get('window').height / 4,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <ActivityIndicator
+            animating={true}
+            color={theme.colors.secondary}
+            size="large"
+          />
+        </View>
+      )}
+
+      <MealList userId={userId} />
+
+      {/* <View
+        style={{
+          height: 90,
+        }}>
+        <FlatList
+          horizontal
+          data={menuList}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Pressable
+              style={styles.footerContainer}
+              onPress={() => item.onPress()}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: 'Vazirmatn',
+                  color: theme.colors.secondary,
+                }}>
+                {item.name}
+              </Text>
+            </Pressable>
+          )}
+        />
+      </View> */}
     </SafeAreaView>
   );
 }
@@ -179,25 +173,28 @@ const getStyles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      //  backgroundColor: theme.colors.background,
-      padding: 20,
+      backgroundColor: theme.colors.background,
+      padding: 0,
+      // height:Dimensions.get
+      marginBottom: 0,
     },
     footerContainer: {
-      padding: 20,
+      padding: 5,
       flexDirection: 'column',
       justifyContent: 'center',
       //  backgroundColor: 'white',
-      marginHorizontal: 15,
+      marginHorizontal: 10,
       marginVertical: 10,
+      height: 50,
       borderRadius: 10,
       borderWidth: 0.3,
       borderColor: 'grey',
     },
     verticallySpaced: {
-      marginVertical: 10,
+      marginVertical: 0,
       borderWidth: 0.3,
       marginHorizontal: 10,
-      height: 40,
+      height: 0,
       borderRadius: 5,
       padding: 10,
       width: '95%',

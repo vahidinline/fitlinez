@@ -134,6 +134,25 @@ function MealList({ userId }) {
     <View style={styles.container}>
       <FlatList
         data={meals}
+        ListHeaderComponent={
+          <View
+            style={{
+              borderBottomColor: theme.colors.border,
+              //  borderBottomWidth: 1,
+            }}>
+            {status === 'noData' && (
+              <Text style={styles.noData}>
+                {i18n.t('noFoodSubmittedToday')}
+              </Text>
+            )}
+            {status === 'loading' && (
+              <Text style={styles.loadingText}>{i18n.t('loading')}...</Text>
+            )}
+            {status === 'failed' && (
+              <Text style={styles.errorText}>{i18n.t('errorLoadingData')}</Text>
+            )}
+          </View>
+        }
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.mealSection}>
@@ -163,16 +182,6 @@ function MealList({ userId }) {
           </View>
         )}
       />
-
-      {status === 'noData' && (
-        <Text style={styles.noData}>{i18n.t('noFoodSubmittedToday')}</Text>
-      )}
-      {status === 'loading' && (
-        <Text style={styles.loadingText}>{i18n.t('loading')}...</Text>
-      )}
-      {status === 'failed' && (
-        <Text style={styles.errorText}>{i18n.t('errorLoadingData')}</Text>
-      )}
     </View>
   );
 }
@@ -181,7 +190,6 @@ const getStyles = (theme, RTL) =>
   StyleSheet.create({
     container: {
       flex: 1,
-
       //  backgroundColor: '#fff',
     },
     mealSelectionContainer: {
@@ -189,18 +197,23 @@ const getStyles = (theme, RTL) =>
       padding: 10,
     },
     mealButton: {
-      margin: 10,
-      padding: 15,
+      margin: 5,
+      padding: 5,
       //borderRadius: 10,
       backgroundColor: theme.colors.background,
       //width: Dimensions.get('window').width / 4.5,
+      height: Dimensions.get('window').height / 20,
       alignItems: 'center',
       borderBottomColor: theme.colors.border,
       borderBottomWidth: 1,
+      fontFamily: 'Vazirmatn',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
     mealText: {
       fontSize: 14,
       color: '#333',
+      fontFamily: 'Vazirmatn',
     },
     scrollView: {
       flex: 1,
@@ -214,22 +227,26 @@ const getStyles = (theme, RTL) =>
       fontSize: 16,
       color: 'grey',
       margin: 20,
+      fontFamily: 'Vazirmatn',
     },
     loadingText: {
       textAlign: 'center',
       fontSize: 16,
       color: 'grey',
       margin: 20,
+      fontFamily: 'Vazirmatn',
     },
     errorText: {
       textAlign: 'center',
       fontSize: 16,
       color: 'red',
       margin: 20,
+      fontFamily: 'Vazirmatn',
     },
     mealSection: {
       flexDirection: 'column',
       marginVertical: 10,
+      marginHorizontal: 20,
       padding: 10,
       backgroundColor: theme.colors.background,
       borderRadius: 10,
@@ -243,6 +260,7 @@ const getStyles = (theme, RTL) =>
     mealName: {
       fontSize: 14,
       fontWeight: 'bold',
+      fontFamily: 'Vazirmatn',
     },
     mealDetail: {
       marginTop: 10,
@@ -255,6 +273,7 @@ const getStyles = (theme, RTL) =>
       color: '#555',
       flexWrap: 'wrap',
       width: Dimensions.get('window').width / 1.5,
+      fontFamily: 'Vazirmatn',
     },
   });
 

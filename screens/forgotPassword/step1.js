@@ -1,13 +1,35 @@
 import { Button, Icon, Input, useTheme } from '@rneui/themed';
 import { Diagram } from 'iconsax-react-native';
-import React from 'react';
-import { Dimensions, ScrollView } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Dimensions, Platform, ScrollView } from 'react-native';
 import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import { View, Text } from 'react-native';
-import OneSvg from '../../assets/img/one.svg';
 import SvgComponentOne from './assetss/one';
-function StepOne() {
+import api from '../../api/api';
+function StepOne({ setEmail, email, handleSubmit, status }) {
   const { theme } = useTheme();
+  const [btnDisable, setBtnDisable] = useState(true);
+
+  const validateFields = useCallback(() => {
+    return email !== '';
+  }, [email]);
+
+  useEffect(() => {
+    const buttonDisabled = !validateFields();
+    setBtnDisable(buttonDisabled);
+  }, [email]);
+
+  const emailValidate = (text) => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(text) === false) {
+      setEmail('');
+      return false;
+    } else {
+      setEmail(text.trim().toLowerCase());
+      //passwordInputRef.current.focus(); // Focus on password input after email validation
+    }
+  };
+
   return (
     <View
       style={{
@@ -47,16 +69,34 @@ function StepOne() {
             Enter your Email Address to receive verification code.
           </Text>
           <Input
+            type="email"
+            keyboardType="email-address"
+            returnKeyType="done"
             inputContainerStyle={{
               borderWidth: 0.5,
               borderRadius: 8,
+              paddingStart: 10,
             }}
             inputStyle={styles.input}
             labelStyle={styles.label}
+            onChangeText={emailValidate}
+            //onChangeText={(e) => setEmail(e)}
+            // value={email}
+          />
+          <Button
+            disabled={btnDisable}
+            onPress={() => handleSubmit()}
+            buttonStyle={{
+              backgroundColor: theme.colors.button,
+              borderRadius: 8,
+              width: Dimensions.get('window').width / 1.2,
+              marginHorizontal: 15,
+            }}
+            title="Submit"
           />
         </View>
       </ScrollView>
-      <View
+      {/* <View
         style={{
           position: 'absolute',
           bottom: 30,
@@ -73,9 +113,10 @@ function StepOne() {
             borderRadius: 8,
             backgroundColor: theme.colors.button,
           }}
+          onPress={() => setEmail()}
           title="Next"
         />
-      </View>
+      </View> */}
     </View>
   );
 }

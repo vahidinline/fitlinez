@@ -34,6 +34,7 @@ const PriceRadionButton = ({
         borderRadius: 16,
         borderColor: selected ? theme.colors.secondary : theme.colors.border,
         height: Dimensions.get('window').height / 15,
+        fontFamily: 'Vazirmatn',
       }}>
       <View
         style={{
@@ -58,7 +59,7 @@ const PriceRadionButton = ({
         <Text
           style={{
             color: selected ? theme.colors.secondary : theme.colors.text,
-            fontWeight: 'bold',
+            fontFamily: 'Vazirmatn',
             justifyContent: userLanguage !== 'fa' ? 'flex-end' : 'flex-start',
             alignContent: 'flex-end',
             textAlign: userLanguage !== 'fa' ? 'right' : 'left',
@@ -81,8 +82,18 @@ const PriceRadionButton = ({
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <Text>{sign !== 'Iran' ? sign : ''}</Text>
-          <Text>{priceDisplay}</Text>
+          <Text
+            style={{
+              fontFamily: 'Vazirmatn',
+            }}>
+            {sign !== 'Iran' ? sign : ''}
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'Vazirmatn',
+            }}>
+            {priceDisplay}
+          </Text>
           {/* <Text>{description.charAt(0).toLowerCase()}</Text> */}
         </View>
       </View>

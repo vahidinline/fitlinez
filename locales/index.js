@@ -381,7 +381,7 @@ const i18nt = {
     lunch: 'Lunch',
     dinner: 'Dinner',
     snack: 'Snack',
-    dessert: 'Desert',
+    dessert: 'Dessert',
     drink: 'Drink',
     foodinserttypetitle: 'Adding {{mealType}}',
     enteryourfood: 'Enter your food',
@@ -989,8 +989,8 @@ const i18nt = {
 
   pt: {
     aboutme: 'Sobre Mim',
-    brand: 'Fitlinez',
-    workout: `Tem`,
+    brand: 'FITLINEZ',
+    workout: `Tem`, // "Você tem" is less common in European Portuguese
     profile: 'Perfil',
     history: 'Histórico',
     name: 'Nome',
@@ -998,13 +998,12 @@ const i18nt = {
     mainGoal: 'Objetivo Principal',
     trainer: 'Treinador',
     upgradeHeaderText: '{{dayLeft}} dia(s) restante(s). Seja Premium',
-    PremiumHeaderText: '{{dayLeft}} dia(s) restante(s) da sua Conta Premium.',
-    PremiumSubHeaderText: 'Mantenha a sua conta atualizada',
+    PremiumHeaderText: '{{dayLeft}} dia(s) restante(s) da sua conta Premium.',
+    PremiumSubHeaderText: 'Mantenha a sua conta atualizada', // Use "a" before "sua"
     upgradeSubHeaderText: 'Obtenha acesso ilimitado',
-    upgradeSmallText: 'Quando subscrever, terá acesso ilimitado instantâneo',
+    upgradeSmallText: 'Ao inscrever-se, terá acesso ilimitado instantâneo', // "Terá" instead of "terá"
     clearcash: 'Limpar Dinheiro',
     progress: 'Progresso',
-    substitute: 'Substituir',
     profilePageTitle: 'Perfil',
     video: 'Vídeos',
     welcome: 'Olá',
@@ -1012,90 +1011,90 @@ const i18nt = {
     yesterday: 'Ontem',
     today: 'Hoje',
     tomorrow: 'Amanhã',
-    start: 'Comece o seu treino',
+    start: 'Comece o seu Treino', // "O seu" instead of "seu"
     current: 'Atual',
     error: 'Sem dados para mostrar',
     weightchart: 'Gráfico de Peso',
-    alertUnfinishSession: 'A sessão inacabada foi recuperada',
-    titleProfile: 'Atualize o seu perfil',
+    alertUnfinishSession: 'Sessão inacabada foi recuperada',
+    titleProfile: 'Atualize o seu perfil', // "O seu" instead of "seu"
     age: 'Idade',
     height: 'Altura',
     weight: 'Peso',
-    targetWeight: 'Peso Objetivo',
+    targetWeight: 'Peso Alvo',
     male: 'masculino',
     female: 'feminino',
 
     back: 'Voltar',
-    titleTrack: 'O seu tamanho de hoje',
+    titleTrack: 'O seu Tamanho de Hoje', // "O seu" instead of "Seu"
     waist: 'Cintura',
-    hip: 'Anca',
-    submit: 'Enviar',
+    hip: 'Anca', // "Anca" is more common in European Portuguese
+    submit: 'Submeter', // "Submeter" is more formal in European Portuguese
     graph: 'Ver Gráfico',
     home: 'Página Inicial',
     todolist: 'Lista de Tarefas',
     workouts: 'Treinos',
-    notActive: 'Não Ativo',
-    settings: 'Definições',
-    removeuserData: 'Remover Dados do Utilizador',
+    seeHistory: 'Ver Histórico',
+    settings: 'Configurações',
+    removeuserData: 'Remover Dados do Utilizador', // "Utilizador" instead of "Usuário"
     support: 'Suporte',
     logout: 'Sair',
     changeLanguage: 'Mudar Idioma',
     or: 'ou',
-    requestDeleteAccount: 'Solicitar Eliminar Conta',
-    share: 'Partilhar',
+    requestDeleteAccount: 'Solicitar Eliminação da Conta', // "Eliminação" instead of "Exclusão"
+    share: 'Partilhar', // "Partilhar" is more common in European Portuguese
     priority: 'Prioridade',
     normal: 'Normal',
-    high: 'Alta',
-    supportPlaceholder: 'Por favor, descreva o seu problema',
-    olderTicket: 'Bilhete Mais Velho',
+    high: 'Alta', // "Alta" instead of "Alto" for feminine nouns
+    supportPlaceholder: 'Por favor, descreva o seu problema', // "O seu" instead of "seu"
+    olderTicket: 'Bilhete Mais Antigo',
     underReview: 'Em Revisão',
-    loading: 'A carregar',
-    submitting: 'A enviar',
-    CalendarView: 'Relatórios',
-    login: 'Iniciar Sessão',
-    register: 'Registar',
+    loading: 'A carregar', // "A carregar" is more common in European Portuguese
+    submitting: 'A submeter', // "A submeter" is more common in European Portuguese
+    CalendarView: 'Ver histórico',
+    login: 'Iniciar Sessão', // "Iniciar Sessão" is more formal in European Portuguese
+    register: 'Registar', // "Registar" is more formal in European Portuguese
     email: 'Email',
-    password: 'Palavra-passe',
+    password: 'Palavra-passe', // "Palavra-passe" is more common in European Portuguese
     selectCountry: 'Selecionar País',
     stepcounter: 'Contador de Passos',
     trial: 'Experimentação',
     stepCountetNotAvailable: 'O Contador de Passos não está disponível',
-    workoutDone: 'Terminar Treino',
+    workoutDone: 'Concluir Treino',
     done: 'Feito',
-    workoutDoneprompt: 'Tem a certeza que quer terminar o treino?',
-    backPrompt: 'Tem a certeza que quer voltar atrás?',
+    workoutDoneprompt: 'Tem a certeza que deseja concluir o treino?', // Use "a" before "certeza"
+    backPrompt: 'Tem a certeza que deseja voltar?', // Use "a" before "certeza"
     minute: 'minuto(s)',
     exit: 'Sair',
-    gymWorkout: 'Treino(s) no Ginásio',
+    gymWorkout: 'Treino(s) no Ginásio', // "Ginásio" is more common in European Portuguese
     homeWorkout: 'Treino(s) em Casa',
-    startWorkoutTitle: 'Onde quer treinar?',
+    startWorkoutTitle: 'Onde quer treinar?', // "quer" instead of "quer"
     sessionNumber: 'Sessão',
     medal: 'Ganhou medalha(s)',
-    saveWorkout: 'Guardar os seus registos',
-    rateApp: 'Avalie-nos',
+    saveWorkout: 'Guardar os seus Registros', // "os seus" instead of "seus"
+    rateApp: 'Avaliar',
     Weight: 'Peso',
     reps: 'Repetições',
     set: 'Série',
-    noSub: 'Sem Subs',
-    SubstituteWorkout: 'Subs de Treino',
+    noSub: 'Sem Substituições', // "Substituições" is more common in European Portuguese
+    SubstituteWorkout: 'Substituir ',
     showImage: 'Mostrar Imagem',
     showDescription: 'Ajuda',
     description: 'Descrição',
     previousSet: 'Série Anterior: ',
     confirmEating: 'Comeu alguma refeição antes deste treino?',
     reminderEating: 'não se esqueça de comer uma refeição depois deste treino',
-    forgetpassword: 'Esqueceu-se da Palavra-passe?',
+    forgetpassword: 'Esqueceu-se da Palavra-passe', // "Esqueceu-se" instead of "Esqueceu"
     gold: 'Ouro',
     silver: 'Prata',
     bronze: 'Bronze',
     tial: 'Experimentação',
-    BackAbs: 'Costas e abdominais',
-    ChestTriceps: 'Peito e tríceps',
-    LegsCalves: 'Pernas e panturrilhas',
-    ShouldersBiceps: 'Ombros e bíceps',
+    BackAbs: 'Costas e Abdómen',
+    ChestTriceps: 'Peito e Tríceps',
+    LegsCalves: 'Pernas e Panturrilhas',
+    ShouldersBiceps: 'Ombros e Bíceps',
     Cardio: 'Cardio',
     evaluate: 'Avaliar',
-    save: 'Guardar',
+    save: 'Guardar', // "Guardar" is more common in European Portuguese
     sat: 'Sáb',
     sun: 'Dom',
     mon: 'Seg',
@@ -1107,110 +1106,111 @@ const i18nt = {
     no: 'Não',
     ok: 'Estou pronto para a próxima série',
     previousExercise: 'Ant. ',
-    finishWorkout: 'Terminar',
+    finishWorkout: 'Concluir',
     howtodo: 'Como fazer',
     arrangeWeeklyPlan: 'Organizar Plano Semanal',
     weeklyplan: 'Plano Semanal',
     packages: 'Explorar Treinos',
     duration: 'Duração',
-    todaysWorkout: 'Treino de hoje',
+    todaysWorkout: 'Treino de Hoje',
     me: 'Eu',
     chestTriceps: 'Peito e Tríceps',
-    backAbs: 'Costas e Abdômen',
+    backAbs: 'Costas e Abdómen',
     legsCalves: 'Pernas e Panturrilhas',
     shouldersBiceps: 'Ombros e Bíceps',
     cardio: 'Cardio',
-    restDay: 'Dia de Repouso',
+    restDay: 'Dia de Descanso',
     exercices: 'Exercícios',
-    newRecord: 'Novo(s) Registo(s)',
+    newRecord: 'Novo(s) Registro(s)',
     notStartedYet:
-      'Esta lista de treinos é preparada com base nas suas respostas às perguntas',
+      'Esta lista de treinos é preparada com base nas suas respostas às perguntas', // "as suas" instead of "suas"
     warmup: 'Aquecimento',
-    cooldown: 'Arrefecimento',
+    cooldown: 'Arrefecimento', // "Arrefecimento" is more common in European Portuguese
     main: 'Exercício Principal',
     liftedweight: 'Peso Levantado',
-    slogan: 'MODELAR O SEU CORPO',
+    slogan: 'MODELAR O SEU CORPO', // "O seu" instead of "Seu"
     reportError: 'Reportar Erro',
     kg: 'kg',
-    reps: 'reps',
-    addyourphoto: 'Adicione a sua foto',
-    updown: 'Para cima/Para baixo',
+    reps: 'repetições',
+    addyourphoto: 'Adicione a sua foto', // "a sua" instead of "sua"
+    updown: 'Para Cima/Para Baixo',
     with: 'Com',
     recomandedworkout: 'Treinos Recomendados',
     updateAccount: 'Atualizar Conta',
     upgradeAccount: 'Atualizar Conta',
     yourFiltinez: 'FITLINEZ',
     fitlinez: 'Fitlinez',
-    keepGoing: 'Bem feito, continue',
-    gotIt: 'Compreendi',
-    lastPerformance: 'da última vez que fez este treino:',
-    workoutSub: 'O seu Plano de Treino',
+    keepGoing: 'Bem feito, Continue assim',
+    gotIt: 'Entendi',
+    lastPerformance: 'última vez que fez este treino:', // "fez" instead of "did"
+    workoutSub: 'O seu Plano de Treino', // "O seu" instead of "Seu"
     packagesSub: 'Escolha o Plano de Treino',
-    report: 'Relatar',
+    report: 'Relatório',
     letsstart: 'Vamos começar',
     Trainers: 'Treinadores',
-    TrainerSub: 'Escolha Treinador',
+    TrainerSub: 'Escolha o Treinador',
     SizeTracker: 'Rastreador de Tamanho',
     next: 'Próximo',
     previous: 'Ant.',
-    seechart: 'Veja o seu progresso ao longo do tempo',
-    poweredbyfitlinez: 'Desenvolvido pela Fitlinez',
+    seechart: 'Veja o seu progresso ao longo do tempo', // "o seu" instead of "seu"
+    poweredbyfitlinez: 'Desenvolvido por Fitlinez',
     chest: 'Peito',
-    todaysactivity: 'Atividade de hoje',
+    todaysactivity: 'Atividade de Hoje',
     leftArm: 'Braço Esquerdo',
     rightArm: 'Braço Direito',
+    notActive: 'Não Ativo',
 
-    hips: 'Ancas',
+    hips: 'Ancas', // "Ancas" is more common in European Portuguese
     leftThigh: 'Coxa Esquerda',
     rightThigh: 'Coxa Direita',
-    abdomen: 'Abdômen',
+    abdomen: 'Abdómen',
     addoldsizes: 'Adicionar Tamanhos Anteriores',
     by: 'Por',
     date: 'Data',
-    users: 'Utilizadores',
+    users: 'Utilizadores', // "Utilizadores" is more common in European Portuguese
     persons: 'Pessoa(s)',
-    location: 'Localização',
+    location: 'adequado para',
 
     daysperweek: 'Dias por semana',
     level: 'Nível',
-    target: 'Objetivo',
-    addtoyourplan: 'Adicionar ao seu plano',
-    download: 'Transferir',
+    target: 'Objetivo', // "Objetivo" is more common in European Portuguese
+    addtoyourplan: 'Adicionar ao seu plano', // "ao seu" instead of "a seu"
+    download: 'Transferir', // "Transferir" is more common in European Portuguese
     testtitle: 'Experimente-me!',
     seeAll: 'Ver Todos os Treinos',
-    workoutCategories: 'Categorias de Treino',
+    workoutCategories: 'Categorias de Treinos',
     newCategories: 'Novos Treinos',
-    goodmorning: 'Bom dia',
-    goodafternoon: 'Boa tarde',
-    goodevening: 'Boa noite',
+    goodmorning: 'Bom dia', // No accent on "Bom"
+    goodafternoon: 'Boa tarde', // No accent on "Boa"
+    goodevening: 'Boa noite', // No accent on "Boa"
     currentPlan: 'Plano Atual',
-    yourLevel: 'O seu Nível',
+    yourLevel: 'O seu Nível', // "O seu" instead of "Seu"
     inbox: 'Caixa de Entrada',
     instructions: 'Mostrar Instruções',
     getStarted: 'Começar',
-    contactSupport: 'Por favor, contacte o suporte',
-    SuccessPayment: 'Pagamento Concluído',
-    notUpgraded: 'A sua conta ainda não está atualizada',
-    upgraded: 'A sua conta está atualizada',
-    checkingForUpdates: 'A verificar atualizações...',
+    contactSupport: 'Por favor, contacte o suporte', // "Contacte" instead of "Entre em contato"
+    SuccessPayment: 'Pagamento com Sucesso',
+    notUpgraded: 'A sua conta ainda não foi atualizada', // "A sua" instead of "Sua"
+    upgraded: 'A sua conta foi atualizada', // "A sua" instead of "Sua"
+    checkingForUpdates: 'A verificar atualizações ...', // "A verificar" instead of "Verificando"
     recommandtoolTip:
-      ' *Estas são apenas sugestões. Pode alterar os pesos e as repetições à vontade.',
-    weightSuggestion: ' Pesos e Repetições Sugeridos:',
+      ' *Estas são apenas sugestões. Pode mudar os pesos e repetições como quiser.', // "Pode" instead of "Você pode"
+    weightSuggestion: ' Pesos e repetições sugeridos:',
     suggestionOverlayTitle: 'Pesos e Repetições Sugeridos',
-    lastRecord: 'Último Registo:',
+    lastRecord: 'Último Registro:',
     addRemoveSets: 'Adicionar/Remover Séries',
     selectPhoto: 'Selecionar Foto',
     uploadImage: 'Carregar Imagem',
-    createpassword: 'Criar Palavra-passe',
+    createpassword: 'Criar Palavra-passe', // "Palavra-passe" is more common in European Portuguese
     day: 'Dia',
     week: 'Semana(s)',
     month: 'Mês',
     beginner: 'Iniciante',
-    intermediate: 'Intermédio',
+    intermediate: 'Intermédio', // "Intermédio" is more common in European Portuguese
     advanced: 'Avançado',
-    supportText: 'Por favor, contacte-nos no Telegram',
+    supportText: 'Por favor, contacte-nos no Telegram', // "Contacte-nos" instead of "Entre em contato"
     supportText2: 'Telegram: @fitlinezsupport',
-    yourPlan: 'O seu Plano',
+    yourPlan: 'O seu Plano', // "O seu" instead of "Seu"
     Monday: 'Segunda-feira',
     Tuesday: 'Terça-feira',
     Wednesday: 'Quarta-feira',
@@ -1220,12 +1220,12 @@ const i18nt = {
     Sunday: 'Domingo',
     Select: 'Selecionar',
     handleFinishSync:
-      '                Por favor, espere até que os dados sejam sincronizados com a nuvem',
-    handleFinishSync2: 'Os dados foram sincronizados com a nuvem',
+      '                Por favor, aguarde até que os dados sejam sincronizados com a nuvem',
+    handleFinishSync2: 'Dados sincronizados com a nuvem',
     handleFinishSync3:
-      'Pode partilhar o seu desempenho no treino com os seus amigos',
-    handleFinishSync4: 'A calcular o seu desempenho...',
-    handleFinishSync5: 'O seu desempenho é ',
+      'Pode partilhar o seu desempenho de treino com os seus amigos', // "Pode" instead of "Você pode", "o seu" instead of "seu"
+    handleFinishSync4: 'A calcular o seu desempenho...', // "A calcular" instead of "Calculando"
+    handleFinishSync5: 'O seu desempenho é ', // "O seu" instead of "Seu"
     setNewPlan: 'Definir Novo Plano',
 
     seeAllPlans: 'Ver Todos os Planos',
@@ -1233,92 +1233,91 @@ const i18nt = {
     weightChart: 'Gráfico de Peso',
     performance: 'Desempenho',
     homwWorkout: 'Treino em Casa',
-    ForgotPassword: 'Esqueceu-se da Palavra-passe',
-    skip: 'Ignorar',
+    ForgotPassword: 'Esqueceu-se da Palavra-passe', // "Esqueceu-se" instead of "Esqueceu"
+    skip: 'Saltar', // "Saltar" is more common in European Portuguese
     days: 'Dias',
-    //: 'Treino no Ginásio',
+    //: 'Treino no Ginásio', // "Ginásio" is more common in European Portuguese
     addWorkout: 'Adicionar Treino',
     AiSelect: 'Deixe a IA selecionar por mim',
     updateprofile: 'Atualizar Perfil',
-    calorieTracker: 'Rastreador de Calorias',
     newPlanText:
-      '        Ainda não tem nenhum plano de treino. Por favor, adicione um',
-    marketplace: 'Marketplace',
+      '        Ainda não tem nenhum plano de treino. Por favor, adicione um', // "tem" instead of "tem"
+    marketplace: 'Mercado',
     from: 'De',
     to: 'Para',
     unit: 'Unidade de medida',
-    ScreenshotCaptured: 'Captura de Ecrã',
+    ScreenshotCaptured: 'Captura de Ecrã', // "Ecrã" is more common in European Portuguese
     lifted: 'Levantado',
     myPerformance: 'Desempenho',
     monthlyReport: 'Relatório Mensal',
     weeklyReport: 'Relatório Semanal',
     statistics: 'Estatísticas',
+    trainers: 'Treinadores',
     estimatedTime: 'Tempo Estimado',
     notsatified: 'Não Satisfeito',
     satisfied: 'Satisfeito',
     neutral: 'Neutro',
     upgrade: 'Atualizar',
-    upgradeMessage:
-      'Precisa de atualizar o seu plano para aceder a este treino',
+    upgradeMessage: 'Precisa atualizar o seu plano para aceder a este treino', // "Precisa" instead of "Você precisa", "o seu" instead of "seu"
     cancel: 'Cancelar',
-    lowerPerformanceText: ' Espere mais da próxima vez, você consegue!',
+    lowerPerformanceText: ' Esforce-se mais na próxima vez, consegue!', // "consegue" instead of "consegue"
     midPerformanceText: 'Bom trabalho! Mire mais alto no seu próximo treino.',
-    highPerformanceText: 'Ótimo trabalho! Você está perto do seu pico.',
+    highPerformanceText: 'Ótimo trabalho! Está perto do seu pico.', // "Está" instead of "Você está"
     hiestPerformanceText: 'Incrível! Vamos estabelecer novos recordes juntos.',
-    followedPlanInARow:
-      'Você seguiu o seu plano {{count}} sessões consecutivas.',
-    youveBeenInconsistent: 'Você tem sido inconsistente com o seu plano.',
-    notStartedPlan: 'Você ainda não começou o seu plano.',
-    youveshouldHaveConsistency: 'Você deve ter consistência no seu plano.',
-    notYetStarted: 'Ainda não começou',
+    followedPlanInARow: 'Seguiu o seu plano {{count}} sessões seguidas.', // "Seguiu" instead of "You've followed", "o seu" instead of "your"
+    youveBeenInconsistent: 'Tem sido inconsistente com o seu plano.', // "Tem sido" instead of "You've been", "o seu" instead of "your"
+    notStartedPlan: 'Ainda não começou o seu plano.', // "Ainda não começou" instead of "You have not started", "o seu" instead of "your"
+    youveshouldHaveConsistency: 'Deveria ter consistência no seu plano.', // "Deveria" instead of "You should", "no seu" instead of "in your"
+    notYetStarted: 'Ainda não iniciado',
     trialText: 'experimentação ativa de 14 dias',
     upgradeLocationText:
-      'Por favor, selecione a sua localização para encontrar o método de pagamento adequado',
+      'Por favor, selecione a sua localização para encontrar o método de pagamento adequado', // "a sua" instead of "sua"
     trialExpired:
-      'O seu período de experimentação terminou, por favor atualize o seu plano',
-    bothlocation: 'Casa & Ginásio',
-    gymlocation: 'Ginásio',
+      'O seu período de experimentação terminou, por favor, atualize o seu plano', // "O seu" instead of "Seu"
+    bothlocation: 'Casa e Ginásio', // "Ginásio" is more common in European Portuguese
+    gymlocation: 'Ginásio', // "Ginásio" is more common in European Portuguese
     homelocation: 'Casa',
     alertEndOfList: 'Fim da sessão',
     loseFat: 'Perder Gordura',
     gainMuscle: 'Ganhar Massa Muscular',
     stayFit: 'Manter-se em Forma',
     maintainWeight: 'Manter o Peso',
-    preferedLocation: 'Localização Preferida para Treinar',
+    preferedLocation: 'Localização Preferida para Treino',
     fitnessLevel: 'Nível de Fitness',
 
-    daypreference: 'Com que frequência quer treinar?',
+    daypreference: 'Com que frequência quer treinar?', // "quer" instead of "quer"
     lesstahn3days: 'Menos de 3 dias',
     threedays: '3 dias',
     fourdays: '4 dias',
     moretahn4days: 'Mais de 4 dias',
-    shareApp: 'Partilhar Aplicação com Amigos',
-    justdonefirstsession: `Você acabou de fazer a sua primeira sessão`,
-    text1001: 'Parabéns pelas suas conquistas! Você nos encheu de orgulho.',
-    text1002: 'Você não precisa ser extremo. Apenas consistente',
-    text1003: 'Se não o desafiar, não o mudará.',
-    text501:
-      'Um pequeno progresso a cada dia se acumula em grandes resultados.',
+    shareApp: 'Partilhar a aplicação com amigos', // "Partilhar" instead of "Compartilhar"
+    justdonefirstsession: `Acabou de fazer a sua primeira sessão`, // "Acabou" instead of "You've just done"
+    substitute: 'Obter Nova Substituição', // "Substituição" is more common in European Portuguese
+    text1001: 'Parabéns pelas suas conquistas! Deixou-nos a todos orgulhosos.', // "Deixou-nos" instead of "Deixou"
+    text1002: 'Não precisa ser extremo. Apenas consistente',
+    text1003: 'Se não o desafia, não o muda.', // "o" instead of "te"
+    text501: 'Um pouco de progresso a cada dia soma-se a grandes resultados.', // "soma-se" instead of "se soma"
     text502: 'Cada treino conta',
-    text503: 'Continue trabalhando mesmo quando ninguém estiver olhando',
-    text901: 'É difícil vencer uma pessoa que nunca desiste.',
-    text902: 'Acredite em si mesmo, e você será imparável',
+    text503: 'Continue a trabalhar mesmo quando ninguém estiver a olhar.', // "a trabalhar" instead of "trabalhando", "estiver" instead of "está"
+    text901: 'É difícil de bater uma pessoa que nunca desiste.',
+    text902: 'Acredite em si mesmo e será imparável',
     text903: 'O corpo alcança o que a mente acredita.',
-    text701: 'O segredo para avançar é começar.',
-    text702: 'Você é mais forte do que pensa.',
+    text701: 'O segredo para progredir é começar.',
+    text702: 'É mais forte do que pensa.', // "É" instead of "Você é"
     text703: 'Vou sacrificar o que for necessário para ser o melhor.',
     nextSet: 'Próxima Série',
     nextExercise: 'Próximo Exercício',
     noPlanSelectedTitle: 'Nenhum Plano Selecionado',
     noPlanSelectedSubTitle:
-      'Por favor, selecione um plano para iniciar o seu treino',
+      'Por favor, selecione um plano para iniciar o seu treino', // "o seu" instead of "seu"
     pushNotification: 'Notificações Push',
-    searchResults: 'Resultados da Busca',
+    searchResults: 'Resultados da Pesquisa',
     updateProfile: 'Atualizar Perfil',
+    calorieTracker: 'Rastreador de Calorias',
     loginFooterText: 'Não tem uma conta? ',
-    loginFooterText2: 'Registar',
+    loginFooterText2: 'Registar', // "Registar" is more formal in European Portuguese
     signupFooterText: 'Já tem uma conta? ',
-    signupFooterText2: 'Iniciar Sessão',
+    signupFooterText2: 'Iniciar Sessão', // "Iniciar Sessão" is more formal in European Portuguese
     signUp: 'Inscrever-se',
     signupTerms: 'Aceito os ',
     termsandconditions: 'Termos e Condições',
@@ -1328,31 +1327,163 @@ const i18nt = {
     rate: 'Avaliar',
     newVersionTitle: 'Nova Versão Disponível',
     newVersionSubTitle:
-      'Por favor, atualize a sua aplicação para a versão mais recente',
+      'Por favor, atualize a sua aplicação para a versão mais recente', // "a sua" instead of "sua"
     update: 'Atualizar',
-    later: 'Mais tarde',
+    later: 'Depois',
     showAllPlans: 'Mostrar Todos os Planos',
+    assigntheplan: 'Atribuir Plano',
     tutorialVideo: 'Vídeo Tutorial',
     upgradeHeaderTextIndex: 'Atualizar para Premium',
-    restday: 'Dia de Repouso',
+    restday: 'Dia de Descanso',
     Retry: 'Tentar Novamente',
-    painGetterTitle: 'Sente alguma dor hoje?',
+    painGetterTitle: 'Sente alguma dor hoje?', // "Sente" instead of "Do you feel"
     ShoulderPain: 'Dor no Ombro',
     KneePain: 'Dor no Joelho',
     BackPain: 'Dor nas Costas',
     NeckPain: 'Dor no Pescoço',
     ElbowPain: 'Dor no Cotovelo',
     WristPain: 'Dor no Punho',
-    HipPain: 'Dor na Anca',
+    HipPain: 'Dor na Anca', // "Anca" is more common in European Portuguese
     AnklePain: 'Dor no Tornozelo',
     aiResponse: 'Resposta da IA',
     aiResponseRate: 'Como foi a resposta?',
     happyNoruwz: 'Feliz Noruz',
-    noSubs: 'Não há Subs Disponíveis',
-    selectSubs: 'Selecionar Exercício de Subs',
+    noSubs: 'Sem Substituições Disponíveis', // "Substituições" is more common in European Portuguese
+    selectSubs: 'Selecionar Exercício de Substituição', // "de Substituição" is more common in European Portuguese
     startWorkout: 'Iniciar Treino',
     sessionDuration: 'Duração da Sessão',
     calorieCounter: 'Contador de Calorias',
+    protein: 'Proteína',
+    carbs: 'Hidratos de Carbono', // "Hidratos de Carbono" is more common in European Portuguese
+    fats: 'Gorduras',
+    fiber: 'Fibra',
+    remaining: 'Restante',
+    addfood: 'Adicionar Alimento', // "Alimento" is more common in European Portuguese
+    setdailycalories: 'Definir Calorias Diárias',
+    dailyCalories: 'Calorias Diárias',
+    createmeal: 'Criar Refeição',
+    back: 'Voltar',
+    insetmealtitle: 'Por favor, selecione o tipo de refeição',
+    breakfast: 'Pequeno-almoço', // "Pequeno-almoço" is more common in European Portuguese
+    lunch: 'Almoço',
+    dinner: 'Jantar',
+    snack: 'Lanche',
+    dessert: 'Sobremesa',
+    drink: 'Bebida',
+    foodinserttypetitle: 'A adicionar {{mealType}}', // "A adicionar" instead of "Adicionando"
+    enteryourfood: 'Introduza o seu alimento', // "Introduza" instead of "Insira", "o seu" instead of "sua"
+    foodsearch: 'Ver Nutrição',
+    servingsize: 'Tamanho da Porção',
+    calories: 'Calorias',
+    totalfat: 'Gordura Total',
+    saturatedfat: 'Gordura Saturada',
+    sodium: 'Sódio',
+    carbohydrates: 'Hidratos de Carbono', // "Hidratos de Carbono" is more common in European Portuguese
+    dietaryfiber: 'Fibra Alimentar', // "Fibra Alimentar" is more common in European Portuguese
+    sugars: 'Açúcares',
+    notActive: 'Não Ativo',
+    seeNutrition: 'Ver Nutrição',
+    submitted: 'Submetido', // "Submetido" is more formal in European Portuguese
+    burnedCalories: 'Calorias Queimadas',
+    caloriesReport: 'Relatório de Calorias',
+    lastWeek: 'Última Semana',
+    lastMonth: 'Último Mês',
+    removeStoredValues: 'Remover Valores Armazenados',
+    retry: 'Tentar Novamente',
+    plans: 'Planos',
+    Nodataavailable: 'Sem alimentos introduzidos', // "introduzidos" instead of "inserido"
+    Nodailycaloriesgoalsset: 'Sem metas de calorias diárias definidas',
+    burnedCaloriesDescription:
+      'Por favor, atualize o seu perfil para ver as calorias queimadas', // "o seu" instead of "seu"
+    Profilecreatedsuccessfully: 'Perfil criado com sucesso',
+    enterFoodPlaceholder:
+      'Introduza a quantidade, unidade e nome do alimento. Por exemplo: "2 ovos cozidos" ou "1 chávena de arroz".', // "Introduza" instead of "Insira", "chávena" instead of "xícara"
+    delete: 'Eliminar', // "Eliminar" is more common in European Portuguese
+    dailyReport: 'Relatório Diário',
+    RecommendedWorkoutPlans: 'Planos de Treino Recomendados',
+    NoWorkoutPlanFound:
+      'Sem planos de treino disponíveis. Por favor, veja os planos de treino semelhantes abaixo', // "treino" instead of "treinamento", "semelhantes" instead of "similares"
+    similarWorkoutPlan: ' Planos de Treino Semelhantes', // "treino" instead of "treinamento", "semelhantes" instead of "similares"
+    backtohome: 'Voltar à página inicial', // "Voltar à página inicial" instead of "Voltar para casa"
+    closeSession: 'Fechar Sessão',
+    closeSessionMessage:
+      'Tem a certeza que deseja fechar a sessão? Todos os dados serão perdidos.', // "Tem a certeza" instead of "Tem certeza"
+    confirm: 'Confirmar',
+    seeDetails: 'Ver Detalhes',
+    beta: 'Versão beta',
+    updatePlanManually: 'Atualizar Plano de Treino Manualmente', // "treino" instead of "treinamento"
+    todayTasks: 'Exercício de Hoje',
+    pending: 'Pendente',
+    completed: 'Concluído',
+    notStarted: 'Não Iniciado',
+    inprogress: 'Em Andamento',
+    missed: 'Perdido',
+    workoutHistory: 'Histórico de Treinos',
+    at: 'às',
+    doneWorkoutAt: 'Concluiu {{workout}} em {{location}}',
+    workOutAtHome: 'Casa',
+    workOutAtGym: 'Ginásio', // "Ginásio" is more common in European Portuguese
+    workoutReport: 'Relatório de Treino', // "treino" instead of "treinamento"
+    noTasks: 'Sem tarefas disponíveis',
+    getNewTasks: 'Obter Novas Tarefas',
+    noTasksAvailable: 'Sem tarefas disponíveis',
+    updatesuccess: 'Atualização com Sucesso',
+    updateSuccessMessage: 'O seu plano foi atualizado com sucesso', // "O seu" instead of "Seu"
+    seeLastExercises: 'Ver Últimos Exercícios',
+    noWorkouts: 'Sem Treinos Disponíveis',
+    workoutHistorydesc: 'O seu histórico de treino. Continue assim!', // "O seu" instead of "Seu"
+    cholesterol: 'Colesterol',
+    saturated_fat: 'Gordura Saturada',
+    sugar: 'Açúcar',
+    itsok: 'Submeter', // "Submeter" is more formal in European Portuguese
+    notok: 'tentar novamente',
+    errorTitle: 'Erro',
+    errorMessage: 'Ocorreu um erro. Por favor, tente novamente mais tarde',
+    errorButtonTitle: 'Tentar Novamente',
+    previousMenu: 'Menu Anterior',
+    dailyCaloriesReportTitle: 'Relatório Diário de Calorias',
+    noFoodSubmittedToday: 'Sem alimentos enviados hoje',
+    kcal: 'kcal',
+    doOtherTasks: 'Faça outras tarefas',
+    yourWorkoutPlan: 'O seu Plano de Treino', // "O seu" instead of "Seu"
+    g: 'g',
+    of: 'de',
+    fat: 'Gordura',
+    sutablefor: 'Adequado para',
+    removeAdTitle: 'Remover Anúncio',
+    upgradeAlertDescription:
+      'Por favor, atualize a sua conta para aceder a este recurso', // "a sua" instead of "sua"
+    errorLoadingData: 'Erro ao carregar dados',
+    changeWorkoutPlan: 'Mudar Plano de Treino', // "treino" instead of "treinamento"
+    stepCounter: 'Contador de Passos',
+    stepCounterNotAvailable:
+      'O Contador de Passos não está disponível no seu telemóvel', // "telemóvel" instead of "telefone"
+    stepCounterNotAvailableDesc:
+      'Por favor, ative o contador de passos nas configurações do seu telemóvel', // "telemóvel" instead of "telefone"
+    stepsTakenToday: 'Passos dados hoje',
+    steps: 'Passos',
+    aihelperror: 'Ocorreu um erro. Por favor, tente novamente mais tarde',
+    tryagain: 'Tentar Novamente',
+    getTodaysTask: 'Obter a Tarefa de Hoje',
+    todayscalorie: 'Caloria de Hoje',
+    noData: 'Sem Dados',
+    trainerLocation: 'Localização',
+    trainerAvailability: 'Disponibilidade',
+    trainerType: 'Tipo de Treinador',
+    trainerBio: 'Biografia',
+    trainerExpertise: 'Especialidade',
+    trainerPlan: 'Planos de Treino', // "treino" instead of "treinamento"
+    bookSession: 'Agendar Sessão',
+    trainerslist: 'Lista de Treinadores',
+
+    shareResultText:
+      'dica: Fiz {{dayName}} com a aplicação {{brand}} e queimei {{calories}} caloria(s) em {{minutes}} minuto(s)', // "Fiz" instead of "I have done"
+    foodTextInputHint:
+      'Introduza a quantidade, unidade e nome do alimento. Por exemplo: "2 ovos cozidos" ou "1 chávena de arroz".', // "Introduza" instead of "Insira", "chávena" instead of "xícara"
+    updateTitle: 'Nova Atualização Disponível',
+    updateBody: 'Uma nova atualização está disponível. Deseja atualizar agora?', // "Deseja" instead of "Would you like"
+    noLater: 'Não, Depois',
+    yesUpdate: 'Sim, Atualizar!',
   },
 };
 

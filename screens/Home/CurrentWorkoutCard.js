@@ -54,7 +54,7 @@ function CurrentWorkoutCard({
         style={[
           styles.background,
           {
-            height: Dimensions.get('window').height / 4.5,
+            height: Dimensions.get('window').height / 5,
           },
         ]}
       />

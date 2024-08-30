@@ -151,6 +151,7 @@ function Upgrade() {
                   bottom: 10,
                   flexWrap: 'wrap',
                   textAlign: RTL ? 'left' : 'right',
+                  fontFamily: 'Vazirmatn',
                 }}>
                 {i18n.t('trialExpired')}
               </Text>
@@ -290,7 +291,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontSize: 32,
     top: Dimensions.get('window').height / 5 - 100,
-    fontWeight: '600',
+    //fontWeight: '600',
     color: '#17124A',
     //textAlign: 'center',
     margin: 10,
@@ -312,7 +313,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontSize: 14,
     top: Dimensions.get('window').height / 5 - 0,
-    fontWeight: '500',
+    // fontWeight: '500',
     color: '#17124A',
     // textAlign: 'center',
     margin: 20,
@@ -325,7 +326,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontSize: 14,
     top: Dimensions.get('window').height / 4 - 0,
-    fontWeight: '500',
+    // fontWeight: '500',
     color: '#17124A',
     textAlign: 'center',
     marginHorizontal: 10,
@@ -337,6 +338,7 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: 'center',
     borderRadius: 5,
+    fontFamily: 'Vazirmatn',
   },
   text: {
     fontSize: 20,

@@ -7,7 +7,7 @@ import {
   Pressable,
   StyleSheet,
 } from 'react-native';
-import { IconMic } from '../../marketplace/filters/icons';
+import { IconMic, IconRecording } from '../../marketplace/filters/icons';
 import { Audio } from 'expo-av';
 import { Iconclose } from '../../marketplace/filters/icons';
 import { useTheme } from '@rneui/themed';
@@ -17,9 +17,12 @@ const VoiceGetter = ({
   setFoodItems,
   setStatus,
   userInput,
+  setUserInput,
 }) => {
   const [recording, setRecording] = useState();
+  const [startTime, setStartTime] = useState(null);
   const { theme } = useTheme();
+
   const startRecording = async () => {
     try {
       await Audio.requestPermissionsAsync();
@@ -35,17 +38,30 @@ const VoiceGetter = ({
       await recording.startAsync();
       console.log('Recording started successfully');
       setRecording(recording);
+      setStartTime(Date.now()); // Record the start time
     } catch (err) {
       console.error('Failed to start recording', err);
     }
   };
 
   const stopRecording = async () => {
+    if (!recording) return;
+
+    const duration = Date.now() - startTime;
     setRecording(undefined);
+
+    if (duration < 1000) {
+      // Ignore recordings shorter than 1 second
+      console.log('Recording too short, discarded.');
+      await recording.stopAndUnloadAsync();
+      return;
+    }
+
     await recording.stopAndUnloadAsync();
     const uri = recording.getURI();
     sendRecordingToServer(uri);
   };
+
   const sendRecordingToServer = async (uri) => {
     const formData = new FormData();
     formData.append('file', {
@@ -56,7 +72,7 @@ const VoiceGetter = ({
 
     try {
       const response = await fetch(
-        'http://10.10.177.210:8090/voice/api/upload',
+        'http://10.10.177.82:8090/voice/api/upload',
         {
           method: 'POST',
           body: formData, // headers are automatically set for FormData
@@ -64,6 +80,7 @@ const VoiceGetter = ({
       );
       const data = await response.json();
       console.log(data);
+      setUserInput(data.text);
       // Handle the response data, e.g., display the transcription
     } catch (error) {
       console.error('Error uploading recording:', error);
@@ -76,23 +93,11 @@ const VoiceGetter = ({
         height: Dimensions.get('window').height / 5,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         borderRadius: 10,
         marginVertical: 10,
         padding: 10,
       }}>
-      <Pressable
-        onPress={() => setInputStatus('idle')}
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          margin: 0,
-          padding: 4,
-          zIndex: 1000,
-        }}>
-        <Iconclose size={30} color={theme.colors.grey2} />
-      </Pressable>
       <TouchableOpacity
         onPressIn={startRecording}
         onPressOut={stopRecording}
@@ -105,11 +110,9 @@ const VoiceGetter = ({
           marginHorizontal: 20,
           alignItems: 'center',
           borderRadius: Dimensions.get('window').height / 6,
-          borderWidth: 10,
           borderColor: '#5B5891',
         }}>
-        <IconMic size={60} color={'#000'} />
-        <Text>Hold</Text>
+        <IconRecording />
       </TouchableOpacity>
     </View>
   );
