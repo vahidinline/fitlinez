@@ -8,6 +8,7 @@ import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import Header from '../../components/header';
+import AnimatedLottieView from 'lottie-react-native';
 
 function ConfirmPayment() {
   const { userLanguage } = useContext(LanguageContext);
@@ -54,86 +55,51 @@ function ConfirmPayment() {
         height: Dimensions.get('window').height,
         paddingTop: 80,
       }}>
-      <Header title={i18n.t('checkingForUpdates')} />
+      {/* <Header title={i18n.t('checkingForUpdates')} /> */}
       <Text
         style={{
           fontSize: 16,
           fontWeight: '700',
           margin: 10,
           textAlign: 'center',
+          fontFamily: 'Vazirmatn',
         }}>
-        {userLevel === 0 ? `${i18n.t('notUpgraded')}` : `${i18n.t('upgraded')}`}
+        تبریک
       </Text>
-
-      {!result ? (
-        <View
-          style={{
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 10,
-            width: Dimensions.get('window').width / 1.1,
-          }}>
-          <Text>attempt {count} of 5</Text>
-          <LinearProgress style={{ marginVertical: 10 }} />
-        </View>
-      ) : (
-        <View>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: '700',
-              margin: 10,
-              textAlign: 'center',
-            }}>
-            {result}
-          </Text>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              //alignItems: 'center',
-              margin: 10,
-              width: Dimensions.get('window').width / 1.1,
-            }}>
-            <Button
-              onPress={() => {
-                Linking.openURL('https://t.me/fitlinezsupport');
-              }}
-              title={`${i18n.t('support')}`}
-              titleStyle={{ color: theme.colors.white }}
-              containerStyle={{ margin: 10 }}
-              buttonStyle={{
-                backgroundColor: theme.colors.button,
-                borderColor: theme.colors.border,
-                borderWidth: 1,
-                borderRadius: 16,
-                width: Dimensions.get('window').width / 2.4,
-              }}
-            />
-
-            <Button
-              onPress={() => {
-                navigator.reset({
-                  index: 0,
-                  routes: [{ name: 'Home' }],
-                });
-              }}
-              title={`${i18n.t('home')}`}
-              titleStyle={{ color: theme.colors.white }}
-              containerStyle={{ margin: 10 }}
-              buttonStyle={{
-                backgroundColor: theme.colors.button,
-                borderColor: theme.colors.border,
-                borderWidth: 1,
-                borderRadius: 16,
-                width: Dimensions.get('window').width / 2.4,
-              }}
-            />
-          </View>
-        </View>
-      )}
+      <AnimatedLottieView
+        source={require('../../assets/success.json')}
+        autoPlay
+        style={{
+          width: 300,
+          height: 300,
+          alignSelf: 'center',
+        }}></AnimatedLottieView>
+      <Text
+        style={{
+          fontSize: 16,
+          fontWeight: '700',
+          margin: 10,
+          textAlign: 'center',
+          fontFamily: 'Vazirmatn',
+        }}>
+        حساب کاربری پریمیوم شما فعال شد
+      </Text>
+      <Button
+        onPress={() =>
+          navigator.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+          })
+        }
+        buttonStyle={{
+          backgroundColor: theme.colors.button,
+          width: Dimensions.get('window').width / 1.1,
+          borderRadius: 8,
+          marginHorizontal: 20,
+        }}
+        titleStyle={{ fontFamily: 'Vazirmatn' }}
+        title="شروع مسیر"
+      />
     </View>
   );
 }

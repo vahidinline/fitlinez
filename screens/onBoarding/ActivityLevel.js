@@ -1,58 +1,54 @@
 import { Button, Text, useTheme } from '@rneui/themed';
-import React, { useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
+import { Dimensions, FlatList } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import {
-  Icon8,
-  IconHomeFocused,
-  IconWeight,
-} from '../marketplace/filters/icons-';
+import { Card } from 'react-native-paper';
 import ListComponent from './ListComponent';
 
-function LocationSelection({ onLocationSelect, i18n }) {
+function ActivityLevel({ onActivityLevelSelect, i18n }) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [selectedIds, setSelectedIds] = useState([]);
 
+  const onSelect = ({ id, title, value }) => {
+    setSelectedIds([id]);
+
+    onActivityLevelSelect({
+      activityLevel: title,
+      value: value,
+    });
+  };
+  const isSelected = (id) => selectedIds.includes(id);
   const data = [
     {
       id: 1,
-      title: i18n.t('homelocation'),
-      //  description: 'I’m new to this',
-      // icon: IconHomeFocused,
+      title: i18n.t('sedentary'),
+      description: i18n.t('sedentaryDecs'),
+      value: 1.2,
     },
-    // {
-    //   id: 2,
-    //   title: 'Small Gym',
-    //   description: 'I workout sometimes',
-    //   icon: 'dumbbell',
-    // },
+    {
+      id: 2,
+      title: i18n.t('lightExercise'),
+      description: i18n.t('lightExercisedesc'),
+      value: 1.375,
+    },
     {
       id: 3,
-      title: i18n.t('bothlocation'),
-      //  description: 'I workout regularly',
-      // icon: Icon8,
+      title: i18n.t('moderateExercise'),
+      description: i18n.t('moderateExerciseDesc'),
+      value: 1.465,
     },
     {
       id: 4,
-      title: i18n.t('gymlocation'),
-      //  description: 'I workout regularly',
-      //icon: IconWeight,
+      title: i18n.t('heavyExercise'),
+      description: i18n.t('heavyExerciseDesc'),
+      value: 1.725,
     },
   ];
-
-  const onSelect = ({ id, title }) => {
-    setSelectedIds([id]);
-    console.log(title, id);
-    onLocationSelect({
-      location: title,
-    });
-  };
-
-  const isSelected = (id) => selectedIds.includes(id);
-
   return (
     <View>
-      <Text style={styles.title}>{i18n.t('preferedLocation')}</Text>
+      <Text style={styles.title}>{i18n.t('activityLevel')}</Text>
       <View style={styles.container}>
         <ListComponent
           data={data}
@@ -84,15 +80,12 @@ const getStyles = (theme) =>
       borderRadius: 20,
       width: '100%',
       height: 80,
-      justifyContent: 'flex-start',
-      paddingLeft: 20,
     },
     text: {
-      color: theme.colors.secondary,
-      fontSize: 16,
-      fontWeight: '500',
+      color: theme.colors.black,
+      fontSize: 20,
+      fontWeight: 'bold',
       justifyContent: 'flex-start',
-      marginLeft: 10,
       fontFamily: 'Vazirmatn',
     },
     title: {
@@ -106,4 +99,4 @@ const getStyles = (theme) =>
     },
   });
 
-export default LocationSelection;
+export default ActivityLevel;

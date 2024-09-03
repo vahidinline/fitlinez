@@ -27,16 +27,28 @@ const TrainerItem = ({ item }) => {
             borderRadius: 15,
           }}
         />
-        <Text
+        <View
           style={{
-            fontSize: 14,
-            // fontWeight: 'bold',
-            marginTop: 10,
-            fontFamily: 'Vazirmatn',
-            color: theme.colors.secondary,
+            position: 'absolute',
+            bottom: 0,
+            //right: 2,
+            //left: 10,
+            backgroundColor: theme.colors.background,
+            width: '100%',
+            opacity: 0.8,
           }}>
-          {item.name}
-        </Text>
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: 'bold',
+              // marginTop: 10,
+              padding: 3,
+              fontFamily: 'Vazirmatn',
+              color: theme.colors.secondary,
+            }}>
+            {item.name}
+          </Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -98,7 +110,7 @@ function TrainersList({ i18n }) {
         scrollEnabled={true}
         horizontal={true}
         data={trainersList}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => <TrainerItem item={item} />}
       />
     </View>

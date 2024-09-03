@@ -14,25 +14,21 @@ function DayPreferences({ onDayPreferencesSelect, i18n }) {
       id: 1,
       title: i18n.t('lesstahn3days'),
       value: 2,
-      description: 'I’m new to this',
     },
     {
       id: 2,
       title: i18n.t('threedays'),
       value: 3,
-      description: 'I workout sometimes',
     },
     {
       id: 3,
       title: i18n.t('fourdays'),
       value: 4,
-      description: 'I workout regularly',
     },
     {
       id: 4,
       title: i18n.t('moretahn4days'),
       value: 5,
-      description: 'I workout regularly',
     },
   ];
 

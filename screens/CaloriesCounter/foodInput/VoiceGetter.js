@@ -72,7 +72,7 @@ const VoiceGetter = ({
 
     try {
       const response = await fetch(
-        'http://10.10.177.82:8090/voice/api/upload',
+        'https://aibackendfitlinez.azurewebsites.net/voice/api/upload',
         {
           method: 'POST',
           body: formData, // headers are automatically set for FormData

@@ -20,7 +20,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
 import NoWorkoutCard from './noWorkout';
-import DailyReport from '../Calories/dailyReport';
+import DailyReport from '../CaloriesCounter/dailyReport';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getNewTasks } from '../../api/getNewTasks';
 import StepcounterIndex from '../StepCounter/StepcounterIndex';

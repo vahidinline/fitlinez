@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 function AgeSelection({ onAgeSelect, i18n }) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
-  const [selectedValue, setSelectedValue] = useState();
+  const [selectedValue, setSelectedValue] = useState('25');
   //create a data state of age
   const age = Array.from({ length: 86 }, (_, i) => i + 15);
 

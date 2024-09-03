@@ -27,7 +27,7 @@ function ListComponent({ data, isSelected, onSelect }) {
               borderWidth: 0.3,
               borderRadius: 16,
               width: Dimensions.get('window').width / 1.1 - 20,
-              height: 65,
+              height: 80,
               shadowColor: theme.colors.background,
               shadowOffset: {
                 width: 0,
@@ -40,17 +40,17 @@ function ListComponent({ data, isSelected, onSelect }) {
             isSelected(item.id) && styles.selectedItem,
           ]}
           onPress={() =>
-            onSelect({ id: item.id, title: item.value || item.title })
+            onSelect({ id: item.id, title: item.title, value: item.value })
           }>
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'flex-start',
+              justifyContent: 'center',
               //alignItems: 'center',
-              //alignContent: 'center',
+              alignContent: 'center',
               //alignItems: 'center',
               top: 20,
-              marginLeft: 10,
+              //  marginLeft: 10,
             }}>
             <View
               style={{
@@ -63,7 +63,16 @@ function ListComponent({ data, isSelected, onSelect }) {
               }}>
               {item.icon && <item.icon />}
             </View>
-            <Text style={styles.text}>{item.title}</Text>
+            <View
+              style={{
+                flexDirection: 'column',
+              }}>
+              <Text style={styles.text}>{item.title}</Text>
+
+              {item.description && (
+                <Text style={styles.description}>{item.description}</Text>
+              )}
+            </View>
           </View>
         </TouchableOpacity>
       )}
@@ -108,6 +117,15 @@ const getStyles = (theme) =>
       justifyContent: 'center',
       alignSelf: 'center',
       marginBottom: 100,
+      fontFamily: 'Vazirmatn',
+    },
+    description: {
+      color: theme.colors.black,
+      fontSize: 10,
+      // fontWeight: 'bold',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      //marginBottom: 100,
       fontFamily: 'Vazirmatn',
     },
     selectedItem: {

@@ -23,6 +23,9 @@ import { I18n } from 'i18n-js';
 import api from '../../api/api';
 import AuthContext from '../../api/context';
 import { StatusBar } from 'expo-status-bar';
+import convertToPersianNumbers from '../../api/PersianNumber';
+import ActivityLevel from './ActivityLevel';
+import GoalWeightSelection from './goalWeight';
 
 function IndexOnBoarding() {
   const { theme } = useTheme();
@@ -37,8 +40,9 @@ function IndexOnBoarding() {
   const userId = userAuth.id;
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
+  const RTL = userLanguage === 'fa';
 
-  //console.log('userData', userData);
+  console.log('userData', userData);
 
   useEffect(() => {
     if (currentStep === steps.length - 2) {
@@ -139,12 +143,14 @@ function IndexOnBoarding() {
     <AgeSelection onAgeSelect={addToArray} i18n={i18n} />,
     <HeightSelection onHeightSelect={addToArray} i18n={i18n} />,
     <WeightSelection onWeightSelect={addToArray} i18n={i18n} />,
+    <GoalWeightSelection onGoalWeightSelect={addToArray} i18n={i18n} />,
     <GoalSelection onGoalSelect={addToArray} i18n={i18n} />,
     <LocationSelection onLocationSelect={addToArray} i18n={i18n} />,
     <FitnessLevel onFitnessLevelSelect={addToArray} i18n={i18n} />,
+    <ActivityLevel onActivityLevelSelect={addToArray} i18n={i18n} />,
     <DayPreferences onDayPreferencesSelect={addToArray} i18n={i18n} />,
     // <EquipmentSelection onEquipmentSelect={addToArray} i18n={i18n}/>,
-    // <DisabilitiesSelection onDisabilitiesSelect={addToArray} i18n={i18n}/>,
+    //<DisabilitiesSelection onDisabilitiesSelect={addToArray} i18n={i18n}/>,
     <BeforeSubmit data={userData} onConfirm={setBeforeSubmit} i18n={i18n} />,
     <LastPageOnboarding />,
   ];
@@ -212,7 +218,7 @@ function IndexOnBoarding() {
                 marginRight: 5,
                 fontFamily: 'Vazirmatn',
                 color: theme.colors.secondary,
-              }}>{`${currentStep + 1}`}</Text>
+              }}>{`${convertToPersianNumbers(currentStep + 1, RTL)}`}</Text>
             <Text
               style={{
                 marginRight: 5,
@@ -220,7 +226,7 @@ function IndexOnBoarding() {
                 fontWeight: 'bold',
                 color: '#787680',
                 fontFamily: 'Vazirmatn',
-              }}>{`/ ${steps.length}`}</Text>
+              }}>{`/ ${convertToPersianNumbers(steps.length, RTL)}`}</Text>
           </View>
         </View>
       )}
@@ -263,7 +269,9 @@ function IndexOnBoarding() {
             color: theme.colors.primary,
           }}
           title={
-            currentStep === steps.length - 2 ? i18n.t('done') : i18n.t('next')
+            currentStep === steps.length - 2
+              ? i18n.t('createPlans')
+              : i18n.t('next')
           }
         />
       </View>

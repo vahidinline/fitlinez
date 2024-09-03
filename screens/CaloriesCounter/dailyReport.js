@@ -200,6 +200,7 @@ function DailyReport({ userId }) {
                         fontSize: 16,
                         textAlign: 'center',
                         fontFamily: 'Vazirmatn',
+                        margin: 5,
                       }}>
                       {convertToPersianNumbers(dailyCalories, RTL)}{' '}
                       {i18n.t('calories')} {i18n.t('remaining')}
@@ -291,6 +292,7 @@ const getStyles = (theme, RTL) =>
       fontFamily: 'Vazirmatn',
       fontSize: 20,
       textAlign: 'center',
+      marginTop: 15,
     },
     kcalText: {
       color: theme.colors.primary,

@@ -139,9 +139,9 @@ function CaloriesIndex() {
 
       <MealList userId={userId} />
 
-      {/* <View
+      <View
         style={{
-          height: 90,
+          height: 50,
         }}>
         <FlatList
           horizontal
@@ -153,7 +153,7 @@ function CaloriesIndex() {
               onPress={() => item.onPress()}>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 12,
                   fontFamily: 'Vazirmatn',
                   color: theme.colors.secondary,
                 }}>
@@ -162,7 +162,7 @@ function CaloriesIndex() {
             </Pressable>
           )}
         />
-      </View> */}
+      </View>
     </SafeAreaView>
   );
 }
@@ -176,19 +176,21 @@ const getStyles = (theme) =>
       backgroundColor: theme.colors.background,
       padding: 0,
       // height:Dimensions.get
-      marginBottom: 0,
+      //marginBottom: 0,
+      borderBottomColor: theme.colors.border,
+      borderBottomWidth: 1,
     },
     footerContainer: {
       padding: 5,
       flexDirection: 'column',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
       //  backgroundColor: 'white',
       marginHorizontal: 10,
-      marginVertical: 10,
-      height: 50,
-      borderRadius: 10,
-      borderWidth: 0.3,
-      borderColor: 'grey',
+      marginVertical: 5,
+      //height: 50,
+      //borderRadius: 10,
+      borderBottomWidth: 1,
+      borderColor: theme.colors.border,
     },
     verticallySpaced: {
       marginVertical: 0,

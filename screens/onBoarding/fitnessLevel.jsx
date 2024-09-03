@@ -23,17 +23,17 @@ function FitnessLevel({ onFitnessLevelSelect, i18n }) {
     {
       id: 1,
       title: i18n.t('beginner'),
-      description: 'I’m new to this',
+      description: i18n.t('beginnerLevel'),
     },
     {
       id: 2,
       title: i18n.t('intermediate'),
-      description: 'I workout sometimes',
+      description: i18n.t('intermediateLevel'),
     },
     {
       id: 3,
       title: i18n.t('advanced'),
-      description: 'I workout regularly',
+      description: i18n.t('advancedLevel'),
     },
   ];
   return (

@@ -78,14 +78,7 @@
 // });
 
 import React, { useState, useEffect, useContext } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Dimensions,
-  TextInput,
-  Button,
-} from 'react-native';
+import { Text, View, StyleSheet, Dimensions, TextInput } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { sendBarCode } from '../../../../api/barCodefunctions';
 import AuthContext from '../../../../api/context';
@@ -93,11 +86,11 @@ import LanguageContext from '../../../../api/langcontext';
 import i18nt from '../../../../locales';
 import { I18n } from 'i18n-js';
 import ServingSizeSelector from './ServingSizeSelector';
+import { Button, useTheme } from '@rneui/themed';
 
 export default function BarcodeScanner({
   setFoodItems,
   setStatus,
-  status,
   selectedMeal,
 }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -109,7 +102,7 @@ export default function BarcodeScanner({
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-
+  const { theme } = useTheme;
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -155,7 +148,7 @@ export default function BarcodeScanner({
     return <Text>{i18n.t('Requesting for camera permission')}</Text>;
   }
   if (hasPermission === false) {
-    return <Text>{i18n.t('No access to camera')}</Text>;
+    return <Text>{i18n.t('NoAccessToCamera')}</Text>;
   }
 
   return (
@@ -169,8 +162,21 @@ export default function BarcodeScanner({
         <>
           {scanned && (
             <View style={styles.inputContainer}>
-              <ServingSizeSelector setServingSize={setServingSize} />
-              <Button title={i18n.t('submit')} onPress={handleSendBarCode} />
+              <ServingSizeSelector
+                i18n={i18n}
+                setServingSize={setServingSize}
+              />
+              <Button
+                titleStyle={styles.text}
+                buttonStyle={{
+                  backgroundColor: '#5B5891',
+                  width: '100%',
+                  marginVertical: 5,
+                  borderRadius: 8,
+                }}
+                title={i18n.t('find')}
+                onPress={handleSendBarCode}
+              />
             </View>
           )}
         </>
@@ -191,7 +197,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginTop: 20,
     alignItems: 'center',
-    backgroundColor: '#fff',
+    //backgroundColor: '#fff',
     borderRadius: 8,
   },
   input: {
@@ -203,5 +209,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: 200,
     textAlign: 'center',
+  },
+  text: {
+    fontFamily: 'Vazirmatn',
   },
 });

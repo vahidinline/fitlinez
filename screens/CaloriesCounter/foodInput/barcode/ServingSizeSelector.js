@@ -1,81 +1,89 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { View, Text, TextInput, StyleSheet, Dimensions } from 'react-native';
 import { useTheme } from '@rneui/themed';
 
-export default function ServingSizeSelector({ setServingSize }) {
-  const [selectedOption, setSelectedOption] = useState('');
-  const [customServing, setCustomServing] = useState('');
-  const { theme } = useTheme;
-  const handleSelection = (itemValue) => {
-    setSelectedOption(itemValue);
-
-    // If user selected a predefined fraction, set it directly
-    if (itemValue !== 'custom') {
-      setServingSize(itemValue);
-    } else {
-      setServingSize('');
-    }
+export default function ServingSizeSelector({ setServingSize, i18n }) {
+  const [servingSize, setServingSizeLocal] = useState('');
+  const [numberOfServings, setNumberOfServings] = useState('1');
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+  const handleServingSizeChange = (text) => {
+    setServingSizeLocal(text);
+    updateTotalServingSize(text, numberOfServings);
   };
 
-  const handleCustomServing = (text) => {
-    setCustomServing(text);
-    setServingSize(text);
+  const handleNumberOfServingsChange = (text) => {
+    setNumberOfServings(text);
+    updateTotalServingSize(servingSize, text);
+  };
+
+  const updateTotalServingSize = (servingSize, numberOfServings) => {
+    const parsedServingSize = parseFloat(servingSize) || 0; // Convert to number, default to 0 if NaN
+    const parsedNumberOfServings = parseFloat(numberOfServings) || 1; // Convert to number, default to 1 if NaN
+    const totalSize = parsedServingSize * parsedNumberOfServings;
+
+    // Ensure we send a number to the parent component
+    setServingSize(Number(totalSize));
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Select Serving Size:</Text>
+      <Text style={styles.label}>{i18n.t('selectServingsize')}</Text>
 
-      <Picker
-        mode="dialog"
-        prompt={'Select Serving Size:'}
-        // itemStyle={{ color: ''}}
-        selectedValue={selectedOption}
-        style={{
-          //height: 250,
-          width: 250,
-        }}
-        onValueChange={(itemValue, itemIndex) => handleSelection(itemValue)}>
-        <Picker.Item label="1/4" value="0.25" />
-        <Picker.Item label="1/3" value="0.33" />
-        <Picker.Item label="1/2" value="0.5" />
-        <Picker.Item label="2/3" value="0.67" />
-        <Picker.Item label="3/4" value="0.75" />
-        <Picker.Item label="Full" value="1" />
-        {/* <Picker.Item label="Custom" value="custom" /> */}
-      </Picker>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter serving size in grams"
+        keyboardType="numeric"
+        value={servingSize}
+        onChangeText={handleServingSizeChange}
+      />
 
-      {selectedOption === 'custom' && (
-        <TextInput
-          style={styles.input}
-          placeholder="Enter custom serving size (e.g., 50%)"
-          keyboardType="numeric"
-          value={customServing}
-          onChangeText={handleCustomServing}
-        />
-      )}
+      <TextInput
+        style={styles.input}
+        placeholder="Enter number of servings"
+        keyboardType="numeric"
+        value={numberOfServings}
+        onChangeText={handleNumberOfServingsChange}
+      />
+
+      <Text style={styles.totalLabel}>
+        {i18n.t('totalServingSize')}:{' '}
+        {parseFloat(servingSize || 0) * parseFloat(numberOfServings || 1)}{' '}
+        {i18n.t('g')}
+      </Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 10,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  picker: {
-    height: 50,
-    width: '100%',
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 10,
-    paddingHorizontal: 10,
-  },
-});
+const getStyles = (theme) =>
+  StyleSheet.create({
+    container: {
+      marginVertical: 10,
+      paddingHorizontal: 20,
+      borderColor: theme.colors.border,
+      borderWidth: 1,
+      backgroundColor: theme.colors.background,
+      borderRadius: 8,
+      height: Dimensions.get('window').height / 5,
+    },
+    label: {
+      fontSize: 16,
+      marginBottom: 5,
+      fontFamily: 'Vazirmatn',
+      textAlign: 'center',
+    },
+    input: {
+      height: 40,
+      borderColor: theme.colors.border,
+      borderWidth: 1,
+      borderRadius: 8,
+      marginTop: 10,
+      paddingHorizontal: 10,
+    },
+    totalLabel: {
+      fontSize: 16,
+      marginTop: 10,
+      fontFamily: 'Vazirmatn',
+      textAlign: 'center',
+    },
+  });

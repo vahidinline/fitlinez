@@ -155,9 +155,11 @@ function CalorieDetails({ userId }) {
           style={[styles.container, { direction: RTL ? 'rtl' : 'ltr' }]}>
           {status === 'success' && (
             <View
-              style={{
-                marginBottom: 15,
-              }}>
+              style={
+                {
+                  //marginBottom: 15,
+                }
+              }>
               <View style={styles.baseContainer}>
                 <Text style={styles.caloriesText}>
                   {result.length > 0 ? (
@@ -298,12 +300,13 @@ const getStyles = (theme, RTL) =>
       //width: '99%',
       width: Dimensions.get('window').width / 1.2,
       backgroundColor: theme.colors.background,
-      borderRadius: 12,
-      height: 90,
+      borderRadius: 8,
+      height: 110,
       marginHorizontal: 15,
       //justifyContent: 'center',
       //alignItems: 'center',
-      padding: 15,
+      paddingTop: 20,
+      padding: 5,
     },
     nutrientText: {
       direction: RTL ? 'rtl' : 'ltr',

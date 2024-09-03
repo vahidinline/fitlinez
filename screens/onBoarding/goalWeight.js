@@ -4,10 +4,10 @@ import React, { useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { UnitContext } from '../../api/unitContext';
 
-function WeightSelection({ onWeightSelect, i18n }) {
+function GoalWeightSelection({ onGoalWeightSelect, i18n }) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
-  const [selectedValue, setSelectedValue] = React.useState('70');
+  const [selectedValue, setSelectedValue] = React.useState('60');
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const { unit, setUnit } = useContext(UnitContext);
   const weightUnit = unit[0].weightUnit;
@@ -16,8 +16,8 @@ function WeightSelection({ onWeightSelect, i18n }) {
   //create a data state of age
 
   useEffect(() => {
-    onWeightSelect({
-      weight: selectedValue,
+    onGoalWeightSelect({
+      goalWeight: selectedValue,
       unit: unit[0].weightUnit,
     });
   }, [selectedValue]);
@@ -53,7 +53,7 @@ function WeightSelection({ onWeightSelect, i18n }) {
 
   return (
     <View>
-      <Text style={styles.title}>{i18n.t('cuurentWeight')}</Text>
+      <Text style={styles.title}>{i18n.t('goalWeight')}</Text>
       {/* <View>
         <ButtonGroup
           containerStyle={{
@@ -159,4 +159,4 @@ const getStyles = (theme) =>
     },
   });
 
-export default WeightSelection;
+export default GoalWeightSelection;

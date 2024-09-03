@@ -14,7 +14,8 @@ function GoalSelection({ onGoalSelect, i18n }) {
     setSelectedIds([id]);
     console.log(title, id);
     onGoalSelect({
-      goal: title,
+      mainGoal: title,
+      id: id,
     });
   };
   const isSelected = (id) => selectedIds.includes(id);
@@ -23,27 +24,27 @@ function GoalSelection({ onGoalSelect, i18n }) {
     {
       id: 1,
       title: i18n.t('loseFat'),
-      description: 'Get a personalized nutrition plan to lose fat',
+      // description: 'Get a personalized nutrition plan to lose fat',
     },
     {
       id: 2,
       title: i18n.t('gainMuscle'),
-      description: 'Get a personalized nutrition plan to build muscle',
+      // description: 'Get a personalized nutrition plan to build muscle',
     },
     {
       id: 3,
       title: i18n.t('maintainWeight'),
-      description: 'Get a personalized nutrition plan to maintain weight',
+      //description: 'Get a personalized nutrition plan to maintain weight',
     },
     {
       id: 4,
       title: i18n.t('stayFit'),
-      description: 'Get a personalized nutrition plan to maintain weight',
+      //description: 'Get a personalized nutrition plan to maintain weight',
     },
   ];
   return (
     <View>
-      <Text style={styles.title}>{i18n.t('mainGoal')}</Text>
+      <Text style={styles.title}>{i18n.t('mainFitnessGoal')}</Text>
       <View style={styles.container}>
         <ListComponent
           data={data}

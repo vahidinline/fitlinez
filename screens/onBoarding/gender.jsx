@@ -27,6 +27,7 @@ function GenderSelection({ onGenderSelect, i18n }) {
 
     onGenderSelect({
       gender: title,
+      id: id,
     });
   };
   const isSelected = (id) => selectedIds.includes(id);

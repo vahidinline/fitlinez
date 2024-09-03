@@ -34,6 +34,7 @@ const CustomCalorieReport = () => {
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
+  const RTL = userLanguage !== 'fa';
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const onChangeDate1 = (event, selectedDate) => {
@@ -150,12 +151,12 @@ const CustomCalorieReport = () => {
       }}>
       <Header
         title={i18n.t('caloriesReport')}
-        rightContent={
-          <Button
-            onPress={() => navigation.navigate('CalorieSettings')}
-            title="Settings"
-          />
-        }
+        // rightContent={
+        //   <Button
+        //     onPress={() => navigation.navigate('CalorieSettings')}
+        //     title="Settings"
+        //   />
+        // }
       />
       <View style={styles.container}>
         <View
@@ -198,9 +199,15 @@ const CustomCalorieReport = () => {
 
         {reportType === 'weekly' && <ListReport i18n={i18n} report={report} />}
 
-        {reportType === 'monthly' && <ListReport i18n={i18n} report={report} />}
-        {reportType === 'custom' && <ListReport i18n={i18n} report={report} />}
-        {reportType === 'daily' && <ListReport i18n={i18n} report={report} />}
+        {reportType === 'monthly' && (
+          <ListReport i18n={i18n} report={report} userLanguage={userLanguage} />
+        )}
+        {reportType === 'custom' && (
+          <ListReport i18n={i18n} report={report} userLanguage={userLanguage} />
+        )}
+        {reportType === 'daily' && (
+          <ListReport i18n={i18n} report={report} userLanguage={userLanguage} />
+        )}
         {/* {status === 'custom' && (
           <>
             <View
@@ -255,9 +262,10 @@ const CustomCalorieReport = () => {
 
 export default CustomCalorieReport;
 
-const getStyles = (theme) =>
+const getStyles = (theme, RTL) =>
   StyleSheet.create({
     container: {
+      direction: RTL ? 'ltr' : 'rtl',
       //flex: 1,
       //justifyContent: 'center',
       padding: 20,

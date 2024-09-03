@@ -2,15 +2,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Text, useTheme } from '@rneui/themed';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
+import convertToPersianNumbers from '../../../api/PersianNumber';
 
-function ListReport({ report, i18n }) {
+function ListReport({ report, i18n, userLanguage }) {
   const [dailygoal, setDailygoal] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [status, setStatus] = useState('idle');
-
+  const RTL = userLanguage === 'fa';
   // useEffect(() => {
   //   if (!report || typeof report !== 'object' || !report.report) {
   //     console.log('Invalid or missing report data', report);
@@ -95,23 +96,35 @@ function ListReport({ report, i18n }) {
   const renderNutritionalData = () => {
     const data = [
       {
-        label: 'Calories',
-        intake: report?.totalNutrition?.averageCalories || 0,
+        label: i18n.t('calories'),
+        intake: convertToPersianNumbers(
+          report?.totalNutrition?.averageCalories || 0,
+          RTL
+        ),
         goal: dailygoal.dailyCalories || 0,
       },
       {
-        label: 'Carbs',
-        intake: report?.totalNutrition?.averageCarbs || 0,
-        goal: dailygoal.carbsGrams || 0,
+        label: i18n.t('carbs'),
+        intake: convertToPersianNumbers(
+          report?.totalNutrition?.averageCarbs || 0,
+          RTL
+        ),
+        goal: convertToPersianNumbers(dailygoal.carbsGrams || 0, RTL),
       },
       {
-        label: 'Protein',
-        intake: report?.totalNutrition?.averageProtein || 0,
+        label: i18n.t('protein'),
+        intake: convertToPersianNumbers(
+          report?.totalNutrition?.averageProtein || 0,
+          RTL
+        ),
         goal: dailygoal.proteinGrams || 0,
       },
       {
-        label: 'Fat',
-        intake: report?.totalNutrition?.averageFat || 0,
+        label: i18n.t('fats'),
+        intake: convertToPersianNumbers(
+          report?.totalNutrition?.averageFat || 0,
+          RTL
+        ),
         goal: dailygoal.fatGrams || 0,
       },
     ];
@@ -119,8 +132,11 @@ function ListReport({ report, i18n }) {
     return data.map((item, index) => (
       <View key={index} style={styles.dataRow}>
         <Text style={styles.dataLabel}>{item.label}:</Text>
-        <Text style={styles.dataValue}> {item.intake} (Intake)</Text>
-        <Text style={styles.dataValue}> / {item.goal} (Goal)</Text>
+        <Text style={styles.dataValue}>
+          {' '}
+          {item.intake} {i18n.t('calories')}
+        </Text>
+        {/* <Text style={styles.dataValue}> / {item.goal} (Goal)</Text> */}
       </View>
     ));
   };
@@ -137,14 +153,15 @@ function ListReport({ report, i18n }) {
 
 export default ListReport;
 
-const getStyles = (theme) =>
+const getStyles = (theme, RTL) =>
   StyleSheet.create({
     container: {
+      textAlign: RTL ? 'right' : 'left',
       //justifyContent: 'center',
       //alignItems: 'center',
       width: Dimensions.get('window').width / 1.2,
       padding: 20,
-      backgroundColor: theme.colors.secondary,
+      // backgroundColor: theme.colors.secondary,
       marginHorizontal: 10,
       height: Dimensions.get('window').height,
     },

@@ -8,19 +8,69 @@ import { I18n } from 'i18n-js';
 import { IconWalking } from '../marketplace/filters/icons';
 import convertToPersianNumbers from '../../api/PersianNumber';
 import WeeklyStepChart from './weeklyChart';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function StepcounterIndex() {
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
-  //console.log('isPedometerAvailable', isPedometerAvailable);
   const [status, setStatus] = useState('idle');
   const [pastStepCount, setPastStepCount] = useState(0);
+  const [steps, setSteps] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);
+  const [userHeight, setUserHeight] = useState(0);
+  const [userGender, setUserGender] = useState('');
+  const [userWeight, setUserWeight] = useState(0);
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const { userLanguage } = useContext(LanguageContext);
   const RTL = userLanguage === 'fa';
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
+
+  const getUserData = async () => {
+    try {
+      const userData = await AsyncStorage.getItem('userBasicData');
+      const parsedUserData = JSON.parse(userData); // Parse the JSON data
+      setUserHeight(parsedUserData.height * 0.01); // Convert cm to meters
+      setUserGender(parsedUserData.gender);
+      setUserWeight(parsedUserData.weight);
+    } catch (error) {
+      setStatus('error');
+      console.log('Error fetching user data:', error);
+    }
+  };
+
+  const calculateCaloriesBurned = (
+    steps,
+    userGender,
+    userHeight,
+    userWeight
+  ) => {
+    if (!steps || !userGender || !userHeight || !userWeight) return 0;
+
+    const stepLengthFactor = userGender === 1 ? 0.415 : 0.413;
+    const stepLength = userHeight * stepLengthFactor; // in meters
+    const distance = (steps * stepLength) / 1000; // in kilometers
+    const speed = 5; // average walking speed in km/h
+    const time = distance / speed; // in hours
+    const MET = 3.5; // MET for walking
+    const caloriesBurned = MET * userWeight * time; // calories burned
+    console.log('caloriesBurned', caloriesBurned);
+    return caloriesBurned;
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  useEffect(() => {
+    setSteps(pastStepCount + currentStepCount);
+  }, [pastStepCount, currentStepCount]);
+
+  useEffect(() => {
+    if (steps && userGender && userHeight && userWeight) {
+      calculateCaloriesBurned(steps, userGender, userHeight, userWeight);
+    }
+  }, [steps, userGender, userHeight, userWeight]);
 
   useEffect(() => {
     let subscription;
@@ -30,14 +80,10 @@ export default function StepcounterIndex() {
       setIsPedometerAvailable(String(isAvailable));
 
       if (isAvailable) {
-        // Set `end` to the current date and time
         const end = new Date();
-
-        // Set `start` to 00:00:00 of today
         const start = new Date();
-        start.setHours(0, 0, 0, 0); // Set time to 00:00:00.000
+        start.setHours(0, 0, 0, 0);
 
-        // Get the step count from the start of today until now
         const pastStepCountResult = await Pedometer.getStepCountAsync(
           start,
           end
@@ -46,7 +92,6 @@ export default function StepcounterIndex() {
           setPastStepCount(pastStepCountResult.steps);
         }
 
-        // Start watching step count from now
         subscription = Pedometer.watchStepCount((result) => {
           setCurrentStepCount(result.steps);
         });
@@ -57,7 +102,6 @@ export default function StepcounterIndex() {
 
     setupSubscription();
 
-    // Cleanup function
     return () => {
       if (subscription && typeof subscription.remove === 'function') {
         subscription.remove();
@@ -96,10 +140,7 @@ export default function StepcounterIndex() {
                   }}>
                   <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
                   <Text style={styles.steps}>
-                    {convertToPersianNumbers(
-                      pastStepCount + currentStepCount,
-                      RTL
-                    )}
+                    {convertToPersianNumbers(steps, RTL)}
                   </Text>
                 </View>
               </View>

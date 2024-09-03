@@ -35,6 +35,12 @@ function InputSelector({ route }) {
     //setStatus('mealInitialized');
     setInputStatus(status);
   };
+  const [selectedIds, setSelectedIds] = useState([2]);
+  const isSelected = (id) => selectedIds.includes(id);
+  const [selectedCalories, setSelectedCalories] = useState();
+  const onSelect = ({ id }) => {
+    setSelectedIds([id]);
+  };
 
   const inputType = [
     {
@@ -60,6 +66,13 @@ function InputSelector({ route }) {
     },
   ];
 
+  const handleSelectInput = (item) => {
+    onSelect({
+      id: item.id,
+    });
+    item.active ? item.func() : null;
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header
@@ -78,19 +91,31 @@ function InputSelector({ route }) {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
+              backgroundColor: theme.colors.background,
+              borderRadius: 8,
+              marginVertical: 5,
+              borderColor: theme.colors.border,
+              borderWidth: 1,
             }}>
             {inputType.map((item, i) => (
               <TouchableOpacity
                 key={i}
-                style={{
-                  width: Dimensions.get('window').width / 6,
-                  height: Dimensions.get('window').width / 6,
-                  borderRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  margin: 10,
-                }}
-                onPress={() => (item.active ? item.func() : null)}>
+                style={[
+                  {
+                    width: Dimensions.get('window').width / 6,
+                    height: Dimensions.get('window').width / 6,
+                    borderRadius: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: 10,
+                  },
+                  isSelected(item.id) && {
+                    borderColor: theme.colors.secondary,
+                    backgroundColor: theme.colors.selected,
+                    borderWidth: 2,
+                  },
+                ]}
+                onPress={() => handleSelectInput(item)}>
                 <View
                   style={{
                     position: 'absolute',
@@ -103,7 +128,30 @@ function InputSelector({ route }) {
                     <Badge status="warning" value={'Inactive'} />
                   )}
                 </View>
-                {item.icon}
+                <View
+                  style={[
+                    {
+                      width: Dimensions.get('window').width / 10,
+                      height: Dimensions.get('window').width / 10,
+                      borderRadius: 10,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      margin: 10,
+                      backgroundColor: theme.colors.background,
+                      borderColor: theme.colors.border,
+
+                      //borderWidth: 0.5,
+                    },
+                    isSelected(item.id) && {
+                      borderColor: theme.colors.secondary,
+                      backgroundColor: theme.colors.selected,
+                      borderWidth: 2,
+                      width: Dimensions.get('window').width / 6,
+                      height: Dimensions.get('window').width / 6,
+                    },
+                  ]}>
+                  {item.icon}
+                </View>
               </TouchableOpacity>
             ))}
           </View>

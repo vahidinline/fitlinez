@@ -3,6 +3,7 @@ import { useTheme } from '@rneui/themed';
 import React from 'react';
 import { View } from 'react-native';
 import { PieChart } from 'react-native-gifted-charts';
+import convertToPersianNumbers from '../../api/PersianNumber';
 
 function NutritionChart({
   fatPercentage,
@@ -13,6 +14,7 @@ function NutritionChart({
   carbsGrams,
   dailyCalories,
   i18n,
+  RTL,
 }) {
   const pieData = [
     { value: fatPercentage, color: '#177AD5', text: fatGrams },
@@ -117,7 +119,7 @@ function NutritionChart({
             donut
             showGradient
             sectionAutoFocus
-            radius={90}
+            radius={60}
             innerRadius={60}
             innerCircleColor={'transparent'}
             centerLabelComponent={() => {
@@ -128,11 +130,16 @@ function NutritionChart({
                     style={{
                       fontSize: 22,
                       color: '#000',
-                      fontWeight: 'bold',
+                      fontFamily: 'Vazirmatn',
                     }}>
-                    {dailyCalories}
+                    {convertToPersianNumbers(dailyCalories, RTL)}
                   </Text>
-                  <Text style={{ fontSize: 14, color: '#000' }}>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: '#000',
+                      fontFamily: 'Vazirmatn',
+                    }}>
                     {i18n.t('dailyCalories')}
                   </Text>
                 </View>
