@@ -48,7 +48,7 @@
       "expo-localization",
       "@bugsnag/plugin-expo-eas-sourcemaps",
       "expo-updates",
-
+      "react-native-health",
       [
         "expo-updates",
         {
@@ -60,7 +60,8 @@
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
         }
-      ]
+      ],
+      "react-native-health"
     ],
     "updates": {
       "url": "https://u.expo.dev/7819d490-9761-46a4-93c9-1c969843df38"

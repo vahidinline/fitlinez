@@ -9,8 +9,28 @@ import { IconWalking } from '../marketplace/filters/icons';
 import convertToPersianNumbers from '../../api/PersianNumber';
 import WeeklyStepChart from './weeklyChart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppleHealthKit, {
+  HealthValue,
+  HealthKitPermissions,
+} from 'react-native-health';
 
 export default function StepcounterIndex() {
+  // const permissions = {
+  //   permissions: {
+  //     read: [AppleHealthKit.Constants.Permissions.StepCount],
+  //     write: [],
+  //   },
+  // };
+
+  // AppleHealthKit.initHealthKit(permissions, (error) => {
+  //   if (error) {
+  //     console.log('[ERROR] Cannot grant permissions!', error.message);
+  //     return;
+  //   }
+
+  //   console.log('HealthKit initialized successfully');
+  // });
+
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
   const [status, setStatus] = useState('idle');
   const [pastStepCount, setPastStepCount] = useState(0);
