@@ -532,6 +532,8 @@ const i18nt = {
     RequestingCameraPermission: 'Requesting Camera Permission',
     totalServingSize: 'Total Serving size',
     find: 'Find',
+    failedLoadImage: 'failed to load image',
+    PremiumAlert: 'to use this service, please upgrade your account',
   },
 
   fa: {
@@ -711,7 +713,7 @@ const i18nt = {
     WristPain: 'درد مچ',
     HipPain: 'درد باسن',
     AnklePain: 'درد مچ پا',
-
+    PremiumAlert: 'برای استفاده از این سرویس می بایست اکانت خود را ارتقا دهید',
     painGetterTitle: ' اگر احساس درد دارید، لطفا آن را توضیح دهید',
     Retry: 'تلاش مجدد',
     restday: 'روز استراحت',
@@ -774,13 +776,14 @@ const i18nt = {
     gainMuscle: 'افزایش عضله',
     stayFit: 'تناسب اندام',
     maintainWeight: 'حفظ وزن',
-
+    failedLoadImage: 'خطا در بارگزاری تصویر',
     bothlocation: 'خانه و باشگاه',
     gymlocation: 'باشگاه',
     homelocation: 'خانه',
     trialExpired:
       'مهلت استفاده آزمایشی شما  به پایان رسیده است، لطفا پلن خود را ارتقا دهید',
-    upgradeLocationText: 'لطفا کشور محل سکونت خود را انتخاب کنید ',
+    upgradeLocationText:
+      'برای مشاهده پکیج ها، ابتدا لطفا کشور محل سکونت خود را انتخاب کنید ',
     trialText: ' فعال سازی ۱۴ روز  آزمایشی ',
     youveBeenInconsistent: 'شما در برنامه تمرینی خود پیوستگی نداشته اید.',
     notYetStarted: 'هنوز شروع نکرده اید',

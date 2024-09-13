@@ -17,7 +17,7 @@ const screenWidth = Dimensions.get('window').width;
 function DrawerList({
   sortedData,
   index: exerciseId,
-  sessionData,
+
   goToIndex,
   RTL,
 }) {
@@ -26,8 +26,6 @@ function DrawerList({
   const [status, setStatus] = useState('idle');
 
   const handlePress = (index) => {
-    console.log('index', index);
-
     try {
       goToIndex(index);
       setStatus('modal');
@@ -38,26 +36,25 @@ function DrawerList({
 
   return (
     <View style={styles.container}>
-      {/* <TouchableWithoutFeedback
-        onPress={() => {
-          console.log('Backdrop pressed');
-          handleDrawer(!showDrawer);
-        }}>
-        <View style={styles.backdrop} />
-      </TouchableWithoutFeedback> */}
-
       <View>
         <FlatList
           horizontal={false}
           scrollEnabled={true}
           style={{ marginTop: 10 }}
           data={sortedData}
-          keyExtractor={(item) => item.exerciseId.toString()}
-          renderItem={({ item, index }) => {
-            // const isInSession = sessionData.some(
-            //   (sessionItem) => sessionItem.id === item.exerciseId
-            // );
+          keyExtractor={(item) => {
+            // Check if exerciseId is an object (e.g., ObjectId) and extract the ID if it is
+            if (
+              typeof item.exerciseId === 'object' &&
+              item.exerciseId !== null
+            ) {
+              return item.exerciseId.toString();
+            }
 
+            // Otherwise, return exerciseId directly if it's a string
+            return item.exerciseId;
+          }}
+          renderItem={({ item, index }) => {
             return (
               <TouchableOpacity
                 onLongPress={() => console.log(item.exerciseName)}

@@ -40,7 +40,11 @@ function ListComponent({ data, isSelected, onSelect }) {
             isSelected(item.id) && styles.selectedItem,
           ]}
           onPress={() =>
-            onSelect({ id: item.id, title: item.title, value: item.value })
+            onSelect({
+              id: item.id,
+              title: item.title,
+              value: item.value,
+            })
           }>
           <View
             style={{

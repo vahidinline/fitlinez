@@ -1,25 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { userLevelCheck } from '../../api/GetData';
 import AuthContext from '../../api/context';
-import { Button, LinearProgress, Text, useTheme } from '@rneui/themed';
-import { Dimensions, Linking, SafeAreaView, View } from 'react-native';
+import { Button, Text, useTheme } from '@rneui/themed';
+import { Dimensions, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
-import Header from '../../components/header';
 import AnimatedLottieView from 'lottie-react-native';
 
 function ConfirmPayment() {
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-  const [progress, setProgress] = useState(0);
   const { userAuth, setUserAuth } = useContext(AuthContext);
   const [result, setResult] = useState(null);
   const userLevel = userAuth.level;
   const navigator = useNavigation();
   const [count, setCount] = useState(0);
+  const [status, setStatus] = useState('loading');
   const { theme } = useTheme();
   useEffect(() => {
     // Initialize the interval
@@ -55,51 +54,107 @@ function ConfirmPayment() {
         height: Dimensions.get('window').height,
         paddingTop: 80,
       }}>
-      {/* <Header title={i18n.t('checkingForUpdates')} /> */}
-      <Text
-        style={{
-          fontSize: 16,
-          fontWeight: '700',
-          margin: 10,
-          textAlign: 'center',
-          fontFamily: 'Vazirmatn',
-        }}>
-        تبریک
-      </Text>
-      <AnimatedLottieView
-        source={require('../../assets/success.json')}
-        autoPlay
-        style={{
-          width: 300,
-          height: 300,
-          alignSelf: 'center',
-        }}></AnimatedLottieView>
-      <Text
-        style={{
-          fontSize: 16,
-          fontWeight: '700',
-          margin: 10,
-          textAlign: 'center',
-          fontFamily: 'Vazirmatn',
-        }}>
-        حساب کاربری پریمیوم شما فعال شد
-      </Text>
-      <Button
-        onPress={() =>
-          navigator.reset({
-            index: 0,
-            routes: [{ name: 'Home' }],
-          })
-        }
-        buttonStyle={{
-          backgroundColor: theme.colors.button,
-          width: Dimensions.get('window').width / 1.1,
-          borderRadius: 8,
-          marginHorizontal: 20,
-        }}
-        titleStyle={{ fontFamily: 'Vazirmatn' }}
-        title="شروع مسیر"
-      />
+      {status === 'success' && (
+        <View>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '700',
+              margin: 10,
+              textAlign: 'center',
+              fontFamily: 'Vazirmatn',
+            }}>
+            تبریک
+          </Text>
+          <AnimatedLottieView
+            source={require('../../assets/success.json')}
+            autoPlay
+            style={{
+              width: 300,
+              height: 300,
+              alignSelf: 'center',
+            }}></AnimatedLottieView>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '700',
+              margin: 10,
+              textAlign: 'center',
+              fontFamily: 'Vazirmatn',
+            }}>
+            حساب کاربری پریمیوم شما فعال شد
+          </Text>
+          <Button
+            onPress={() =>
+              navigator.reset({
+                index: 0,
+                routes: [{ name: 'Home' }],
+              })
+            }
+            buttonStyle={{
+              backgroundColor: theme.colors.button,
+              width: Dimensions.get('window').width / 1.1,
+              borderRadius: 8,
+              marginHorizontal: 20,
+            }}
+            titleStyle={{ fontFamily: 'Vazirmatn' }}
+            title="شروع مسیر"
+          />
+        </View>
+      )}
+      {status === 'loading' && (
+        <View>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '700',
+              margin: 10,
+              textAlign: 'center',
+              fontFamily: 'Vazirmatn',
+            }}>
+            در حال پردازش پرداخت
+          </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '700',
+              margin: 10,
+              textAlign: 'center',
+              fontFamily: 'Vazirmatn',
+            }}>
+            در صورتی که پرداخت موفقیت آمیز باشد، یک ایمیل دریافت خواهید کرد
+          </Text>
+          <AnimatedLottieView
+            source={require('../../assets/LoadingText.json')}
+            autoPlay
+            style={{
+              width: 300,
+              height: 300,
+              alignSelf: 'center',
+            }}></AnimatedLottieView>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '700',
+              margin: 10,
+              textAlign: 'center',
+              fontFamily: 'Vazirmatn',
+            }}>
+            بعد از دریافت ایمیل، روی دکمه زیر بزنید
+          </Text>
+          <Button
+            onPress={() => navigator.navigate('WorkoutListIndex')}
+            buttonStyle={{
+              backgroundColor: theme.colors.button,
+              width: Dimensions.get('window').width / 1.1,
+              borderRadius: 8,
+              marginHorizontal: 20,
+            }}
+            titleStyle={{ fontFamily: 'Vazirmatn' }}
+            title="شروع مسیر"
+          />
+        </View>
+      )}
     </View>
   );
 }

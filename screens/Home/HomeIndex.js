@@ -26,7 +26,7 @@ import { getNewTasks } from '../../api/getNewTasks';
 import StepcounterIndex from '../StepCounter/StepcounterIndex';
 import { IconWalking } from '../marketplace/filters/icons';
 import { Skeleton } from '@rneui/base';
-
+import FitlinezLoading from '../../components/FitlinezLoading';
 function HomeIndex() {
   const [refreshing, setRefreshing] = useState(false);
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -42,9 +42,9 @@ function HomeIndex() {
   console.log('status homeindex', status);
   const styles = getStyles(theme);
 
-  useEffect(() => {
-    getNewTasks(userAuth.id, setTaskStatus);
-  }, []);
+  // useEffect(() => {
+  //   getNewTasks(userAuth.id, setTaskStatus);
+  // }, []);
 
   const onRefresh = useCallback(() => {
     // setRefreshing(true);
@@ -124,29 +124,30 @@ function HomeIndex() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         {status === 'loading' && (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: theme.colors.background,
-              marginHorizontal: 20,
-              marginVertical: 20,
-              borderRadius: 14,
-            }}>
-            <Skeleton
-              skeletonStyle={{
-                borderRadius: 16,
-                marginVertical: 10,
-                marginHorizontal: 10,
-                backgroundColor: theme.colors.background,
-              }}
-              LinearGradientComponent={LinearGradient}
-              animation="wave"
-              width={Dimensions.get('window').width / 1.1}
-              height={Dimensions.get('window').height / 4}
-            />
-          </View>
+          <FitlinezLoading />
+          // <View
+          //   style={{
+          //     flex: 1,
+          //     justifyContent: 'center',
+          //     alignItems: 'center',
+          //     backgroundColor: theme.colors.background,
+          //     marginHorizontal: 20,
+          //     marginVertical: 20,
+          //     borderRadius: 14,
+          //   }}>
+          //   <Skeleton
+          //     skeletonStyle={{
+          //       borderRadius: 16,
+          //       marginVertical: 10,
+          //       marginHorizontal: 10,
+          //       backgroundColor: theme.colors.background,
+          //     }}
+          //     LinearGradientComponent={LinearGradient}
+          //     animation="wave"
+          //     width={Dimensions.get('window').width / 1.1}
+          //     height={Dimensions.get('window').height / 4}
+          //   />
+          //</View>
         )}
 
         {status === 'hasPlan' && (
@@ -248,7 +249,7 @@ function HomeIndex() {
               {
                 height:
                   Platform.OS === 'ios'
-                    ? Dimensions.get('window').height / 2.5
+                    ? Dimensions.get('window').height / 5
                     : Dimensions.get('window').height / 4,
               },
             ]}>

@@ -10,12 +10,13 @@ function GoalSelection({ onGoalSelect, i18n }) {
   const styles = getStyles(theme);
   const [selectedIds, setSelectedIds] = useState([]);
 
-  const onSelect = ({ id, title }) => {
+  const onSelect = ({ id, title, value }) => {
     setSelectedIds([id]);
     console.log(title, id);
     onGoalSelect({
-      mainGoal: title,
+      mainGoal: value,
       id: id,
+      value: title,
     });
   };
   const isSelected = (id) => selectedIds.includes(id);
@@ -24,21 +25,25 @@ function GoalSelection({ onGoalSelect, i18n }) {
     {
       id: 1,
       title: i18n.t('loseFat'),
+      value: 'lose Fat',
       // description: 'Get a personalized nutrition plan to lose fat',
     },
     {
       id: 2,
       title: i18n.t('gainMuscle'),
+      value: 'gain Muscle',
       // description: 'Get a personalized nutrition plan to build muscle',
     },
     {
       id: 3,
       title: i18n.t('maintainWeight'),
+      vaue: 'maintain Weight',
       //description: 'Get a personalized nutrition plan to maintain weight',
     },
     {
       id: 4,
       title: i18n.t('stayFit'),
+      value: 'stay Fit',
       //description: 'Get a personalized nutrition plan to maintain weight',
     },
   ];

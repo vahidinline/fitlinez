@@ -19,6 +19,7 @@ function GoalWeightSelection({ onGoalWeightSelect, i18n }) {
     onGoalWeightSelect({
       goalWeight: selectedValue,
       unit: unit[0].weightUnit,
+      value: selectedValue,
     });
   }, [selectedValue]);
 

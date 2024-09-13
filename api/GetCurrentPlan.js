@@ -12,7 +12,7 @@ const getUsercurrentWorkoutPlan = async (userId, i18n) => {
     if (result.data) {
       await AsyncStorage.setItem('workoutsList', JSON.stringify(data)).then(
         () => {
-          //console.log('workoutsList in getUsercurrentWorkoutPlan', data);
+          console.log('workoutsList in getUsercurrentWorkoutPlan', data);
         }
       );
     } else {

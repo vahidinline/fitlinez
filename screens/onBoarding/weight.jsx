@@ -19,6 +19,7 @@ function WeightSelection({ onWeightSelect, i18n }) {
     onWeightSelect({
       weight: selectedValue,
       unit: unit[0].weightUnit,
+      value: selectedValue,
     });
   }, [selectedValue]);
 

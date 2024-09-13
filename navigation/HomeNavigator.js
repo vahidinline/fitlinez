@@ -19,6 +19,7 @@ import SessionNavigator from './SessionNavigator';
 import CaloriesIndex from '../screens/Calories/CaloriesIndex';
 import CustomCalorieReport from '../screens/Calories/customReport';
 import SingleTrainer from '../screens/Trainers/SingleTrainer';
+import StepCounterNavigator from './StepCounterNavigator';
 
 const Stack = createStackNavigator();
 
@@ -168,6 +169,13 @@ const HomeNavigator = () => {
       <Stack.Screen
         name="profile"
         component={ContactStackNavigator}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="StepCounter"
+        component={StepCounterNavigator}
         options={{
           headerShown: false,
         }}

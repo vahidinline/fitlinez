@@ -26,6 +26,14 @@ const sendChatBotMessage = (
   };
   try {
     return api.post('/fitlinez-chat-bot', messages);
+    // api.post('/fitlinez-chat-bot', messages).catch((error) => {
+    //   console.error('API Error:', error);
+    //   if (error.response) {
+    //     console.log('Response data:', error.response.data);
+    //     console.log('Response status:', error.response.status);
+    //     console.log('Response headers:', error.response.headers);
+    //   }
+    // });
   } catch (e) {
     console.log('ddd');
   }

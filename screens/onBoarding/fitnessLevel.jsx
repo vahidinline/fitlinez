@@ -11,11 +11,12 @@ function FitnessLevel({ onFitnessLevelSelect, i18n }) {
   const styles = getStyles(theme);
   const [selectedIds, setSelectedIds] = useState([]);
 
-  const onSelect = ({ id, title }) => {
+  const onSelect = ({ id, title, value }) => {
     setSelectedIds([id]);
 
     onFitnessLevelSelect({
-      fitnessLevel: title,
+      fitnessLevel: value,
+      value: title,
     });
   };
   const isSelected = (id) => selectedIds.includes(id);
@@ -24,16 +25,19 @@ function FitnessLevel({ onFitnessLevelSelect, i18n }) {
       id: 1,
       title: i18n.t('beginner'),
       description: i18n.t('beginnerLevel'),
+      value: 'beginner',
     },
     {
       id: 2,
       title: i18n.t('intermediate'),
       description: i18n.t('intermediateLevel'),
+      value: 'intermediate',
     },
     {
       id: 3,
       title: i18n.t('advanced'),
       description: i18n.t('advancedLevel'),
+      value: 'advanced',
     },
   ];
   return (

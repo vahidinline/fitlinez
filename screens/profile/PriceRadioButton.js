@@ -1,5 +1,5 @@
 import { Image, useTheme } from '@rneui/themed';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -66,7 +66,7 @@ const PriceRadionButton = ({
           }}>
           {label}
         </Text>
-        <Text>{description}</Text>
+        <Text style={{ fontFamily: 'Vazirmatn' }}>{description}</Text>
       </View>
 
       <View

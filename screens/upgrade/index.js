@@ -47,6 +47,24 @@ function Upgrade() {
   const [title, setTitle] = useState(null);
   const userLevel = userAuth.level;
   const RTL = userLanguage === 'fa' ? true : false;
+  const [finalList, setFinalList] = useState([]);
+
+  useEffect(() => {
+    if (location === 'Iran') {
+      setFinalList(
+        priceList
+          ? priceList.filter((item) => item.sign === 'Iran').slice(0, 4)
+          : []
+      );
+    } else {
+      setFinalList(
+        priceList
+          ? priceList.filter((item) => item.sign !== 'Iran').slice(0, 4)
+          : []
+      );
+    }
+  }, [location]);
+
   const handleSelect = (value) => {
     // Handle the selection logic, update the state, or perform any necessary actions
     setSelectedValue(value);
@@ -192,7 +210,7 @@ function Upgrade() {
               {filteredList
                 ? filteredList.map((item, index) => {
                     return (
-                      <View>
+                      <View key={index}>
                         <PriceRadionButton
                           itemId={item._id}
                           label={item.title}

@@ -11,6 +11,7 @@ function CM({ setHeight }) {
     setHeight({
       height: selectedValue,
       unit: 'cm',
+      value: selectedValue,
     });
   }, [selectedValue]);
 

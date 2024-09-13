@@ -17,6 +17,7 @@ import getDailyCaloriesDetails from '../../api/getDailyCaloriesDetails';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import { useNavigation } from '@react-navigation/native';
+import AuthContext from '../../api/context';
 
 function MealList({ userId }) {
   const { theme } = useTheme();
@@ -26,6 +27,8 @@ function MealList({ userId }) {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const RTL = userLanguage === 'fa';
+  const { userAuth } = useContext(AuthContext);
+  const userLevel = userAuth.level;
 
   // Date calculations
   const today = new Date().toISOString().split('T')[0];
@@ -158,10 +161,12 @@ function MealList({ userId }) {
           <View style={styles.mealSection}>
             <TouchableOpacity
               onPress={() =>
-                navigator.navigate('FoodInput', {
-                  mealValue: item.value,
-                  mealName: item.name,
-                })
+                userLevel === 4
+                  ? navigator.navigate('FoodInput', {
+                      mealValue: item.value,
+                      mealName: item.name,
+                    })
+                  : alert(i18n.t('PremiumAlert'))
               }
               style={styles.mealButton}>
               <Text style={styles.mealText}>{item.name}</Text>

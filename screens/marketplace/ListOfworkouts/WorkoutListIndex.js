@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   Dimensions,
-  FlatList,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -20,6 +19,9 @@ import { Button, Skeleton } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import TrainersList from '../../Trainers/TrainerIndex';
+import { IconPremium } from '../filters/icons';
+import { generateWorkoutPlan } from '../../../api/generateWorkoutPlan';
+import GenerateWorkout from '../../../components/generateWorkout';
 // import BannerAdMob from '../../../api/AdMob/BannerComponent';
 
 function WorkoutListIndex() {
@@ -35,7 +37,7 @@ function WorkoutListIndex() {
   const userId = userAuth.id;
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-  console.log('WorkoutListIndex status', status);
+
   const onRefresh = useCallback(() => {
     setStatus('loading');
     setRefreshing(true);
@@ -132,6 +134,7 @@ function WorkoutListIndex() {
             }}>
             <TrainersList i18n={i18n} />
           </View>
+          {/* <GenerateWorkout userId={userId} /> */}
 
           {status === 'success' && (
             <View>

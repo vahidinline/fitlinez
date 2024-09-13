@@ -2,12 +2,14 @@ import axios from 'axios';
 import { showMessage } from 'react-native-flash-message';
 
 const api = axios.create({
+  //
+
   baseURL: 'https://server.fitlinez.com',
   // office local
-  //baseURL: 'http://10.10.177.82:8080',
+  //baseURL: 'http://10.10.177.215:8080',
   // home local
-  //baseURL: 'http://192.168.1.25:8080',
-  timeout: 30000,
+  //baseURL: 'http://192.168.1.12:8080',
+  timeout: 100000,
   headers: {
     'Content-Type': 'application/json',
   },

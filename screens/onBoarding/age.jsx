@@ -13,6 +13,7 @@ function AgeSelection({ onAgeSelect, i18n }) {
   useEffect(() => {
     onAgeSelect({
       age: selectedValue,
+      value: selectedValue,
     });
   }, [selectedValue]);
 

@@ -17,6 +17,7 @@ function LocationSelection({ onLocationSelect, i18n }) {
     {
       id: 1,
       title: i18n.t('homelocation'),
+      value: 'Home',
       //  description: 'I’m new to this',
       // icon: IconHomeFocused,
     },
@@ -26,25 +27,27 @@ function LocationSelection({ onLocationSelect, i18n }) {
     //   description: 'I workout sometimes',
     //   icon: 'dumbbell',
     // },
-    {
-      id: 3,
-      title: i18n.t('bothlocation'),
-      //  description: 'I workout regularly',
-      // icon: Icon8,
-    },
+    // {
+    //   id: 3,
+    //   title: i18n.t('bothlocation'),
+    //   //  description: 'I workout regularly',
+    //   // icon: Icon8,
+    // },
     {
       id: 4,
       title: i18n.t('gymlocation'),
+      value: 'Gym',
       //  description: 'I workout regularly',
       //icon: IconWeight,
     },
   ];
 
-  const onSelect = ({ id, title }) => {
+  const onSelect = ({ id, title, value }) => {
     setSelectedIds([id]);
     console.log(title, id);
     onLocationSelect({
-      location: title,
+      location: value,
+      value: title,
     });
   };
 

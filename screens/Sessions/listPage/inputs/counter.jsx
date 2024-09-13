@@ -157,6 +157,7 @@ const RestCounterComponent = ({ setVisible, visible, buttonTitle, RTL }) => {
             fontSize: 16,
             fontWeight: '500',
             top: 4,
+            fontFamily: 'Vazirmatn',
           }}>
           {buttonTitle}
         </Text>

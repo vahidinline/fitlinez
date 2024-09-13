@@ -38,7 +38,7 @@ const readWorkoutData = async () => {
 
       return { weeklyPlan, planName, location, packageId };
     } else {
-      //console.error('No data in AsyncStorage');
+      console.log('No data in AsyncStorage');
       return null;
     }
   } catch (error) {

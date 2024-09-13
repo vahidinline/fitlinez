@@ -91,11 +91,11 @@ function InputSelector({ route }) {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: theme.colors.background,
-              borderRadius: 8,
+              // backgroundColor: theme.colors.background,
+              // borderRadius: 8,
               marginVertical: 5,
               borderColor: theme.colors.border,
-              borderWidth: 1,
+              // borderWidth: 1,
             }}>
             {inputType.map((item, i) => (
               <TouchableOpacity

@@ -7,7 +7,7 @@ const foodapi = axios.create({
   //baseURL: 'http://10.10.177.82:8090',
   baseURL: 'https://aibackendfitlinez.azurewebsites.net',
 
-  timeout: 20000,
+  timeout: 100000,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -32,12 +32,13 @@ function DayPreferences({ onDayPreferencesSelect, i18n }) {
     },
   ];
 
-  const onSelect = ({ id, title }) => {
+  const onSelect = ({ id, title, value }) => {
     console.log('id', id, title);
     setSelectedIds([id]);
 
     onDayPreferencesSelect({
-      dayPreferences: title,
+      dayPreferences: value,
+      value: title,
     });
   };
 

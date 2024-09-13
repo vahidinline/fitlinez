@@ -11,11 +11,12 @@ function ActivityLevel({ onActivityLevelSelect, i18n }) {
   const styles = getStyles(theme);
   const [selectedIds, setSelectedIds] = useState([]);
 
-  const onSelect = ({ id, title, value }) => {
+  const onSelect = ({ id, title, value, valueName }) => {
     setSelectedIds([id]);
 
     onActivityLevelSelect({
-      activityLevel: title,
+      activityLevel: valueName,
+      title: title,
       value: value,
     });
   };
@@ -26,24 +27,28 @@ function ActivityLevel({ onActivityLevelSelect, i18n }) {
       title: i18n.t('sedentary'),
       description: i18n.t('sedentaryDecs'),
       value: 1.2,
+      valueName: 'sedentary',
     },
     {
       id: 2,
       title: i18n.t('lightExercise'),
       description: i18n.t('lightExercisedesc'),
       value: 1.375,
+      valueName: 'light Exercise',
     },
     {
       id: 3,
       title: i18n.t('moderateExercise'),
       description: i18n.t('moderateExerciseDesc'),
       value: 1.465,
+      valueName: 'moderate Exercise',
     },
     {
       id: 4,
       title: i18n.t('heavyExercise'),
       description: i18n.t('heavyExerciseDesc'),
       value: 1.725,
+      valueName: 'heavy Exercise',
     },
   ];
   return (

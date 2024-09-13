@@ -34,17 +34,18 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
         stepData.unshift({
           value: steps,
           label: getDayLabel(date, daysOfWeek),
-          frontColor: isToday ? theme.colors.highlight : theme.colors.primary, // Highlight today's bar
+          frontColor: isToday ? theme.colors.highlight : theme.colors.grey, // Highlight today's bar
+
           topLabelComponent: () => (
             <Text
               style={{
-                color: isToday ? 'transparent' : theme.colors.text,
-                fontSize: 10,
+                color: isToday ? theme.colors.white : theme.colors.white,
+                fontSize: 12,
 
-                width: 50,
-                top: 50,
+                width: 150,
+                // top: 50,
                 fontFamily: 'Vazirmatn',
-                transform: [{ rotate: '90deg' }],
+                //   transform: [{ rotate: '90deg' }],
               }}>
               {convertToPersianNumbers(steps, RTL) + ' ' + i18n.t('steps')}
             </Text>
@@ -86,7 +87,8 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
         barWidth={16}
         noOfSections={4}
         barBorderRadius={4}
-        frontColor={theme.colors.primary}
+        horizontal
+        frontColor={theme.colors.secondary}
         data={barData}
         isAnimated
         yAxisThickness={0}
@@ -95,13 +97,13 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
         xAxisLabelTextStyle={{
           fontSize: 12,
           fontFamily: 'Vazirmatn',
-          color: theme.colors.white,
+          color: theme.colors.secondary,
         }}
         hideRules
         yAxisLabelTextStyle={{
           fontSize: 12,
           fontFamily: 'Vazirmatn',
-          color: theme.colors.white,
+          color: theme.colors.secondary,
         }}
       />
     </View>

@@ -19,7 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
 import AnimatedLottieView from 'lottie-react-native';
 
-function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId }) {
+function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId, userLevel }) {
   const { userAuth } = useContext(AuthContext);
   const userId = userAuth.id;
   const { theme } = useTheme();
@@ -39,6 +39,11 @@ function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId }) {
   const [userLimitExceeded, setUserLimitExceeded] = useState(false); // , userLimitExceeded, setUserLimitExceeded
   const [responseId, setResponseId] = useState(null); // , responseId, setResponseId
   const sendMessage = () => {
+    if (userLevel !== 4) {
+      alert(i18n.t('PremiumAlert'));
+      return;
+    }
+
     getUserPain();
     setStatus('loading');
     sendChatBotMessage(message, userId, exerciseId, title, userLanguage)

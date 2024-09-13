@@ -14,20 +14,23 @@ function GenderSelection({ onGenderSelect, i18n }) {
       id: 1,
       title: i18n.t('male'),
       icon: IconMale,
+      value: 'male',
     },
     {
       id: 2,
       title: i18n.t('female'),
       icon: IconFemale,
+      value: 'female',
     },
   ];
 
-  const onSelect = ({ id, title }) => {
+  const onSelect = ({ id, title, value }) => {
     setSelectedIds([id]);
 
     onGenderSelect({
-      gender: title,
+      gender: value,
       id: id,
+      value: title,
     });
   };
   const isSelected = (id) => selectedIds.includes(id);
@@ -59,7 +62,9 @@ function GenderSelection({ onGenderSelect, i18n }) {
                 },
                 isSelected(item.id) && styles.selectedItem,
               ]}
-              onPress={() => onSelect({ id: item.id, title: item.title })}>
+              onPress={() =>
+                onSelect({ id: item.id, title: item.title, value: item.value })
+              }>
               <View
                 style={{
                   flexDirection: 'row',

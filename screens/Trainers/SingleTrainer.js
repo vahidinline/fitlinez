@@ -216,9 +216,10 @@ function SingleTrainer({ route }) {
                     marginHorizontal: 10,
                   }}>
                   {item?.certificates &&
-                    item?.certificates.map((item) => {
+                    item?.certificates.map((item, index) => {
                       return (
                         <View
+                          key={index}
                           style={{
                             flexDirection: 'column',
                             justifyContent: 'center',
@@ -268,9 +269,10 @@ function SingleTrainer({ route }) {
             }}>
             {item.socialMedia &&
               item.socialMedia.length > 0 &&
-              item.socialMedia.map((item) => {
+              item.socialMedia.map((item, index) => {
                 return (
                   <View
+                    key={index}
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
@@ -369,9 +371,10 @@ function SingleTrainer({ route }) {
             </Text>
             {item.expertise &&
               item.expertise.length > 0 &&
-              item.expertise.map((item) => {
+              item.expertise.map((item, index) => {
                 return (
                   <SingleItem
+                    key={index}
                     // title={i18n.t('trainerExpertise')}
                     sub={item.area}
                     // icon={<IconTimer />}

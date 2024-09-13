@@ -23,13 +23,11 @@ import AuthContext from '../../api/context';
 import i18nt from '../../locales';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
-import Constants from 'expo-constants';
+
 import {
   IconArrow,
-  IconClear,
   IconInfo,
   IconLanguage,
-  IconNotification,
   IconRanking,
   IconSupport,
   IconTrash,
@@ -37,10 +35,8 @@ import {
   Iconshare,
 } from '../marketplace/filters/icons-';
 import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
-import { IconArrowLeft, IconArrowRight } from '../marketplace/filters/icons';
 
 const message =
-  //'https://fitlinez.com/application?utm_source=fitlinezApp&utm_medium=share&utm_campaign=sharetoFriendWithInApp';
   Platform.OS === 'ios'
     ? 'https://apps.apple.com/ee/app/fitlinez/id6443489365'
     : 'https://play.google.com/store/apps/details?id=e.fitlinez.eu&hl=en&gl=EE';
@@ -64,20 +60,15 @@ const onShare = async () => {
 };
 
 function SettingIndex() {
-  const key = 'fitlinez-session';
-  const [isFocus, setIsFocus] = useState(false);
-  const [value, setValue] = useState(null);
   const navigation = useNavigation();
   const { userLanguage, setUserLanguage } = useContext(LanguageContext);
   const { userAuth, setUserAuth } = useContext(AuthContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-  const { toggleTheme } = useContext(ThemeContext);
   const [avatar, setAvatar] = useState(null);
   const { theme } = useTheme();
   const RTL = userLanguage === 'fa' ? true : false;
-  const [expoPushToken, setExpoPushToken] = useState(null);
-  const [notification, setNotification] = useState(false);
+
   const notificationListener = useRef();
   const responseListener = useRef();
 

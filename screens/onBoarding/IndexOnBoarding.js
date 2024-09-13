@@ -26,6 +26,7 @@ import { StatusBar } from 'expo-status-bar';
 import convertToPersianNumbers from '../../api/PersianNumber';
 import ActivityLevel from './ActivityLevel';
 import GoalWeightSelection from './goalWeight';
+import PlanSelection from './Upgrade';
 
 function IndexOnBoarding() {
   const { theme } = useTheme();
@@ -47,7 +48,7 @@ function IndexOnBoarding() {
   useEffect(() => {
     if (currentStep === steps.length - 2) {
       console.log('last step');
-      //handleSubmit();
+      handleSubmit();
     }
   }, [currentStep]);
 
@@ -80,7 +81,7 @@ function IndexOnBoarding() {
       setUserData((prevUserData) => {
         // Get the key of the new object
         const key = Object.keys(object)[0];
-
+        const value = Object.keys(object)[1];
         // Check if the object already exists in the userData
         const existingObjectIndex = prevUserData.findIndex((item) =>
           item.hasOwnProperty(key)
@@ -108,7 +109,7 @@ function IndexOnBoarding() {
   }, [currentStep]);
 
   const handlebutton = () => {
-    if (currentStep === steps.length - 2) {
+    if (currentStep === steps.length - 1) {
       console.log('last step');
       handleSubmit();
       navigation.navigate('WorkoutListIndex');
@@ -152,7 +153,8 @@ function IndexOnBoarding() {
     // <EquipmentSelection onEquipmentSelect={addToArray} i18n={i18n}/>,
     //<DisabilitiesSelection onDisabilitiesSelect={addToArray} i18n={i18n}/>,
     <BeforeSubmit data={userData} onConfirm={setBeforeSubmit} i18n={i18n} />,
-    <LastPageOnboarding />,
+    <PlanSelection i18n={i18n} handleSubmit={handleSubmit} />,
+    // <LastPageOnboarding />,
   ];
   const onNext = () => {
     // move the step forward
@@ -253,27 +255,29 @@ function IndexOnBoarding() {
           marginLeft: 20,
           marginRight: 20,
         }}>
-        <Button
-          disabled={buttonDisabled}
-          buttonStyle={{
-            marginTop: 20,
-            borderRadius: 8,
-            backgroundColor: theme.colors.button,
-            borderWidth: 1,
-            borderColor: theme.colors.border,
-            bottom: 20,
-          }}
-          onPress={() => handlebutton()}
-          titleStyle={{
-            fontFamily: 'Vazirmatn',
-            color: theme.colors.primary,
-          }}
-          title={
-            currentStep === steps.length - 2
-              ? i18n.t('createPlans')
-              : i18n.t('next')
-          }
-        />
+        {currentStep !== 11 && (
+          <Button
+            disabled={buttonDisabled}
+            buttonStyle={{
+              marginTop: 20,
+              borderRadius: 8,
+              backgroundColor: theme.colors.button,
+              borderWidth: 1,
+              borderColor: theme.colors.border,
+              bottom: 20,
+            }}
+            onPress={() => handlebutton()}
+            titleStyle={{
+              fontFamily: 'Vazirmatn',
+              color: theme.colors.primary,
+            }}
+            title={
+              currentStep === steps.length - 1
+                ? i18n.t('createPlans')
+                : i18n.t('next')
+            }
+          />
+        )}
       </View>
     </SafeAreaView>
   );

@@ -1,5 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
-import { Dimensions, Platform, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Pedometer } from 'expo-sensors';
 import { useTheme } from '@rneui/themed';
 import LanguageContext from '../../api/langcontext';
@@ -13,6 +20,7 @@ import AppleHealthKit, {
   HealthValue,
   HealthKitPermissions,
 } from 'react-native-health';
+import { useNavigation } from '@react-navigation/native';
 
 export default function StepcounterIndex() {
   // const permissions = {
@@ -45,12 +53,14 @@ export default function StepcounterIndex() {
   const RTL = userLanguage === 'fa';
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-
+  const navigation = useNavigation();
+  console.log('userData in stepcounter', userHeight);
   const getUserData = async () => {
     try {
       const userData = await AsyncStorage.getItem('userBasicData');
+
       const parsedUserData = JSON.parse(userData); // Parse the JSON data
-      setUserHeight(parsedUserData.height * 0.01); // Convert cm to meters
+      setUserHeight(parsedUserData[0].height * 0.01); // Convert cm to meters
       setUserGender(parsedUserData.gender);
       setUserWeight(parsedUserData.weight);
     } catch (error) {
@@ -78,9 +88,9 @@ export default function StepcounterIndex() {
     return caloriesBurned;
   };
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+  // useEffect(() => {
+  //   getUserData();
+  // }, []);
 
   useEffect(() => {
     setSteps(pastStepCount + currentStepCount);
@@ -134,38 +144,33 @@ export default function StepcounterIndex() {
       style={[
         styles.container,
         {
-          height:
-            status !== 'error' ? Dimensions.get('window').height / 2.8 : 100,
+          height: status !== 'error' ? Dimensions.get('window').height / 2 : 50,
         },
       ]}>
       {Platform.OS === 'ios' ? (
         <>
           {isPedometerAvailable === 'true' ? (
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}>
+            <TouchableOpacity
+              style={
+                {
+                  //  flexDirection: 'row',
+                  //    justifyContent: 'space-between',
+                }
+              }
+              onPress={() => navigation.navigate('StepCounter')}>
+              <IconWalking color={theme.colors.secondary} size={64} />
+
               <View
                 style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
+                  flexDirection: 'column',
+                  width: '50%',
                 }}>
-                <View>
-                  <IconWalking color={theme.colors.secondary} size={64} />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'column',
-                  }}>
-                  <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
-                  <Text style={styles.steps}>
-                    {convertToPersianNumbers(steps, RTL)}
-                  </Text>
-                </View>
+                <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
+                <Text style={styles.steps}>
+                  {convertToPersianNumbers(steps, RTL)}
+                </Text>
               </View>
-              <WeeklyStepChart theme={theme} RTL={RTL} i18n={i18n} />
-            </View>
+            </TouchableOpacity>
           ) : (
             <Text style={styles.text}>{i18n.t('stepCounterNotAvailable')}</Text>
           )}

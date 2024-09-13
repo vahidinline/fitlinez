@@ -37,10 +37,10 @@ const DropdownCountries = ({
 
   return (
     <View style={styles.container}>
-      {renderLabel()}
+      {/* {renderLabel()} */}
       <Dropdown
         style={[styles.dropdown, isFocus && { borderColor: 'blue' }, textStyle]}
-        placeholderStyle={styles.placeholderStyle}
+        // placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   label: {
     position: 'absolute',
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     left: 22,
     fontFamily: 'Vazirmatn',
     top: 8,

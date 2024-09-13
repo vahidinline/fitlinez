@@ -47,7 +47,7 @@ function Aboutme() {
 
   useEffect(() => {
     if (userData && userData.length > 0) {
-      const gender = userData[0]?.gender || 'person';
+      const gender = userData[0]?.value || 'person';
       const age = userData[1]?.age || '';
       const height = userData[2]?.height || '';
       const weight = userData[3]?.weight || '';
@@ -55,15 +55,15 @@ function Aboutme() {
         userData[4]?.goalWeight || '',
         RTL
       )} ${i18n.t(userData[4]?.unit || '')}`.trim();
-      const activityLevel = userData[8]?.activityLevel || '';
+      const activityLevel = userData[8]?.value || '';
       const goal = userData[5]?.mainGoal || '';
-      const fitnessLevel = userData[7]?.fitnessLevel || '';
+      const fitnessLevel = userData[7]?.value || '';
       const activityLevelValue = userData[8]?.value || 1; // Ensure this has a fallback value
       const daysPerWeek = convertToPersianNumbers(
-        userData[9]?.dayPreferences || '',
+        userData[9]?.value || '',
         RTL
       );
-      const location = userData[6]?.location || '';
+      const location = userData[6]?.value || '';
 
       const phraseEn = `You are a ${age} year old ${gender} with a height of ${height} and a weight of ${weight} and activity level of ${activityLevel}, who wants to ${goal}. To reach  ${goalWeight} you can train ${daysPerWeek} days a week, your fitness level is ${fitnessLevel}, and you prefer to train at ${location}.`;
       const phraseFa = `شما یک ${gender}  ${convertToPersianNumbers(

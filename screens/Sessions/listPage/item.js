@@ -50,6 +50,7 @@ function Item({
   setSaveTimer,
   dataLength,
   description,
+  userLevel,
 }) {
   const { userLanguage } = useContext(LanguageContext);
   const { IconSub } = Icons;
@@ -422,6 +423,7 @@ function Item({
             userLanguage={userLanguage}
             exerciseId={exerciseId}
             i18n={i18n}
+            userLevel={userLevel}
           />
         </View>
         {/* </ScrollView> */}

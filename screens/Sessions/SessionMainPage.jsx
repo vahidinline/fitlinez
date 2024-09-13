@@ -339,7 +339,18 @@ const SessionMainPage = (props) => {
           horizontal
           getItemLayout={getItemLayout}
           ref={flatListRef}
-          keyExtractor={(item) => item.exerciseId.toString()}
+          keyExtractor={(item) => {
+            // Check if exerciseId is an object (e.g., ObjectId) and extract the ID if it is
+            if (
+              typeof item.exerciseId === 'object' &&
+              item.exerciseId !== null
+            ) {
+              return item.exerciseId.toString();
+            }
+
+            // Otherwise, return exerciseId directly if it's a string
+            return item.exerciseId;
+          }}
           renderItem={({ item, index }) => (
             <View key={item.exerciseId} style={style}>
               <Item
