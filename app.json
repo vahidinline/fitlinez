@@ -15,10 +15,13 @@
     "ios": {
       "bundleIdentifier": "com.fitlinez.eu",
       "buildNumber": "0.0.1",
+
       "supportsTablet": true,
+
       "infoPlist": {
-        "UIBackgroundModes": ["fetch"],
-        "LSApplicationQueriesSchemes": ["instagram"]
+        "NSHealthShareUsageDescription": "This app needs access to your step count data to help you track your fitness progress and set personalized activity goals.",
+        "NSHealthUpdateUsageDescription": "This app requires access to write health data, such as weight, to provide personalized insights.",
+        "NSHealthClinicalHealthRecordsShareUsageDescription": "This app needs access to your health data to provide better health insights."
       }
     },
     "android": {
@@ -60,8 +63,7 @@
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
         }
-      ],
-      "react-native-health"
+      ]
     ],
     "updates": {
       "url": "https://u.expo.dev/7819d490-9761-46a4-93c9-1c969843df38"

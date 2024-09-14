@@ -486,7 +486,8 @@ const i18nt = {
     trainerPlan: 'Trainer Plans',
     bookSession: 'Book Session',
     trainerslist: 'Trainers List',
-
+    walkingDistance: 'Walking + running Distance {{distance}} km',
+    activeEnergyBurned: 'Actvie Energy Burned',
     shareResultText:
       'hint: I have done {{dayName}} with {{brand}} App and Burned {{calories}} calorie(s) in {{minutes}} minute(s)',
     foodTextInputHint:
@@ -534,9 +535,17 @@ const i18nt = {
     find: 'Find',
     failedLoadImage: 'failed to load image',
     PremiumAlert: 'to use this service, please upgrade your account',
+    averageSteps: 'Avg of steps',
+    walkingDistancesingle: 'Walking Distances',
+    km: 'km',
   },
 
   fa: {
+    km: 'کیلومتر',
+    walkingDistancesingle: 'مسافت پیموده شده',
+    averageSteps: 'میانگین قدمها',
+    activeEnergyBurned: 'انرژی مصرف شده',
+    walkingDistance: 'مسافت پیموده شده {{distance}} کیلومتر',
     find: 'جستجو',
     totalServingSize: 'مقدار کل مصرف شده',
     RequestingCameraPermission: 'درخواست دسترسی به دوربین',

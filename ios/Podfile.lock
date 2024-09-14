@@ -193,7 +193,7 @@ PODS:
     - FBLazyVector (= 0.72.10)
     - RCTRequired (= 0.72.10)
     - React-Core (= 0.72.10)
-  - ReachabilitySwift (5.0.0)
+  - ReachabilitySwift (5.2.3)
   - React (0.72.10):
     - React-Core (= 0.72.10)
     - React-Core/DevSupport (= 0.72.10)
@@ -603,20 +603,6 @@ PODS:
     - React-Core
   - RNGestureHandler (2.12.1):
     - React-Core
-  - RNReanimated (3.15.0):
-    - RCT-Folly (= 2021.07.22.00)
-    - React-Core
-    - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated (= 3.15.0)
-    - RNReanimated/worklets (= 3.15.0)
-  - RNReanimated/reanimated (3.15.0):
-    - RCT-Folly (= 2021.07.22.00)
-    - React-Core
-    - ReactCommon/turbomodule/core
-  - RNReanimated/worklets (3.15.0):
-    - RCT-Folly (= 2021.07.22.00)
-    - React-Core
-    - ReactCommon/turbomodule/core
   - RNScreens (3.22.1):
     - React-Core
     - React-RCTImage
@@ -725,7 +711,6 @@ DEPENDENCIES:
   - "RNCCheckbox (from `../node_modules/@react-native-community/checkbox`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -920,8 +905,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-picker/picker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
-  RNReanimated:
-    :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSVG:
@@ -990,7 +973,7 @@ SPEC CHECKSUMS:
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: b4d3068afa6f52ec5260a8417053b1f1b421483d
   RCTTypeSafety: a4551b3d338c96435f63bf06d564055c1d3cc0ac
-  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  ReachabilitySwift: 7f151ff156cea1481a8411701195ac6a984f4979
   React: 66caa2a8192a35d7ba466a5fdf5dc06ee4a5f6dd
   React-callinvoker: e5b55e46894c2dd1bcdc19d4f82b0f7f631d1237
   React-Codegen: 0cf41e00026c5eba61f6bdcabd6e4bf659754f33
@@ -1028,7 +1011,6 @@ SPEC CHECKSUMS:
   RNCCheckbox: a3ca9978cb0846b981d28da4e9914bd437403d77
   RNCPicker: 0bc2f0a29abcca7b7ed44a2d036aac9ab6d25700
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
-  RNReanimated: 99dc2f42f156229421838b9ea612590f08acca6b
   RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   RNVectorIcons: bfb663f3f7b37340cd90120151b720641523dc84

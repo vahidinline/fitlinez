@@ -2,25 +2,43 @@ import React, { useEffect, useState } from 'react';
 import { Dimensions, View, ActivityIndicator, Text } from 'react-native';
 import { BarChart } from 'react-native-gifted-charts';
 import { Pedometer } from 'expo-sensors';
+import moment from 'moment'; // Import moment.js
+import 'moment/locale/fa'; // For Persian locale (if needed)
 import convertToPersianNumbers from '../../api/PersianNumber';
 
 const WeeklyStepChart = ({ RTL, theme, i18n }) => {
   const [barData, setBarData] = useState([]);
+  const [averageSteps, setAverageSteps] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchWeeklySteps = async () => {
       const today = new Date();
       const stepData = [];
-      const daysOfWeekLTR = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-      const daysOfWeekRTL = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
+      let totalSteps = 0;
 
-      const daysOfWeek = RTL ? daysOfWeekRTL : daysOfWeekLTR;
+      // Set locale for moment based on RTL
+      const locale = RTL ? 'fa' : 'en';
+      moment.locale(locale); // Apply locale
 
-      // Helper function to get the label based on the date and RTL setting
-      const getDayLabel = (date, daysArray) => {
-        const dayIndex = date.getDay(); // 0 (Sunday) to 6 (Saturday)
-        return daysArray[dayIndex];
+      const getDayLabel = (date) => {
+        return (
+          <View
+            style={{
+              marginHorizontal: 15,
+              padding: 4,
+              width: 20,
+            }}>
+            <Text
+              style={{
+                color: theme.colors.secondary,
+                fontSize: 8,
+                fontFamily: 'Vazirmatn',
+              }}>
+              {moment(date).format('ddd')}
+            </Text>
+          </View>
+        );
       };
 
       for (let i = 0; i < 7; i++) {
@@ -28,30 +46,19 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
         date.setDate(today.getDate() - i); // Go back i days from today
         const steps = await fetchStepsForDate(date);
 
-        // Determine if this bar represents today
         const isToday = date.toDateString() === today.toDateString();
 
         stepData.unshift({
           value: steps,
-          label: getDayLabel(date, daysOfWeek),
-          frontColor: isToday ? theme.colors.highlight : theme.colors.grey, // Highlight today's bar
-
-          topLabelComponent: () => (
-            <Text
-              style={{
-                color: isToday ? theme.colors.white : theme.colors.white,
-                fontSize: 12,
-
-                width: 150,
-                // top: 50,
-                fontFamily: 'Vazirmatn',
-                //   transform: [{ rotate: '90deg' }],
-              }}>
-              {convertToPersianNumbers(steps, RTL) + ' ' + i18n.t('steps')}
-            </Text>
-          ),
+          label: getDayLabel(date), // Use moment.js to get the day label
+          frontColor: isToday ? theme.colors.highlight : theme.colors.warning,
         });
+
+        totalSteps += steps; // Add steps for the day to total
       }
+
+      const average = totalSteps / 7; // Calculate average steps
+      setAverageSteps(average);
 
       setBarData(stepData);
       setLoading(false);
@@ -80,22 +87,25 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
       style={{
         marginHorizontal: 20,
         borderRadius: 14,
-        marginVertical: 0,
-        width: Dimensions.get('window').width / 1.5,
+        marginVertical: 10,
+        //width: Dimensions.get('window').width / 1.1,
       }}>
       <BarChart
         barWidth={16}
         noOfSections={4}
         barBorderRadius={4}
-        horizontal
         frontColor={theme.colors.secondary}
         data={barData}
         isAnimated
         yAxisThickness={0}
         xAxisThickness={0}
-        yAxisTextStyle={{ opacity: 0 }}
+        yAxisTextStyle={{
+          opacity: 1,
+          fontSize: 10,
+          color: theme.colors.secondary,
+        }}
         xAxisLabelTextStyle={{
-          fontSize: 12,
+          fontSize: 10,
           fontFamily: 'Vazirmatn',
           color: theme.colors.secondary,
         }}
@@ -106,6 +116,18 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
           color: theme.colors.secondary,
         }}
       />
+      <Text
+        style={{
+          marginTop: 10,
+          fontSize: 16,
+          color: theme.colors.secondary,
+          fontFamily: 'Vazirmatn',
+          textAlign: 'center',
+        }}>
+        {i18n.t('averageSteps')}
+        {': '}
+        {convertToPersianNumbers(Math.round(averageSteps), RTL)}
+      </Text>
     </View>
   );
 };
