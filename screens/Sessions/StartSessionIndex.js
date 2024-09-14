@@ -298,6 +298,7 @@ const StartSessionIndex = () => {
         RTL={RTL}
         userId={userId}
         theme={theme}
+        i18n={i18n}
       />
     </SafeAreaView>
   );

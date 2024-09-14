@@ -38,7 +38,7 @@ export default function StepcounterIndex() {
   const [pastStepCount, setPastStepCount] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);
   const [stepsPedo, setStepsPedo] = useState(0);
-  console.log('activeEnergy', activeEnergy);
+  //console.log('activeEnergy', activeEnergy);
   useEffect(() => {
     setStepsPedo(pastStepCount + currentStepCount);
   }, [pastStepCount, currentStepCount]);

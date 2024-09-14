@@ -1,8 +1,16 @@
 import { Button } from '@rneui/base';
 import React, { useEffect } from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  Modal,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import updatePlanDay from '../../api/changePlanDay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from '@rneui/themed';
 
 const DaySelectionModal = ({
   visible,
@@ -13,9 +21,10 @@ const DaySelectionModal = ({
   workoutTitle,
   RTL,
   userId,
+  theme,
+  i18n,
 }) => {
   const handleUpdateDay = async (day) => {
-    console.log('day', day);
     onSelectDay(day);
     try {
       const res = await updatePlanDay(userId, workoutTitle, day);
@@ -58,6 +67,7 @@ const DaySelectionModal = ({
   const getLocalPackageData = async () => {
     const data = await AsyncStorage.getItem('workoutsList');
     const parsedData = JSON.parse(data);
+
     console.log('parsedData', parsedData);
   };
 
@@ -76,6 +86,13 @@ const DaySelectionModal = ({
           <Text style={styles.modalSubTitle}>{workoutTitle}</Text>
           {daysOfWeek.map((day) => (
             <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: theme.colors.border,
+                borderRadius: 8,
+                width: Dimensions.get('window').width / 2,
+                margin: 4,
+              }}
               key={day.id}
               onPress={() => handleUpdateDay(day.name)}>
               <Text
@@ -87,7 +104,20 @@ const DaySelectionModal = ({
               </Text>
             </TouchableOpacity>
           ))}
-          <Button title="Close" onPress={onClose} />
+          <Button
+            buttonStyle={{
+              backgroundColor: theme.colors.secondary,
+              width: Dimensions.get('window').width / 2,
+              height: 40,
+              borderRadius: 8,
+              marginTop: 5,
+            }}
+            title={i18n.t('close')}
+            onPress={onClose}
+            titleStyle={{
+              fontFamily: 'Vazirmatn',
+            }}
+          />
         </View>
       </View>
     </Modal>
@@ -111,16 +141,20 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     marginBottom: 10,
+    fontFamily: 'Vazirmatn',
   },
   modalSubTitle: {
     fontSize: 16,
     marginBottom: 20,
+    fontFamily: 'Vazirmatn',
   },
   dayText: {
     fontSize: 16,
     marginVertical: 5,
+    fontFamily: 'Vazirmatn',
+    textAlign: 'center',
   },
   dayTextDisabled: {
     color: 'gray',

@@ -98,7 +98,7 @@ const useHealthData = (date) => {
         }
 
         // Log results to see the records array
-        console.log('Active Energy Results:', results);
+        //  console.log('Active Energy Results:', results);
 
         // Sum up the value fields from the array of results
         const totalActiveEnergy = results.reduce(
@@ -107,7 +107,7 @@ const useHealthData = (date) => {
         );
 
         setActiveEnergy(totalActiveEnergy);
-        console.log('Total Active Energy Burned:', totalActiveEnergy);
+        //c  console.log('Total Active Energy Burned:', totalActiveEnergy);
       }
     );
   }, [hasPermissions, date]);

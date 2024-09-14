@@ -124,8 +124,8 @@ function CurrentWorkoutCard({
         <DailyTaskIndex
           title={title}
           location={location}
-          // taskStatus={taskStatus}
-          // setTaskStatus={setTaskStatus}
+          taskStatus={taskStatus}
+          setTaskStatus={setTaskStatus}
         />
       </View>
     </View>

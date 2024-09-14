@@ -56,7 +56,7 @@ function DailyTaskList(item, { title }) {
         marginHorizontal: 5,
         height: Dimensions.get('window').height / 12,
         width: Dimensions.get('window').width / 1.2,
-        top: 50,
+        top: 60,
         //marginTop: 35,
         borderRadius: 16,
         borderColor: theme.colors.border,

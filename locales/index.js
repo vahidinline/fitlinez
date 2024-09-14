@@ -538,9 +538,11 @@ const i18nt = {
     averageSteps: 'Avg of steps',
     walkingDistancesingle: 'Walking Distances',
     km: 'km',
+    close: 'close',
   },
 
   fa: {
+    close: 'بستن',
     km: 'کیلومتر',
     walkingDistancesingle: 'مسافت پیموده شده',
     averageSteps: 'میانگین قدمها',

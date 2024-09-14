@@ -16,7 +16,7 @@ import { I18n } from 'i18n-js';
 import { useNavigation } from '@react-navigation/native';
 
 function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
-  // console.log('taskStatus', taskStatus);
+  console.log('taskStatus in daily index', taskStatus);
   const [dailyTasks, setDailyTasks] = useState([]);
   const { theme } = useTheme();
   const styles = getStyles(theme);
@@ -74,19 +74,17 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
       {taskStatus === 'noTasks' && (
         <View
           style={{
-            flexDirection: 'column',
+            //  flexDirection: 'column',
             //backgroundColor: theme.colors.background,
             marginHorizontal: 8,
             borderRadius: 14,
-            top: 20,
+            // top: 20,
             // borderColor: theme.colors.border,
             // borderWidth: 1,
           }}>
-          <Text style={styles.text}>
-            {/* {i18n.t('noTasksAvailable')} */}
-            {i18n.t('noTasksAvailable')}
-          </Text>
-          <View style={{ flexDirection: 'row' }}>
+          <View
+            style={{ flexDirection: 'column', position: 'absolute', top: 30 }}>
+            <Text style={styles.text}>{i18n.t('noTasksAvailable')}</Text>
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
@@ -100,32 +98,6 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
         </View>
       )}
       {/* {status === 'loading' && <CircleLoading />} */}
-      {status === 'noTasks' && taskStatus !== 'noTasks' && (
-        <View
-          style={{
-            flexDirection: 'column',
-            //  backgroundColor: theme.colors.background,
-            marginHorizontal: 8,
-            borderRadius: 14,
-            marginVertical: 5,
-            // borderColor: theme.colors.border,
-            // borderWidth: 1,
-          }}>
-          <Text style={styles.text}>
-            {/* {i18n.t('noTasksAvailable')} */}
-            {i18n.t('getTodaysTask')}
-          </Text>
-          <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                handleGetTodaysTask();
-              }}>
-              <Text style={styles.buttonTitle}>{i18n.t('retry')}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
 
       {dailyTasks?.slice(0, 1).map((item, i) => (
         <DailyTaskList key={i} item={item} i18n={i18n} title={title.title} />
@@ -138,7 +110,10 @@ export default DailyTaskIndex;
 
 const getStyles = (theme) =>
   StyleSheet.create({
-    container: {},
+    container: {
+      position: 'absolute',
+      bottom: 0,
+    },
 
     text: {
       color: theme.colors.warning,
@@ -147,6 +122,7 @@ const getStyles = (theme) =>
       marginVertical: 5,
       fontFamily: 'Vazirmatn',
       textAlign: 'center',
+      zIndex: 100,
     },
     buttonTitle: {
       color: theme.colors.secondary,
@@ -160,11 +136,11 @@ const getStyles = (theme) =>
     button: {
       backgroundColor: theme.colors.primary,
       borderRadius: 12,
-      paddingTop: 10,
-      width: Dimensions.get('window').width / 1.3,
-      marginHorizontal: 10,
+      paddingTop: 15,
+      width: Dimensions.get('window').width / 1.2,
+      marginHorizontal: 0,
       marginVertical: 5,
       height: Dimensions.get('window').height / 15,
-      //alignSelf: 'center',
+      alignSelf: 'center',
     },
   });

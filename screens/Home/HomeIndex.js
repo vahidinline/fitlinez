@@ -39,7 +39,7 @@ function HomeIndex() {
   const [status, setStatus] = useState('loading');
   const [taskStatus, setTaskStatus] = useState('idle');
   const [planName, setPlanName] = useState('');
-  console.log('status homeindex', status);
+  // console.log('status homeindex', status);
   const styles = getStyles(theme);
 
   // useEffect(() => {
@@ -48,17 +48,19 @@ function HomeIndex() {
 
   const onRefresh = useCallback(() => {
     // setRefreshing(true);
-    setStatus('loading');
+    setTaskStatus('loading');
     setTimeout(async () => {
       const result = await getNewTasks(userAuth.id, setTaskStatus);
       if (result) {
         //setModalVisible(true);
-        setStatus('hasPlan');
+        // setStatus('hasPlan');
       }
       //setRefreshing(false);
-      setStatus('hasPlan');
+      //setStatus('hasPlan');
     }, 3000);
   }, []);
+
+  //console.log('currentPlan', currentPlan);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
