@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Dimensions, View, ActivityIndicator, Text } from 'react-native';
 import { BarChart } from 'react-native-gifted-charts';
 import { Pedometer } from 'expo-sensors';
-import moment from 'moment'; // Import moment.js
-import 'moment/locale/fa'; // For Persian locale (if needed)
+import moment from 'moment';
+import 'moment/locale/fa';
 import convertToPersianNumbers from '../../api/PersianNumber';
 
 const WeeklyStepChart = ({ RTL, theme, i18n }) => {
   const [barData, setBarData] = useState([]);
   const [averageSteps, setAverageSteps] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [yAxisLabels, setYAxisLabels] = useState([]);
 
   useEffect(() => {
     const fetchWeeklySteps = async () => {
@@ -17,48 +18,43 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
       const stepData = [];
       let totalSteps = 0;
 
-      // Set locale for moment based on RTL
       const locale = RTL ? 'fa' : 'en';
-      moment.locale(locale); // Apply locale
+      moment.locale(locale);
 
-      const getDayLabel = (date) => {
-        return (
-          <View
+      const getDayLabel = (date) => (
+        <View style={{ marginHorizontal: 15, padding: 4, width: 20 }}>
+          <Text
             style={{
-              marginHorizontal: 15,
-              padding: 4,
-              width: 20,
+              color: theme.colors.secondary,
+              fontSize: 8,
+              fontFamily: 'Vazirmatn',
             }}>
-            <Text
-              style={{
-                color: theme.colors.secondary,
-                fontSize: 8,
-                fontFamily: 'Vazirmatn',
-              }}>
-              {moment(date).format('ddd')}
-            </Text>
-          </View>
-        );
-      };
+            {moment(date).format('ddd')}
+          </Text>
+        </View>
+      );
 
       for (let i = 0; i < 7; i++) {
         const date = new Date(today);
-        date.setDate(today.getDate() - i); // Go back i days from today
+        date.setDate(today.getDate() - i);
         const steps = await fetchStepsForDate(date);
 
         const isToday = date.toDateString() === today.toDateString();
 
         stepData.unshift({
           value: steps,
-          label: getDayLabel(date), // Use moment.js to get the day label
+          label: getDayLabel(date),
           frontColor: isToday ? theme.colors.highlight : theme.colors.warning,
         });
 
-        totalSteps += steps; // Add steps for the day to total
+        totalSteps += steps;
       }
 
-      const average = totalSteps / 7; // Calculate average steps
+      const average = totalSteps / 7;
       setAverageSteps(average);
+
+      const maxValue = Math.max(...stepData.map((data) => data.value));
+      setYAxisLabels(getYAxisLabels(maxValue, RTL).reverse()); // Reverse the order
 
       setBarData(stepData);
       setLoading(false);
@@ -66,13 +62,23 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
 
     const fetchStepsForDate = async (date) => {
       const start = new Date(date);
-      start.setHours(0, 0, 0, 0); // Start of the day
+      start.setHours(0, 0, 0, 0);
 
       const end = new Date(date);
-      end.setHours(23, 59, 59, 999); // End of the day
+      end.setHours(23, 59, 59, 999);
 
       const result = await Pedometer.getStepCountAsync(start, end);
       return result.steps;
+    };
+
+    const getYAxisLabels = (maxValue, RTL) => {
+      const labels = [];
+      const step = Math.ceil(maxValue / 4);
+      for (let i = 0; i <= 4; i++) {
+        const value = step * i;
+        labels.push(convertToPersianNumbers(value, RTL));
+      }
+      return labels;
     };
 
     fetchWeeklySteps();
@@ -84,38 +90,39 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
 
   return (
     <View
-      style={{
-        marginHorizontal: 20,
-        borderRadius: 14,
-        marginVertical: 10,
-        //width: Dimensions.get('window').width / 1.1,
-      }}>
-      <BarChart
-        barWidth={16}
-        noOfSections={4}
-        barBorderRadius={4}
-        frontColor={theme.colors.secondary}
-        data={barData}
-        isAnimated
-        yAxisThickness={0}
-        xAxisThickness={0}
-        yAxisTextStyle={{
-          opacity: 1,
-          fontSize: 10,
-          color: theme.colors.secondary,
-        }}
-        xAxisLabelTextStyle={{
-          fontSize: 10,
-          fontFamily: 'Vazirmatn',
-          color: theme.colors.secondary,
-        }}
-        hideRules
-        yAxisLabelTextStyle={{
-          fontSize: 12,
-          fontFamily: 'Vazirmatn',
-          color: theme.colors.secondary,
-        }}
-      />
+      style={{ marginHorizontal: 20, borderRadius: 14, marginVertical: 10 }}>
+      <View style={{ position: 'relative' }}>
+        <BarChart
+          barWidth={16}
+          noOfSections={4}
+          barBorderRadius={4}
+          frontColor={theme.colors.secondary}
+          data={barData}
+          isAnimated
+          yAxisThickness={0}
+          xAxisThickness={0}
+          yAxisTextStyle={{
+            opacity: 0,
+          }}
+          hideRules
+        />
+
+        {/* Render y-axis labels */}
+        {yAxisLabels.map((label, index) => (
+          <Text
+            key={index}
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: index * 40, // Adjust as needed based on sorted labels
+              fontSize: 12,
+              fontFamily: 'Vazirmatn',
+              color: theme.colors.secondary,
+            }}>
+            {label}
+          </Text>
+        ))}
+      </View>
       <Text
         style={{
           marginTop: 10,
@@ -124,8 +131,7 @@ const WeeklyStepChart = ({ RTL, theme, i18n }) => {
           fontFamily: 'Vazirmatn',
           textAlign: 'center',
         }}>
-        {i18n.t('averageSteps')}
-        {': '}
+        {i18n.t('averageSteps')} {': '}
         {convertToPersianNumbers(Math.round(averageSteps), RTL)}
       </Text>
     </View>
