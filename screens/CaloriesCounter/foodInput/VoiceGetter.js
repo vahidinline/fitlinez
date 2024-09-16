@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dimensions,
   View,
@@ -22,23 +22,38 @@ const VoiceGetter = ({
   const [recording, setRecording] = useState();
   const [startTime, setStartTime] = useState(null);
   const { theme } = useTheme();
-
-  const startRecording = async () => {
+  const [isPermission, setIsPermission] = useState(false);
+  const getPermission = async () => {
     try {
       await Audio.requestPermissionsAsync();
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
       });
-      const recording = new Audio.Recording();
-      await recording.prepareToRecordAsync(
-        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
-      );
-      console.log('Recording prepared successfully');
-      await recording.startAsync();
-      console.log('Recording started successfully');
-      setRecording(recording);
-      setStartTime(Date.now()); // Record the start time
+      setIsPermission(true);
+      // Record the start time
+    } catch (err) {
+      setIsPermission(false);
+      console.error('Failed to start recording', err);
+    }
+  };
+  useEffect(() => {
+    getPermission();
+  }, []);
+
+  const startRecording = async () => {
+    try {
+      if (isPermission) {
+        const recording = new Audio.Recording();
+        await recording.prepareToRecordAsync(
+          Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+        );
+        console.log('Recording prepared successfully');
+        await recording.startAsync();
+        console.log('Recording started successfully');
+        setRecording(recording);
+        setStartTime(Date.now()); // Record the start time
+      }
     } catch (err) {
       console.error('Failed to start recording', err);
     }

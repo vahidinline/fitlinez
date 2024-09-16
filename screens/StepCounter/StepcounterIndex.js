@@ -18,6 +18,7 @@ import convertToPersianNumbers from '../../api/PersianNumber';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import useHealthData from '../../api/userHealthData';
 import { useNavigation } from '@react-navigation/native';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default function StepcounterIndex() {
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
@@ -32,13 +33,13 @@ export default function StepcounterIndex() {
   const STEPS_GOAL = 10_000;
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
-  const { steps, flights, distance, activeEnergy, hasPermissions } =
+  const { steps, flights, distance, activeEnergy, hasPermissions, heartRate } =
     useHealthData(date);
 
   const [pastStepCount, setPastStepCount] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);
   const [stepsPedo, setStepsPedo] = useState(0);
-  //console.log('activeEnergy', activeEnergy);
+
   useEffect(() => {
     setStepsPedo(pastStepCount + currentStepCount);
   }, [pastStepCount, currentStepCount]);
@@ -101,14 +102,14 @@ export default function StepcounterIndex() {
             <View
               style={{
                 flexDirection: 'column',
-                width: '50%',
+
                 direction: RTL ? 'rtl' : 'ltr',
 
                 alignItems: 'center',
               }}>
               <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
               <Text style={styles.steps}>
-                {convertToPersianNumbers(stepsPedo, RTL)}
+                {convertToPersianNumbers(steps.toFixed(0), RTL)}
               </Text>
               {hasPermissions && (
                 <Text style={styles.text}>
@@ -126,6 +127,9 @@ export default function StepcounterIndex() {
                 {i18n.t('kcal')}
               </Text>
             </View>
+            {/* <Text style={styles.text}>
+              {heartRate !== null ? `${heartRate} bpm` : 'Loading...'}
+            </Text> */}
           </TouchableOpacity>
         </>
       ) : (

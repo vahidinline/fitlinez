@@ -55,8 +55,8 @@ function Aboutme() {
         userData[4]?.goalWeight || '',
         RTL
       )} ${i18n.t(userData[4]?.unit || '')}`.trim();
-      const activityLevel = userData[8]?.value || '';
-      const goal = userData[5]?.mainGoal || '';
+      const activityLevel = userData[8]?.title || '';
+      const goal = userData[5]?.value || '';
       const fitnessLevel = userData[7]?.value || '';
       const activityLevelValue = userData[8]?.value || 1; // Ensure this has a fallback value
       const daysPerWeek = convertToPersianNumbers(

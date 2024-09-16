@@ -37,8 +37,8 @@ export default function StepCounterMain() {
   const navigation = useNavigation();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const { steps, flights, distance, activeEnergy, hasPermissions } =
-    useHealthData(date);
+  const { steps, distance, activeEnergy, hasPermissions } = useHealthData(date);
+
   useEffect(() => {
     setStepsPedo(pastStepCount + currentStepCount);
   }, [pastStepCount, currentStepCount]);
@@ -103,7 +103,7 @@ export default function StepCounterMain() {
                   }}>
                   <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
                   <Text style={styles.steps}>
-                    {convertToPersianNumbers(stepsPedo, RTL)}
+                    {convertToPersianNumbers(steps.toFixed(0), RTL)}
                   </Text>
                 </View>
               </View>

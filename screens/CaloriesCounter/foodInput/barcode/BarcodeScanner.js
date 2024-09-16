@@ -145,7 +145,7 @@ export default function BarcodeScanner({
   };
 
   if (hasPermission === null) {
-    return <Text>{i18n.t('Requesting for camera permission')}</Text>;
+    return <Text>{i18n.t('Requestingforcamerapermission')}</Text>;
   }
   if (hasPermission === false) {
     return <Text>{i18n.t('NoAccessToCamera')}</Text>;

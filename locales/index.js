@@ -539,9 +539,11 @@ const i18nt = {
     walkingDistancesingle: 'Walking Distances',
     km: 'km',
     close: 'close',
+    Requestingforcamerapermission: 'Requesting for Camera Permission',
   },
 
   fa: {
+    Requestingforcamerapermission: 'در حال درخواست مجوز برای دسترسی به دوربین',
     close: 'بستن',
     km: 'کیلومتر',
     walkingDistancesingle: 'مسافت پیموده شده',
