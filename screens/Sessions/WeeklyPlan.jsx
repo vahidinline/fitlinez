@@ -21,7 +21,7 @@ import Header from '../../components/header';
 import DailyWorkloutListComponent from './dailyWorkloutListComponent';
 import { addSession } from '../../api/workoutSessionTracker';
 import AuthContext from '../../api/context';
-import { IconCloseCircle } from '../marketplace/filters/icons-';
+import { IconCloseCircle } from '../marketplace/filters/icons';
 import convertToPersianNumbers from '../../api/PersianNumber';
 
 const ButtonsheetComponent = ({
@@ -173,7 +173,7 @@ const WeeklyPlan = (props) => {
   const { userLanguage } = useContext(LanguageContext);
   const { weeklyPlan, dayName, title, baseLocation, planName } =
     props.route.params;
-
+  console.log('dayName', dayName);
   let isRTL = userLanguage === 'fa' ? true : false;
   const { theme } = useTheme();
   const [refreshing, setRefreshing] = useState(false);
@@ -268,7 +268,11 @@ const WeeklyPlan = (props) => {
         flex: 1,
         backgroundColor: theme.colors.background,
       }}>
-      <Header title={dayName} />
+      <Header
+        title={i18n.t('workoutPlanFor', {
+          dayName: i18n.t(dayName.toLowerCase()),
+        })}
+      />
       <View
         style={{
           flexDirection: 'row',
@@ -302,7 +306,7 @@ const WeeklyPlan = (props) => {
             style={{
               color: '#3F3B6C',
               fontSize: 15,
-              fontWeight: 'bold',
+              //fontWeight: 'bold',
               marginBottom: 20,
               marginHorizontal: 20,
               fontFamily: 'Vazirmatn',

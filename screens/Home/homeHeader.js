@@ -27,25 +27,19 @@ import UserPrivilegeContext from '../../api/userPrivilegeContext';
 import { getHeaderReport } from '../../api/headerReportAPI';
 import { useFonts } from 'expo-font';
 
-function HomeHeader({ planStartDate, data, title }) {
-  const { userAuth, setUserAuth } = useContext(AuthContext);
+function HomeHeader() {
+  const { userAuth } = useContext(AuthContext);
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const { theme } = useTheme();
   const [textMessage, setTextMessage] = useState('');
-  //console.log('textMessage', textMessage);
   const [activeAccount, setActiveAccount] = useState(true);
   const [status, setStatus] = useState('good');
-  const currentVersion = '7.0.7.8';
-  const userLocation = userAuth.location;
   const userLevel = userAuth.level;
   const userId = userAuth.id;
-  const Userplatform = Platform.OS;
   const { userPrivilege } = useContext(UserPrivilegeContext);
-  const [backgroundColor, setBackgroundColor] = useState(
-    theme.colors.lightPrimary
-  );
+  const [setBackgroundColor] = useState(theme.colors.lightPrimary);
   // useEffect(() => {
   //   const res = generateHeaderText(planStartDate, data, i18n, title);
   //   activeAccount && setTextMessage(res.message);

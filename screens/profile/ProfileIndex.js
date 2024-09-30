@@ -26,7 +26,7 @@ import {
   IconLogOut,
   IconInbox,
   IconLeaderboard,
-} from '../marketplace/filters/icons-';
+} from '../marketplace/filters/icons';
 import { UnitContext } from '../../api/unitContext';
 import moment from 'moment';
 import { IconWeight } from '../marketplace/filters/icons';

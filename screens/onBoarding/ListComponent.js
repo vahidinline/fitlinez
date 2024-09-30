@@ -50,9 +50,9 @@ function ListComponent({ data, isSelected, onSelect }) {
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
-              //alignItems: 'center',
+              alignItems: 'center',
               alignContent: 'center',
-              //alignItems: 'center',
+              alignItems: 'center',
               top: 20,
               //  marginLeft: 10,
             }}>
@@ -62,7 +62,8 @@ function ListComponent({ data, isSelected, onSelect }) {
                 alignItems: 'center',
                 alignContent: 'center',
                 alignSelf: 'center',
-                bottom: 5,
+
+                bottom: 0,
                 left: 0,
               }}>
               {item.icon && <item.icon />}

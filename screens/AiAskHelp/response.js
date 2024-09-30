@@ -33,14 +33,14 @@ function ChatResponse({
   return (
     <View
       style={{
-        padding: 10,
+        // padding: 10,
         marginBottom: 0,
         zIndex: 10,
-        backgroundColor: theme.colors.background,
+        backgroundColor: theme.colors.primary,
         opacity: isHide ? 0.5 : 1,
         borderRadius: 12,
-        borderColor: theme.colors.border,
-        borderWidth: 1,
+        // borderColor: theme.colors.border,
+        // borderWidth: 1,
         direction: isRTl ? 'rtl' : 'ltr',
         width: Dimensions.get('window').width / 1.15,
         marginHorizontal: 0,
@@ -51,9 +51,10 @@ function ChatResponse({
           justifyContent: 'space-between',
           alignItems: 'center',
           //justifyContent: 'center',
-          // backgroundColor: theme.colors.background,
-
-          marginTop: 0,
+          backgroundColor: theme.colors.secondary,
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 12,
+          padding: 5,
         }}>
         <View
           style={{
@@ -62,13 +63,13 @@ function ChatResponse({
             //justifyContent: 'center',
             marginTop: 0,
           }}>
-          <IconAi name="robot" size={24} color={theme.colors.secondary} />
+          <IconAi name="robot" size={24} color={theme.colors.background} />
 
           <Text
             style={{
               fontSize: 12,
               fontWeight: '500',
-              color: theme.colors.text,
+              color: theme.colors.background,
               textAlign: 'center',
               marginHorizontal: 10,
               fontFamily: 'Vazirmatn',
@@ -89,11 +90,11 @@ function ChatResponse({
             <IconMinimize
               name="close"
               size={24}
-              color={theme.colors.secondary}
+              color={theme.colors.background}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setStatus('notstarted')}>
-            <Iconclose name="close" size={24} color={theme.colors.secondary} />
+            <Iconclose name="close" size={24} color={theme.colors.background} />
           </TouchableOpacity>
         </View>
       </View>
@@ -103,7 +104,7 @@ function ChatResponse({
             //justifyContent: 'center',
             // paddingBottom: 50,
             // alignItems: 'center',
-            backgroundColor: theme.colors.background,
+            backgroundColor: theme.colors.primary,
             padding: 10,
             // height: Dimensions.get('window').height / 3,
             // width: Dimensions.get('window').width / 1.2,

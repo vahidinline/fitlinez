@@ -22,6 +22,7 @@ import convertToPersianNumbers from '../../api/PersianNumber';
 import { Skeleton } from '@rneui/base';
 import { LinearGradient } from 'react-native-svg';
 import ShareWorkoutSession from './share';
+import Header from '../../components/header';
 
 const CustomReport = () => {
   const { userLanguage } = useContext(LanguageContext);
@@ -86,6 +87,7 @@ const CustomReport = () => {
                   borderColor: theme.colors.secondary,
                   // top: Platform.OS === 'ios' ? 30 : 40,
                 }}>
+                <Header title={i18n.t('report')} />
                 <View
                   style={{
                     flexDirection: 'column',
@@ -122,7 +124,7 @@ const CustomReport = () => {
                         LinearGradientComponent={LinearGradient}
                         animation="wave"
                         width={Dimensions.get('window').width / 1.1}
-                        height={Dimensions.get('window').height / 4}
+                        height={Dimensions.get('window').height}
                       />
                     </View>
                   )}

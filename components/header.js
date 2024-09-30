@@ -11,7 +11,7 @@ import {
 import { Button, Icon, Text } from '@rneui/themed';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@rneui/themed';
-import { IconArrowLeft } from '../screens/marketplace/filters/icons-';
+import { IconArrowLeft } from '../screens/marketplace/filters/icons';
 import LanguageContext from '../api/langcontext';
 
 function Header({ title, rightIconPress, left, color }) {

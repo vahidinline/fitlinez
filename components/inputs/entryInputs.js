@@ -32,8 +32,16 @@ const FloatingPlaceholderInput = (props) => {
           onChangeText={handleChangeText}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          type={props.type}
           //placeholder={props.placeholder}
           secureTextEntry={props.secureTextEntry}
+          keyboardType={props.keyboardType}
+          autoCapitalize="none"
+          autoCorrect={false}
+          autoComplete="off"
+          autoFocus={true}
+          returnKeyType="done"
+          blurOnSubmit={true}
         />
         {props.type === 'password' && (
           <View style={styles.eyeIcon}>
@@ -41,7 +49,8 @@ const FloatingPlaceholderInput = (props) => {
               onPress={() => props.setShowPass((prev) => !prev)}
               name={!props.showPass ? 'eye' : 'eye-slash'}
               type="font-awesome"
-              size={20}
+              size={30}
+              style={{}}
               color={theme.colors.secondary}
             />
           </View>
@@ -66,12 +75,13 @@ const getStyles = (theme) =>
       margin: 20,
     },
     input: {
-      height: 40,
+      height: 60,
       borderColor: 'gray',
-      borderWidth: 0.2,
+      borderWidth: 0.5,
       paddingLeft: 10,
       borderRadius: 8,
       width: '100%',
+      fontSize: 20,
       // fontFamily: 'Vazirmatn',
     },
     eyeIcon: {

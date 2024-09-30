@@ -365,8 +365,9 @@ function SignUpIndex(props) {
               containerStyle={{
                 marginVertical: 15,
                 backgroundColor: theme.colors.warning,
-                borderColor: theme.colors.error,
-                borderRadius: 8,
+                //
+                //  borderColor: theme.colors.error,
+                // borderRadius: 8,
               }}
             />
           )}

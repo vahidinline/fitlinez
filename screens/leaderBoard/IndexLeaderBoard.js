@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Header from '../../components/header';
 import { useTheme } from '@rneui/themed';
-import { IconMedal, IconPremium } from '../marketplace/filters/icons-';
+import { IconMedal, IconPremium } from '../marketplace/filters/icons';
 import TopUsers from './lists/TopUsers';
 import ListItems from './lists/allList';
 import api from '../../api/api';

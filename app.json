@@ -2,7 +2,7 @@
   "expo": {
     "name": "fitlinez",
     "slug": "fitlinez",
-    "version": "40.0.6",
+    "version": "40.0.9",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",

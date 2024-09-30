@@ -421,7 +421,7 @@ const getStyles = (theme, RTL) =>
       borderColor: theme.colors.border,
       borderRadius: 16,
       padding: 5,
-      height: Dimensions.get('window').height / 4,
+      height: Dimensions.get('window').height / 3,
       width: Dimensions.get('window').width / 2 - 50,
       alignContent: 'center',
       justifyContent: 'center',

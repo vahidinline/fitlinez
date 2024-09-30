@@ -2,7 +2,7 @@ import { Button, Text, useTheme } from '@rneui/themed';
 import React, { useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import { Card } from 'react-native-paper';
-import { IconFemale, IconMale } from '../marketplace/filters/icons-';
+import { IconFemale, IconMale } from '../marketplace/filters/icons';
 
 function GenderSelection({ onGenderSelect, i18n }) {
   const { theme } = useTheme();
@@ -68,21 +68,21 @@ function GenderSelection({ onGenderSelect, i18n }) {
               <View
                 style={{
                   flexDirection: 'row',
-                  justifyContent: 'flex-start',
+                  justifyContent: 'center',
                   alignItems: 'center',
                   alignContent: 'center',
-                  alignItems: 'center',
-                  top: 15,
+
+                  // top: 15,
                   marginLeft: 10,
                 }}>
-                <item.icon
+                {/* <item.icon
                   style={[
                     styles.icon,
                     {
                       color: theme.colors.secondary,
                     },
                   ]}
-                />
+                /> */}
                 <Text style={styles.text}>{item.title}</Text>
               </View>
             </Card>
@@ -121,6 +121,13 @@ const getStyles = (theme) =>
       fontWeight: '500',
       marginLeft: 10,
       fontFamily: 'Vazirmatn',
+      alignSelf: 'center',
+      alignContent: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      top: 20,
+      textTransform: 'capitalize',
+
       //justifyContent: 'flex-start',
     },
     title: {

@@ -133,10 +133,10 @@ function DailyReport({ userId }) {
       <View
         style={{
           borderBottomColor: 'grey',
-          paddingBottom: 5,
+          //paddingBottom: 5,
           borderBottomWidth: 1,
-          paddingHorizontal: 10,
-          marginTop: 10,
+          paddingHorizontal: 5,
+          // marginTop: 10,
         }}>
         <Text
           style={{
@@ -173,7 +173,7 @@ function DailyReport({ userId }) {
           {status === 'success' && (
             <View
               style={{
-                marginBottom: 15,
+                marginBottom: 25,
               }}>
               <View style={styles.baseContainer}>
                 <Text style={styles.caloriesText}>
@@ -244,7 +244,7 @@ const getStyles = (theme, RTL) =>
       //padding: 30,
       borderRadius: 14,
       width: Dimensions.get('window').width / 1.1,
-      marginVertical: 10,
+      //  marginVertical: 10,
       // minHeight: Dimensions.get('window').height / 5,
       flex: 1,
 

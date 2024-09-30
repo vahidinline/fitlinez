@@ -169,6 +169,7 @@ const useHealthData = (date) => {
     activeEnergy,
     hasPermissions,
     heartRate,
+    setHasPermission,
   };
 };
 

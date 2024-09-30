@@ -39,8 +39,8 @@ const TrainerItem = ({ item }) => {
           }}>
           <Text
             style={{
-              fontSize: 14,
-              fontWeight: 'bold',
+              fontSize: 12,
+              //fontWeight: 'bold',
               // marginTop: 10,
               padding: 3,
               fontFamily: 'Vazirmatn',

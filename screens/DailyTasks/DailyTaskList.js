@@ -26,22 +26,22 @@ function DailyTaskList(item, { title }) {
   const isRTL = userLanguage === 'fa';
 
   const handleNextStep = () => {
-    // if (userLevel === 4) {
-    // condition 1
-    navigation.navigate('SessionNavigator', {
-      screen: 'StartSessionIndex',
-      params: { title: title },
-    });
-    // } else if (userPrivilege) {
-    // condition 1
-    //  navigation.navigate('SessionNavigator', {
-    //    screen: 'StartSessionIndex',
-    //    params: { title: title, location: location },
-    //  });
-    // } else {
-    // condition 2
-    //   navigation.navigate('Upgrade');
-    // }
+    if (userLevel === 4) {
+      // condition 1
+      navigation.navigate('SessionNavigator', {
+        screen: 'StartSessionIndex',
+        params: { title: title },
+      });
+    } else if (userPrivilege) {
+      // condition 1
+      navigation.navigate('SessionNavigator', {
+        screen: 'StartSessionIndex',
+        params: { title: title, location: location },
+      });
+    } else {
+      //condition 2
+      navigation.navigate('Upgrade');
+    }
   };
 
   return (
@@ -50,18 +50,18 @@ function DailyTaskList(item, { title }) {
       style={{
         position: 'absolute',
         // direction: isRTL ? 'rtl' : 'ltr',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+
         backgroundColor: theme.colors.background,
         marginHorizontal: 5,
         height: Dimensions.get('window').height / 12,
         width: Dimensions.get('window').width / 1.2,
-        top: 60,
+        top: 40,
         //marginTop: 35,
+        alignItems: 'center',
         borderRadius: 16,
-        borderColor: theme.colors.border,
-        borderWidth: 1,
-        padding: 10,
+        paddingVertical: 5,
+        // borderColor: theme.colors.border,
+        // borderWidth: 1,
       }}>
       <View
         style={{

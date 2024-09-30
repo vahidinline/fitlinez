@@ -34,10 +34,10 @@ function GenerateWorkout({ userId }) {
             fontFamily: 'Vazirmatn',
             paddingHorizontal: 5,
           }}>
-          {status}
-          {/* {status === 'error' && <IconHigherPerformance />}
+          Ask AI to generate Plan
+          {status === 'error' && <IconHigherPerformance />}
           {status === 'loading' && <IconLoading />}
-          {status === 'success' && 'موفقیت'} */}
+          {status === 'success' && 'موفقیت'}
         </Text>
       </Button>
     </View>

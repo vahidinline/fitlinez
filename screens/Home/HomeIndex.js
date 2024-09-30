@@ -25,7 +25,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { getNewTasks } from '../../api/getNewTasks';
 import StepcounterIndex from '../StepCounter/StepcounterIndex';
 import { IconWalking } from '../marketplace/filters/icons';
-import { Skeleton } from '@rneui/base';
+
 import FitlinezLoading from '../../components/FitlinezLoading';
 function HomeIndex() {
   const [refreshing, setRefreshing] = useState(false);
@@ -125,32 +125,7 @@ function HomeIndex() {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        {status === 'loading' && (
-          <FitlinezLoading />
-          // <View
-          //   style={{
-          //     flex: 1,
-          //     justifyContent: 'center',
-          //     alignItems: 'center',
-          //     backgroundColor: theme.colors.background,
-          //     marginHorizontal: 20,
-          //     marginVertical: 20,
-          //     borderRadius: 14,
-          //   }}>
-          //   <Skeleton
-          //     skeletonStyle={{
-          //       borderRadius: 16,
-          //       marginVertical: 10,
-          //       marginHorizontal: 10,
-          //       backgroundColor: theme.colors.background,
-          //     }}
-          //     LinearGradientComponent={LinearGradient}
-          //     animation="wave"
-          //     width={Dimensions.get('window').width / 1.1}
-          //     height={Dimensions.get('window').height / 4}
-          //   />
-          //</View>
-        )}
+        {status === 'loading' && <FitlinezLoading />}
 
         {status === 'hasPlan' && (
           <View style={styles.box}>
@@ -189,7 +164,6 @@ function HomeIndex() {
             </View>
           </View>
         )}
-
         <View style={styles.box}>
           <View
             style={{
@@ -217,7 +191,7 @@ function HomeIndex() {
             borderRadius: 14,
             marginVertical: 0,
 
-            top: 10,
+            //top: 10,
           }}>
           <LinearGradient
             colors={['#5B5891', '#3A366F', '#17124a']}
@@ -265,7 +239,7 @@ function HomeIndex() {
                   alignItems: 'center',
                   marginVertical: 20,
                   height: Dimensions.get('window').height / 4,
-                  backgroundColor: theme.colors.grey2,
+                  // backgroundColor: theme.colors.grey2,
                 }}>
                 <View>
                   <IconWalking size={72} />

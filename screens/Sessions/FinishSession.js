@@ -239,7 +239,46 @@ const FinishSession = (props) => {
               text={i18n.t('hiestPerformanceText')}
             />
           </View>
-
+          <View>
+            {burnedCalories && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  // width: Dimensions.get('window').width / 1.1,
+                  // top: Dimensions.get('window').height / 3.5,
+                  height: 50,
+                  borderWidth: 1,
+                  borderColor: theme.colors.border,
+                  borderRadius: 16,
+                  alignItems: 'center',
+                  marginTop: 15,
+                }}>
+                <Text
+                  style={{
+                    color: theme.colors.secondary,
+                    fontSize: PixelRatio.get() < 3 ? 10 : 12,
+                    fontFamily: 'Vazirmatn',
+                  }}>
+                  {i18n.t('burnedCalories')}
+                </Text>
+                <Text>:</Text>
+                <Text
+                  style={{
+                    color: theme.colors.secondary,
+                    fontSize: PixelRatio.get() < 3 ? 10 : 12,
+                    fontFamily: 'Vazirmatn',
+                  }}>
+                  {convertToPersianNumbers(
+                    burnedCalories.totalCaloriesBurned.toFixed(0),
+                    RTL
+                  )}{' '}
+                  {i18n.t('calories')}
+                </Text>
+                <IconFire />
+              </View>
+            )}
+          </View>
           <View
             style={{
               flexDirection: 'row',
@@ -264,26 +303,7 @@ const FinishSession = (props) => {
                 <Divider style={styles.divider} />
               </>
             )}
-            {burnedCalories && (
-              <View style={styles.view}>
-                <Text style={styles.title}>
-                  {convertToPersianNumbers(
-                    burnedCalories.totalCaloriesBurned.toFixed(0),
-                    RTL
-                  )}{' '}
-                  <IconFire />
-                </Text>
 
-                <Text
-                  style={{
-                    color: theme.colors.secondary,
-                    fontSize: PixelRatio.get() < 3 ? 10 : 12,
-                  }}>
-                  {i18n.t('burnedCalories')}
-                </Text>
-              </View>
-            )}
-            <Divider style={styles.divider} />
             <View style={styles.view}>
               <Text style={styles.title}>{formatTime(timeSpent, RTL)}</Text>
               <Text style={styles.subtitle}>{i18n.t('sessionDuration')}</Text>
@@ -295,7 +315,7 @@ const FinishSession = (props) => {
         style={{
           position: 'absolute',
           bottom: 0,
-          top: Dimensions.get('window').height / 1.1,
+          top: Dimensions.get('window').height / 1.2,
           width: Dimensions.get('window').width / 1.2,
           // alignSelf: 'center',
           height: 100,

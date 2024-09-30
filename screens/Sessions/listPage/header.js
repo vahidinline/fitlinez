@@ -1,8 +1,9 @@
 import { Icon, useTheme } from '@rneui/themed';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Text } from '@rneui/themed';
 import SessionTimer from '../../timer/sessionTimer';
 import { Dimensions, View } from 'react-native';
+import useHealthData from '../../../api/userHealthData';
 
 function HeaderListPage({
   stoptimer,
@@ -15,6 +16,7 @@ function HeaderListPage({
 }) {
   console.log('header item title of plan', category);
   const { theme } = useTheme();
+
   return (
     <View
       style={{

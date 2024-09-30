@@ -6,7 +6,7 @@ import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import { View, Text } from 'react-native';
 import SvgComponentOne from './assetss/one';
 import api from '../../api/api';
-function StepOne({ setEmail, email, handleSubmit, status }) {
+function StepOne({ setEmail, email, handleSubmit, status, i18n }) {
   const { theme } = useTheme();
   const [btnDisable, setBtnDisable] = useState(true);
 
@@ -37,65 +37,74 @@ function StepOne({ setEmail, email, handleSubmit, status }) {
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
       }}>
-      <ScrollView>
-        <View
+      {/* <ScrollView> */}
+      <View
+        style={{
+          alignSelf: 'center',
+          marginTop: Dimensions.get('window').height / 8,
+          marginBottom: 20,
+          width: 100,
+          height: 100,
+          borderRadius: 100,
+          // backgroundColor: theme.colors.text,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <SvgComponentOne />
+      </View>
+      <View
+        style={{
+          width: '90%',
+          height: 100,
+          alignSelf: 'center',
+          marginTop: 40,
+        }}>
+        <Text
           style={{
+            fontSize: 15,
+            //fontWeight: 'bold',
             alignSelf: 'center',
-            marginTop: Dimensions.get('window').height / 8,
             marginBottom: 20,
-            width: 100,
-            height: 100,
-            borderRadius: 100,
-            // backgroundColor: theme.colors.text,
-            justifyContent: 'center',
-            alignItems: 'center',
+            fontFamily: 'Vazirmatn',
           }}>
-          <SvgComponentOne />
-        </View>
-        <View
-          style={{
-            width: '90%',
-            height: 100,
-            alignSelf: 'center',
-            marginTop: 40,
-          }}>
-          <Text
-            style={{
-              fontSize: 15,
-              //fontWeight: 'bold',
-              alignSelf: 'center',
-              marginBottom: 20,
-            }}>
-            Enter your Email Address to receive verification code.
-          </Text>
-          <Input
-            type="email"
-            keyboardType="email-address"
-            returnKeyType="done"
-            inputContainerStyle={{
-              borderWidth: 0.5,
-              borderRadius: 8,
-              paddingStart: 10,
-            }}
-            inputStyle={styles.input}
-            labelStyle={styles.label}
-            onChangeText={emailValidate}
-            //onChangeText={(e) => setEmail(e)}
-            // value={email}
-          />
-          <Button
-            disabled={btnDisable}
-            onPress={() => handleSubmit()}
-            buttonStyle={{
-              backgroundColor: theme.colors.button,
-              borderRadius: 8,
-              width: Dimensions.get('window').width / 1.2,
-              marginHorizontal: 15,
-            }}
-            title="Submit"
-          />
-        </View>
-      </ScrollView>
+          {i18n.t('enteremail')}
+        </Text>
+        <Input
+          type="email"
+          keyboardType="email-address"
+          returnKeyType="done"
+          inputStyle={{
+            borderWidth: 0.5,
+            borderRadius: 8,
+            paddingStart: 10,
+            height: 60,
+            bottom: 10,
+          }}
+          labelStyle={styles.label}
+          onChangeText={emailValidate}
+          //onChangeText={(e) => setEmail(e)}
+          // value={email}
+        />
+        <Button
+          disabled={btnDisable}
+          onPress={() => handleSubmit()}
+          buttonStyle={{
+            backgroundColor: theme.colors.button,
+            borderRadius: 8,
+            width: Dimensions.get('window').width / 1.2,
+            marginTop: 15,
+            marginHorizontal: 20,
+          }}
+          titleStyle={{
+            fontSize: 16,
+            //fontWeight: 'bold',
+            color: '#fff',
+            fontFamily: 'Vazirmatn',
+          }}
+          title={i18n.t('submit')}
+        />
+      </View>
+      {/* </ScrollView> */}
       {/* <View
         style={{
           position: 'absolute',
@@ -123,13 +132,13 @@ function StepOne({ setEmail, email, handleSubmit, status }) {
 
 const styles = StyleSheet.create({
   label: {
-    marginBottom: -8,
+    //marginBottom: -8,
     marginLeft: 10,
     fontSize: 14,
   },
 
   input: {
-    paddingVertical: 10, // Adjust as needed
+    // paddingVertical: 10, // Adjust as needed
   },
 });
 

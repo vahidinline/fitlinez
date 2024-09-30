@@ -5,7 +5,7 @@ import {
   Icon8,
   IconHomeFocused,
   IconWeight,
-} from '../marketplace/filters/icons-';
+} from '../marketplace/filters/icons';
 import ListComponent from './ListComponent';
 
 function LocationSelection({ onLocationSelect, i18n }) {

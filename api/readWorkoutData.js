@@ -35,7 +35,7 @@ const readWorkoutData = async () => {
       //   'workoutPlanData in readWorkoutdata',
       //   workoutPlanData.weeklyPlan
       // );
-
+      console.log('weeklyPlan', weeklyPlan, planName, location, packageId);
       return { weeklyPlan, planName, location, packageId };
     } else {
       console.log('No data in AsyncStorage');

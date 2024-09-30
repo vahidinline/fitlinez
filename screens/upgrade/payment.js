@@ -107,7 +107,7 @@ function ConfirmPayment() {
           <Text
             style={{
               fontSize: 16,
-              fontWeight: '700',
+              // fontWeight: '700',
               margin: 10,
               textAlign: 'center',
               fontFamily: 'Vazirmatn',
@@ -117,7 +117,7 @@ function ConfirmPayment() {
           <Text
             style={{
               fontSize: 16,
-              fontWeight: '700',
+              // fontWeight: '700',
               margin: 10,
               textAlign: 'center',
               fontFamily: 'Vazirmatn',
@@ -135,7 +135,7 @@ function ConfirmPayment() {
           <Text
             style={{
               fontSize: 16,
-              fontWeight: '700',
+              //  fontWeight: '700',
               margin: 10,
               textAlign: 'center',
               fontFamily: 'Vazirmatn',

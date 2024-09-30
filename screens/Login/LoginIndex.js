@@ -90,7 +90,7 @@ function LoginIndex(props) {
               setStatus('success');
               authContext.setUserAuth(user);
               authStorage.storeToken(user);
-              console.log('user data in login', user);
+              // console.log('user data in login', user);
               // Store email and password
               AsyncStorage.setItem('email', email);
               AsyncStorage.setItem('password', password);
@@ -202,6 +202,7 @@ function LoginIndex(props) {
             onChangeText={emailValidate}
             // ref={emailInputRef}
             type="email"
+            keyboardType="email-address"
           />
           <FloatingPlaceholderInput
             secureTextEntry={!showPass}
@@ -211,10 +212,35 @@ function LoginIndex(props) {
             onChangeText={passwordValidate}
             setShowPass={setShowPass}
             showPass={showPass}
+            keyboardType="default"
             //  ref={passwordInputRef}
             type="password"
           />
-
+          {status === 'error' && (
+            <Chip
+              title={errorMessage}
+              icon={{
+                name: 'alert-circle',
+                type: 'material-community',
+                size: 20,
+                color: theme.colors.primary,
+              }}
+              onPress={() => setStatus('idle')}
+              titleStyle={{
+                color: theme.colors.primary,
+                fontSize: 14,
+                textAlign: 'left',
+                fontFamily: 'Vazirmatn',
+              }}
+              type="outline"
+              containerStyle={{
+                marginVertical: 15,
+                backgroundColor: theme.colors.warning,
+                //  borderColor: theme.colors.error,
+                borderRadius: 8,
+              }}
+            />
+          )}
           <Button
             loading={status === 'loading'}
             type="outline"
@@ -256,31 +282,6 @@ function LoginIndex(props) {
               {i18n.t('ForgotPassword')}
             </Text>
           </View>
-          {status === 'error' && (
-            <Chip
-              title={errorMessage}
-              icon={{
-                name: 'alert-circle',
-                type: 'material-community',
-                size: 20,
-                color: theme.colors.primary,
-              }}
-              titleStyle={{
-                color: theme.colors.primary,
-                fontSize: 14,
-                fontWeight: 'bold',
-                textAlign: 'left',
-                fontFamily: 'Vazirmatn',
-              }}
-              type="outline"
-              containerStyle={{
-                marginVertical: 15,
-                backgroundColor: theme.colors.warning,
-                borderColor: theme.colors.error,
-                borderRadius: 8,
-              }}
-            />
-          )}
         </View>
 
         <View

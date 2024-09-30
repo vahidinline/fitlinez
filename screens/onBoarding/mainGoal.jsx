@@ -91,8 +91,9 @@ const getStyles = (theme) =>
       marginLeft: 10,
       alignContent: 'center',
       alignItems: 'center',
-      top: 10,
+      top: 20,
       fontFamily: 'Vazirmatn',
+      textTransform: 'capitalize',
     },
     title: {
       color: theme.colors.secondary,

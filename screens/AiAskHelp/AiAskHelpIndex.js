@@ -90,6 +90,7 @@ function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId, userLevel }) {
     <View
       style={{
         //flex: 1,
+
         height: Dimensions.get('window').height / 15,
         // paddingBottom: 50,
       }}>
@@ -129,7 +130,8 @@ function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId, userLevel }) {
             <IconQuestion
               name="robot"
               size={32}
-              color={theme.colors.secondary}
+              color={theme.colors.white}
+              fill={theme.colors.secondary}
             />
           </TouchableOpacity>
         )}

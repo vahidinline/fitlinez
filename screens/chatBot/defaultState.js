@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconAi } from '../marketplace/filters/icons-';
+import { IconAi } from '../marketplace/filters/icons';
 import { Text } from '@rneui/themed';
 import { Dimensions, View } from 'react-native';
 

@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { sendInitialReq } from '../../../api/sendFoodQuery';
 import { Button } from '@rneui/base';

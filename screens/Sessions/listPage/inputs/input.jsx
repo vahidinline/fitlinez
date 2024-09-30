@@ -134,7 +134,7 @@ function WeightAndSetsInput(props) {
             }}
             skin="clean"
             //rounded={false}
-          >
+            returnKeyType="done">
             <Text style={styles.label}>{postfixkg}</Text>
           </InputSpinner>
 
@@ -167,6 +167,7 @@ function WeightAndSetsInput(props) {
               borderColor: theme.colors.border,
               marginStart: 0,
             }}
+            returnKeyType="done"
             skin="clean">
             <Text style={styles.label}>{postfixrep}</Text>
           </InputSpinner>

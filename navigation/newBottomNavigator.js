@@ -6,12 +6,11 @@ import { useContext } from 'react';
 import { useTheme } from '@rneui/themed';
 import HomeIndex from '../screens/Home/HomeIndex';
 import CustomReport from '../screens/customReport';
-import MsgContext from '../api/messageContext';
 import SettingNavigator from './settingNavigator';
 import ProfileNavigator from './profileNavigator';
+import { BlurView } from 'expo-blur';
+
 import {
-  IconCakeFocused,
-  IconCakeUnFocused,
   IconHomeFocused,
   IconHomeUnFocused,
   IconProfileFocused,
@@ -20,10 +19,12 @@ import {
   IconSettingsUnFocused,
   IconStatsFocused,
   IconStatsUnFocused,
+  IconWeight,
   IconWeightScale,
 } from '../screens/marketplace/filters/icons';
-import CaloriesIndex from '../screens/Calories/CaloriesIndex';
 import CaloriesNavigator from './CaloriesNavigator';
+import SessionNavigator from './SessionNavigator';
+import { StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +32,6 @@ function TabNavigator() {
   const { theme } = useTheme();
   const i18n = new I18n(i18nt);
   const { userLanguage } = useContext(LanguageContext);
-  const { msg } = useContext(MsgContext);
 
   i18n.locale = userLanguage;
   return (
@@ -39,10 +39,7 @@ function TabNavigator() {
       initialRouteName="HomePage"
       screenOptions={{
         //linderGradient
-        backgroundColor: {
-          flex: 1,
-          backgroundColor: theme.colors.black,
-        },
+        backgroundColor: 'red',
         tabBarIndicatorStyle: {
           backgroundColor: '#00BB23',
           height: 3,
@@ -60,20 +57,7 @@ function TabNavigator() {
       activeColor={theme.colors.white}
       inactiveColor={theme.colors.grey0}
       barStyle={{ backgroundColor: 'transparent' }}>
-      <Tab.Screen
-        swipEnabled={false}
-        style={{ fontFamily: 'Vazirmatn' }}
-        name="Settings"
-        component={SettingNavigator}
-        options={{
-          headerShown: false,
-          title: i18n.t('settings'),
-          tabBarIcon: ({ focused }) =>
-            focused ? <IconSettingsFocused /> : <IconSettingsUnFocused />,
-        }}
-      />
-
-      <Tab.Screen
+      {/* <Tab.Screen
         swipEnabled={false}
         name="CustomReport"
         component={CustomReport}
@@ -83,7 +67,7 @@ function TabNavigator() {
           tabBarIcon: ({ focused }) =>
             !focused ? <IconStatsUnFocused /> : <IconStatsFocused />,
         }}
-      />
+      /> */}
 
       <Tab.Screen
         name="HomePage"
@@ -111,17 +95,17 @@ function TabNavigator() {
             ),
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         swipEnabled={false}
-        name="DailyTaskIndex"
-        component={DailyTaskIndex}
+        name="SessionNavigator"
+        component={SessionNavigator}
         options={{
           headerShown: false,
-          title: i18n.t('todayTasks'),
+          title: i18n.t('todaysWorkout'),
           tabBarIcon: ({ focused }) =>
-            !focused ? <IconToDoList /> : <IconToDoList color={'#292D32'} />,
+            !focused ? <IconWeight /> : <IconWeight fill={'#5B5891'} />,
         }}
-      /> */}
+      />
       <Tab.Screen
         swipEnabled={false}
         name="profileNavigator"
@@ -135,6 +119,18 @@ function TabNavigator() {
           },
           tabBarIcon: ({ focused }) =>
             !focused ? <IconProfileUnFocused /> : <IconProfileFocused />,
+        }}
+      />
+      <Tab.Screen
+        swipEnabled={false}
+        style={{ fontFamily: 'Vazirmatn' }}
+        name="Settings"
+        component={SettingNavigator}
+        options={{
+          headerShown: false,
+          title: i18n.t('settings'),
+          tabBarIcon: ({ focused }) =>
+            focused ? <IconSettingsFocused /> : <IconSettingsUnFocused />,
         }}
       />
     </Tab.Navigator>

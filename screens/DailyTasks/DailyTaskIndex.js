@@ -83,7 +83,7 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
             // borderWidth: 1,
           }}>
           <View
-            style={{ flexDirection: 'column', position: 'absolute', top: 30 }}>
+            style={{ flexDirection: 'column', position: 'absolute', top: 10 }}>
             <Text style={styles.text}>{i18n.t('noTasksAvailable')}</Text>
             <TouchableOpacity
               style={styles.button}
@@ -136,10 +136,12 @@ const getStyles = (theme) =>
     button: {
       backgroundColor: theme.colors.primary,
       borderRadius: 12,
-      paddingTop: 15,
+      //paddingTop: 15,
       width: Dimensions.get('window').width / 1.2,
       marginHorizontal: 0,
       marginVertical: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
       height: Dimensions.get('window').height / 15,
       alignSelf: 'center',
     },

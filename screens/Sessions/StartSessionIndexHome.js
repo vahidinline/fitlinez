@@ -20,7 +20,7 @@ import AuthContext from '../../api/context';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
-import { IconArrowRight } from '../marketplace/filters/icons-';
+import { IconArrowRight } from '../marketplace/filters/icons';
 import { userLevelCheck, userStatusCheck } from '../../api/GetData';
 
 require('moment/locale/fa');

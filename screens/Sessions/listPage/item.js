@@ -1,4 +1,4 @@
-import { Button, Text, useTheme } from '@rneui/themed';
+import { Button, Image, Text, useTheme } from '@rneui/themed';
 import React, { useContext, useEffect, useState } from 'react';
 import {
   Dimensions,
@@ -25,8 +25,10 @@ import * as Icons from '../../marketplace/filters/icons';
 import AiAskHelpIndex from '../../AiAskHelp/AiAskHelpIndex';
 import api from '../../../api/api';
 import convertToPersianNumbers from '../../../api/PersianNumber';
+import useHealthData from '../../../api/userHealthData';
 const { width, height } = Dimensions.get('window');
-
+import { IconHeart } from '../../marketplace/filters/icons';
+import HeartBreat from '../../../components/HeartBreat';
 function Item({
   userId,
   doneItem,
@@ -66,6 +68,8 @@ function Item({
   let adjustedNumberOfSets = 4;
   const [showRest, setShowRest] = useState(false);
   const { sessionData, setSessionData } = useContext(SessionContext);
+  const [date, setDate] = useState(new Date());
+  const { heartRate } = useHealthData(date);
   let buttonVisible = true;
   if (index >= dataLength - 1) {
     buttonVisible = false;
@@ -227,6 +231,7 @@ function Item({
           justifyContent: 'center',
           alignItems: 'center',
           width: Dimensions.get('window').width / 1.1,
+
           height: Dimensions.get('window').height / 20,
           // backgroundColor: theme.colors.background,
           marginHorizontal: 15,
@@ -305,6 +310,24 @@ function Item({
           width: Dimensions.get('window').width - 25,
           height: Dimensions.get('window').height / 2.5,
         }}>
+        {/* <View
+          style={{
+            width: width / 1.35,
+
+            // marginLeft: 60,
+            // position: 'absolute',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: 'Vazirmatn',
+              color: theme.colors.secondary,
+              textAlign: 'center',
+            }}>
+            {heartRate !== null ? `${heartRate} bpm` : 'Loading...'}
+          </Text>
+
+        </View> */}
         <View>
           <View
             style={{
@@ -371,7 +394,7 @@ function Item({
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: 'center',
+                justifyContent: 'space-between',
                 alignItems: 'center',
                 marginHorizontal: 10,
                 marginVertical: 10,
@@ -411,7 +434,7 @@ function Item({
         <View
           style={{
             position: 'absolute',
-            marginHorizontal: 10,
+            marginHorizontal: 15,
             marginVertical: 10,
             top: 100,
             left: 0,
@@ -472,7 +495,7 @@ function Item({
       <View
         style={{
           position: 'absolute',
-          top: Dimensions.get('window').height / 1.4,
+          top: Dimensions.get('window').height / 1.5,
           left: 0,
           right: 0,
           //height: Dimensions.get('window').height / 15,
@@ -481,9 +504,9 @@ function Item({
           justifyContent: 'space-between',
           alignItems: 'center',
           paddingHorizontal: 20,
-          borderTopWidth: 0.5,
+          // borderTopWidth: 0.5,
           borderColor: theme.colors.border,
-          paddingTop: 10,
+          paddingTop: 0,
         }}>
         {buttonVisible && (
           <Button

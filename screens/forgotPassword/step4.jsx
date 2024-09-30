@@ -7,7 +7,7 @@ import { View, Text } from 'react-native';
 import OneSvg from '../../assets/img/one.svg';
 import SvgComponentOne from './assetss/one';
 import { useNavigation } from '@react-navigation/native';
-function StepFour() {
+function StepFour({ i18n }) {
   const { theme } = useTheme();
   const navigator = useNavigation();
   return (
@@ -17,59 +17,66 @@ function StepFour() {
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
       }}>
-      <ScrollView>
-        <View
+      <View
+        style={{
+          alignSelf: 'center',
+          marginTop: Dimensions.get('window').height / 8,
+          marginBottom: 20,
+          width: 100,
+          height: 100,
+          borderRadius: 100,
+          backgroundColor: theme.colors.text,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <SvgComponentOne />
+      </View>
+      <View
+        style={{
+          width: '90%',
+          height: 100,
+          alignSelf: 'center',
+          marginTop: 40,
+        }}>
+        <Text
           style={{
+            fontSize: 24,
+
             alignSelf: 'center',
-            marginTop: Dimensions.get('window').height / 8,
             marginBottom: 20,
-            width: 100,
-            height: 100,
-            borderRadius: 100,
-            backgroundColor: theme.colors.text,
-            justifyContent: 'center',
-            alignItems: 'center',
+            color: theme.colors.secondary,
+            fontFamily: 'Vazirmatn',
           }}>
-          <SvgComponentOne />
-        </View>
-        <View
+          {i18n.t('resetpassword')}
+        </Text>
+        <Text
           style={{
-            width: '90%',
-            height: 100,
+            fontSize: 15,
+            //fontWeight: 'bold',
             alignSelf: 'center',
-            marginTop: 40,
+            marginBottom: 20,
+            fontFamily: 'Vazirmatn',
           }}>
-          <Text
-            style={{
-              fontSize: 24,
-              fontWeight: 'bold',
-              alignSelf: 'center',
-              marginBottom: 20,
-              color: theme.colors.secondary,
-            }}>
-            Reset successful{' '}
-          </Text>
-          <Text
-            style={{
-              fontSize: 15,
-              //fontWeight: 'bold',
-              alignSelf: 'center',
-              marginBottom: 20,
-            }}>
-            You can now log in to your account{' '}
-          </Text>
-          <Button
-            onPress={() => navigator.navigate('Login')}
-            buttonStyle={{
-              backgroundColor: theme.colors.button,
-              borderRadius: 8,
-              width: Dimensions.get('window').width / 1.2,
-              marginHorizontal: 15,
-            }}
-            title="Back to Login"
-          />
-        </View>
-      </ScrollView>
+          {i18n.t('resetpassworddesc')}
+        </Text>
+        <Button
+          onPress={() => navigator.navigate('Login')}
+          buttonStyle={{
+            backgroundColor: theme.colors.button,
+            borderRadius: 8,
+            width: Dimensions.get('window').width / 1.2,
+            marginHorizontal: 15,
+          }}
+          titleStyle={{
+            color: theme.colors.white,
+            fontSize: 14,
+            // fontWeight: 'bold',
+            textAlign: 'left',
+            fontFamily: 'Vazirmatn',
+          }}
+          title={i18n.t('login')}
+        />
+      </View>
     </View>
   );
 }

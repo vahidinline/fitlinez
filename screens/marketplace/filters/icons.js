@@ -13,13 +13,13 @@ import {
   Ellipse,
 } from 'react-native-svg';
 
-const IconWeight = ({ color, size }) => {
+const IconWeight = ({ color, size, fill }) => {
   return (
     <Svg
       width={size || 24}
       height={size || 24}
       viewBox="0 0 24 24"
-      fill="none"
+      fill={fill || 'none'}
       xmlns="http://www.w3.org/2000/svg">
       <Path
         d="M17.1801 18C19.5801 18 20.1801 16.65 20.1801 15V9C20.1801 7.35 19.5801 6 17.1801 6C14.7801 6 14.1801 7.35 14.1801 9V15C14.1801 16.65 14.7801 18 17.1801 18Z"
@@ -466,7 +466,7 @@ const flagUs = () => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      id="flag-icons-us"
+      id="flag-iconus"
       viewBox="0 0 512 512">
       <Path fill="#bd3d44" d="M0 0h512v512H0" />
       <Path
@@ -7025,24 +7025,24 @@ const IconAiSad = ({ color, size }) => {
   );
 };
 
-const IconMinimize = ({ color, size }) => {
+const IconMinimize = ({ color, size, fill }) => {
   return (
     <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill="none"
+      fill={fill || 'none'}
       xmlns="http://www.w3.org/2000/svg">
       <Path
         d="M11.92 22C17.42 22 21.92 17.5 21.92 12C21.92 6.5 17.42 2 11.92 2C6.41998 2 1.91998 6.5 1.91998 12C1.91998 17.5 6.41998 22 11.92 22Z"
-        stroke="#292D32"
+        stroke={color || '#5B5891'}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M7.91998 12H15.92"
-        stroke="#292D32"
+        stroke={color || '#5B5891'}
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -8799,13 +8799,13 @@ const IconEdit = ({ size, color }) => {
   );
 };
 
-const IconQuestion = ({ size, color }) => {
+const IconQuestion = ({ size, color, fill }) => {
   return (
     <Svg
       width={size || '24'}
       height={size || '24'}
       viewBox="0 0 24 24"
-      fill="none"
+      fill={fill || 'none'}
       xmlns="http://www.w3.org/2000/svg">
       <Path
         d="M17 18.4301H13L8.54999 21.39C7.88999 21.83 7 21.3601 7 20.5601V18.4301C4 18.4301 2 16.4301 2 13.4301V7.42999C2 4.42999 4 2.42999 7 2.42999H17C20 2.42999 22 4.42999 22 7.42999V13.4301C22 16.4301 20 18.4301 17 18.4301Z"
@@ -9100,7 +9100,28 @@ const IconRecording = ({ color, size }) => {
     </Svg>
   );
 };
+
+const IconHeart = ({ color, size }) => {
+  return (
+    <Svg
+      width={size || '24'}
+      height={size || '24'}
+      viewBox="0 0 24 24"
+      fill={color || 'none'}
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M12.62 20.81C12.28 20.93 11.72 20.93 11.38 20.81C8.48 19.82 2 15.69 2 8.68998C2 5.59998 4.49 3.09998 7.56 3.09998C9.38 3.09998 10.99 3.97998 12 5.33998C13.01 3.97998 14.63 3.09998 16.44 3.09998C19.51 3.09998 22 5.59998 22 8.68998C22 15.69 15.52 19.82 12.62 20.81Z"
+        stroke="#292D32"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+};
+
 export {
+  IconHeart,
   IconRecording,
   IconAdd,
   IconInstagram,

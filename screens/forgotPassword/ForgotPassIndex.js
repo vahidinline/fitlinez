@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   Dimensions,
   Platform,
@@ -18,6 +18,9 @@ import api from '../../api/api';
 import FitlinezLoading from '../../components/FitlinezLoading';
 import StepThree from './step3';
 import StepFour from './step4';
+import i18nt from '../../locales';
+import LanguageContext from '../../api/langcontext';
+import { I18n } from 'i18n-js';
 
 function ForgotPassIndex() {
   const [message, setMessage] = useState('');
@@ -31,7 +34,9 @@ function ForgotPassIndex() {
   console.log('status in main forget', status);
   console.log('verifCode in main forget', verifCode);
   console.log('email', email);
-
+  const { userLanguage } = useContext(LanguageContext);
+  const i18n = new I18n(i18nt);
+  i18n.locale = userLanguage;
   const handleSubmitEmail = async () => {
     setStatus('loading');
     console.log('inside handleSubmit forget', email);
@@ -117,6 +122,7 @@ function ForgotPassIndex() {
             email={email}
             status={status}
             handleSubmit={handleSubmitEmail}
+            i18n={i18n}
           />
         )}
         {status === 'emailSent' && (
@@ -127,6 +133,7 @@ function ForgotPassIndex() {
             setVerifCode={setVerifCode}
             handleSubmit={handleSubmitCode}
             setStatus={setStatus}
+            i18n={i18n}
           />
         )}
 
@@ -138,9 +145,10 @@ function ForgotPassIndex() {
             setEmail={setEmail}
             status={status}
             email={email}
+            i18n={i18n}
           />
         )}
-        {status === 'success' && <StepFour />}
+        {status === 'success' && <StepFour i18n={i18n} />}
       </View>
       <View
         style={{
@@ -148,7 +156,7 @@ function ForgotPassIndex() {
           //flexDirection: 'row',
           // justifyContent: 'space-between',
           position: 'absolute',
-          bottom: 100,
+          //bottom: 100,
           width: Dimensions.get('window').width - 40,
 
           marginHorizontal: 20,
@@ -166,6 +174,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     height: Dimensions.get('window').height,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 100,
+    paddingTop: Platform.OS === 'android' ? 50 : 100,
   },
 });

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Dimensions, ScrollView, View, Text, StyleSheet } from 'react-native';
 import Second from './assetss/second';
 
-function StepThree({ password, setPassword, handleSubmit }) {
+function StepThree({ password, setPassword, handleSubmit, i18n }) {
   const { theme } = useTheme();
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -12,7 +12,7 @@ function StepThree({ password, setPassword, handleSubmit }) {
   useEffect(() => {
     // Check for minimum length
     if (password.length < 6) {
-      setMessage('Password should be at least 6 characters');
+      setMessage(i18n.t('passwordshouldatleast'));
       setBtnDisable(true);
       return;
     }
@@ -59,18 +59,19 @@ function StepThree({ password, setPassword, handleSubmit }) {
               fontSize: 15,
               alignSelf: 'center',
               marginBottom: 20,
+              fontFamily: 'Vazirmatn',
             }}>
-            Set a new password to increase the security of your account.
+            {i18n.t('newpassword')}
           </Text>
           <Input
-            placeholder="New Password"
+            placeholder={i18n.t('enternewpassword')}
             secureTextEntry
             inputContainerStyle={styles.inputContainer}
             inputStyle={styles.input}
             onChangeText={setPassword}
           />
           <Input
-            placeholder="Confirm Password"
+            placeholder={i18n.t('enterpasswordagain')}
             secureTextEntry
             inputContainerStyle={styles.inputContainer}
             inputStyle={styles.input}
@@ -85,7 +86,10 @@ function StepThree({ password, setPassword, handleSubmit }) {
               width: Dimensions.get('window').width / 1.2,
               marginHorizontal: 15,
             }}
-            title="Submit"
+            titleStyle={{
+              fontFamily: 'Vazirmatn',
+            }}
+            title={i18n.t('submit')}
           />
           {message ? <Text style={styles.message}>{message}</Text> : null}
         </View>
@@ -101,11 +105,16 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingVertical: 10,
+    fontFamily: 'Vazirmatn',
+    fontSize: 14,
+    paddingHorizontal: 10,
+    textAlign: 'left',
   },
   message: {
     color: 'red',
     textAlign: 'center',
     marginTop: 10,
+    fontFamily: 'Vazirmatn',
   },
 });
 

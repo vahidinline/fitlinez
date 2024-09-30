@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, View, StyleSheet } from 'react-native';
+import { Dimensions, View, StyleSheet, Platform } from 'react-native';
 import Header from '../../components/header';
 import { Button, Text, useTheme } from '@rneui/themed';
 import LanguageContext from '../../api/langcontext';
@@ -20,7 +20,7 @@ function Aboutme() {
   i18n.locale = userLanguage;
   const { userAuth } = useContext(AuthContext);
   const [userData, setUserData] = useState([]);
-  console.log(userData);
+
   const navigation = useNavigation();
   //console.log('userData', userData);
 
@@ -86,7 +86,7 @@ function Aboutme() {
       style={{
         flex: 1,
         backgroundColor: theme.colors.background,
-        paddingTop: Dimensions.get('window').height / 15,
+        //  paddingTop: Platform.OS === 'ios' ? 0 : 10,
       }}>
       <Header title={i18n.t('aboutme')} />
       <View style={styles.fullBox}>
@@ -154,11 +154,11 @@ const getStyles = (theme) =>
       backgroundColor: theme.colors.background,
       //alignItems: 'ceer',
       marginHorizontal: 20,
-      borderWidth: 1,
+      //  borderWidth: 1,
       borderColor: theme.colors.border,
       borderRadius: 16,
       padding: 20,
-      height: Dimensions.get('window').height / 7,
+      //  height: Dimensions.get('window').height / 7,
       alignContent: 'center',
       justifyContent: 'center',
     },

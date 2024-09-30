@@ -35,11 +35,8 @@ function BeforeSubmit({ onBeforeSubmitSelect, data }) {
     setSelectedCalories(dailyCalories);
     setStatus('calorieSelected');
   };
-  //onsole.log('bmr', bmr);
-  // console.log('data', data);
   const [bmr, setBmr] = useState('');
   const [mildWeightLossCalories, setMildWeightLossCalories] = useState('');
-
   const [bulkWeightCalories, setBulkWeightCalories] = useState('');
   const [weightLossCalories, setWeightLossCalories] = useState('');
   const [extremeWeightLossCalories, setExtremeWeightLossCalories] =
@@ -76,6 +73,22 @@ function BeforeSubmit({ onBeforeSubmitSelect, data }) {
 
       setBio(RTL ? phraseFa : phraseEn);
 
+      setSelectedIds(() => {
+        if (data[5]?.value === 'lose Fat') {
+          return [1];
+        }
+        if (goal === 'gain Muscle') {
+          return [2];
+        }
+        if (goal === 'maintain Weight') {
+          return [3];
+        }
+        if (goal === 'stay Fit') {
+          return [4];
+        }
+        return [];
+      });
+
       let calculatedBmr = 0;
       if (data[0]?.id === 1) {
         // Male calculation
@@ -89,19 +102,34 @@ function BeforeSubmit({ onBeforeSubmitSelect, data }) {
 
       // Update the BMR state
       setBmr(Number(finalBmr).toFixed(0));
-      setMildWeightLossCalories(finalBmr) * (0.89).toFixed(0); // 89% of maintenance
+      setMildWeightLossCalories(Math.round(Number(finalBmr) * 0.89).toFixed(0)); // 89% of maintenance
       setWeightLossCalories(Math.round(Number(finalBmr) * 0.81).toFixed(0)); // 79% of maintenance
       setExtremeWeightLossCalories(
         Math.round(Number(finalBmr) * 0.6) < 1200
           ? 1200
-          : Math.round(Number(finalBmr) * 0.6)
+          : Math.round(Number(finalBmr) * 0.6).toFixed(0)
       ); // 58% of maintenance
-      setBulkWeightCalories(Math.round(Number(finalBmr) * 1.1)); // 110% of maintenance
+      setBulkWeightCalories(Math.round(Number(finalBmr) * 1.1).toFixed(0)); // 110% of maintenance
 
       console.log('Calculated BMR:', calculatedBmr);
       console.log('Final BMR after activity level:', finalBmr);
     } else {
       console.log('Data is not available or empty');
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data[5]?.id === 1) {
+      setSelectedIds([3]);
+    }
+    if (data[5]?.id === 2) {
+      setSelectedIds([2]);
+    }
+    if (data[5]?.id === 3) {
+      setSelectedIds([1]);
+    }
+    if (data[5]?.id === 4) {
+      setSelectedIds([]);
     }
   }, [data]);
 
@@ -308,7 +336,7 @@ const getStyles = (theme) =>
       padding: 20,
       paddingTop: 5,
       marginBottom: 20,
-      height: Dimensions.get('window').height / 7,
+      height: Dimensions.get('window').height / 5,
       alignContent: 'center',
       justifyContent: 'center',
     },
@@ -321,7 +349,7 @@ const getStyles = (theme) =>
       borderColor: theme.colors.border,
       borderRadius: 16,
       padding: 5,
-      height: Dimensions.get('window').height / 9,
+      height: Dimensions.get('window').height / 7,
       width: Dimensions.get('window').width / 2 - 50,
       alignContent: 'center',
       justifyContent: 'center',

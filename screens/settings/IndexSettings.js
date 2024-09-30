@@ -33,7 +33,7 @@ import {
   IconTrash,
   IconWeight,
   Iconshare,
-} from '../marketplace/filters/icons-';
+} from '../marketplace/filters/icons';
 import { getUsercurrentWorkoutPlan } from '../../api/GetCurrentPlan';
 
 const message =

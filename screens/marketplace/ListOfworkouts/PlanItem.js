@@ -12,7 +12,7 @@ import {
   IconTimer,
   IconWeight,
   Iconstar,
-} from '../filters/icons-';
+} from '../filters/icons';
 import i18nt from '../../../locales';
 import LanguageContext from '../../../api/langcontext';
 import { useContext } from 'react';

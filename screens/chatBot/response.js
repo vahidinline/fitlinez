@@ -1,7 +1,7 @@
 import { Text } from '@rneui/themed';
 import React from 'react';
 import { Dimensions, View } from 'react-native';
-import { IconAi } from '../marketplace/filters/icons-';
+import { IconAi } from '../marketplace/filters/icons';
 
 function ChatResponse({ response, isRTL, theme }) {
   return (

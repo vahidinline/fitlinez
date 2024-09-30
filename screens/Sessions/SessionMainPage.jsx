@@ -21,7 +21,7 @@ import Item from './listPage/item';
 import { updateSession } from '../../api/workoutSessionTracker';
 import DrawerList from './listPage/drawer';
 import SessionTimer from '../../components/timer/sessionTimer';
-import { IconArrowRight } from '../marketplace/filters/icons-';
+import { IconArrowRight } from '../marketplace/filters/icons';
 import { IconCloseCircle } from '../marketplace/filters/icons';
 import AdModal from '../../components/AdModal/AdModalIndex';
 
@@ -114,17 +114,17 @@ const SessionMainPage = (props) => {
   };
 
   const handleSubsitute = (exerciseId, item) => {
-    //console.log('handleSubsitute', exerciseId, item);
     //return;
     const { _id, name, instructor, gifUrl, inputType } = item;
-
+    console.log('handleSubsitute', exerciseId, name);
     const updatedData = data.map((item, i) => {
       if (item.exerciseId === exerciseId) {
+        console.log('item in main', item);
         //update the item with the new exercis
+        console.log('item in main');
         return {
           ...item,
-          name: name,
-          instructor: instructor,
+          exerciseName: name,
           gifUrl: gifUrl,
           inputType: inputType,
         };
@@ -328,6 +328,28 @@ const SessionMainPage = (props) => {
             <IconArrowRight />
           </TouchableOpacity>
         </View>
+        <View
+          style={{
+            position: 'absolute',
+            top: Dimensions.get('window').height / 8,
+
+            right: Dimensions.get('window').width - 38,
+            //right: 0,
+            bottom: 10,
+            //justifyContent: 'center',
+            alignItems: 'center',
+            //backgroundColor: 'rgba(0,0,0,0.5)',
+            zIndex: 1000,
+          }}>
+          <DrawerList
+            sortedData={sortedData}
+            userLanguage={userLanguage}
+            goToIndex={goToIndex}
+            RTL={RTL}
+            //index={index}
+            //img={gifUrl}
+          />
+        </View>
         <FlatList
           initialNumToRender={2} // Adjust according to your need
           onEndReached={() => {
@@ -414,28 +436,7 @@ const SessionMainPage = (props) => {
             </Text>
           }
         />
-        <View
-          style={{
-            position: 'absolute',
-            top: 95,
 
-            right: Dimensions.get('window').width - 38,
-            //right: 0,
-            bottom: 10,
-            //justifyContent: 'center',
-            alignItems: 'center',
-            //backgroundColor: 'rgba(0,0,0,0.5)',
-            zIndex: 1000,
-          }}>
-          <DrawerList
-            sortedData={sortedData}
-            userLanguage={userLanguage}
-            goToIndex={goToIndex}
-            RTL={RTL}
-            //index={index}
-            //img={gifUrl}
-          />
-        </View>
         {alertVisible && (
           <AdModal
             visible={alertVisible}

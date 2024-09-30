@@ -20,7 +20,7 @@ import AuthContext from '../../api/context';
 import i18nt from '../../locales';
 import { RadioButton } from 'react-native-paper';
 
-import { flagUs } from '../marketplace/filters/icons-';
+import { flagUs } from '../marketplace/filters/icons';
 import Header from '../../components/header';
 
 function SupportIndex() {

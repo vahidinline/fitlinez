@@ -1,6 +1,12 @@
 import { Button, Text, useTheme } from '@rneui/themed';
 import React, { useContext, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import GenderSelection from './gender';
@@ -12,7 +18,7 @@ import LocationSelection from './locationSelection';
 import BeforeSubmit from './beforeSubmit';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { IconArrowLeft } from '../marketplace/filters/icons-';
+import { IconArrowLeft } from '../marketplace/filters/icons';
 import FitnessLevel from './fitnessLevel';
 import DayPreferences from './DayPreferences';
 import AsyncStorage from '@react-native-async-storage/async-storage';

@@ -6,7 +6,14 @@ import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import { View, Text } from 'react-native';
 
 import Second from './assetss/second';
-function StepTwo({ email, setVerifCode, handleSubmit, setStatus, verifCode }) {
+function StepTwo({
+  email,
+  setVerifCode,
+  handleSubmit,
+  setStatus,
+  verifCode,
+  i18n,
+}) {
   const { theme } = useTheme();
   const [btnDisable, setBtnDisable] = useState(true);
   const validateFields = useCallback(() => {
@@ -52,8 +59,9 @@ function StepTwo({ email, setVerifCode, handleSubmit, setStatus, verifCode }) {
               //fontWeight: 'bold',
               alignSelf: 'center',
               marginBottom: 20,
+              fontFamily: 'Vazirmatn',
             }}>
-            Enter the code sent to {email}
+            {i18n.t('entercode')}
           </Text>
           <Input
             maxLength={4}
@@ -79,7 +87,10 @@ function StepTwo({ email, setVerifCode, handleSubmit, setStatus, verifCode }) {
             width: Dimensions.get('window').width / 1.1,
             marginHorizontal: 15,
           }}
-          title="Submit"
+          titleStyle={{
+            fontFamily: 'Vazirmatn',
+          }}
+          title={i18n.t('submit')}
         />
         <View
           style={{
@@ -100,8 +111,9 @@ function StepTwo({ email, setVerifCode, handleSubmit, setStatus, verifCode }) {
             <Text
               style={{
                 color: theme.colors.secondary,
+                fontFamily: 'Vazirmatn',
               }}>
-              Edit Email Address
+              {i18n.t('editemail')}
             </Text>
           </Pressable>
         </View>

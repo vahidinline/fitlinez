@@ -1,4 +1,4 @@
-import { IconPremium, IconVerify } from '../filters/icons-';
+import { IconPremium, IconVerify } from '../filters/icons';
 
 const duration = [
   {

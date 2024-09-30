@@ -33,8 +33,15 @@ export default function StepcounterIndex() {
   const STEPS_GOAL = 10_000;
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
-  const { steps, flights, distance, activeEnergy, hasPermissions, heartRate } =
-    useHealthData(date);
+  const {
+    steps,
+    flights,
+    distance,
+    activeEnergy,
+    hasPermissions,
+    heartRate,
+    setHasPermission,
+  } = useHealthData(date);
 
   const [pastStepCount, setPastStepCount] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);
@@ -81,6 +88,14 @@ export default function StepcounterIndex() {
     };
   }, []);
 
+  const requestPermissions = async () => {
+    const permission = await setHasPermission();
+
+    if (!permission) {
+      setStatus('error');
+    }
+  };
+
   return (
     <View
       style={[
@@ -121,6 +136,7 @@ export default function StepcounterIndex() {
                   })}
                 </Text>
               )}
+
               <Text style={styles.text}>
                 {i18n.t('activeEnergyBurned')} :
                 {convertToPersianNumbers(activeEnergy.toFixed(0), RTL)}{' '}

@@ -8,7 +8,7 @@ import { Svg, Path } from 'react-native-svg';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
-import { Iconstar } from './filters/icons-';
+import { Iconstar } from './filters/icons';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const SingleItem = ({ title, sub, level, location, mainTitle }) => {

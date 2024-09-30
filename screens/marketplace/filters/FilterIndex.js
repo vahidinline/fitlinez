@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import Filters from '../Filters';
 import { Dimensions, View } from 'react-native';
 import { targget, level, days, duration, location } from '../data/data';
-import { IconWeight, IconClock, IconLevel, IconTimer } from './icons-';
+import { IconWeight, IconClock, IconLevel, IconTimer } from './icons';
 import { useState } from 'react';
 import Header from '../../../components/header';
 import LanguageContext from '../../../api/langcontext';

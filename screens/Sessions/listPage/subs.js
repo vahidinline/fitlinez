@@ -221,6 +221,7 @@ function Subs({
               title={i18n.t('cancel')}
               titleStyle={{
                 color: theme.colors.secondary,
+                fontFamily: 'Vazirmatn',
               }}
               buttonStyle={{
                 marginHorizontal: 10,
@@ -240,7 +241,7 @@ function Subs({
                 handleSubsitute(exerciseId, selectedItem);
                 setVisible(false);
               }}
-              title={'Done'}
+              title={i18n.t('confirm')}
               buttonStyle={{
                 marginHorizontal: 10,
                 borderRadius: 12,
@@ -249,6 +250,11 @@ function Subs({
                 backgroundColor: theme.colors.button,
                 borderRadius: 12,
                 marginBottom: 20,
+              }}
+              titleStyle={{
+                color: theme.colors.secondary,
+                fontFamily: 'Vazirmatn',
+                color: theme.colors.primary,
               }}
             />
           </View>

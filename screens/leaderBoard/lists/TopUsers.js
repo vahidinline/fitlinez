@@ -1,6 +1,6 @@
 import { Avatar, Text } from '@rneui/themed';
 import { Dimensions, View } from 'react-native';
-import { IconMedal } from '../../marketplace/filters/icons-';
+import { IconMedal } from '../../marketplace/filters/icons';
 
 const TopUsers = ({ users, theme }) => {
   const [firstUser, secondUser, thirdUser, ...restUsers] = users;
