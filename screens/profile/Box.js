@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height / 10,
     //marginHorizontal: 20,
     marginLeft: 10,
+    marginBottom: 30,
     // backgroundColor: 'orange',
   },
   background: {

@@ -7,7 +7,7 @@ const getDailyTasks = async (userId) => {
     if (tasks.data) {
       return tasks.data;
     } else {
-      console.log('no tasks data');
+      // console.log('no tasks data');
       return null;
     }
   } catch (error) {

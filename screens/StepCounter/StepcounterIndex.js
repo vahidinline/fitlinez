@@ -39,7 +39,7 @@ export default function StepcounterIndex() {
     distance,
     activeEnergy,
     hasPermissions,
-    heartRate,
+
     setHasPermission,
   } = useHealthData(date);
 
@@ -143,9 +143,6 @@ export default function StepcounterIndex() {
                 {i18n.t('kcal')}
               </Text>
             </View>
-            {/* <Text style={styles.text}>
-              {heartRate !== null ? `${heartRate} bpm` : 'Loading...'}
-            </Text> */}
           </TouchableOpacity>
         </>
       ) : (

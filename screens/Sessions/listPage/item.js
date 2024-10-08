@@ -25,10 +25,8 @@ import * as Icons from '../../marketplace/filters/icons';
 import AiAskHelpIndex from '../../AiAskHelp/AiAskHelpIndex';
 import api from '../../../api/api';
 import convertToPersianNumbers from '../../../api/PersianNumber';
-import useHealthData from '../../../api/userHealthData';
 const { width, height } = Dimensions.get('window');
-import { IconHeart } from '../../marketplace/filters/icons';
-import HeartBreat from '../../../components/HeartBreat';
+
 function Item({
   userId,
   doneItem,
@@ -53,11 +51,11 @@ function Item({
   dataLength,
   description,
   userLevel,
+  setShowList,
 }) {
   const { userLanguage } = useContext(LanguageContext);
   const { IconSub } = Icons;
   const i18n = new I18n(i18nt);
-  const [showInstruction, setShowInstruction] = useState(false);
   i18n.locale = userLanguage;
   const { theme } = useTheme();
   const [childDataMap, setChildDataMap] = useState({});
@@ -68,8 +66,7 @@ function Item({
   let adjustedNumberOfSets = 4;
   const [showRest, setShowRest] = useState(false);
   const { sessionData, setSessionData } = useContext(SessionContext);
-  const [date, setDate] = useState(new Date());
-  const { heartRate } = useHealthData(date);
+
   let buttonVisible = true;
   if (index >= dataLength - 1) {
     buttonVisible = false;
@@ -193,6 +190,7 @@ function Item({
   };
 
   const handleButton = async () => {
+    setShowList(false);
     saveExerciseState(childDataMap);
     saveToCloud(childDataMap);
     updateTotalWeight(childDataMap.totalWeight); //use new function here
@@ -230,24 +228,23 @@ function Item({
           flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center',
-          width: Dimensions.get('window').width / 1.1,
-
-          height: Dimensions.get('window').height / 20,
-          // backgroundColor: theme.colors.background,
-          marginHorizontal: 15,
-          //paddingHorizontal: 10,
+          width: Dimensions.get('window').width / 1.2,
+          // height: Dimensions.get('window').height / 40,
+          marginHorizontal: 35,
+          paddingHorizontal: 10, // Add some padding if needed
         }}>
         <Text
           style={{
             fontSize: PixelRatio.get() > 2 ? 20 : 22,
-            // fontWeight: 'bold',
+            textTransform: 'capitalize',
             fontFamily: 'Vazirmatn',
-            flexWrap: 'wrap',
             color: theme.colors.secondary,
-
-            textAlign: 'center',
-            //marginVertical: 10,
-          }}>
+            textAlign: 'center', // Center the text
+            flexWrap: 'wrap', // Allow text to wrap
+            width: '100%', // Make sure it takes the full width of the parent
+          }}
+          numberOfLines={2} // Set to 2 to limit to two lines if necessary
+        >
           {title}
         </Text>
       </View>
@@ -255,14 +252,15 @@ function Item({
       <View
         style={{
           position: 'relative',
-          width: Dimensions.get('window').width / 1.34,
+          width: Dimensions.get('window').width / 1.1,
           height: Dimensions.get('window').height / 4,
           backgroundColor: '#fff',
 
           borderRadius: 16,
           borderWidth: 1,
           borderColor: theme.colors.border,
-          marginLeft: 75,
+          // marginLeft: showList && 75,
+          marginHorizontal: 20,
         }}>
         <View
           style={{
@@ -310,29 +308,12 @@ function Item({
           width: Dimensions.get('window').width - 25,
           height: Dimensions.get('window').height / 2.5,
         }}>
-        {/* <View
-          style={{
-            width: width / 1.35,
-
-            // marginLeft: 60,
-            // position: 'absolute',
-          }}>
-          <Text
-            style={{
-              fontSize: 16,
-              fontFamily: 'Vazirmatn',
-              color: theme.colors.secondary,
-              textAlign: 'center',
-            }}>
-            {heartRate !== null ? `${heartRate} bpm` : 'Loading...'}
-          </Text>
-
-        </View> */}
         <View>
           <View
             style={{
-              width: width / 1.35,
-              marginLeft: 60,
+              width: width / 1.1,
+              marginHorizontal: 5,
+              //  marginLeft: 60,
               position: 'absolute',
             }}>
             {inputType === 'timer' ? (
@@ -414,8 +395,8 @@ function Item({
             {description && (
               <View
                 style={{
-                  marginHorizontal: 10,
-                  marginVertical: 10,
+                  marginHorizontal: 20,
+                  marginTop: 40,
                   direction: 'rtl',
                 }}>
                 <Text
@@ -431,7 +412,7 @@ function Item({
             )}
           </View>
         </View>
-        <View
+        {/* <View
           style={{
             position: 'absolute',
             marginHorizontal: 15,
@@ -448,7 +429,7 @@ function Item({
             i18n={i18n}
             userLevel={userLevel}
           />
-        </View>
+        </View> */}
         {/* </ScrollView> */}
 
         {showRest && (
@@ -461,7 +442,7 @@ function Item({
         )}
       </View>
 
-      {showInstruction ? (
+      {/* {showInstruction ? (
         <Instruction
           title={i18n.t('description')}
           openInstruction={showInstruction}
@@ -470,7 +451,7 @@ function Item({
           instructor={description}
           faInstructor={faInstructor}
         />
-      ) : null}
+      ) : null} */}
 
       {visible && (
         <Subs

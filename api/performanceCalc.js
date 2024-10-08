@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 async function calculateTaskCompletionPercentage(tasks, totalTaskCount) {
   // console.log('tasks in performance', tasks);
-  console.log('totalTaskCount in performance', totalTaskCount);
+  //('totalTaskCount in performance', totalTaskCount);
   let uniqueTasks = new Set();
   let completedSubTasks = 0;
 
@@ -42,7 +42,7 @@ async function calculateTaskCompletionPercentage(tasks, totalTaskCount) {
     );
     //console.log('Store Performance done ', completionPercentage.toFixed(2));
   } catch (error) {
-    console.error('Error storing performance:', error.message);
+    //console.error('Error storing performance:', error.message);
   }
 
   return completionPercentage.toFixed(2); // Returns a string with 2 decimal places

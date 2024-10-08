@@ -16,7 +16,7 @@ const getNewTasks = async (userId, setTaskStatus) => {
       }
     } else {
       setTaskStatus('idle');
-      console.log('no tasks data');
+      // console.log('no tasks data');
       return null;
     }
   } catch (error) {

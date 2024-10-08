@@ -77,7 +77,7 @@ const SingleItem = ({ title, sub, icon }) => {
 function SingleTrainer({ route }) {
   const { theme } = useTheme();
   const { item } = route.params;
-  console.log('item', item);
+  //console.log('item', item);
   const navigation = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);

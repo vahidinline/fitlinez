@@ -15,7 +15,7 @@
     "ios": {
       "bundleIdentifier": "com.fitlinez.eu",
       "buildNumber": "0.0.1",
-
+      "requireFullScreen": true,
       "supportsTablet": true,
 
       "infoPlist": {

@@ -389,6 +389,7 @@ const getStyle = (theme, PixelRatio) =>
       textAlign: 'center',
       marginTop: 5,
       marginHorizontal: 5,
+      width: '100%',
     },
     category: {
       fontSize: PixelRatio.get() < 3 ? 10 : 16,

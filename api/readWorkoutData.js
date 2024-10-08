@@ -14,7 +14,7 @@ const saveUserWeight = async (data) => {
 };
 
 const readWorkoutData = async () => {
-  console.log('inside read WorkoutData');
+  // console.log('inside read WorkoutData');
 
   try {
     const value = await AsyncStorage.getItem('workoutsList');
@@ -35,14 +35,14 @@ const readWorkoutData = async () => {
       //   'workoutPlanData in readWorkoutdata',
       //   workoutPlanData.weeklyPlan
       // );
-      console.log('weeklyPlan', weeklyPlan, planName, location, packageId);
+      //  console.log('weeklyPlan', weeklyPlan, planName, location, packageId);
       return { weeklyPlan, planName, location, packageId };
     } else {
       console.log('No data in AsyncStorage');
       return null;
     }
   } catch (error) {
-    console.error('Failed to read AsyncStorage:', error);
+    // console.error('Failed to read AsyncStorage:', error);
   }
 };
 

@@ -11,7 +11,7 @@ const PushToken = () => {
       const token = await Notifications.getExpoPushTokenAsync();
       return token;
     } catch (error) {
-      console.log('Error getting a token', error);
+      //console.log('Error getting a token', error);
     }
   };
 

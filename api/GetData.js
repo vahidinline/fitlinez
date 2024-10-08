@@ -5,7 +5,7 @@ import api from './api';
 import { savePackages } from './assignNewPlan';
 
 const getPlanUsage = async ({ packageId, userId }) => {
-  console.log('getPlanUsage', packageId);
+  //('getPlanUsage', packageId);
   try {
     const response = await api.post(`/newplan/userPlan/`, {
       params: {
@@ -14,12 +14,12 @@ const getPlanUsage = async ({ packageId, userId }) => {
       },
     });
     const data = response.data;
-    console.log('data in getData', data);
+    // console.log('data in getData', data);
 
     await AsyncStorage.setItem('workoutsList', JSON.stringify(data)).then(
       () => {
-        console.log('stored into async updateWorkoutPlan');
-        console.log('data in getData', data);
+        //    console.log('stored into async updateWorkoutPlan');
+        //  console.log('data in getData', data);
         //setShowCustomAlert(true);
         //for previous plan use "usage" endpoint
       }
@@ -27,7 +27,7 @@ const getPlanUsage = async ({ packageId, userId }) => {
 
     return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return false;
     // Possible 404 error (e.g., endpoint not found)
   }
@@ -57,7 +57,7 @@ const updateWorkoutPlan = async (data, addedDateTime, userId) => {
 };
 
 const getWorkOutData = async (userId) => {
-  console.log('what are you doing getWorkOutData');
+  // console.log('what are you doing getWorkOutData');
   try {
     const response = await api.get('/newplan/prebuild').then(async (res) => {
       await updateWorkoutPlan({ data: res.data[2], userId: userId });
@@ -65,7 +65,7 @@ const getWorkOutData = async (userId) => {
     //console.log('response', response);
     return true;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return false;
     // Possible 404 error (e.g., endpoint not found)
   }

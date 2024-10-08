@@ -20,6 +20,7 @@ import LanguageContext from '../../../api/langcontext';
 import { IconSearch, IconWarning } from '../../marketplace/filters/icons';
 import TempfoodItems from '../TempfoodItems';
 import FitlinezLoading from '../../../components/FitlinezLoading';
+import { ActivityIndicator } from 'react-native';
 
 function FoodTextInput({
   selectedMeal,
@@ -55,7 +56,7 @@ function FoodTextInput({
 
     // Save the user input to AsyncStorage
     await AsyncStorage.setItem('foodInput', userInput);
-    console.log('userInput in good', userInput);
+    // console.log('userInput in good', userInput);
 
     const res = await sendInitialReq(
       userInput,
@@ -64,7 +65,7 @@ function FoodTextInput({
       setStatus
     );
     if (res) {
-      console.log('res in FoodTextInput', res);
+      //console.log('res in FoodTextInput', res);
       setFoodItems(res);
       setStatus('success');
     } else {
@@ -88,7 +89,16 @@ function FoodTextInput({
       <View style={styles.hintBox}>
         <Text style={styles.hintText}>{i18n.t('foodTextInputHint')}</Text>
       </View>
-      {status === 'loading' && <FitlinezLoading />}
+      {status === 'loading' && (
+        <View
+          style={{
+            marginVertical: 10,
+            // backgroundColor: theme.colors.background,
+          }}>
+          <Text style={styles.hintText}>در حال محاسبه کالری</Text>
+          <ActivityIndicator size="small" color="#0000ff" />
+        </View>
+      )}
       {status === 'error' && (
         <View
           style={{

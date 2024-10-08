@@ -68,7 +68,7 @@ const DaySelectionModal = ({
     const data = await AsyncStorage.getItem('workoutsList');
     const parsedData = JSON.parse(data);
 
-    console.log('parsedData', parsedData);
+    // console.log('parsedData', parsedData);
   };
 
   useEffect(() => {

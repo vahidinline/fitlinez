@@ -53,11 +53,11 @@ const FoodItemCard = ({
   };
 
   const handleDeleteFoodItem = async (mealId, index) => {
-    console.log('index in card', index);
+    //console.log('index in card', index);
     setStatus('idle');
     handleDeleteItem(index);
     alert('Item deleted');
-    console.log('mealId', mealId);
+    // console.log('mealId', mealId);
     const deleteResult = await deleteFoodItem(mealId);
 
     //console.log('mealId', mealId);

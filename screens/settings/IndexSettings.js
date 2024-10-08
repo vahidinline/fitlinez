@@ -104,7 +104,7 @@ function SettingIndex() {
         return null;
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log('Expo push token:', token);
+      // console.log('Expo push token:', token);
     } else {
       Alert.alert('Must use physical device for Push Notifications');
     }
@@ -151,12 +151,12 @@ function SettingIndex() {
       icon: IconTrash,
       func: () => deleteAccount(),
     },
-    {
-      id: 8,
-      name: i18n.t('updatePlanManually'),
-      icon: IconWeight,
-      func: () => getUsercurrentWorkoutPlan(userAuth.id),
-    },
+    // {
+    //   id: 8,
+    //   name: i18n.t('updatePlanManually'),
+    //   icon: IconWeight,
+    //   func: () => getUsercurrentWorkoutPlan(userAuth.id),
+    // },
     {
       id: 9,
       name: i18n.t('pushNotification'),
@@ -190,14 +190,14 @@ function SettingIndex() {
 
   async function registerForPushNotificationsAsync() {
     const { status } = await Notifications.requestPermissionsAsync();
-    console.log('Notification permissions status:', status);
+    // console.log('Notification permissions status:', status);
 
     if (status !== 'granted') {
       Alert.alert('Sorry, we need notification permissions to make this work!');
     } else {
       try {
         const token = (await Notifications.getExpoPushTokenAsync()).data;
-        console.log('Expo push token:', token);
+        //  console.log('Expo push token:', token);
         Alert.alert('Push Notification has been enabled');
       } catch (error) {
         console.error('Error getting push token:', error);

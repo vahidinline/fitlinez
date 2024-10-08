@@ -5,7 +5,7 @@ const checkUserAccess = async (userId) => {
     const res = await api.post(`/accessTest/${userId}`);
     return res.data.status;
   } catch (error) {
-    console.log('Error: ', error);
+    //console.log('Error: ', error);
   }
 };
 

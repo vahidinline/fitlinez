@@ -125,7 +125,7 @@ function HomeIndex() {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        {status === 'loading' && <FitlinezLoading />}
+        {/* {status === 'loading' && <FitlinezLoading />} */}
 
         {status === 'hasPlan' && (
           <View style={styles.box}>
@@ -155,9 +155,9 @@ function HomeIndex() {
           <View style={styles.box}>
             <View
               style={{
-                width: Dimensions.get('window').width,
+                // width: Dimensions.get('window').width,
                 marginTop: 30,
-
+                marginBottom: 20,
                 height: Dimensions.get('window').height / 4,
               }}>
               <NoWorkoutCard />
@@ -167,12 +167,9 @@ function HomeIndex() {
         <View style={styles.box}>
           <View
             style={{
-              //  backgroundColor: theme.colors.background,
               marginHorizontal: 20,
               borderRadius: 14,
-              marginVertical: 0,
-              // height: Dimensions.get('window').height / 3.3,
-              // top: Dimensions.get('window').height / 8,
+              marginBottom: 5,
             }}>
             <LinearGradient
               colors={['#5B5891', '#3A366F', '#17124a']}
@@ -186,7 +183,6 @@ function HomeIndex() {
         </View>
         <View
           style={{
-            //  backgroundColor: theme.colors.background,
             marginHorizontal: 20,
             borderRadius: 14,
             marginVertical: 0,
@@ -210,9 +206,9 @@ function HomeIndex() {
                 fontSize: 14,
                 fontFamily: 'Vazirmatn',
                 paddingHorizontal: 10,
-                // marginTop: 5,
+
                 color: 'white',
-                //direction: 'rtl',
+
                 textAlign: 'center',
                 justifyContent: 'center',
               }}>
@@ -239,7 +235,6 @@ function HomeIndex() {
                   alignItems: 'center',
                   marginVertical: 20,
                   height: Dimensions.get('window').height / 4,
-                  // backgroundColor: theme.colors.grey2,
                 }}>
                 <View>
                   <IconWalking size={72} />
@@ -286,8 +281,8 @@ const getStyles = (theme) =>
       alignItems: 'center',
       //backgroundColor: theme.colors.background,
       marginHorizontal: 20,
-      marginVertical: 10,
-
+      marginVertical: 5,
+      width: Dimensions.get('window').width / 1.1,
       height: Dimensions.get('window').height / 5,
     },
     container: {

@@ -136,7 +136,7 @@ function DailyReport({ userId }) {
           //paddingBottom: 5,
           borderBottomWidth: 1,
           paddingHorizontal: 5,
-          // marginTop: 10,
+          marginTop: 10,
         }}>
         <Text
           style={{

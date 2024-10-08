@@ -20,20 +20,6 @@ const ImageLoader = ({ uri, width, height, i18n }) => {
     setImageLoaded(true); // Reset imageLoaded to true
   };
 
-  const zoomIn = () => {
-    setDimensions({
-      width: Math.min(dimensions.width * 1.2, windowWidth * 2), // Limit the maximum width
-      height: Math.min(dimensions.height * 1.2, windowHeight * 2), // Limit the maximum height
-    });
-  };
-
-  const zoomOut = () => {
-    setDimensions({
-      width: Math.max(dimensions.width / 1.2, windowWidth / 2), // Limit the minimum width
-      height: Math.max(dimensions.height / 1.2, windowHeight / 2), // Limit the minimum height
-    });
-  };
-
   return (
     <View style={styles.container}>
       {imageLoaded ? (

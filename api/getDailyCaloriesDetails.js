@@ -13,7 +13,7 @@ const getDailyCaloriesDetails = async (userId, date) => {
     //console.log('res in getDailyCaloriesDetails', res.data);
     return res.data;
   } catch (err) {
-    console.log(err);
+    //  console.log(err);
   }
 };
 

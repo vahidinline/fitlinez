@@ -1,31 +1,24 @@
 import { Text, useTheme } from '@rneui/themed';
-import React, { useContext, useCallback } from 'react';
-import { Dimensions, PixelRatio, Platform, View } from 'react-native';
+import React, { useContext } from 'react';
+import { Dimensions, PixelRatio, View } from 'react-native';
 import AuthContext from '../../api/context';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
 import { useNavigation } from '@react-navigation/native';
-import { Chip } from 'react-native-paper';
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
-import { useFocusEffect } from '@react-navigation/native';
 
 import {
   IconHeaderNotStarted,
   IconStarted,
 } from '../marketplace/filters/icons';
-import {
-  checkVersion,
-  userLevelCheck,
-  userStatusCheck,
-} from '../../api/GetData';
+
 import { useState } from 'react';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 import { getHeaderReport } from '../../api/headerReportAPI';
-import { useFonts } from 'expo-font';
 
 function HomeHeader() {
   const { userAuth } = useContext(AuthContext);
@@ -39,7 +32,10 @@ function HomeHeader() {
   const userLevel = userAuth.level;
   const userId = userAuth.id;
   const { userPrivilege } = useContext(UserPrivilegeContext);
-  const [setBackgroundColor] = useState(theme.colors.lightPrimary);
+  const [backgroundColor, setBackgroundColor] = useState(
+    theme.colors.lightPrimary
+  );
+
   // useEffect(() => {
   //   const res = generateHeaderText(planStartDate, data, i18n, title);
   //   activeAccount && setTextMessage(res.message);
@@ -95,19 +91,6 @@ function HomeHeader() {
     registerBackgroundFetchAsync();
   }, []);
 
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     async function fetchData() {
-  //       await userLevelCheck(userAuth, setUserAuth);
-  //       await userStatusCheck(userAuth, setUserAuth);
-  //       await checkVersion(currentVersion, Userplatform, userLocation, i18n);
-  //     }
-  //     fetchData();
-  //     //checkFirstTimeUser();
-  //     checkUserPervilage();
-  //   }, [])
-  // );
-
   useEffect(() => {
     checkUserPervilage();
   }, []);
@@ -116,22 +99,6 @@ function HomeHeader() {
 
   const navigation = useNavigation();
   const RTL = userLanguage === 'fa';
-  // const checkFirstTimeUser = async () => {
-  //   try {
-  //     const value = await AsyncStorage.getItem('@firstUsage');
-  //     if (value === null) {
-  //       await AsyncStorage.setItem('@firstUsage', 'true');
-  //       navigation.navigate('IndexOnBoarding');
-  //     } else {
-  //       await AsyncStorage.setItem('@firstUsage', 'false');
-  //     }
-  //   } catch (error) {}
-  // };
-
-  // useEffect(() => {
-  //   checkFirstTimeUser();
-  // }, []);
-
   useEffect(() => {
     const getcurrentwotkout = async () => {
       const value = await AsyncStorage.getItem('currentWorkout');
@@ -151,28 +118,6 @@ function HomeHeader() {
         alignItems: 'center',
       }}>
       <View>
-        <View>
-          {/* <Text
-            style={{
-              fontSize: 22,
-              color: theme.colors.secondary,
-              marginHorizontal: 10,
-              marginBottom: 5,
-              fontFamily: 'Vazirmatn',
-            }}>
-            {i18n.t('welcome')} {''}
-            <Text
-              style={{
-                fontSize: 22,
-                fontWeight: 'bold',
-                color: theme.colors.secondary,
-                fontFamily: 'Vazirmatn',
-              }}>
-              {userAuth?.name}!
-            </Text>
-          </Text> */}
-        </View>
-
         <View
           style={{
             padding: 5,

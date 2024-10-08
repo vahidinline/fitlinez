@@ -14,7 +14,7 @@ const generateWorkoutPlan = async (userId, navigation, setStatus) => {
       setStatus('error'); // Handle error state
     }
   } catch (error) {
-    console.log('Error in generateWorkoutPlan:', error);
+    // console.log('Error in generateWorkoutPlan:', error);
     setStatus('error'); // Update status in case of an error
   }
 };
@@ -29,7 +29,7 @@ const createNewPlan = async (userId) => {
       return null; // Return null or handle errors accordingly
     }
   } catch (error) {
-    console.log('Error in createNewPlan:', error);
+    // console.log('Error in createNewPlan:', error);
     return null; // Return null in case of an error
   }
 };

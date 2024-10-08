@@ -10,7 +10,6 @@ const permissions = {
       AppleHealthKit.Constants.Permissions.FlightsClimbed,
       AppleHealthKit.Constants.Permissions.DistanceWalkingRunning,
       AppleHealthKit.Constants.Permissions.ActiveEnergyBurned,
-      AppleHealthKit.Constants.Permissions.HeartRate,
     ],
     write: [],
   },
@@ -21,7 +20,7 @@ const useHealthData = (date) => {
   const [steps, setSteps] = useState(0);
   const [flights, setFlights] = useState(0);
   const [distance, setDistance] = useState(0);
-  const [heartRate, setHeartRate] = useState(null);
+
   const [activeEnergy, setActiveEnergy] = useState(0);
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
   const [pastStepCount, setPastStepCount] = useState(0);
@@ -110,22 +109,22 @@ const useHealthData = (date) => {
         else setFlights(results.value);
       });
 
-      AppleHealthKit.getHeartRateSamples(
-        {
-          unit: 'bpm',
-          startDate: new Date(
-            new Date().setHours(new Date().getHours() - 1)
-          ).toISOString(), // Last hour
-          endDate: new Date().toISOString(),
-          ascending: false,
-          limit: 1, // Only get the most recent heart rate
-        },
-        (err, results) => {
-          if (err) console.log('Error fetching heart rate:', err);
-          else if (results && results.length > 0)
-            setHeartRate(results[0].value);
-        }
-      );
+      // AppleHealthKit.getHeartRateSamples(
+      //   {
+      //     unit: 'bpm',
+      //     startDate: new Date(
+      //       new Date().setHours(new Date().getHours() - 1)
+      //     ).toISOString(), // Last hour
+      //     endDate: new Date().toISOString(),
+      //     ascending: false,
+      //     limit: 1, // Only get the most recent heart rate
+      //   },
+      //   (err, results) => {
+      //     if (err) console.log('Error fetching heart rate:', err);
+      //     else if (results && results.length > 0)
+      //       setHeartRate(results[0].value);
+      //   }
+      // );
 
       AppleHealthKit.getDistanceWalkingRunning(options, (err, results) => {
         if (err) console.log('Error fetching distance:', err);
@@ -168,7 +167,7 @@ const useHealthData = (date) => {
     distance,
     activeEnergy,
     hasPermissions,
-    heartRate,
+
     setHasPermission,
   };
 };

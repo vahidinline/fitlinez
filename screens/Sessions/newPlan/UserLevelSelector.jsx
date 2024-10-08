@@ -96,7 +96,7 @@ const UserLevelSelector = () => {
         questionIndex={5}
       />
 
-      <Button onPress={() => console.log(answers)}>Submit</Button>
+      {/* <Button onPress={() => console.log(answers)}>Submit</Button> */}
     </View>
   );
 };

@@ -16,7 +16,7 @@ import { I18n } from 'i18n-js';
 import { useNavigation } from '@react-navigation/native';
 
 function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
-  console.log('taskStatus in daily index', taskStatus);
+  //console.log('taskStatus in daily index', taskStatus);
   const [dailyTasks, setDailyTasks] = useState([]);
   const { theme } = useTheme();
   const styles = getStyles(theme);
@@ -83,7 +83,7 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
             // borderWidth: 1,
           }}>
           <View
-            style={{ flexDirection: 'column', position: 'absolute', top: 10 }}>
+            style={{ flexDirection: 'column', position: 'absolute', top: 25 }}>
             <Text style={styles.text}>{i18n.t('noTasksAvailable')}</Text>
             <TouchableOpacity
               style={styles.button}

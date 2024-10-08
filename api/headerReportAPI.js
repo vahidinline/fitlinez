@@ -15,7 +15,7 @@ const getHeaderReport = async (userId, userLanguage) => {
     // console.log('response', response.data);
     return response.data;
   } catch (error) {
-    console.log('error getting userId', error);
+    //  console.log('error getting userId', error);
   }
 };
 

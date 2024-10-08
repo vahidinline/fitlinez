@@ -35,7 +35,7 @@ const sendChatBotMessage = (
     //   }
     // });
   } catch (e) {
-    console.log('ddd');
+    //console.log('ddd');
   }
 };
 
@@ -49,7 +49,7 @@ const setAiResponseRate = (id, userRate) => {
   try {
     return api.put(`/fitlinez-chat-bot/rate/${id}`, { userRate });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 

@@ -41,7 +41,7 @@ api.interceptors.response.use(
       });
     } else {
       // Other errors
-      console.log('Network error', error.response.data.error);
+      //('Network error', error.response.data.error);
       showMessage({
         message: `Error ${error.response.data.error}`,
         description: error.response.data.message || 'An error occurred',

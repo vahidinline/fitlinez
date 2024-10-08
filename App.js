@@ -35,8 +35,8 @@ const errorHandler = (error, stackTrace) => {
   /* Log the error to an error reporting service */
   Bugsnag.notify(error);
   Bugsnag.notify(stackTrace);
-  console.log('error', error);
-  console.log('stackTrace', stackTrace);
+  //console.log('error', error);
+  //console.log('stackTrace', stackTrace);
   //console.log('error', error);
 };
 
@@ -66,7 +66,7 @@ export default function App() {
     try {
       const res = await trackUserData(userAuth, 'App started');
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -74,29 +74,14 @@ export default function App() {
     try {
       const update = await Updates.checkForUpdateAsync();
       if (update.isAvailable) {
-        // Alert the user about the update
-        Alert.alert(`${i18n.t('updateTitle')}`, `${i18n.t('updateBody')}`, [
-          {
-            text: `${i18n.t('noLater')}`,
-            onPress: () => console.log('User chose to update later'),
-            style: 'cancel',
-          },
-          {
-            text: `${i18n.t('yesUpdate')}`,
-            onPress: async () => {
-              setStatus('loading');
-              await Updates.fetchUpdateAsync();
-              await Updates.reloadAsync(); // This will reload the app to apply the update
-              appUpdateTrack(userAuth?.userId); // Your custom tracking function
-              Alert.alert('Update', 'App is updated');
-            },
-          },
-        ]);
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync(); // Reload to apply the update
+        appUpdateTrack(userAuth?.userId); // Your custom tracking function
       } else {
-        console.log('No updates available');
+        //console.log('No updates available');
       }
     } catch (error) {
-      console.log(`Error fetching latest Expo update: ${error}`);
+      //console.log(`Error fetching latest Expo update: ${error}`);
     }
   }
 

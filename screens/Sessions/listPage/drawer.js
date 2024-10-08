@@ -16,10 +16,11 @@ const screenWidth = Dimensions.get('window').width;
 
 function DrawerList({
   sortedData,
-  index: exerciseId,
-
-  goToIndex,
+  index,
   RTL,
+  goToIndex,
+  showList,
+  setShowList,
 }) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
@@ -27,6 +28,7 @@ function DrawerList({
 
   const handlePress = (index) => {
     try {
+      setShowList(!showList);
       goToIndex(index);
       setStatus('modal');
     } catch (error) {
@@ -43,43 +45,51 @@ function DrawerList({
           style={{ marginTop: 10 }}
           data={sortedData}
           keyExtractor={(item) => {
-            // Check if exerciseId is an object (e.g., ObjectId) and extract the ID if it is
             if (
               typeof item.exerciseId === 'object' &&
               item.exerciseId !== null
             ) {
               return item.exerciseId.toString();
             }
-
-            // Otherwise, return exerciseId directly if it's a string
             return item.exerciseId;
           }}
-          renderItem={({ item, index }) => {
-            return (
-              <TouchableOpacity
-                onLongPress={() => console.log(item.exerciseName)}
-                onPress={() => handlePress(index)}>
-                <View style={styles.listItem}>
-                  <View style={styles.textContainer}>
-                    <Text style={styles.index}>
-                      {convertToPersianNumbers(index + 1, RTL)}
-                    </Text>
-
-                    <Image
-                      source={{ uri: item.gifUrl }}
-                      style={styles.exerciseImage}
-                    />
-                  </View>
-                </View>
-                <Divider />
-              </TouchableOpacity>
-            );
-          }}
+          renderItem={({ item, index }) => (
+            <MemoizedItem
+              item={item}
+              index={index}
+              handlePress={handlePress}
+              RTL={RTL}
+              styles={styles}
+            />
+          )}
+          initialNumToRender={5} // Only render 5 items initially
+          maxToRenderPerBatch={5} // Reduce number of items rendered per batch
+          windowSize={5} // Reduce number of items retained in memory
         />
       </View>
     </View>
   );
 }
+
+const MemoizedItem = React.memo(({ item, index, handlePress, RTL, styles }) => (
+  <TouchableOpacity
+    onLongPress={() => console.log(item.exerciseName)}
+    onPress={() => handlePress(index)}>
+    <View style={styles.listItem}>
+      <View style={styles.textContainer}>
+        <Text style={styles.index}>
+          {convertToPersianNumbers(index + 1, RTL)}
+        </Text>
+        <Image
+          source={{ uri: item.gifUrl }}
+          style={styles.exerciseImage}
+          resizeMode="contain"
+        />
+      </View>
+    </View>
+    <Divider />
+  </TouchableOpacity>
+));
 
 const getStyles = (theme) =>
   StyleSheet.create({
@@ -92,7 +102,6 @@ const getStyles = (theme) =>
       height: Dimensions.get('window').height / 3,
       zIndex: 1000,
       borderWidth: 1,
-
       borderColor: theme.colors.border,
       overflow: 'hidden',
     },
@@ -107,54 +116,17 @@ const getStyles = (theme) =>
       fontSize: 14,
       fontFamily: 'Vazirmatn',
     },
-    backdrop: {
-      flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
     listItem: {
       flexDirection: 'row',
-      //backgroundColor: theme.colors.white,
       marginBottom: 10,
-      //marginHorizontal: 10,
       height: 45,
       borderRadius: 16,
       borderColor: theme.colors.border,
-      //borderWidth: 1,
       overflow: 'hidden',
-    },
-    iconContainer: {
-      width: 30,
-      height: 30,
-      //backgroundColor: theme.colors.white,
-      borderRadius: 20,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginVertical: 10,
-      marginLeft: 10,
-      borderColor: theme.colors.border,
-    },
-    iconWrapper: {
-      justifyContent: 'center',
-      alignItems: 'center',
     },
     textContainer: {
       borderRadius: 4,
       width: '100%',
-      // flexDirection: 'row',
-      // justifyContent: 'space-between',
-      // marginVertical: 5,
-      // width: screenWidth / 1.4 - 100,
-      //marginLeft: 5,
-      // backgroundColor: theme.colors.white,
-    },
-    exerciseText: {
-      paddingVertical: 2,
-      fontSize: 12,
-      fontFamily: 'Vazirmatn',
-      alignSelf: 'center',
-      color: theme.colors.secondary,
-      flexWrap: 'wrap',
-      //width: Dimensions.get('window').width / 2.3,
     },
     exerciseImage: {
       width: 45,
@@ -163,4 +135,4 @@ const getStyles = (theme) =>
     },
   });
 
-export default DrawerList;
+export default React.memo(DrawerList);

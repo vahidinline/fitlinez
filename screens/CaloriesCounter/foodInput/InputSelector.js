@@ -1,25 +1,28 @@
 import React, { useContext, useState } from 'react';
 import FoodTextInput from './FoodTextInput';
 import {
+  ActivityIndicator,
   Dimensions,
+  Image,
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
   View,
 } from 'react-native';
 import VoiceGetter from './VoiceGetter';
-import { Badge, Button } from '@rneui/base';
+import { Badge } from '@rneui/base';
 import {
   IconBarCode,
   IconMic,
   IconType,
 } from '../../marketplace/filters/icons';
-import { useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import BarcodeScanner from './barcode/BarcodeScanner';
 import LanguageContext from '../../../api/langcontext';
 import i18nt from '../../../locales';
 import { I18n } from 'i18n-js';
 import Header from '../../../components/header';
+import FitlinezLoading from '../../../components/FitlinezLoading';
 
 function InputSelector({ route }) {
   const { mealValue, mealName } = route.params;
@@ -27,7 +30,7 @@ function InputSelector({ route }) {
   const [inputStatus, setInputStatus] = useState('textInput');
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
-  const [status, setStatus] = useState('idle');
+  const [status, setStatus] = useState('');
   const [foodItems, setFoodItems] = useState([]);
   i18n.locale = userLanguage;
   const [userInput, setUserInput] = useState('');
@@ -42,14 +45,16 @@ function InputSelector({ route }) {
     setSelectedIds([id]);
   };
 
+  console.log('status in input selector', status);
+
   const inputType = [
-    {
-      id: 1,
-      name: 'Voice',
-      func: () => handleSetStatus('voiceInput'),
-      icon: <IconMic size={40} color={theme.colors.grey} />,
-      active: true,
-    },
+    // {
+    //   id: 1,
+    //   name: 'Voice',
+    //   func: () => handleSetStatus('voiceInput'),
+    //   icon: <IconMic size={40} color={theme.colors.grey} />,
+    //   active: true,
+    // },
     {
       id: 2,
       name: 'Text',
@@ -155,6 +160,7 @@ function InputSelector({ route }) {
               </TouchableOpacity>
             ))}
           </View>
+
           <FoodTextInput
             selectedMeal={mealValue}
             setFoodItems={setFoodItems}

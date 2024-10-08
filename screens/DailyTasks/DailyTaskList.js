@@ -14,7 +14,7 @@ import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import AuthContext from '../../api/context';
 
-function DailyTaskList(item, { title }) {
+function DailyTaskList(item, { title, location }) {
   //console.log('title in daily task', title);
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -30,7 +30,7 @@ function DailyTaskList(item, { title }) {
       // condition 1
       navigation.navigate('SessionNavigator', {
         screen: 'StartSessionIndex',
-        params: { title: title },
+        params: { title: title, location: location },
       });
     } else if (userPrivilege) {
       // condition 1
@@ -55,10 +55,11 @@ function DailyTaskList(item, { title }) {
         marginHorizontal: 5,
         height: Dimensions.get('window').height / 12,
         width: Dimensions.get('window').width / 1.2,
-        top: 40,
+        botoom: 10,
+        top: 50,
         //marginTop: 35,
         alignItems: 'center',
-        borderRadius: 16,
+        borderRadius: 14,
         paddingVertical: 5,
         // borderColor: theme.colors.border,
         // borderWidth: 1,
@@ -89,7 +90,8 @@ function DailyTaskList(item, { title }) {
               fontSize: 20,
               fontWeight: 'bold',
               marginHorizontal: 16,
-              marginTop: 10,
+              marginTop: 15,
+
               textDecorationLine:
                 item.item.status === 'completed' ? 'line-through' : 'none',
               fontFamily: 'Vazirmatn',

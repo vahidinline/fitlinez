@@ -172,7 +172,7 @@ const CalendarView = (props) => {
   const gethistorydata = async (date) => {
     const data = await AsyncStorage.getItem('saveDoneWorkOut');
     const parsedData = JSON.parse(data);
-    console.log('parsedData', parsedData);
+    // console.log('parsedData', parsedData);
     setWorkOutHistory(parsedData);
   };
 

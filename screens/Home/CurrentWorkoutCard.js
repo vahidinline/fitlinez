@@ -28,25 +28,6 @@ function CurrentWorkoutCard({
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
 
-  const handleNextStep = () => {
-    if (userLevel === 4) {
-      // condition 1
-      navigation.navigate('SessionNavigator', {
-        screen: 'StartSessionIndex',
-        params: { title: title, location: location },
-      });
-    } else if (userPrivilege) {
-      // condition 1
-      navigation.navigate('SessionNavigator', {
-        screen: 'StartSessionIndex',
-        params: { title: title, location: location },
-      });
-    } else {
-      // condition 2
-      navigation.navigate('Upgrade');
-    }
-  };
-
   return (
     <View style={[styles.container]}>
       <LinearGradient
@@ -81,7 +62,7 @@ function CurrentWorkoutCard({
                 fontSize: 14,
                 fontFamily: 'Vazirmatn',
                 marginHorizontal: 10,
-                marginTop: 5,
+                // marginTop: 5,
                 color: 'white',
                 //direction: 'rtl',
                 textAlign: 'center',

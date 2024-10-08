@@ -22,7 +22,7 @@ const setDailyCaloriesGoals = async (
       carbsGrams,
       userId,
     });
-    console.log('response', response.data);
+    // console.log('response', response.data);
     return response.data;
   } catch (error) {
     console.error('Failed to send data:', error);

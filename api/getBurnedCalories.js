@@ -1,7 +1,7 @@
 import api from './api';
 
 const getBurnedCalories = async (userId, sessionId) => {
-  console.log('sessionId in getBurnedCalories func', sessionId);
+  // console.log('sessionId in getBurnedCalories func', sessionId);
 
   try {
     const response = await api.post(`/bcc/calc/${userId}`, {
@@ -9,7 +9,7 @@ const getBurnedCalories = async (userId, sessionId) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Failed to send data:', error);
+    // console.error('Failed to send data:', error);
     // ... Implement proper error handling ...
   }
 };

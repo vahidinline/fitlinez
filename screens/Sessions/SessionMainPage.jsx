@@ -21,7 +21,7 @@ import Item from './listPage/item';
 import { updateSession } from '../../api/workoutSessionTracker';
 import DrawerList from './listPage/drawer';
 import SessionTimer from '../../components/timer/sessionTimer';
-import { IconArrowRight } from '../marketplace/filters/icons';
+import { IconArrowRight, IconMenu } from '../marketplace/filters/icons';
 import { IconCloseCircle } from '../marketplace/filters/icons';
 import AdModal from '../../components/AdModal/AdModalIndex';
 
@@ -51,6 +51,7 @@ const SessionMainPage = (props) => {
   const ITEM_HEIGHT = Dimensions.get('window').height;
   const ITEM_WEIGHT = Dimensions.get('window').width;
   const [alertVisible, setAlertVisible] = useState(false);
+  const [showList, setShowList] = useState(false);
   const RTL = userLanguage === 'fa';
   const style = {
     textAlign: 'center',
@@ -63,11 +64,11 @@ const SessionMainPage = (props) => {
 
   useEffect(() => {
     if (flatListRef.current) {
-      flatListRef.current.setNativeProps({ scrollEnabled: false });
+      flatListRef.current.setNativeProps({ scrollEnabled: true });
     } else {
       console.log('flatListRef.current is null');
     }
-  }, [scrollEnabled]);
+  }, []);
 
   const goToIndex = (index) => {
     if (index) {
@@ -144,14 +145,8 @@ const SessionMainPage = (props) => {
       if (jsonValue) {
         const currentExerciseState = JSON.parse(jsonValue);
         const { itemIndex, setIndex } = currentExerciseState;
-        //alert(i18n.t('alertUnfinishSession'));
-        // Add a delay to ensure FlatList is fully loaded.
+
         setTimeout(() => {
-          // if (itemIndex < data.length - 1) {
-          //   // Call the goToIndex function with the next index
-          //   goToIndex(itemIndex + 1);
-          // } else {
-          // Optionally, you can handle the case when it is the last index
           goToIndex(itemIndex);
         }, 500); // Adjust delay as needed.
 
@@ -185,6 +180,7 @@ const SessionMainPage = (props) => {
   }, []);
 
   const finishWorkout = async () => {
+    console.log('finishing session');
     try {
       setStoptimer(true);
       const sessionId = await AsyncStorage.getItem('sessionId');
@@ -328,28 +324,44 @@ const SessionMainPage = (props) => {
             <IconArrowRight />
           </TouchableOpacity>
         </View>
-        <View
+        {/* <TouchableOpacity
           style={{
             position: 'absolute',
-            top: Dimensions.get('window').height / 8,
-
-            right: Dimensions.get('window').width - 38,
-            //right: 0,
-            bottom: 10,
-            //justifyContent: 'center',
-            alignItems: 'center',
-            //backgroundColor: 'rgba(0,0,0,0.5)',
+            top: 80,
             zIndex: 1000,
-          }}>
-          <DrawerList
-            sortedData={sortedData}
-            userLanguage={userLanguage}
-            goToIndex={goToIndex}
-            RTL={RTL}
-            //index={index}
-            //img={gifUrl}
-          />
-        </View>
+            marginHorizontal: 20,
+            //  right: Dimensions.get('window').width - 38,
+          }}
+          onPress={() => setShowList(!showList)}>
+          <IconMenu size={32} />
+        </TouchableOpacity> */}
+        {showList && (
+          <View
+            style={{
+              position: 'absolute',
+              top: Dimensions.get('window').height / 8,
+
+              right: Dimensions.get('window').width - 50,
+              //right: 0,
+              bottom: 10,
+              //justifyContent: 'center',
+              alignItems: 'center',
+              //backgroundColor: 'rgba(0,0,0,0.5)',
+              zIndex: 1000,
+            }}>
+            <DrawerList
+              sortedData={sortedData}
+              userLanguage={userLanguage}
+              goToIndex={goToIndex}
+              RTL={RTL}
+              showList={showList}
+              setShowList={setShowList}
+              //index={index}
+              //img={gifUrl}
+            />
+          </View>
+        )}
+
         <FlatList
           initialNumToRender={2} // Adjust according to your need
           onEndReached={() => {
@@ -357,26 +369,18 @@ const SessionMainPage = (props) => {
             // Alert.alert(i18n.t('alertEndOfList'));
           }}
           removeClippedSubviews={true}
-          maxToRenderPerBatch={2}
+          maxToRenderPerBatch={5}
+          windowSize={5}
           horizontal
           getItemLayout={getItemLayout}
           ref={flatListRef}
-          keyExtractor={(item) => {
-            // Check if exerciseId is an object (e.g., ObjectId) and extract the ID if it is
-            if (
-              typeof item.exerciseId === 'object' &&
-              item.exerciseId !== null
-            ) {
-              return item.exerciseId.toString();
-            }
-
-            // Otherwise, return exerciseId directly if it's a string
-            return item.exerciseId;
-          }}
+          keyExtractor={(item) => item.exerciseId.toString()}
           renderItem={({ item, index }) => (
             <View key={item.exerciseId} style={style}>
               <Item
                 goToIndex={goToIndex}
+                showList={showList}
+                setShowList={setShowList}
                 image={item.image}
                 userLevel={userLevel}
                 sortedData={sortedData}

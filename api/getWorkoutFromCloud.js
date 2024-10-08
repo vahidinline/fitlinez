@@ -13,7 +13,10 @@ const GetFromCloud = () => {
     .then(() => {
       getWorkoutDate();
     })
-    .catch((err) => console.log('Error while connecting to backend', err));
+    .catch(
+      (err) => {}
+      // console.log('Error while connecting to backend', err)
+    );
 };
 
 export default GetFromCloud;

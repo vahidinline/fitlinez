@@ -64,10 +64,11 @@ function Header({ title, rightIconPress, left, color }) {
         </Text>
 
         <TouchableOpacity
+          style={{}}
           onPress={() =>
             rightIconPress ? rightIconPress() : navigation.goBack()
           }>
-          <IconArrowLeft />
+          <IconArrowLeft size={30} color={theme.colors.secondary} />
         </TouchableOpacity>
       </View>
     </View>

@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
  * @param {Function} resetUserAuth - Function to reset user authentication state.
  */
 export const forceSolveError = async (navigation) => {
-  console.log('Force solve error initiated, app will reload.', navigation);
+  //  console.log('Force solve error initiated, app will reload.', navigation);
   try {
     // Optionally, you can perform any clean-up actions here, such as resetting user state
     if (resetUserAuth) {

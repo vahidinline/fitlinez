@@ -6,7 +6,7 @@ const getPackages = async () => {
 
     return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return null; // or throw error if you want to handle it in the calling function
   }
 };

@@ -24,25 +24,18 @@ import {
   IconArrow,
   IconReport,
   IconLogOut,
-  IconInbox,
-  IconLeaderboard,
 } from '../marketplace/filters/icons';
-import { UnitContext } from '../../api/unitContext';
 import moment from 'moment';
 import { IconWeight } from '../marketplace/filters/icons';
 
 function ProfileIndex() {
   const key = 'fitlinez-session';
-  const { unit, setUnit } = useContext(UnitContext);
-  const [isFocus, setIsFocus] = useState(false);
-  const [value, setValue] = useState(null);
   const [dayLeft, setDayLeft] = useState(0);
   const navigation = useNavigation();
   const { userLanguage, setUserLanguage } = useContext(LanguageContext);
   const { userAuth, setUserAuth } = useContext(AuthContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-  const { toggleTheme } = useContext(ThemeContext);
   const [avatar, setAvatar] = useState(null);
   const { theme } = useTheme();
   const userLevel = userAuth.level;
@@ -98,13 +91,6 @@ function ProfileIndex() {
       func: () => navigation.navigate('Aboutme'),
     },
 
-    // {
-    //   id: 2,
-    //   name: i18n.t('unit'),
-    //   icon: IconUnit,
-    //   sub: unit,
-    //   func: () => navigation.navigate('UnitSelector'),
-    // },
     {
       id: 3,
       name: i18n.t('report'),
@@ -114,12 +100,6 @@ function ProfileIndex() {
       },
     },
 
-    // {
-    //   id: 6,
-    //   name: i18n.t('tutorialVideo'),
-    //   icon: IconProfile,
-    //   func: () => nabigateToVideo(),
-    // },
     {
       id: 7,
       name: i18n.t('changeWorkoutPlan'),
@@ -134,9 +114,6 @@ function ProfileIndex() {
     },
   ];
 
-  const nabigateToVideo = () => {
-    Linking.openURL(`https://fitlinez.com/video/`);
-  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <View
@@ -147,25 +124,6 @@ function ProfileIndex() {
           marginBottom: 0,
           marginHorizontal: 10,
         }}>
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 20,
-            marginBottom: 0,
-            marginHorizontal: 10,
-            borderWidth: 1,
-            borderRadius: 10,
-            borderColor: '#5B5891',
-            width: 50,
-            height: 50,
-            alignContent: 'center',
-            alignItems: 'center',
-            //alignSelf: 'center',
-            justifyContent: 'center',
-          }}>
-          <IconInbox />
-        </View> */}
         <View
           style={{
             flexDirection: 'row',
@@ -202,27 +160,6 @@ function ProfileIndex() {
             </Text>
           </View>
         </View>
-
-        {/* <TouchableOpacity
-          onPress={() => navigation.navigate('IndexLeaderBoard')}
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 20,
-            marginBottom: 0,
-            marginHorizontal: 10,
-            borderWidth: 1,
-            borderRadius: 10,
-            borderColor: '#5B5891',
-            width: 50,
-            height: 50,
-            alignContent: 'center',
-            alignItems: 'center',
-            //alignSelf: 'center',
-            justifyContent: 'center',
-          }}>
-          <IconLeaderboard />
-        </TouchableOpacity> */}
       </View>
 
       <View
@@ -263,14 +200,8 @@ function ProfileIndex() {
             marginTop: 20,
             marginBottom: 0,
             marginLeft: 10,
-            //borderWidth: 1,
             borderRadius: 10,
-            //borderColor: '#5B5891',
-            // width: 50,
-            // height: 50,
             alignContent: 'center',
-            alignItems: 'center',
-            //alignSelf: 'center',
             justifyContent: 'center',
           }}>
           <FlatList
@@ -287,7 +218,7 @@ function ProfileIndex() {
                         alignItems: 'center',
                         alignContent: 'center',
                         alignItems: 'center',
-                        // top: 15,
+
                         marginLeft: 10,
                       }}>
                       <Text
@@ -296,9 +227,7 @@ function ProfileIndex() {
                           fontWeight: item.id !== 5 ? '300' : '500',
                           color: item.id !== 5 ? theme.colors.text : 'red',
                           marginLeft: 10,
-                          //position: 'absolute',
-                          //right: 180,
-                          //top: -10,
+
                           fontFamily: 'Vazirmatn',
                         }}>
                         {item.name}
@@ -310,9 +239,7 @@ function ProfileIndex() {
                             fontWeight: item.id !== 5 ? '300' : '500',
                             color: item.id !== 5 ? theme.colors.text : 'red',
                             marginLeft: 10,
-                            //position: 'absolute',
-                            //right: 180,
-                            //top: -10,
+
                             fontFamily: 'Vazirmatn',
                           }}>
                           {item.sub[0].massureUnit} / {item.sub[1].weightUnit}

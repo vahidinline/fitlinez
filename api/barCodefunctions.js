@@ -1,7 +1,7 @@
 import foodapi from './foodApi';
 
 const sendBarCode = async (barCode, selectedMeal, userId, servingSize) => {
-  console.log('sendBarCode', barCode, selectedMeal, userId, servingSize);
+  //console.log('sendBarCode', barCode, selectedMeal, userId, servingSize);
   try {
     const response = await foodapi.post('/foodData', {
       barcode: barCode,
