@@ -1,7 +1,6 @@
-import { useTheme } from '@rneui/themed';
+import { Image, useTheme } from '@rneui/themed';
 import React, { useState } from 'react';
 import { View, Button, StyleSheet, Dimensions, Text } from 'react-native';
-import { Image } from 'react-native-expo-image-cache';
 
 const ImageLoader = ({ uri, width, height, i18n }) => {
   const [imageLoaded, setImageLoaded] = useState(true);
@@ -26,7 +25,7 @@ const ImageLoader = ({ uri, width, height, i18n }) => {
         <Image
           key={key} // Force re-render by using key
           style={{ height, width }}
-          uri={uri}
+          source={{ uri }}
           onLoad={handleImageLoad}
           onError={handleImageError} // Ensure error handler is triggered
         />

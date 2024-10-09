@@ -248,23 +248,6 @@ const SessionMainPage = (props) => {
   const handleCloseSession = async () => {
     setAlertVisible(true);
     console.log('close session', alertVisible);
-
-    // Alert.alert(
-    //   i18n.t('closeSession'),
-    //   i18n.t('closeSessionMessage'),
-    //   [
-    //     {
-    //       text: i18n.t('cancel'),
-    //       onPress: () => console.log('Cancel Pressed'),
-    //       style: 'cancel',
-    //     },
-    //     {
-    //       text: i18n.t('confirm'),
-    //       onPress: async () => closeSession(),
-    //     },
-    //   ],
-    //   { cancelable: false }
-    // );
   };
 
   return (
@@ -291,7 +274,6 @@ const SessionMainPage = (props) => {
               width: '30%',
             }}
             onPress={() => handleCloseSession()}>
-            {/* <IconInfo /> */}
             <IconCloseCircle
               color={theme.colors.secondary}
               size={24}
@@ -324,49 +306,12 @@ const SessionMainPage = (props) => {
             <IconArrowRight />
           </TouchableOpacity>
         </View>
-        {/* <TouchableOpacity
-          style={{
-            position: 'absolute',
-            top: 80,
-            zIndex: 1000,
-            marginHorizontal: 20,
-            //  right: Dimensions.get('window').width - 38,
-          }}
-          onPress={() => setShowList(!showList)}>
-          <IconMenu size={32} />
-        </TouchableOpacity> */}
-        {showList && (
-          <View
-            style={{
-              position: 'absolute',
-              top: Dimensions.get('window').height / 8,
-
-              right: Dimensions.get('window').width - 50,
-              //right: 0,
-              bottom: 10,
-              //justifyContent: 'center',
-              alignItems: 'center',
-              //backgroundColor: 'rgba(0,0,0,0.5)',
-              zIndex: 1000,
-            }}>
-            <DrawerList
-              sortedData={sortedData}
-              userLanguage={userLanguage}
-              goToIndex={goToIndex}
-              RTL={RTL}
-              showList={showList}
-              setShowList={setShowList}
-              //index={index}
-              //img={gifUrl}
-            />
-          </View>
-        )}
 
         <FlatList
           initialNumToRender={2} // Adjust according to your need
           onEndReached={() => {
-            console.log('End of list');
-            // Alert.alert(i18n.t('alertEndOfList'));
+            //console.log('End of list');
+            Alert.alert(i18n.t('alertEndOfList'));
           }}
           removeClippedSubviews={true}
           maxToRenderPerBatch={5}

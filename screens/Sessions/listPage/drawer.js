@@ -14,14 +14,7 @@ import convertToPersianNumbers from '../../../api/PersianNumber';
 
 const screenWidth = Dimensions.get('window').width;
 
-function DrawerList({
-  sortedData,
-  index,
-  RTL,
-  goToIndex,
-  showList,
-  setShowList,
-}) {
+function DrawerList({ sortedData, index, RTL, goToIndex }) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const [status, setStatus] = useState('idle');
@@ -39,57 +32,30 @@ function DrawerList({
   return (
     <View style={styles.container}>
       <View>
-        <FlatList
-          horizontal={false}
-          scrollEnabled={true}
-          style={{ marginTop: 10 }}
-          data={sortedData}
-          keyExtractor={(item) => {
-            if (
-              typeof item.exerciseId === 'object' &&
-              item.exerciseId !== null
-            ) {
-              return item.exerciseId.toString();
-            }
-            return item.exerciseId;
-          }}
-          renderItem={({ item, index }) => (
-            <MemoizedItem
-              item={item}
-              index={index}
-              handlePress={handlePress}
-              RTL={RTL}
-              styles={styles}
-            />
-          )}
-          initialNumToRender={5} // Only render 5 items initially
-          maxToRenderPerBatch={5} // Reduce number of items rendered per batch
-          windowSize={5} // Reduce number of items retained in memory
-        />
+        {sortedData.map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            onLongPress={() => console.log(item.exerciseName)}
+            onPress={() => handlePress(index)}>
+            <View style={styles.listItem}>
+              <View style={styles.textContainer}>
+                <Text style={styles.index}>
+                  {convertToPersianNumbers(index + 1, RTL)}
+                </Text>
+                <Image
+                  source={{ uri: item.gifUrl }}
+                  style={styles.exerciseImage}
+                  resizeMode="contain"
+                />
+              </View>
+            </View>
+            <Divider />
+          </TouchableOpacity>
+        ))}
       </View>
     </View>
   );
 }
-
-const MemoizedItem = React.memo(({ item, index, handlePress, RTL, styles }) => (
-  <TouchableOpacity
-    onLongPress={() => console.log(item.exerciseName)}
-    onPress={() => handlePress(index)}>
-    <View style={styles.listItem}>
-      <View style={styles.textContainer}>
-        <Text style={styles.index}>
-          {convertToPersianNumbers(index + 1, RTL)}
-        </Text>
-        <Image
-          source={{ uri: item.gifUrl }}
-          style={styles.exerciseImage}
-          resizeMode="contain"
-        />
-      </View>
-    </View>
-    <Divider />
-  </TouchableOpacity>
-));
 
 const getStyles = (theme) =>
   StyleSheet.create({

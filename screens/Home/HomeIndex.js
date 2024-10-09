@@ -25,8 +25,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { getNewTasks } from '../../api/getNewTasks';
 import StepcounterIndex from '../StepCounter/StepcounterIndex';
 import { IconWalking } from '../marketplace/filters/icons';
+import HasWorkoutCard from './hasWorkout';
 
-import FitlinezLoading from '../../components/FitlinezLoading';
 function HomeIndex() {
   const [refreshing, setRefreshing] = useState(false);
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -36,7 +36,7 @@ function HomeIndex() {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const isRTL = userLanguage === 'fa';
-  const [status, setStatus] = useState('loading');
+  const [status, setStatus] = useState('hasPlan');
   const [taskStatus, setTaskStatus] = useState('idle');
   const [planName, setPlanName] = useState('');
   // console.log('status homeindex', status);
@@ -63,17 +63,15 @@ function HomeIndex() {
   //console.log('currentPlan', currentPlan);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setStatus('loading');
-      if (currentPlan === null) {
-        setStatus('noPlan');
-      } else {
-        setStatus('hasPlan');
-      }
-    }, 2000);
+    setStatus('loading');
+    if (currentPlan === null) {
+      setStatus('noPlan');
+    } else {
+      setStatus('hasPlan');
+    }
+
     // Cleanup function to clear the timeout if currentPlan is not null
     return () => {
-      clearTimeout(timeout);
       setStatus('idle');
     };
   }, [currentPlan]);
@@ -128,27 +126,20 @@ function HomeIndex() {
         {/* {status === 'loading' && <FitlinezLoading />} */}
 
         {status === 'hasPlan' && (
-          <View style={styles.box}>
-            <View
-              style={{
-                flex: 1,
-                width: Dimensions.get('window').width,
-                marginTop: 0,
-                height: Dimensions.get('window').height / 5,
-                marginBottom: 0,
-              }}>
-              <CurrentWorkoutCard
-                RTL={isRTL}
-                title={planName || ''}
-                trainer={currentPlan?.creator || ''}
-                location={currentPlan?.location || ''}
-                userPervilage={userPervilage}
-                taskStatus={taskStatus}
-                setTaskStatus={setTaskStatus}
-                workOutPlan={currentPlan}
-              />
-            </View>
-          </View>
+          // <CurrentWorkoutCard
+          //   RTL={isRTL}
+          //   title={planName || ''}
+          //   trainer={currentPlan?.creator || ''}
+          //   location={currentPlan?.location || ''}
+          //   userPervilage={userPervilage}
+          //   taskStatus={taskStatus}
+          //   setTaskStatus={setTaskStatus}
+          //   workOutPlan={currentPlan}
+          // />
+          <HasWorkoutCard
+            title={planName || ''}
+            location={currentPlan?.location || ''}
+          />
         )}
 
         {status === 'noPlan' && (

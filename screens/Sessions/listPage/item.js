@@ -19,12 +19,11 @@ import { SessionContext } from '../../../api/sessionContext';
 import ImageLoader from './image';
 import TimerInput from './inputs/timerInput';
 import RestCounterComponent from './inputs/counter';
-import Instruction from './instruction';
 import Subs from './subs';
 import * as Icons from '../../marketplace/filters/icons';
-import AiAskHelpIndex from '../../AiAskHelp/AiAskHelpIndex';
 import api from '../../../api/api';
 import convertToPersianNumbers from '../../../api/PersianNumber';
+import DrawerList from './drawer';
 const { width, height } = Dimensions.get('window');
 
 function Item({
@@ -42,6 +41,7 @@ function Item({
   bodyPart,
   category,
   handleSubsitute,
+  sortedData,
   allExcerciesIds,
   mainTarget,
   otherTarget,
@@ -163,8 +163,6 @@ function Item({
   useEffect(() => {
     if (saveCount + 1 >= adjustedNumberOfSets) {
       if (index >= dataLength - 1) {
-        // setButtonDisabled(!buttonVisible);
-        //setButtonTitle(i18n.t('finishWorkout'));
       } else {
         setButtonTitle(i18n.t('nextExercise'));
       }
@@ -178,9 +176,6 @@ function Item({
   }
 
   const saveExerciseState = async (data) => {
-    //console.log('currentExerciseState', data);
-    //store sum of all sets totalWeight in async storage
-
     const jsonValue = JSON.stringify(data);
     try {
       await AsyncStorage.setItem('@current_exercise_state', jsonValue);
@@ -412,25 +407,6 @@ function Item({
             )}
           </View>
         </View>
-        {/* <View
-          style={{
-            position: 'absolute',
-            marginHorizontal: 15,
-            marginVertical: 10,
-            top: 100,
-            left: 0,
-            zIndex: 100,
-          }}>
-          <AiAskHelpIndex
-            title={title}
-            category={category}
-            userLanguage={userLanguage}
-            exerciseId={exerciseId}
-            i18n={i18n}
-            userLevel={userLevel}
-          />
-        </View> */}
-        {/* </ScrollView> */}
 
         {showRest && (
           <RestCounterComponent
@@ -441,17 +417,6 @@ function Item({
           />
         )}
       </View>
-
-      {/* {showInstruction ? (
-        <Instruction
-          title={i18n.t('description')}
-          openInstruction={showInstruction}
-          setOpenInstruction={setShowInstruction}
-          userLanguage={userLanguage}
-          instructor={description}
-          faInstructor={faInstructor}
-        />
-      ) : null} */}
 
       {visible && (
         <Subs
@@ -472,7 +437,7 @@ function Item({
           userLocation={userLocation}
         />
       )}
-
+      {/* <DrawerList sortedData={sortedData} goToIndex={doneItem} /> */}
       <View
         style={{
           position: 'absolute',
@@ -513,63 +478,8 @@ function Item({
           </Button>
         )}
       </View>
-
-      {/* <View
-        style={{
-          position: 'absolute',
-          bottom: -100,
-          //marginHorizontal: 10,
-          zIndex: 100,
-        }}>
-        <BannerAdMob />
-      </View> */}
     </SafeAreaView>
   );
 }
-
-const getStyles = (theme) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      top: Platform.OS === 'ios' ? 0 : 10,
-    },
-    header: {
-      paddingTop: 20,
-      alignItems: 'center',
-      textAlign: 'center',
-      fontFamily: 'Vazirmatn',
-    },
-    item: {
-      padding: 20,
-      marginVertical: 8,
-      marginHorizontal: 16,
-      height: height,
-    },
-    title: {
-      fontSize: 20,
-      fontWeight: '400',
-      //color: '#3e3b6c',
-      // textAlign: 'left',
-      //alignItems: 'left',
-      //marginLeft: 10,
-    },
-    doneText: {
-      fontSize: 16,
-      fontWeight: 'bold',
-      color: 'green',
-    },
-    fab: {
-      // position: 'absolute',
-      margin: 2,
-      width: 55,
-      left: 0,
-      bottom: 0,
-      backgroundColor: 'blue',
-    },
-    button: {
-      height: 35,
-      backgroundColor: '#3f51b5',
-    },
-  });
 
 export default React.memo(Item);

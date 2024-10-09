@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   Dimensions,
   RefreshControl,
@@ -18,7 +24,7 @@ import { I18n } from 'i18n-js';
 import { Button } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
 import TrainersList from '../../Trainers/TrainerIndex';
-
+import AnimatedLottieView from 'lottie-react-native';
 function WorkoutListIndex() {
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
@@ -77,7 +83,7 @@ function WorkoutListIndex() {
       console.log(e);
     }
   };
-
+  const animation = useRef(null);
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -97,22 +103,34 @@ function WorkoutListIndex() {
           <Header title={i18n.t('selectWorkoutPlan')} />
 
           {status === 'loading' && (
-            <Text
+            <AnimatedLottieView
+              autoPlay
+              loop
+              ref={animation}
               style={{
-                fontSize: 16,
-                fontWeight: '500',
-                color: theme.colors.secondary,
-                margin: 20,
-                flexShrink: 1,
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignSelf: 'center',
-                textAlign: 'center',
-                fontFamily: 'Vazirmatn',
-              }}>
-              {i18n.t('loading')}
-            </Text>
+                height: Dimensions.get('window').height / 10,
+                //backgroundColor: '#eee',
+                // zIndex: 1000,
+              }}
+              // Find more Lottie files at https://lottiefiles.com/featured
+              source={require('../../../assets/FitlinezLoading.json')}
+            />
+            // <Text
+            //   style={{
+            //     fontSize: 16,
+            //     fontWeight: '500',
+            //     color: theme.colors.secondary,
+            //     margin: 20,
+            //     flexShrink: 1,
+            //     flexWrap: 'wrap',
+            //     justifyContent: 'center',
+            //     alignContent: 'center',
+            //     alignSelf: 'center',
+            //     textAlign: 'center',
+            //     fontFamily: 'Vazirmatn',
+            //   }}>
+            //   {i18n.t('loading')}
+            // </Text>
           )}
 
           {status === 'success' && (
@@ -135,7 +153,7 @@ function WorkoutListIndex() {
               </Text>
               {packages?.map((item, i) => (
                 <View key={`item-${i}`}>
-                  <CardItem item={item} />
+                  <CardItem item={item} status={status} setStatus={setStatus} />
                   {/* <BannerAdMob key={`ad-${i}`} />
                   <Divider
                     style={{

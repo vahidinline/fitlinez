@@ -83,8 +83,8 @@ function DailyTaskIndex({ title, taskStatus, setTaskStatus }) {
             // borderWidth: 1,
           }}>
           <View
-            style={{ flexDirection: 'column', position: 'absolute', top: 25 }}>
-            <Text style={styles.text}>{i18n.t('noTasksAvailable')}</Text>
+            style={{ flexDirection: 'column', position: 'absolute', top: 60 }}>
+            {/* <Text style={styles.text}>{i18n.t('noTasksAvailable')}</Text> */}
             <TouchableOpacity
               style={styles.button}
               onPress={() => {

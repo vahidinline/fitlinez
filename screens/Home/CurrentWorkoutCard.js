@@ -10,6 +10,7 @@ import AuthContext from '../../api/context';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 import DailyTaskIndex from '../DailyTasks/DailyTaskIndex';
 import { IconEdit } from '../marketplace/filters/icons';
+import HasWorkoutCard from './hasWorkout';
 
 function CurrentWorkoutCard({
   title,
@@ -29,83 +30,8 @@ function CurrentWorkoutCard({
   i18n.locale = userLanguage;
 
   return (
-    <View style={[styles.container]}>
-      <LinearGradient
-        colors={['#5B5891', '#3A366F', '#17124A']}
-        style={[
-          styles.background,
-          {
-            height: Dimensions.get('window').height / 5,
-          },
-        ]}
-      />
-      <View
-        style={{
-          paddingHorizontal: 10,
-          marginTop: 5,
-          borderBottomColor: 'grey',
-          paddingBottom: 5,
-          borderBottomWidth: 1,
-        }}>
-        {title ? (
-          <TouchableOpacity
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-            onPress={() => {
-              navigation.navigate('WorkoutListIndex');
-            }}>
-            <Text
-              style={{
-                fontSize: 14,
-                fontFamily: 'Vazirmatn',
-                marginHorizontal: 10,
-                // marginTop: 5,
-                color: 'white',
-                //direction: 'rtl',
-                textAlign: 'center',
-                justifyContent: 'center',
-              }}>
-              {i18n.t('yourWorkoutPlan')} : {title}
-            </Text>
-            <IconEdit color={theme.colors.white} size={24} />
-          </TouchableOpacity>
-        ) : (
-          <Text
-            style={{
-              fontSize: 14,
-              fontFamily: 'Vazirmatn',
-              marginHorizontal: 10,
-              marginTop: 0,
-              color: 'white',
-              //direction: 'rtl',
-              textAlign: 'right',
-              justifyContent: 'center',
-              textAlign: 'center',
-            }}>
-            {i18n.t('title')}
-          </Text>
-        )}
-      </View>
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          top: 35,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          //alignItems: 'center',
-          marginHorizontal: 10,
-        }}>
-        <DailyTaskIndex
-          title={title}
-          location={location}
-          taskStatus={taskStatus}
-          setTaskStatus={setTaskStatus}
-        />
-      </View>
+    <View>
+      <HasWorkoutCard title={title} location={location} />
     </View>
   );
 }
@@ -130,9 +56,22 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
+    fontSize: 14,
+    fontFamily: 'Vazirmatn',
+    //fontWeight: 'bold',
+    // color: 'white',
+  },
+  button: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    //paddingTop: 15,
+    width: Dimensions.get('window').width / 1.2,
+    marginHorizontal: 15,
+    marginVertical: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: Dimensions.get('window').height / 15,
+    alignSelf: 'center',
   },
 });
 export default CurrentWorkoutCard;

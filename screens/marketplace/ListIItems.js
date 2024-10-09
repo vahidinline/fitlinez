@@ -8,8 +8,6 @@ import LanguageContext from '../../api/langcontext';
 import { useContext } from 'react';
 import i18nt from '../../locales';
 
-const db = SQLite.openDatabase('packeges.db');
-
 function ListItems({ packages, name, navigation }) {
   //console.log('packages in list item', packages);
   const { userLanguage } = useContext(LanguageContext);
@@ -85,25 +83,6 @@ function ListItems({ packages, name, navigation }) {
           }}>
           {name}
         </Text>
-
-        {/* <Text
-          onPress={() => {
-            //console.log('see all');
-            navigation.navigate('WorkoutListIndex', {
-              packages: packages,
-              name: name,
-            });
-          }}
-          style={{
-            fontSize: 15,
-            //fontWeight: 'bold',
-            marginHorizontal: 10,
-            marginTop: 0,
-            textDecorationLine: 'underline',
-            color: theme.colors.secondary,
-          }}>
-          {i18n.t('seeAll')}
-        </Text> */}
       </View>
       <View
         style={{

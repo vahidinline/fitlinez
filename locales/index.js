@@ -700,7 +700,7 @@ const i18nt = {
     updatePlanManually: 'بروزرسانی دستی برنامه تمرینی',
     beta: 'نسخه بتا',
     seeDetails: 'مشاهده جزئیات',
-    assigntheplan: 'ایجاد برنامه تمرینی',
+    assigntheplan: 'برای شروع، از اینجا برنامه تمرینی انتخاب کنید',
     confirm: 'تایید',
     closeSession: 'بستن جلسه تمرین',
     closeSessionMessage:

@@ -80,7 +80,7 @@ const SingleItem = ({ title, sub, level, location, mainTitle }) => {
   );
 };
 
-function CardItem({ item }) {
+function CardItem({ item, status, setStatus }) {
   const { theme } = useTheme();
   const navigation = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
@@ -89,6 +89,17 @@ function CardItem({ item }) {
   i18n.locale = userLanguage;
   const userAuth = useContext(AuthContext);
   const userId = userAuth.userAuth.id;
+
+  const handleSavePackages = async (item, userId, navigation) => {
+    try {
+      setStatus('loading');
+      await savePackages(item, userId, navigation);
+      setStatus('success');
+    } catch (error) {
+      setStatus('error');
+      console.log(error);
+    }
+  };
   return (
     <View
       style={{
@@ -194,7 +205,7 @@ function CardItem({ item }) {
             fontWeight: '700',
             fontFamily: 'Vazirmatn',
           }}
-          onPress={() => savePackages(item, userId, navigation)}
+          onPress={() => handleSavePackages(item, userId, navigation)}
           style={{ marginHorizontal: 10, marginVertical: 10 }}>
           {i18n.t('addtoyourplan')}
         </Button>

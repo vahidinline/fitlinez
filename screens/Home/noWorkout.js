@@ -9,6 +9,7 @@ import { I18n } from 'i18n-js';
 import { useState } from 'react';
 import AuthContext from '../../api/context';
 import { getUserFirstData } from '../../api/getUserBasicData';
+import { IconAdd } from '../marketplace/filters/icons';
 
 function NoWorkoutCard() {
   // console.log('location in current', location);
@@ -83,6 +84,7 @@ function NoWorkoutCard() {
             height: 40,
             width: Dimensions.get('window').width / 1.2,
           }}>
+          <IconAdd color={theme.colors.text} size={25} />
           {i18n.t('assigntheplan')}
         </Button>
       </View>

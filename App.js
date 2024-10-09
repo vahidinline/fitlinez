@@ -54,6 +54,19 @@ export default function App() {
   const [routeNamesHistory, setRouteNamesHistory] = useState([]);
   const [status, setStatus] = useState('idle');
 
+  //clean all asyncstorage
+  const clearAll = async () => {
+    try {
+      await AsyncStorage.clear();
+    } catch (e) {
+      // clear error
+    }
+  };
+
+  // useEffect(() => {
+  //   clearAll();
+  // }, []);
+
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === DefaultTheme ? SecondTheme : DefaultTheme);
   };
