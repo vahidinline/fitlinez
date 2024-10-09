@@ -564,9 +564,12 @@ const i18nt = {
     saturday: 'Saturday',
     sunday: 'Sunday',
     workoutPlan: 'Workout Plan',
+    noMoreExercises: 'No more exercises available',
   },
 
   fa: {
+    noMoreExercises:
+      'تبریک! این آخرین تمرین شما بود. با زدن دکمه پایان تمرین، تمرین خود را به پایان برسانید.',
     requestPermissions: 'درخواست مجوز دسترسی به قدم شمار',
     workoutPlan: 'برنامه تمرینی',
     monday: 'دوشنبه',

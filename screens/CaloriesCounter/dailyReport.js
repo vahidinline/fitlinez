@@ -14,6 +14,7 @@ import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import convertToPersianNumbers from '../../api/PersianNumber';
 import { useNavigation } from '@react-navigation/native';
+import { IconAdd } from '../marketplace/filters/icons';
 
 function DailyReport({ userId }) {
   const { theme } = useTheme();
@@ -161,8 +162,9 @@ function DailyReport({ userId }) {
           }}
           style={styles.container}>
           <Text style={styles.errorText}>
-            {i18n.t('Nodailycaloriesgoalsset')}
+            {i18n.t('Nodailycaloriesgoalsset')}{' '}
           </Text>
+          <IconAdd color={theme.colors.primary} size={25} />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
@@ -309,7 +311,7 @@ const getStyles = (theme, RTL) =>
     },
     errorText: {
       color: theme.colors.warning,
-      fontSize: 12,
+      fontSize: 14,
       fontFamily: 'Vazirmatn',
       margin: 5,
     },

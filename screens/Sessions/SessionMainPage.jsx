@@ -50,7 +50,7 @@ const SessionMainPage = (props) => {
   const [saveTimer, setSaveTimer] = useState(false);
   const [data, setData] = useState(workouts);
 
-  const [displayData, setDisplayData] = useState(workouts.slice(0, 5));
+  // const [displayData, setDisplayData] = useState(workouts.slice(0, 5));
   const flatListRef = useRef(null);
   const hideDialog = () => setVisible(false);
   const [progress, setProgress] = useState(1);
@@ -121,12 +121,12 @@ const SessionMainPage = (props) => {
   };
 
   const loadMoreData = useCallback(() => {
-    const currentLength = displayData.length;
+    const currentLength = data.length;
     if (currentLength < sortedData.length) {
       const nextItems = sortedData.slice(currentLength, currentLength + 5);
       setDisplayData((prevData) => [...prevData, ...nextItems]);
     }
-  }, [sortedData, displayData]);
+  }, [sortedData, data]);
 
   const handleSubsitute = (exerciseId, item) => {
     //return;
@@ -323,7 +323,7 @@ const SessionMainPage = (props) => {
 
         <FlatList
           initialNumToRender={2} // Adjust according to your need
-          onEndReached={loadMoreData}
+          onEndReached={() => alert(i18n.t('noMoreExercises'))}
           removeClippedSubviews={true}
           maxToRenderPerBatch={3}
           windowSize={5}
@@ -404,6 +404,19 @@ const SessionMainPage = (props) => {
             message={i18n.t('closeSessionMessage')}
             onConfirm={closeSession}
             onCancel={() => setAlertVisible(false)}
+            titleStyle={{
+              fontSize: 22,
+              fontWeight: 'bold',
+              color: theme.colors.secondary,
+              textAlign: 'center',
+              marginBottom: 10,
+            }}
+            messageStyle={{
+              fontSize: 18,
+              color: theme.colors.secondary,
+              textAlign: 'center',
+              marginBottom: 20,
+            }}
           />
         )}
         <BottomSheet isVisible={finish}>

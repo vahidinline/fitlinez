@@ -15,7 +15,6 @@ import { I18n } from 'i18n-js';
 import { useState } from 'react';
 import AuthContext from '../../api/context';
 import { getUserFirstData } from '../../api/getUserBasicData';
-import { IconAdd, IconEdit } from '../marketplace/filters/icons';
 
 function HasWorkoutCard({ title, location }) {
   // console.log('location in current', location);
