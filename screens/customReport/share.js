@@ -49,12 +49,17 @@ const ShareWorkoutSession = ({ item, setShareStatus }) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      base64: true, // Set this option to receive the image in base64 format
+      base64: true,
       quality: 1,
     });
 
     if (!result.cancelled) {
-      setImage(result.base64); // Save the base64 encoded image in the state
+      try {
+        setImage(result.base64); // Save the base64 encoded image in the state
+        console.log('image');
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -141,7 +146,7 @@ const ShareWorkoutSession = ({ item, setShareStatus }) => {
           ref={imageRef}
           source={
             image
-              ? { uri: `data:image/gif;base64,${image}` }
+              ? { uri: `data:image/png;base64,${image}` }
               : require('../../assets/img/shareImage.jpeg')
           }
           style={{

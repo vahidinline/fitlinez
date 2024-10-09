@@ -228,8 +228,7 @@ const WeeklyPlan = (props) => {
     try {
       const filteredWorkoutsList =
         weeklyPlan?.filter(
-          (workout) =>
-            workout.loc === locSelector || workout.loc.toLowerCase() === 'both'
+          (workout) => workout.loc === locSelector || workout.loc === 'both'
         ) || [];
 
       setFilteredWorkoutsList(filteredWorkoutsList);

@@ -31,7 +31,10 @@ function DrawerList({ sortedData, index, RTL, goToIndex }) {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View
+        style={{
+          flexDirection: 'row',
+        }}>
         {sortedData.map((item, index) => (
           <TouchableOpacity
             key={index}
@@ -42,11 +45,11 @@ function DrawerList({ sortedData, index, RTL, goToIndex }) {
                 <Text style={styles.index}>
                   {convertToPersianNumbers(index + 1, RTL)}
                 </Text>
-                <Image
+                {/* <Image
                   source={{ uri: item.gifUrl }}
                   style={styles.exerciseImage}
                   resizeMode="contain"
-                />
+                /> */}
               </View>
             </View>
             <Divider />
@@ -64,8 +67,8 @@ const getStyles = (theme) =>
       position: 'absolute',
       borderRadius: 12,
       top: 19,
-      width: Dimensions.get('window').width / 8,
-      height: Dimensions.get('window').height / 3,
+      width: Dimensions.get('window').width / 3,
+      height: Dimensions.get('window').height / 9,
       zIndex: 1000,
       borderWidth: 1,
       borderColor: theme.colors.border,

@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  useCallback,
+} from 'react';
 import {
   View,
   FlatList,
@@ -19,7 +25,7 @@ import LanguageContext from '../../api/langcontext';
 import AuthContext from '../../api/context';
 import Item from './listPage/item';
 import { updateSession } from '../../api/workoutSessionTracker';
-import DrawerList from './listPage/drawer';
+
 import SessionTimer from '../../components/timer/sessionTimer';
 import { IconArrowRight, IconMenu } from '../marketplace/filters/icons';
 import { IconCloseCircle } from '../marketplace/filters/icons';
@@ -43,12 +49,12 @@ const SessionMainPage = (props) => {
   const { workouts, category, location } = props.route.params;
   const [saveTimer, setSaveTimer] = useState(false);
   const [data, setData] = useState(workouts);
+
+  const [displayData, setDisplayData] = useState(workouts.slice(0, 5));
   const flatListRef = useRef(null);
   const hideDialog = () => setVisible(false);
   const [progress, setProgress] = useState(1);
   const { setTimeSpent } = useContext(TimeSpentContext);
-  const scrollEnabled = true;
-  const ITEM_HEIGHT = Dimensions.get('window').height;
   const ITEM_WEIGHT = Dimensions.get('window').width;
   const [alertVisible, setAlertVisible] = useState(false);
   const [showList, setShowList] = useState(false);
@@ -113,6 +119,14 @@ const SessionMainPage = (props) => {
       setProgress(1);
     }
   };
+
+  const loadMoreData = useCallback(() => {
+    const currentLength = displayData.length;
+    if (currentLength < sortedData.length) {
+      const nextItems = sortedData.slice(currentLength, currentLength + 5);
+      setDisplayData((prevData) => [...prevData, ...nextItems]);
+    }
+  }, [sortedData, displayData]);
 
   const handleSubsitute = (exerciseId, item) => {
     //return;
@@ -309,12 +323,9 @@ const SessionMainPage = (props) => {
 
         <FlatList
           initialNumToRender={2} // Adjust according to your need
-          onEndReached={() => {
-            //console.log('End of list');
-            Alert.alert(i18n.t('alertEndOfList'));
-          }}
+          onEndReached={loadMoreData}
           removeClippedSubviews={true}
-          maxToRenderPerBatch={5}
+          maxToRenderPerBatch={3}
           windowSize={5}
           horizontal
           getItemLayout={getItemLayout}
