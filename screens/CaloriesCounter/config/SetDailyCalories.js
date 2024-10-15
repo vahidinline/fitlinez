@@ -102,7 +102,7 @@ function SetDailyCalories() {
         index: 0,
         routes: [
           {
-            name: 'CaloriesIndex',
+            name: 'Home',
           },
         ],
       });

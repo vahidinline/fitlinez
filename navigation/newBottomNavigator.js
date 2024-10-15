@@ -35,21 +35,16 @@ function TabNavigator() {
     <Tab.Navigator
       initialRouteName="HomePage"
       screenOptions={{
-        tabBarActiveBackgroundColor: theme.colors.warning,
+        tabBarStyle: {
+          // height: 90,
 
-        backgroundColor: 'transparent',
-        tabBarIndicatorStyle: {
-          backgroundColor: 'transparent',
-          height: 3,
+          borderRadius: 20,
         },
+        tabBarActiveBackgroundColor: theme.colors.background,
+        tabBarInactiveBackgroundColor: theme.colors.disabled,
         tabBarLabelStyle: {
           fontFamily: 'Vazirmatn',
-        },
-        activeTintColor: theme.colors.white,
-        inactiveTintColor: theme.colors.grey2,
-        style: {
-          // backgroundColor: theme.colors.black,
-          fontFamily: 'Vazirmatn',
+          color: theme.colors.secondary,
         },
       }}
       activeColor={theme.colors.white}

@@ -63,9 +63,9 @@ export default function App() {
     }
   };
 
-  // useEffect(() => {
-  //   clearAll();
-  // }, []);
+  useEffect(() => {
+    clearAll();
+  }, []);
 
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === DefaultTheme ? SecondTheme : DefaultTheme);

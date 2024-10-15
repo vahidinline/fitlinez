@@ -133,7 +133,7 @@ function HasWorkoutCard({ title, location }) {
                   color: 'white',
                   //direction: 'rtl',
                   textAlign: 'center',
-                  fontWeight: 'bold',
+                  // fontWeight: 'bold',
                   justifyContent: 'center',
                 }}>
                 {i18n.t('yourWorkoutPlan')} : {title}
@@ -167,7 +167,7 @@ function HasWorkoutCard({ title, location }) {
             titleStyle={{
               color: theme.colors.text,
               fontSize: PixelRatio.get() < 3 ? 10 : 14,
-              fontWeight: '500',
+              fontWeight: '400',
               fontFamily: 'Vazirmatn',
             }}
             buttonStyle={{
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '400',
     color: 'white',
     fontFamily: 'Vazirmatn',
     //marginLeft: 10,

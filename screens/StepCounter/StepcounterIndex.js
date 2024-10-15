@@ -112,64 +112,76 @@ export default function StepcounterIndex() {
   }, []);
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          height: status !== 'error' ? Dimensions.get('window').height / 2 : 50,
-        },
-      ]}>
-      {Platform.OS === 'ios' ? (
-        <>
-          <TouchableOpacity
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={{
+          // flex: 1,
+          flexDirection: 'column',
+          //backgroundColor: theme.colors.warning,
+
+          width: Dimensions.get('window').width / 1.1,
+          height: Dimensions.get('window').height / 5,
+          // marginHorizontal: 0,
+        }}
+        onPress={() => navigation.navigate('StepCounter')}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            direction: RTL ? 'rtl' : 'ltr',
+            alignItems: 'center',
+            width: Dimensions.get('window').width / 1.2,
+            marginHorizontal: 20,
+          }}>
+          <View
             style={{
-              flexDirection: 'row',
+              direction: RTL ? 'rtl' : 'ltr',
               justifyContent: 'space-between',
-              width: Dimensions.get('window').width / 1.5,
-            }}
-            onPress={() => navigation.navigate('StepCounter')}>
+            }}>
             <IconWalking color={theme.colors.secondary} size={64} />
 
-            <View
-              style={{
-                flexDirection: 'column',
-
-                direction: RTL ? 'rtl' : 'ltr',
-
-                alignItems: 'center',
-              }}>
-              <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
-              {stepsGoal === 0 && (
-                <Text style={styles.text}>
-                  {convertToPersianNumbers(stepsGoal.toFixed(0), RTL)}
-                </Text>
-              )}
-
-              <Text style={styles.steps}>
-                {convertToPersianNumbers(steps.toFixed(0), RTL)}
-              </Text>
-              {hasPermissions && (
-                <Text style={styles.text}>
-                  {i18n.t('walkingDistance', {
-                    distance: convertToPersianNumbers(
-                      (distance / 1000).toFixed(2),
-                      RTL
-                    ),
-                  })}
-                </Text>
-              )}
-
+            {/* {stepsGoal === 0 && (
               <Text style={styles.text}>
-                {i18n.t('activeEnergyBurned')} :
-                {convertToPersianNumbers(activeEnergy.toFixed(0), RTL)}{' '}
-                {i18n.t('kcal')}
+                {convertToPersianNumbers(stepsGoal.toFixed(0), RTL)}
               </Text>
-            </View>
-          </TouchableOpacity>
-        </>
-      ) : (
-        <Text style={styles.text}>{i18n.t('stepCounterNotAvailable')}</Text>
-      )}
+            )} */}
+          </View>
+          <View style={styles.box}>
+            <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
+            <Text style={styles.steps}>
+              {convertToPersianNumbers(steps.toFixed(0), RTL)}
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            direction: RTL ? 'rtl' : 'ltr',
+            alignItems: 'center',
+            width: Dimensions.get('window').width / 1.2,
+            marginHorizontal: 20,
+          }}>
+          <View style={styles.box}>
+            <Text style={styles.text}>
+              {i18n.t('walkingDistance', {
+                distance: convertToPersianNumbers(
+                  (distance / 1000).toFixed(2),
+                  RTL
+                ),
+              })}
+            </Text>
+          </View>
+
+          <View style={styles.box}>
+            <Text style={styles.text}>
+              {i18n.t('activeEnergyBurned')} :
+              {convertToPersianNumbers(activeEnergy.toFixed(0), RTL)}{' '}
+              {i18n.t('kcal')}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -180,6 +192,8 @@ const getStyles = (theme) =>
       top: 5,
       alignItems: 'center',
       justifyContent: 'center',
+      marginHorizontal: 20,
+      width: Dimensions.get('window').width / 1.1,
     },
     steps: {
       color: theme.colors.text,
@@ -190,5 +204,15 @@ const getStyles = (theme) =>
       color: theme.colors.text,
       fontSize: 12,
       fontFamily: 'Vazirmatn',
+    },
+    box: {
+      justifyContent: 'center',
+      width: Dimensions.get('window').width / 2.5,
+      height: 80,
+      alignContent: 'center',
+      alignItems: 'center',
+      marginVertical: 4,
+      borderRadius: 16,
+      backgroundColor: theme.colors.primary,
     },
   });

@@ -159,17 +159,9 @@ function HomeIndex() {
           </View>
         )}
         <View style={styles.box}>
-          <View
-            style={{
-              marginHorizontal: 20,
-              borderRadius: 14,
-              marginBottom: 5,
-            }}>
-            <View>
-              <DailyReport userId={userAuth.id} />
-            </View>
-          </View>
+          <DailyReport userId={userAuth.id} />
         </View>
+
         <View
           style={{
             marginHorizontal: 20,
@@ -183,13 +175,15 @@ function HomeIndex() {
             //style={styles.background}
           />
           <View
-            style={{
-              borderBottomColor: theme.colors.border,
-              paddingBottom: 5,
-              borderBottomWidth: 1,
-              paddingHorizontal: 10,
-              marginTop: 10,
-            }}>
+            style={
+              {
+                // borderBottomColor: theme.colors.border,
+                // paddingBottom: 5,
+                // borderBottomWidth: 1,
+                // paddingHorizontal: 10,
+                // marginTop: 10,
+              }
+            }>
             {/* <Text
               style={{
                 fontSize: 14,
@@ -206,7 +200,7 @@ function HomeIndex() {
           </View>
           <View
             style={[
-              styles.box,
+              styles.container,
               {
                 height:
                   Platform.OS === 'ios'
@@ -223,6 +217,7 @@ function HomeIndex() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   marginVertical: 20,
+
                   height: Dimensions.get('window').height / 4,
                 }}>
                 <View>
@@ -265,14 +260,18 @@ export default HomeIndex;
 const getStyles = (theme) =>
   StyleSheet.create({
     box: {
-      flex: 1,
+      // flex: 1,
+      borderTopColor: theme.colors.border,
+      borderTopWidth: 1,
+      borderBottomColor: theme.colors.border,
+      borderBottomWidth: 1,
       justifyContent: 'center',
       alignItems: 'center',
       //backgroundColor: theme.colors.background,
       marginHorizontal: 20,
       marginTop: 25,
       width: Dimensions.get('window').width / 1.1,
-      height: Dimensions.get('window').height / 3.5,
+      //height: Dimensions.get('window').height / 4,
     },
     container: {
       flex: 1,
