@@ -3,12 +3,10 @@ import i18nt from '../locales';
 import { I18n } from 'i18n-js';
 import LanguageContext from '../api/langcontext';
 import { useContext } from 'react';
-import { useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import HomeIndex from '../screens/Home/HomeIndex';
-import CustomReport from '../screens/customReport';
 import SettingNavigator from './settingNavigator';
 import ProfileNavigator from './profileNavigator';
-import { BlurView } from 'expo-blur';
 
 import {
   IconHomeFocused,
@@ -17,14 +15,12 @@ import {
   IconProfileUnFocused,
   IconSettingsFocused,
   IconSettingsUnFocused,
-  IconStatsFocused,
-  IconStatsUnFocused,
   IconWeight,
   IconWeightScale,
 } from '../screens/marketplace/filters/icons';
 import CaloriesNavigator from './CaloriesNavigator';
 import SessionNavigator from './SessionNavigator';
-import { StyleSheet } from 'react-native';
+import { SessionContext } from '../api/sessionContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,16 +28,18 @@ function TabNavigator() {
   const { theme } = useTheme();
   const i18n = new I18n(i18nt);
   const { userLanguage } = useContext(LanguageContext);
+  const { sessionData, setSessionData } = useContext(SessionContext);
 
   i18n.locale = userLanguage;
   return (
     <Tab.Navigator
       initialRouteName="HomePage"
       screenOptions={{
-        //linderGradient
-        backgroundColor: 'red',
+        tabBarActiveBackgroundColor: theme.colors.warning,
+
+        backgroundColor: 'transparent',
         tabBarIndicatorStyle: {
-          backgroundColor: '#00BB23',
+          backgroundColor: 'transparent',
           height: 3,
         },
         tabBarLabelStyle: {
@@ -50,25 +48,12 @@ function TabNavigator() {
         activeTintColor: theme.colors.white,
         inactiveTintColor: theme.colors.grey2,
         style: {
-          backgroundColor: theme.colors.black,
+          // backgroundColor: theme.colors.black,
           fontFamily: 'Vazirmatn',
         },
       }}
       activeColor={theme.colors.white}
-      inactiveColor={theme.colors.grey0}
-      barStyle={{ backgroundColor: 'transparent' }}>
-      {/* <Tab.Screen
-        swipEnabled={false}
-        name="CustomReport"
-        component={CustomReport}
-        options={{
-          headerShown: false,
-          title: i18n.t('CalendarView'),
-          tabBarIcon: ({ focused }) =>
-            !focused ? <IconStatsUnFocused /> : <IconStatsFocused />,
-        }}
-      /> */}
-
+      inactiveColor={theme.colors.grey0}>
       <Tab.Screen
         name="HomePage"
         component={HomeIndex}
@@ -101,6 +86,12 @@ function TabNavigator() {
         component={SessionNavigator}
         options={{
           headerShown: false,
+          tabBarBadge: sessionData.length !== 0 && `*`,
+          tabBarBadgeStyle: {
+            backgroundColor: 'transparent',
+            color: theme.colors.error,
+            fontSize: 20,
+          },
           title: i18n.t('todaysWorkout'),
           tabBarIcon: ({ focused }) =>
             !focused ? <IconWeight /> : <IconWeight fill={'#5B5891'} />,

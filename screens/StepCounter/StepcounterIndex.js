@@ -14,15 +14,13 @@ import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
 import { IconWalking } from '../marketplace/filters/icons';
 import convertToPersianNumbers from '../../api/PersianNumber';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import useHealthData from '../../api/userHealthData';
 import { useNavigation } from '@react-navigation/native';
-import { FlatList } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function StepcounterIndex() {
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
-
+  const [stepsGoal, setStepsGoal] = useState(10000);
   const [status, setStatus] = useState('idle');
   const { theme } = useTheme();
   const styles = getStyles(theme);
@@ -35,7 +33,6 @@ export default function StepcounterIndex() {
   const [date, setDate] = useState(new Date());
   const {
     steps,
-    flights,
     distance,
     activeEnergy,
     hasPermissions,
@@ -46,6 +43,20 @@ export default function StepcounterIndex() {
   const [pastStepCount, setPastStepCount] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);
   const [stepsPedo, setStepsPedo] = useState(0);
+
+  const retrieveDailyStepsGoal = async () => {
+    try {
+      const storedValue = await AsyncStorage.getItem('dailyStepsGoal');
+      if (storedValue !== null) {
+        setStepsGoal(parseInt(storedValue, 10)); // Ensure correct parsing
+        console.log('Daily steps goal retrieved:', storedValue);
+      } else {
+        console.log('No daily steps goal found');
+      }
+    } catch (e) {
+      console.error('Failed to retrieve daily steps goal:', e);
+    }
+  };
 
   useEffect(() => {
     setStepsPedo(pastStepCount + currentStepCount);
@@ -96,6 +107,10 @@ export default function StepcounterIndex() {
     }
   };
 
+  useEffect(() => {
+    retrieveDailyStepsGoal();
+  }, []);
+
   return (
     <View
       style={[
@@ -110,6 +125,7 @@ export default function StepcounterIndex() {
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
+              width: Dimensions.get('window').width / 1.5,
             }}
             onPress={() => navigation.navigate('StepCounter')}>
             <IconWalking color={theme.colors.secondary} size={64} />
@@ -123,6 +139,12 @@ export default function StepcounterIndex() {
                 alignItems: 'center',
               }}>
               <Text style={styles.text}>{i18n.t('stepsTakenToday')} </Text>
+              {stepsGoal === 0 && (
+                <Text style={styles.text}>
+                  {convertToPersianNumbers(stepsGoal.toFixed(0), RTL)}
+                </Text>
+              )}
+
               <Text style={styles.steps}>
                 {convertToPersianNumbers(steps.toFixed(0), RTL)}
               </Text>
@@ -160,12 +182,12 @@ const getStyles = (theme) =>
       justifyContent: 'center',
     },
     steps: {
-      color: theme.colors.white,
+      color: theme.colors.text,
       fontSize: 40,
       fontFamily: 'Vazirmatn',
     },
     text: {
-      color: theme.colors.white,
+      color: theme.colors.text,
       fontSize: 12,
       fontFamily: 'Vazirmatn',
     },

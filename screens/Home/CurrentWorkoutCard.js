@@ -31,7 +31,11 @@ function CurrentWorkoutCard({
 
   return (
     <View>
-      <HasWorkoutCard title={title} location={location} />
+      <HasWorkoutCard
+        title={title}
+        location={location}
+        userPrivilege={userPrivilege}
+      />
     </View>
   );
 }

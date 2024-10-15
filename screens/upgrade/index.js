@@ -13,22 +13,16 @@ import { Linking } from 'react-native';
 import AuthContext from '../../api/context';
 import DropdownCountries from '../../components/dropDown/countries';
 import api from '../../api/api';
-import AnimatedLottieView from 'lottie-react-native';
 import { I18n } from 'i18n-js';
 import i18nt from '../../locales';
 import LanguageContext from '../../api/langcontext';
-import Header from '../../components/header';
 const { width, height } = Dimensions.get('window');
 import { LinearGradient } from 'expo-linear-gradient';
 import { BackgroundImage } from '@rneui/base';
 import PriceRadionButton from '../profile/PriceRadioButton';
 import { useState } from 'react';
-import checkFreeTrial from '../../api/checkFreeTrial';
-import {
-  IconClock,
-  IconWarning,
-  Iconclose,
-} from '../marketplace/filters/icons';
+
+import { IconWarning, Iconclose } from '../marketplace/filters/icons';
 import UserPrivilegeContext from '../../api/userPrivilegeContext';
 import { trackUserData } from '../../api/tracker';
 

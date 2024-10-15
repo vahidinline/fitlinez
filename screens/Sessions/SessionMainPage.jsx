@@ -30,6 +30,7 @@ import SessionTimer from '../../components/timer/sessionTimer';
 import { IconArrowRight, IconMenu } from '../marketplace/filters/icons';
 import { IconCloseCircle } from '../marketplace/filters/icons';
 import AdModal from '../../components/AdModal/AdModalIndex';
+import { SessionContext } from '../../api/sessionContext';
 
 const { width, height } = Dimensions.get('window');
 
@@ -49,7 +50,7 @@ const SessionMainPage = (props) => {
   const { workouts, category, location } = props.route.params;
   const [saveTimer, setSaveTimer] = useState(false);
   const [data, setData] = useState(workouts);
-
+  const { setSessionData } = useContext(SessionContext);
   // const [displayData, setDisplayData] = useState(workouts.slice(0, 5));
   const flatListRef = useRef(null);
   const hideDialog = () => setVisible(false);
@@ -244,6 +245,7 @@ const SessionMainPage = (props) => {
   });
 
   const closeSession = async () => {
+    setSessionData([]);
     console.log('closing session');
     const sessionId = await AsyncStorage.getItem('sessionId');
     const res = await updateSession({

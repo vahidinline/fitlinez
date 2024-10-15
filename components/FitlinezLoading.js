@@ -1,13 +1,13 @@
 import { useTheme } from '@rneui/themed';
 import AnimatedLottieView from 'lottie-react-native';
 import React, { useRef } from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, View } from 'react-native';
 
 function FitlinezLoading() {
   const animation = useRef(null);
   // const { theme } = useTheme();
   return (
-    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+    <View>
       <AnimatedLottieView
         autoPlay
         loop

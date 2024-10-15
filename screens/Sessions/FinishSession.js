@@ -4,38 +4,33 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  TouchableOpacity,
   PixelRatio,
-  Pressable,
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { I18n } from 'i18n-js';
 import { Button, useTheme } from '@rneui/themed';
 import { Divider } from 'react-native-paper';
-// import LowPerformance from './finishPage/lowerPerformance';
-// import MidPerformance from './finishPage/midPerformance';
-// import HighPerformance from './finishPage/highPerformance';
+
 import TopPerformance from './finishPage/topPerformance';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LanguageContext from '../../api/langcontext';
 import { TimeSpentContext } from '../../api/TimeSpentContext';
 import AuthContext from '../../api/context';
 import i18nt from '../../locales';
-import api from '../../api/api';
-import { IconFire, Iconshare } from '../marketplace/filters/icons';
+
+import { IconFire } from '../marketplace/filters/icons';
 import formatTime from '../../api/timeFormat';
 // import { retrieveAndCalculatePerformance } from '../../api/SaveData';
 import storeDataDB from '../../api/storedata';
 import {
-  PerformanceRead,
   calculateWorkoutPercentage,
-  // currentPalnPercentage,
-  readSavedData,
   readWorkoutData,
 } from '../../api/readWorkoutData';
 import { getBurnedCalories } from '../../api/getBurnedCalories';
 import convertToPersianNumbers from '../../api/PersianNumber';
+import { se } from 'make-plural';
+import { SessionContext } from '../../api/sessionContext';
 
 const FinishSession = (props) => {
   const [userWorkoutData, setUserWorkoutData] = useState([]);
@@ -57,7 +52,7 @@ const FinishSession = (props) => {
   const styles = getStyle(theme, PixelRatio);
   const numericCompletionPercentage = parseFloat(completionPercentage);
   const RTL = userLanguage === 'fa';
-
+  const { setSessionData } = useContext(SessionContext);
   const getData = async () => {
     // console.log('inside get data');
     try {
@@ -96,6 +91,7 @@ const FinishSession = (props) => {
   }, []);
 
   useEffect(() => {
+    setSessionData([]);
     const getTempTimeSpend = async () => {
       const value = await AsyncStorage.getItem(`@time_spend`);
       if (value !== null) {

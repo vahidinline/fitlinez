@@ -168,14 +168,14 @@ function WorkoutListIndex() {
           )}
         </View>
       </ScrollView>
-      <View
+      {/* <View
         style={{
           marginHorizontal: 10,
           borderBottomColor: theme.colors.secondary,
           borderBottomWidth: 0.3,
         }}>
         <TrainersList i18n={i18n} />
-      </View>
+      </View> */}
       <View
         style={{
           width: Dimensions.get('window').width / 1.1,

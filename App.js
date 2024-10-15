@@ -98,24 +98,6 @@ export default function App() {
     }
   }
 
-  // async function onFetchUpdateAsync() {
-  //   try {
-  //     const update = await Updates.checkForUpdateAsync();
-  //     if (update.isAvailable) {
-  //       setStatus('loading');
-  //       await Updates.fetchUpdateAsync();
-  //       await Updates.reloadAsync();
-  //       appUpdateTrack(userAuth?.userId);
-  //       Alert.alert('Update', 'App is updated');
-  //     } else {
-  //       console.log('No updates available');
-  //     }
-  //   } catch (error) {
-  //     // You can also add an alert() here if needed for your purposes
-  //     console.log(`Error fetching latest Expo update: ${error}`);
-  //   }
-  // }
-
   useEffect(() => {
     onFetchUpdateAsync();
   }, []);
@@ -123,19 +105,6 @@ export default function App() {
   useEffect(() => {
     userLevelCheck(userAuth, setUserAuth);
   }, []);
-
-  // useEffect(() => {
-  //   // Only call checkFreeTrial if userAuth is not empty/null/undefined
-  //   if (userAuth) {
-  //     checkFreeTrial(userAuth);
-
-  //     // assuming checkFreeTrial returns a boolean
-  //     let isFreeTrial = checkFreeTrial(userAuth);
-
-  //     // Now, call your setUserPrivilege function according to the free trial check.
-  //     setUserPrivilege(isFreeTrial ? true : false);
-  //   }
-  // }, [userAuth]); // This ensures the effect is run whenever userAuth changes
 
   useEffect(() => {
     Notifications.setBadgeCountAsync(msg);
@@ -289,11 +258,6 @@ export default function App() {
                           );
                           setRouteNamesHistory(routeNames);
                         }}>
-                        <StatusBar
-                          style={{
-                            backgroundColor: '#FCF8FF',
-                          }}
-                        />
                         {userAuth ? (
                           userAuth.isActive ? (
                             <PaperProvider>

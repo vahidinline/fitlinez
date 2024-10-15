@@ -16,7 +16,7 @@ import CurrentWorkoutCard from './CurrentWorkoutCard';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import { I18n } from 'i18n-js';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import checkFreeTrial from '../../api/checkFreeTrial';
 import AuthContext from '../../api/context';
 import NoWorkoutCard from './noWorkout';
@@ -35,32 +35,20 @@ function HomeIndex() {
   const { userAuth } = useContext(AuthContext);
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
-  const isRTL = userLanguage === 'fa';
   const [status, setStatus] = useState('hasPlan');
   const [taskStatus, setTaskStatus] = useState('idle');
   const [planName, setPlanName] = useState('');
-  // console.log('status homeindex', status);
   const styles = getStyles(theme);
-
-  // useEffect(() => {
-  //   getNewTasks(userAuth.id, setTaskStatus);
-  // }, []);
+  const navigator = useNavigation();
 
   const onRefresh = useCallback(() => {
-    // setRefreshing(true);
     setTaskStatus('loading');
     setTimeout(async () => {
       const result = await getNewTasks(userAuth.id, setTaskStatus);
       if (result) {
-        //setModalVisible(true);
-        // setStatus('hasPlan');
       }
-      //setRefreshing(false);
-      //setStatus('hasPlan');
     }, 3000);
   }, []);
-
-  //console.log('currentPlan', currentPlan);
 
   useEffect(() => {
     setStatus('loading');
@@ -96,7 +84,7 @@ function HomeIndex() {
 
   const getData = async () => {
     try {
-      const { weeklyPlan, planName } = await readWorkoutData();
+      const { weeklyPlan, planName } = await readWorkoutData(navigator);
 
       setCurrentPlan(weeklyPlan);
       setPlanName(planName);
@@ -115,14 +103,29 @@ function HomeIndex() {
           marginTop: Platform.OS === 'ios' ? 0 : 50,
           marginBottom: 0,
           zIndex: 100,
+
+          //  backgroundColor: theme.colors.secondary,
         }}>
         <HomeHeader i18n={i18n} title={currentPlan?.name} />
       </View>
 
       <ScrollView
+        style={
+          {
+            // backgroundColor: theme.colors.secondary,
+          }
+        }
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
+        <LinearGradient
+          colors={[
+            theme.colors.primary,
+            theme.colors.secondary,
+            theme.colors.primary,
+          ]}
+          style={styles.background}
+        />
         {/* {status === 'loading' && <FitlinezLoading />} */}
 
         {status === 'hasPlan' && (
@@ -162,11 +165,6 @@ function HomeIndex() {
               borderRadius: 14,
               marginBottom: 5,
             }}>
-            <LinearGradient
-              colors={['#5B5891', '#3A366F', '#17124a']}
-              style={styles.background}
-            />
-
             <View>
               <DailyReport userId={userAuth.id} />
             </View>
@@ -182,29 +180,29 @@ function HomeIndex() {
           }}>
           <LinearGradient
             colors={['#5B5891', '#3A366F', '#17124a']}
-            style={styles.background}
+            //style={styles.background}
           />
           <View
             style={{
-              borderBottomColor: 'grey',
+              borderBottomColor: theme.colors.border,
               paddingBottom: 5,
               borderBottomWidth: 1,
               paddingHorizontal: 10,
               marginTop: 10,
             }}>
-            <Text
+            {/* <Text
               style={{
                 fontSize: 14,
                 fontFamily: 'Vazirmatn',
                 paddingHorizontal: 10,
 
-                color: 'white',
+                color: theme.colors.text,
 
                 textAlign: 'center',
                 justifyContent: 'center',
               }}>
               {i18n.t('stepcounter')}
-            </Text>
+            </Text> */}
           </View>
           <View
             style={[
@@ -272,13 +270,13 @@ const getStyles = (theme) =>
       alignItems: 'center',
       //backgroundColor: theme.colors.background,
       marginHorizontal: 20,
-      marginVertical: 5,
+      marginTop: 25,
       width: Dimensions.get('window').width / 1.1,
-      height: Dimensions.get('window').height / 5,
+      height: Dimensions.get('window').height / 3.5,
     },
     container: {
       flex: 1,
-      backgroundColor: '#5B5891',
+
       justifyContent: 'center',
       alignItems: 'center',
       //marginHorizontal: 20,

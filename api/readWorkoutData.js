@@ -13,7 +13,7 @@ const saveUserWeight = async (data) => {
   console.log('data in api', data);
 };
 
-const readWorkoutData = async () => {
+const readWorkoutData = async (navigator) => {
   // console.log('inside read WorkoutData');
 
   try {
@@ -27,10 +27,7 @@ const readWorkoutData = async () => {
       const planName = workoutsList.data?.packageName;
       const location = workoutsList.data?.location;
       const packageId = workoutsList.data?.packageId;
-      // console.log(
-      //   'data s in readWorkoutdata',
-      //   workoutsList.data?.weeklyPlan.weeklyPlan
-      // );
+
       // console.log(
       //   'workoutPlanData in readWorkoutdata',
       //   workoutPlanData.weeklyPlan
@@ -39,6 +36,10 @@ const readWorkoutData = async () => {
       return { weeklyPlan, planName, location, packageId };
     } else {
       console.log('No data in AsyncStorage');
+      //navigate to IndexOnBoarding
+
+      // Assuming you have a navigation object available
+      navigator.navigate('IndexOnBoarding');
       return null;
     }
   } catch (error) {

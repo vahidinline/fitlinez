@@ -1,6 +1,13 @@
 // CustomAlert.js
 import React, { useContext, useState } from 'react';
-import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
+import {
+  Modal,
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import AuthContext from '../../api/context';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
@@ -24,16 +31,16 @@ const AdModal = ({ visible, title, message, onConfirm, onCancel }) => {
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.message}>{message}</Text>
           <View style={styles.buttonContainer}>
-            <Pressable
-              style={[styles.button, styles.confirmButton]}
-              onPress={onConfirm}>
-              <Text style={styles.buttonText}>{i18n.t('yes')}</Text>
-            </Pressable>
-            <Pressable
+            <TouchableOpacity
               style={[styles.button, styles.cancelButton]}
               onPress={onCancel}>
               <Text style={styles.buttonText}>{i18n.t('no')}</Text>
-            </Pressable>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.button, styles.confirmButton]}
+              onPress={onConfirm}>
+              <Text style={styles.buttonText}>{i18n.t('yes')}</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -70,7 +77,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '100%',
+    // width: '100%',
   },
   button: {
     flex: 1,
@@ -82,6 +89,7 @@ const styles = StyleSheet.create({
   confirmButton: {
     backgroundColor: 'green',
     marginRight: 5,
+    marginLeft: 5,
   },
   cancelButton: {
     backgroundColor: 'red',

@@ -14,7 +14,7 @@ import LanguageContext from '../../api/langcontext';
 import { I18n } from 'i18n-js';
 import convertToPersianNumbers from '../../api/PersianNumber';
 import { useNavigation } from '@react-navigation/native';
-import { IconAdd } from '../marketplace/filters/icons';
+import { IconAdd, IconArrow } from '../marketplace/filters/icons';
 
 function DailyReport({ userId }) {
   const { theme } = useTheme();
@@ -23,10 +23,6 @@ function DailyReport({ userId }) {
   const [dailyGoalStatus, setDailyGoalStatus] = useState('idle');
   const [result, setResult] = useState([]);
   const [dailyCalories, setDailyCalories] = useState(0);
-  const [dailyCarbs, setDailyCarbs] = useState(0);
-  const [dailyProtein, setDailyProtein] = useState(0);
-  const [dailyFat, setDailyFat] = useState(0);
-  const [dailyFiber, setDailyFiber] = useState(0);
   const { userLanguage } = useContext(LanguageContext);
   const RTL = userLanguage === 'fa' ? true : false;
   const i18n = new I18n(i18nt);
@@ -34,10 +30,7 @@ function DailyReport({ userId }) {
   const percentage =
     (dailyCalories / result[0]?.totalCalories.toFixed(0)) * 100;
   const angle = (percentage / 100) * 360;
-  //console.log('dailyCalories in angle', angle);
-  // console.log('dailyCalories in daily', dailyCalories);
-  //console.log('result in daily', result);
-  //console.log('percentage in daily', percentage);
+
   const getDailyReport = async () => {
     setStatus('loading');
     if (!userId) {
@@ -87,95 +80,82 @@ function DailyReport({ userId }) {
   }) => {
     return (
       <View style={styles.nutrientContainer}>
-        <View style={styles.row}>
-          <Text style={styles.nutrientText}>
-            {i18n.t('carbs')} :{' '}
-            <Text style={styles.errorText}>
-              {dailyCarbs
-                ? convertToPersianNumbers(dailyCarbs, RTL) + ' ' + i18n.t('g')
-                : i18n.t('noData')}
-            </Text>
-          </Text>
-
-          <Text style={styles.nutrientText}>
-            {i18n.t('protein')} :{' '}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+          }}>
+          <View style={styles.box}>
+            <Text style={styles.nutrientText}>{i18n.t('protein')} </Text>
             <Text style={styles.errorText}>
               {dailyProtein
                 ? convertToPersianNumbers(dailyProtein, RTL) + ' ' + i18n.t('g')
                 : i18n.t('noData')}
             </Text>
-          </Text>
+          </View>
+
+          <View style={styles.box}>
+            <Text style={styles.nutrientText}>{i18n.t('carbs')} </Text>
+            <Text style={styles.errorText}>
+              {dailyCarbs
+                ? convertToPersianNumbers(dailyCarbs, RTL) + ' ' + i18n.t('g')
+                : i18n.t('noData')}
+            </Text>
+          </View>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.nutrientText}>
-            {i18n.t('fats')} :{' '}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+          }}>
+          <View style={styles.box}>
+            <Text style={styles.nutrientText}>{i18n.t('fats')} </Text>
             <Text style={styles.errorText}>
               {dailyProtein
                 ? convertToPersianNumbers(dailyFat, RTL) + ' ' + i18n.t('g')
                 : i18n.t('noData')}
             </Text>
-          </Text>
-
-          <Text style={styles.nutrientText}>
-            {i18n.t('fiber')} :{' '}
+          </View>
+          <View style={styles.box}>
+            <Text style={styles.nutrientText}>{i18n.t('fiber')} </Text>
             <Text style={styles.errorText}>
               {dailyFiber
                 ? convertToPersianNumbers(dailyFiber, RTL) + ' ' + i18n.t('g')
                 : i18n.t('noData')}
             </Text>
-          </Text>
+          </View>
         </View>
       </View>
     );
   };
 
   return (
-    <>
-      <View
-        style={{
-          borderBottomColor: 'grey',
-          //paddingBottom: 5,
-          borderBottomWidth: 1,
-          paddingHorizontal: 5,
-          marginTop: 10,
-        }}>
-        <Text
-          style={{
-            color: theme.colors.primary,
-            fontSize: 14,
-            // top: 10,
-            fontWeight: '400',
-            marginHorizontal: 15,
-
-            // marginVertical: 5,
-            // color: theme.colors.primary,
-            fontFamily: 'Vazirmatn',
-            textAlign: 'center',
-          }}>
-          {i18n.t('calorieCounter')}
-        </Text>
-      </View>
+    <View style={styles.container}>
       {dailyGoalStatus == 'noDailyCalories' ? (
         <TouchableOpacity
           onPress={() => {
             navigator.navigate('Calories');
-          }}
-          style={styles.container}>
+          }}>
           <Text style={styles.errorText}>
             {i18n.t('Nodailycaloriesgoalsset')}{' '}
           </Text>
-          <IconAdd color={theme.colors.primary} size={25} />
+          <View style={styles.box}>
+            <IconAdd color={theme.colors.secondary} size={48} />
+          </View>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
           onPress={() => {
             navigator.navigate('Calories');
           }}
-          style={[styles.container, { direction: RTL ? 'rtl' : 'ltr' }]}>
+          style={[styles.container]}>
           {status === 'success' && (
             <View
               style={{
-                marginBottom: 25,
+                alignContent: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+                // marginVertical: 25,
               }}>
               <View style={styles.baseContainer}>
                 <Text style={styles.caloriesText}>
@@ -196,17 +176,44 @@ function DailyReport({ userId }) {
                       )}
                     </Text>
                   ) : (
-                    <Text
+                    <View
                       style={{
-                        color: theme.colors.primary,
-                        fontSize: 16,
-                        textAlign: 'center',
-                        fontFamily: 'Vazirmatn',
-                        margin: 5,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        alignContent: 'center',
+                        alignSelf: 'center',
+                        width: Dimensions.get('window').width / 1.3,
+                        padding: 5,
+                        height: 50,
                       }}>
-                      {convertToPersianNumbers(dailyCalories, RTL)}{' '}
-                      {i18n.t('calories')} {i18n.t('remaining')}
-                    </Text>
+                      <View>
+                        <Text
+                          style={{
+                            color: theme.colors.primary,
+                            fontSize: 28,
+                            textAlign: 'center',
+                            fontFamily: 'Vazirmatn',
+                            //margin: 5,
+                          }}>
+                          {convertToPersianNumbers(dailyCalories, RTL)}{' '}
+                          {i18n.t('calories')}{' '}
+                          <Text
+                            style={{
+                              color: theme.colors.primary,
+                              fontSize: 12,
+                              textAlign: 'center',
+                              fontFamily: 'Vazirmatn',
+                              // margin: 5,
+                            }}>
+                            {i18n.t('remaining')}
+                          </Text>
+                        </Text>
+                      </View>
+                      <View>
+                        <IconArrow size={32} color={theme.colors.white} />
+                      </View>
+                    </View>
                   )}
                 </Text>
               </View>
@@ -224,7 +231,7 @@ function DailyReport({ userId }) {
           )}
         </TouchableOpacity>
       )}
-    </>
+    </View>
   );
 }
 
@@ -233,43 +240,30 @@ export default DailyReport;
 const getStyles = (theme, RTL) =>
   StyleSheet.create({
     container: {
-      row: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-      },
-      flex: 1,
-      //backgroundColor: '#5B5891',
-      justifyContent: 'center',
-      alignItems: 'center',
-      //marginHorizontal: 20,
-      //flexDirection: 'row',
-      //padding: 30,
-      borderRadius: 14,
       width: Dimensions.get('window').width / 1.1,
-      //  marginVertical: 10,
-      // minHeight: Dimensions.get('window').height / 5,
-      flex: 1,
+      height: Dimensions.get('window').height / 3.5,
+      // backgroundColor: theme.colors.warning,
+      marginVertical: 5,
+    },
 
-      //marginHorizontal: 10,
-      //padding: 10,
-      borderRadius: 10,
-      //backgroundColor: theme.colors.secondary,
-    },
-    row: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      // width: Dimensions.get('window').width / 2,
-    },
     macroItem: {
       borderRadius: 8,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      //backgroundColor: theme.colors.background,
-      //width: Dimensions.get('window').width / 2.3,
       height: 40,
       alignItems: 'center',
       paddingHorizontal: 4,
       margin: 4,
+    },
+    box: {
+      justifyContent: 'center',
+      width: Dimensions.get('window').width / 2.3,
+      height: 80,
+      alignContent: 'center',
+      alignItems: 'center',
+      marginVertical: 4,
+      borderRadius: 16,
+      backgroundColor: theme.colors.primary,
     },
     background: {
       ...StyleSheet.absoluteFillObject,
@@ -282,19 +276,27 @@ const getStyles = (theme, RTL) =>
       fontFamily: 'Vazirmatn',
     },
     baseContainer: {
-      flexDirection: 'row',
+      //flexDirection: 'row',
       borderColor: theme.colors.grey0,
-      borderRadius: 75,
-      height: 60,
-      borderOpacity: 0.2,
+      width: Dimensions.get('window').width / 1.11,
+      borderRadius: 16,
       justifyContent: 'center',
+      marginBottom: 40,
+      alignItems: 'center',
+      borderWidth: 1,
+      alignContent: 'center',
+      height: 50,
+
+      //bottom: 20,
+      backgroundColor: theme.colors.grey0,
+      // top: 20,
     },
     caloriesText: {
       color: theme.colors.primary,
       fontFamily: 'Vazirmatn',
       fontSize: 20,
       textAlign: 'center',
-      marginTop: 15,
+      marginBottom: 15,
     },
     kcalText: {
       color: theme.colors.primary,
@@ -311,25 +313,22 @@ const getStyles = (theme, RTL) =>
     },
     errorText: {
       color: theme.colors.warning,
-      fontSize: 14,
+      fontSize: 16,
       fontFamily: 'Vazirmatn',
       margin: 5,
     },
     nutrientContainer: {
-      //width: '99%',
-      width: Dimensions.get('window').width / 1.2,
-      backgroundColor: theme.colors.background,
+      width: Dimensions.get('window').width / 1.1,
+      height: Dimensions.get('window').height / 8,
       borderRadius: 12,
-      height: 80,
-      marginHorizontal: 15,
-      //justifyContent: 'center',
-      //alignItems: 'center',
-      padding: 15,
+      //  marginHorizontal: 50,
+      justifyContent: 'center',
+      // padding: 15,
     },
     nutrientText: {
       direction: RTL ? 'rtl' : 'ltr',
       color: theme.colors.secondary,
-      fontSize: 14,
+      fontSize: 16,
       fontFamily: 'Vazirmatn',
     },
   });

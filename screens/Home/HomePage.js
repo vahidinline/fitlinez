@@ -68,29 +68,6 @@ const HomePage = (props) => {
     }
   };
 
-  // useEffect(() => {
-  //   //console.log('inside useeffect');
-  //   if (currentPlan.length === 0 && currentPlan === undefined) {
-  //     //console.log('inside if');
-  //     setOpenAlert(true);
-  //   }
-  // }, [currentPlan]);
-
-  async function checkStatusAsync() {
-    const status = await BackgroundFetch.getStatusAsync();
-    console.log('BackgroundFetch status:', status);
-    return;
-    switch (status) {
-      case BackgroundFetch.Status.Restricted:
-      case BackgroundFetch.Status.Denied:
-        console.log('Background execution is disabled');
-        return false;
-
-      default:
-        return true;
-    }
-  }
-
   useEffect(() => {
     // checkStatusAsync();
     if (currentPlan) {
@@ -195,10 +172,6 @@ const HomePage = (props) => {
       onPress: () => handleButtonPress('Advanced'),
     },
   ];
-
-  useEffect(() => {
-    readWorkoutData();
-  }, []);
 
   return (
     <SafeAreaView

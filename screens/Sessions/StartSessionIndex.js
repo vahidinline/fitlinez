@@ -16,11 +16,11 @@ import { TimeSpentContext } from '../../api/TimeSpentContext';
 import LanguageContext from '../../api/langcontext';
 import i18nt from '../../locales';
 import Header from '../../components/header';
-import { userLevelCheck, userStatusCheck } from '../../api/GetData';
 import { readWorkoutData } from '../../api/readWorkoutData';
 import DaySelectionModal from '../../components/ChangeWorkoutDay/ChangeWorkoutDay';
 import { IconEdit, IconSave } from '../marketplace/filters/icons';
 import NoWorkoutCard from '../Home/noWorkout';
+import { LinearGradient } from 'expo-linear-gradient';
 
 require('moment/locale/fa');
 require('moment/locale/en-gb');
@@ -171,6 +171,14 @@ const StartSessionIndex = () => {
               {showEdit === 'active' && <IconSave size={32} />}
             </TouchableOpacity>
           </View>
+          {/* <LinearGradient
+            colors={[
+
+              theme.colors.secondary,
+              theme.colors.primary,
+            ]}
+            style={{ ...StyleSheet.absoluteFillObject, borderRadius: 14 }}
+          /> */}
           {workoutPlan
             ?.sort((a, b) => {
               const indexA = daysOfWeek.findIndex(

@@ -15,10 +15,12 @@ import { I18n } from 'i18n-js';
 import { useState } from 'react';
 import AuthContext from '../../api/context';
 import { getUserFirstData } from '../../api/getUserBasicData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { BackgroundImage } from '@rneui/base';
+import { overlay } from 'react-native-paper';
 
 function HasWorkoutCard({ title, location }) {
-  // console.log('location in current', location);
-
+  const [bg, setBg] = useState(null);
   const { theme } = useTheme();
   const navigation = useNavigation();
   const { userLanguage } = useContext(LanguageContext);
@@ -27,6 +29,20 @@ function HasWorkoutCard({ title, location }) {
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const [status, setStatus] = useState('idle');
+
+  const getPlanImage = async () => {
+    try {
+      await AsyncStorage.getItem('currentPlanImage').then((data) => {
+        setBg(data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPlanImage();
+  }, []);
 
   const getUserInfo = async () => {
     getUserFirstData(userAuth.id).then((data) => {
@@ -62,92 +78,114 @@ function HasWorkoutCard({ title, location }) {
   };
 
   return (
-    <View style={[styles.container]}>
+    <TouchableOpacity
+      onPress={() => {
+        handleNextStep();
+      }}
+      style={[styles.container]}>
       <LinearGradient
-        colors={['#5B5891', '#3A366F', '#17124A']}
+        colors={['#5B5891D1', '#FCF8FF']}
         style={styles.background}
       />
-
-      <View
+      <BackgroundImage
         style={{
-          paddingHorizontal: 10,
-          marginTop: 5,
-          borderBottomColor: 'grey',
-          paddingBottom: 5,
-          //borderBottomWidth: 1,
-        }}>
+          borderRadius: 16,
+          // marginHorizontal: 20,
+          left: 0,
+          right: 0,
+          top: 0,
+          //backgroundColor: theme.colors.background,
+
+          height: Dimensions.get('window').height / 5,
+          overflow: 'hidden',
+
+          //borderWidth: 1,
+        }}
+        source={bg ? { uri: bg } : require('../../assets/img/last.jpeg')}>
         <View
           style={{
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            //marginHorizontal: 20,
-            alignItems: 'center',
-            marginTop: 20,
-            width: Dimensions.get('window').width / 1.1,
-            height: Dimensions.get('window').height / 15,
-            // marginHorizontal: 20,
-          }}>
-          {title ? (
-            <Text
-              style={{
-                fontSize: 14,
-                fontFamily: 'Vazirmatn',
-                marginHorizontal: 10,
-                // marginTop: 5,
-                color: 'white',
-                //direction: 'rtl',
-                textAlign: 'center',
-                justifyContent: 'center',
-              }}>
-              {i18n.t('yourWorkoutPlan')} : {title}
-            </Text>
-          ) : (
-            <Text
-              style={{
-                fontSize: 14,
-                fontFamily: 'Vazirmatn',
-                marginHorizontal: 10,
-                marginTop: 0,
-                color: 'white',
-                //direction: 'rtl',
-                textAlign: 'right',
-                justifyContent: 'center',
-                textAlign: 'center',
-              }}>
-              {i18n.t('title')}
-            </Text>
-          )}
-        </View>
-      </View>
-      <View
-        style={{
-          top: 30,
-        }}>
-        <Button
-          onPress={() => {
-            handleNextStep();
-          }}
-          titleStyle={{
-            color: theme.colors.text,
-            fontSize: PixelRatio.get() < 3 ? 10 : 14,
-            fontWeight: '500',
-            fontFamily: 'Vazirmatn',
-          }}
-          buttonStyle={{
-            borderRadius: 8,
-            backgroundColor: theme.colors.primary,
-            borderWidth: 1,
-            borderColor: theme.colors.border,
+            // paddingHorizontal: 10,
+            // marginTop: 5,
+            borderBottomColor: 'grey',
+            //paddingBottom: 5,
 
-            //top: 20,
-            marginHorizontal: 15,
-            height: 40,
-            width: Dimensions.get('window').width / 1.2,
+            //borderBottomWidth: 1,
           }}>
-          {i18n.t('seeLastExercises')}
-        </Button>
-      </View>
-    </View>
+          <View
+            style={{
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              //marginHorizontal: 20,
+              alignItems: 'center',
+              marginTop: 20,
+              width: Dimensions.get('window').width / 1.1,
+              height: Dimensions.get('window').height / 15,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              // marginHorizontal: 20,
+            }}>
+            {title ? (
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontFamily: 'Vazirmatn',
+                  marginHorizontal: 10,
+                  // marginTop: 5,
+                  color: 'white',
+                  //direction: 'rtl',
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  justifyContent: 'center',
+                }}>
+                {i18n.t('yourWorkoutPlan')} : {title}
+              </Text>
+            ) : (
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontFamily: 'Vazirmatn',
+                  marginHorizontal: 10,
+                  marginTop: 0,
+                  color: 'white',
+                  //direction: 'rtl',
+                  textAlign: 'right',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                }}>
+                {i18n.t('title')}
+              </Text>
+            )}
+          </View>
+        </View>
+        <View
+          style={{
+            top: 30,
+          }}>
+          <Button
+            onPress={() => {
+              handleNextStep();
+            }}
+            titleStyle={{
+              color: theme.colors.text,
+              fontSize: PixelRatio.get() < 3 ? 10 : 14,
+              fontWeight: '500',
+              fontFamily: 'Vazirmatn',
+            }}
+            buttonStyle={{
+              borderRadius: 8,
+              backgroundColor: theme.colors.primary,
+              borderWidth: 1,
+              borderColor: theme.colors.border,
+
+              //top: 20,
+              marginHorizontal: 15,
+              height: 40,
+              width: Dimensions.get('window').width / 1.2,
+            }}>
+            {i18n.t('seeLastExercises')}
+          </Button>
+        </View>
+      </BackgroundImage>
+    </TouchableOpacity>
   );
 }
 
@@ -161,6 +199,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 5,
     zIndex: 1000,
+    top: 20,
     // backgroundColor: 'orange',
   },
   background: {
@@ -168,7 +207,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     top: 0,
-    height: Dimensions.get('window').height / 5,
+    //height: Dimensions.get('window').height / ,
     borderRadius: 16,
   },
   button: {
