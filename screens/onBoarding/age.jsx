@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 function AgeSelection({ onAgeSelect, i18n }) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
-  const [selectedValue, setSelectedValue] = useState('25');
+  const [selectedValue, setSelectedValue] = useState('s');
   //create a data state of age
   const age = Array.from({ length: 86 }, (_, i) => i + 15);
 
@@ -32,6 +32,11 @@ function AgeSelection({ onAgeSelect, i18n }) {
             marginBottom: 100,
           }}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
+          <Picker.Item
+            color={theme.colors.secondary}
+            label={i18n.t('ageLabel')}
+            value={i18n.t('age')}
+          />
           {age.map((item, index) => {
             return (
               <Picker.Item

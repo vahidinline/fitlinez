@@ -1,23 +1,17 @@
 import React, { useContext } from 'react';
-import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native';
+import { Dimensions, TouchableOpacity, View, Text } from 'react-native';
 import { sendChatBotMessage, getUserUsage } from '../../api/chatBotApi';
 import AuthContext from '../../api/context';
-import { Button, Text, useTheme } from '@rneui/themed';
+import { useTheme } from '@rneui/themed';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import Loading from './loading';
+
 import ChatResponse from './response';
-import InputChat from './inputChat';
-import Usage from './usage';
-import {
-  IconAi,
-  IconLoading,
-  IconQuestion,
-} from '../marketplace/filters/icons';
+
+import { IconQuestion } from '../marketplace/filters/icons';
 import ErrorIndex from './error';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ActivityIndicator } from 'react-native-paper';
-import AnimatedLottieView from 'lottie-react-native';
+import { ActivityIndicator, Button } from 'react-native-paper';
 
 function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId, userLevel }) {
   const { userAuth } = useContext(AuthContext);
@@ -126,35 +120,47 @@ function AiAskHelpIndex({ title, i18n, userLanguage, exerciseId, userLevel }) {
 
         )} */}
         {status === 'notstarted' && (
-          <TouchableOpacity onPress={() => sendMessage()}>
-            <IconQuestion
+          <TouchableOpacity
+            style={{
+              justifyContent: 'center',
+
+              alignItems: 'center',
+              flexDirection: 'row',
+              backgroundColor: theme.colors.background,
+              borderColor: theme.colors.border,
+              borderWidth: 0.3,
+              borderRadius: 10,
+              marginTop: 10,
+              paddingHorizontal: 10,
+              marginHorizontal: 15,
+              height: '100%',
+
+              width: Dimensions.get('window').width / 1.2,
+            }}
+            onPress={() => sendMessage()}>
+            {/* <IconQuestion
               name="robot"
               size={32}
-              color={theme.colors.white}
-              fill={theme.colors.secondary}
-            />
+              color={theme.colors.secondary}
+              fill={theme.colors.white}
+            /> */}
+            <Text
+              style={{
+                color: theme.colors.secondary,
+                textAlign: 'center',
+                fontSize: 14,
+                flex: 1,
+                flexWrap: 'wrap',
+
+                fontFamily: 'Vazirmatn',
+                // fontWeight: 'bold',
+                marginLeft: 10,
+              }}
+              onPress={() => sendMessage()}>
+              {i18n.t('AskHelp', { exercise: title })}
+            </Text>
           </TouchableOpacity>
         )}
-
-        {/* <Button
-          buttonStyle={{
-            backgroundColor: theme.colors.background,
-            borderColor: theme.colors.border,
-            borderWidth: 1,
-            borderRadius: 10,
-            marginTop: 10,
-            marginHorizontal: 30,
-            height: 40,
-            width: Dimensions.get('window').width / 1.2,
-          }}
-          titleStyle={{
-            color: theme.colors.secondary,
-            fontWeight: '500',
-            fontSize: 12,
-          }}
-          onPress={() => sendMessage()}>
-          Help me to do it
-        </Button> */}
       </View>
     </View>
   );

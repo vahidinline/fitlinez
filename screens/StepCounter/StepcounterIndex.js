@@ -204,6 +204,7 @@ const getStyles = (theme) =>
       color: theme.colors.text,
       fontSize: 12,
       fontFamily: 'Vazirmatn',
+      top: 5,
     },
     box: {
       justifyContent: 'center',

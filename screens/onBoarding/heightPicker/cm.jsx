@@ -3,9 +3,9 @@ import { useTheme } from '@rneui/themed';
 import React from 'react';
 import { useEffect } from 'react';
 
-function CM({ setHeight }) {
+function CM({ setHeight, i18n }) {
   const { theme } = useTheme();
-  const [selectedValue, setSelectedValue] = React.useState('170');
+  const [selectedValue, setSelectedValue] = React.useState('110');
   const height = Array.from({ length: 60 }, (_, i) => i + 150);
   useEffect(() => {
     setHeight({
@@ -27,6 +27,11 @@ function CM({ setHeight }) {
         marginBottom: 100,
       }}
       onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
+      <Picker.Item
+        color={theme.colors.secondary}
+        label={i18n.t('heightLabel')}
+        value={i18n.t('height')}
+      />
       {height.map((item, index) => {
         return (
           <Picker.Item

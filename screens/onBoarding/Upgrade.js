@@ -201,7 +201,7 @@ function PlanSelection({ handleSubmit }) {
                         fontSize: 20,
                         textAlign: 'center',
                       }}>
-                      بزودی
+                      {i18n.t('soon')}{' '}
                     </Text>
                   </View>
                 )}

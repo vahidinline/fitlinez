@@ -95,7 +95,7 @@ function FoodTextInput({
             marginVertical: 10,
             // backgroundColor: theme.colors.background,
           }}>
-          <Text style={styles.hintText}>در حال محاسبه کالری</Text>
+          <Text style={styles.hintText}>{i18n.t('gettingCalories')}</Text>
           <ActivityIndicator size="small" color="#0000ff" />
         </View>
       )}

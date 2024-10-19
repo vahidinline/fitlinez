@@ -39,10 +39,8 @@ function ChatResponse({
         backgroundColor: theme.colors.primary,
         opacity: isHide ? 0.5 : 1,
         borderRadius: 12,
-        // borderColor: theme.colors.border,
-        // borderWidth: 1,
         direction: isRTl ? 'rtl' : 'ltr',
-        width: Dimensions.get('window').width / 1.15,
+        width: Dimensions.get('window').width / 1.1,
         marginHorizontal: 0,
       }}>
       <View
@@ -119,6 +117,7 @@ function ChatResponse({
               color: theme.colors.text,
               textAlign: isRTL ? 'right' : 'left',
               fontFamily: 'Vazirmatn',
+              paddingHorizontal: 10,
             }}>
             {response}
           </Text>

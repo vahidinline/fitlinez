@@ -286,6 +286,7 @@ const getStyles = (theme, RTL) =>
       borderWidth: 1,
       alignContent: 'center',
       height: 50,
+      opacity: 0.5,
 
       //bottom: 20,
       backgroundColor: theme.colors.grey0,
@@ -297,6 +298,7 @@ const getStyles = (theme, RTL) =>
       fontSize: 20,
       textAlign: 'center',
       marginBottom: 15,
+      zIndex: 1000,
     },
     kcalText: {
       color: theme.colors.primary,

@@ -77,13 +77,22 @@ const SessionMainPage = (props) => {
     }
   }, []);
 
+  // const goToIndex = (index) => {
+  //   if (index) {
+  //     flatListRef.current.scrollToIndex({ index: index, animated: false });
+  //   } else {
+  //     flatListRef.current.scrollToIndex({ index: 0, animated: false });
+  //   }
+  // };
+
   const goToIndex = (index) => {
-    if (index) {
-      flatListRef.current.scrollToIndex({ index: index, animated: false });
-    } else {
-      flatListRef.current.scrollToIndex({ index: 0, animated: false });
+    try {
+      flatListRef.current.scrollToIndex({ index: index, animated: true });
+    } catch (error) {
+      console.error(`Scroll failed: ${error.message}`);
     }
   };
+
   const doneItem = (index) => {
     try {
       const updatedData = data.map((item, i) => {

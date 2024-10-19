@@ -211,6 +211,7 @@ const WeeklyPlan = (props) => {
 
   const dosomeThing = useCallback(() => {
     setSessionData([]);
+    console.log('locSelector', locSelector);
     addSession(userId, planId, planName, title, locSelector);
     // saveUserData();
 

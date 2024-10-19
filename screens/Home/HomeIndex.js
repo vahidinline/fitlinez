@@ -26,8 +26,13 @@ import { getNewTasks } from '../../api/getNewTasks';
 import StepcounterIndex from '../StepCounter/StepcounterIndex';
 import { IconWalking } from '../marketplace/filters/icons';
 import HasWorkoutCard from './hasWorkout';
+import convertToPersianNumbers from '../../api/PersianNumber';
+import Flashing from '../../components/flashing';
+import { TouchableOpacity } from 'react-native';
+import { SessionContext } from '../../api/sessionContext';
 
 function HomeIndex() {
+  const { sessionData, setSessionData } = useContext(SessionContext);
   const [refreshing, setRefreshing] = useState(false);
   const [currentPlan, setCurrentPlan] = useState(null);
   const { theme } = useTheme();
@@ -40,7 +45,7 @@ function HomeIndex() {
   const [planName, setPlanName] = useState('');
   const styles = getStyles(theme);
   const navigator = useNavigation();
-
+  const RTL = userLanguage === 'fa';
   const onRefresh = useCallback(() => {
     setTaskStatus('loading');
     setTimeout(async () => {
@@ -239,19 +244,53 @@ function HomeIndex() {
             marginVertical: 10,
           }}>
           {' '}
-          v. {process.env.EXPO_PUBLIC_VERSION}
+          {i18n.t('v')}{' '}
+          {convertToPersianNumbers(process.env.EXPO_PUBLIC_VERSION, RTL)}
         </Text>
       </ScrollView>
 
-      {/* <View
-        style={{
-          position: 'absolute',
-          bottom: -150,
-          //marginHorizontal: 10,
-          zIndex: 100,
-        }}>
-        <BannerAdMob />
-      </View> */}
+      {sessionData.length !== 0 && (
+        <TouchableOpacity
+          onPress={() => navigator.navigate('SessionNavigator')}
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            // flexDirection: 'column',
+            //marginHorizontal: 10,
+
+            zIndex: 1000,
+            backgroundColor: theme.colors.secondary,
+            width: Dimensions.get('window').width / 1.1,
+            marginHorizontal: 20,
+            borderRadius: 14,
+            height: 80,
+            padding: 10,
+
+            // flexWrap: 'wrap',
+            flexShrink: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={[
+              styles.text,
+              {
+                textAlign: 'center',
+              },
+            ]}>
+            {i18n.t('runningSessiontitle')}
+          </Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                textAlign: 'center',
+              },
+            ]}>
+            {i18n.t('runningSessionbody')} <Flashing />
+          </Text>
+        </TouchableOpacity>
+      )}
     </SafeAreaView>
   );
 }

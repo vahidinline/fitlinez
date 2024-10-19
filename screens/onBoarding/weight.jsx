@@ -7,7 +7,7 @@ import { UnitContext } from '../../api/unitContext';
 function WeightSelection({ onWeightSelect, i18n }) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
-  const [selectedValue, setSelectedValue] = React.useState('70');
+  const [selectedValue, setSelectedValue] = React.useState('');
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const { unit, setUnit } = useContext(UnitContext);
   const weightUnit = unit[0].weightUnit;
@@ -94,6 +94,11 @@ function WeightSelection({ onWeightSelect, i18n }) {
             marginBottom: 100,
           }}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
+          <Picker.Item
+            color={theme.colors.secondary}
+            label={i18n.t('weight')}
+            value={i18n.t('weight')}
+          />
           {selectedIndex === 0
             ? weightKG.map((item, index) => {
                 return (

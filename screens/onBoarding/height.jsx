@@ -80,7 +80,7 @@ function HeightSelection({ onHeightSelect, i18n }) {
       </View> */}
       <View style={styles.container}>
         {messureUnit === 'metric' ? (
-          <CM setHeight={onHeightSelect} />
+          <CM setHeight={onHeightSelect} i18n={i18n} />
         ) : (
           <Inch setHeight={onHeightSelect} />
         )}

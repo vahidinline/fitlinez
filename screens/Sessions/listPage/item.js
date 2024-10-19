@@ -24,6 +24,7 @@ import * as Icons from '../../marketplace/filters/icons';
 import api from '../../../api/api';
 import convertToPersianNumbers from '../../../api/PersianNumber';
 import DrawerList from './drawer';
+import AiAskHelpIndex from '../../AiAskHelp/AiAskHelpIndex';
 const { width, height } = Dimensions.get('window');
 
 function Item({
@@ -286,7 +287,26 @@ function Item({
             <IconSub />
           </TouchableOpacity>
         </View>
-
+        <View
+          style={{
+            position: 'absolute',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginHorizontal: 10,
+            marginVertical: 10,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              //fontWeight: 'bold',
+              color: theme.colors.secondary,
+              fontFamily: 'Vazirmatn',
+            }}>
+            {i18n.t('set')} {convertToPersianNumbers(currentIndex + 1, RTL)}{' '}
+            {i18n.t('of')} {convertToPersianNumbers(adjustedNumberOfSets, RTL)}
+          </Text>
+        </View>
         <ImageLoader
           i18n={i18n}
           uri={gifUrl}
@@ -367,25 +387,16 @@ function Item({
                 }
               })
             )}
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginHorizontal: 10,
-                marginVertical: 10,
-              }}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  //fontWeight: 'bold',
-                  color: theme.colors.secondary,
-                  fontFamily: 'Vazirmatn',
-                }}>
-                {i18n.t('set')} {convertToPersianNumbers(currentIndex + 1, RTL)}{' '}
-                {i18n.t('of')}{' '}
-                {convertToPersianNumbers(adjustedNumberOfSets, RTL)}
-              </Text>
+
+            <View style={{ top: 10, zIndex: 1000 }}>
+              <AiAskHelpIndex
+                title={title}
+                category={category}
+                userLanguage={userLanguage}
+                exerciseId={exerciseId}
+                i18n={i18n}
+                userLevel={userLevel}
+              />
             </View>
             {description && (
               <View
@@ -418,6 +429,8 @@ function Item({
         )}
       </View>
 
+      {/* ai helper */}
+
       {visible && (
         <Subs
           userId={userId}
@@ -437,6 +450,7 @@ function Item({
           userLocation={userLocation}
         />
       )}
+
       {/* <DrawerList sortedData={sortedData} goToIndex={doneItem} /> */}
       <View
         style={{
