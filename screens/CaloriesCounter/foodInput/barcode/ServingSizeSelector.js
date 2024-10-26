@@ -29,22 +29,27 @@ export default function ServingSizeSelector({ setServingSize, i18n }) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{i18n.t('selectServingsize')}</Text>
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <TextInput
+          label={i18n.t('selectServingsize')}
+          style={styles.input}
+          placeholder="Enter serving size in grams"
+          keyboardType="numeric"
+          value={servingSize}
+          onChangeText={handleServingSizeChange}
+          returnKeyType="done"
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Enter serving size in grams"
-        keyboardType="numeric"
-        value={servingSize}
-        onChangeText={handleServingSizeChange}
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Enter number of servings"
-        keyboardType="numeric"
-        value={numberOfServings}
-        onChangeText={handleNumberOfServingsChange}
-      />
+        <TextInput
+          label={i18n.t('numberOfServings')}
+          style={styles.input}
+          placeholder="Enter number of servings"
+          keyboardType="numeric"
+          value={numberOfServings}
+          onChangeText={handleNumberOfServingsChange}
+          returnKeyType="done"
+        />
+      </View>
 
       <Text style={styles.totalLabel}>
         {i18n.t('totalServingSize')}:{' '}
@@ -58,13 +63,15 @@ export default function ServingSizeSelector({ setServingSize, i18n }) {
 const getStyles = (theme) =>
   StyleSheet.create({
     container: {
+      // flexDirection: 'row',
       marginVertical: 10,
       paddingHorizontal: 20,
       borderColor: theme.colors.border,
-      borderWidth: 1,
-      backgroundColor: theme.colors.background,
+      //borderWidth: 1,
+      backgroundColor: theme.colors.primary,
       borderRadius: 8,
       height: Dimensions.get('window').height / 5,
+      width: Dimensions.get('window').width / 1.2,
     },
     label: {
       fontSize: 16,
@@ -78,7 +85,9 @@ const getStyles = (theme) =>
       borderWidth: 1,
       borderRadius: 8,
       marginTop: 10,
+      marginHorizontal: 5,
       paddingHorizontal: 10,
+      width: '45%',
     },
     totalLabel: {
       fontSize: 16,

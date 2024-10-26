@@ -1,9 +1,7 @@
 import React, { useContext, useState } from 'react';
 import FoodTextInput from './FoodTextInput';
 import {
-  ActivityIndicator,
   Dimensions,
-  Image,
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
@@ -79,10 +77,10 @@ function InputSelector({ route }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <Header
         title={i18n.t('foodinserttypetitle', { mealType: mealName })}
-        color={theme.colors.primary}
+        color={theme.colors.background}
       />
       <ScrollView>
         <View

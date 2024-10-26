@@ -20,6 +20,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import CalorieDetails from './CalorieDetails';
 import MealList from './MealList';
+import DailyReport from './dailyReport';
 
 function CaloriesIndex() {
   const [status, setStatus] = useState('idle');
@@ -110,15 +111,15 @@ function CaloriesIndex() {
       )}
       <View
         style={{
-          height: Dimensions.get('window').height / 4.5,
+          //  height: Dimensions.get('window').height / 4.5,
           widht: Dimensions.get('window').width / 1.1,
           borderColor: theme.colors.border,
           marginHorizontal: 20,
           //   borderWidth: 1,
           borderRadius: 8,
-          backgroundColor: theme.colors.secondary,
+          // backgroundColor: theme.colors.secondary,
         }}>
-        <CalorieDetails userId={userId} />
+        <DailyReport userId={userId} />
       </View>
 
       {status === 'loading' && (

@@ -1,82 +1,3 @@
-// import React, { useState, useEffect, useContext } from 'react';
-// import { Text, View, StyleSheet, Dimensions } from 'react-native';
-// import { BarCodeScanner } from 'expo-barcode-scanner';
-// import { sendBarCode } from '../../../../api/barCodefunctions';
-// import AuthContext from '../../../../api/context';
-// import LanguageContext from '../../../../api/langcontext';
-// import i18nt from '../../../../locales';
-// import { I18n } from 'i18n-js';
-
-// export default function BarcodeScanner({
-//   setFoodItems,
-//   setStatus,
-//   status,
-//   selectedMeal,
-// }) {
-//   const [hasPermission, setHasPermission] = useState(null);
-//   const [scanned, setScanned] = useState(false);
-//   const { userAuth } = useContext(AuthContext);
-//   const userId = userAuth.id;
-//   const { userLanguage } = useContext(LanguageContext);
-//   const i18n = new I18n(i18nt);
-//   i18n.locale = userLanguage;
-//   const RTL = userLanguage === 'fa';
-//   useEffect(() => {
-//     const getBarCodeScannerPermissions = async () => {
-//       const { status } = await BarCodeScanner.requestPermissionsAsync();
-//       setHasPermission(status === 'granted');
-//     };
-
-//     getBarCodeScannerPermissions();
-//   }, []);
-
-//   const handleBarCodeScanned = async ({ type, data }) => {
-//     setScanned(true);
-//     const res = await sendBarCode(data, selectedMeal, userId);
-//     if (res) {
-//       await setFoodItems(res);
-//       setTimeout(() => {
-//         setStatus('success');
-//       }, 1000);
-
-//       console.log('res in handleBarCodeScanned', res);
-//     } else {
-//       alert(`Bar code with type  ${data} has  no data!`);
-//     }
-//   };
-
-//   if (hasPermission === null) {
-//     return <Text>Requesting for camera permission</Text>;
-//   }
-//   if (hasPermission === false) {
-//     return <Text>No access to camera</Text>;
-//   }
-
-//   return (
-//     <View style={styles.container}>
-//       {!scanned ? (
-//         <BarCodeScanner
-//           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-//           style={StyleSheet.absoluteFillObject}
-//         />
-//       ) : (
-//         <>{status === 'loading' && <FitlinezLoading />}</>
-//       )}
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     height: Dimensions.get('window').height / 5,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     borderRadius: 10,
-//     marginVertical: 10,
-//     padding: 10,
-//   },
-// });
-
 import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, StyleSheet, Dimensions, TextInput } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -87,6 +8,7 @@ import i18nt from '../../../../locales';
 import { I18n } from 'i18n-js';
 import ServingSizeSelector from './ServingSizeSelector';
 import { Button, useTheme } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
 
 export default function BarcodeScanner({
   setFoodItems,
@@ -98,6 +20,7 @@ export default function BarcodeScanner({
   const [servingSize, setServingSize] = useState('');
   const [barCodeData, setBarCodeData] = useState(null);
   const { userAuth } = useContext(AuthContext);
+  const navigator = useNavigation();
   const userId = userAuth.id;
   const { userLanguage } = useContext(LanguageContext);
   const i18n = new I18n(i18nt);
@@ -130,13 +53,16 @@ export default function BarcodeScanner({
       userId,
       servingSize
     ); // Add servingSize to the request
-
+    // console.log('res in barcode scanner', res);
     if (res) {
       await setFoodItems(res);
+      navigator.navigate('TempfoodItems', {
+        foodItems: res.data,
+        setStatus: setStatus,
+      });
       setTimeout(() => {
         setStatus('success');
       }, 1000);
-      console.log('res in handleSendBarCode', res);
     } else {
       alert(i18n.t(`Bar code with data ${barCodeData} has no data!`));
     }

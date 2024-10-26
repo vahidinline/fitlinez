@@ -16,10 +16,11 @@ import Upgrade from '../screens/upgrade';
 import ConfirmPayment from '../screens/upgrade/payment';
 import PlanDetailsIndex from '../screens/planDetails/planDetailsIndex';
 import SessionNavigator from './SessionNavigator';
-import CaloriesIndex from '../screens/Calories/CaloriesIndex';
-import CustomCalorieReport from '../screens/Calories/customReport';
+
 import SingleTrainer from '../screens/Trainers/SingleTrainer';
 import StepCounterNavigator from './StepCounterNavigator';
+import CaloriesIndex from '../screens/CaloriesCounter/CaloriesIndex';
+import CustomCalorieReport from '../screens/CaloriesCounter/customReport';
 
 const Stack = createStackNavigator();
 

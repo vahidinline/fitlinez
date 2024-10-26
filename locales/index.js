@@ -1,5 +1,3 @@
-import DailyReport from '../screens/Calories/dailyReport';
-
 // i18nData.js
 const i18nt = {
   en: {
@@ -448,7 +446,7 @@ const i18nt = {
     saturated_fat: 'Saturated Fat',
     sugar: 'Sugar',
     itsok: 'Submit',
-    notok: 're-try',
+    notok: 'Re-try',
     errorTitle: 'Error',
     errorMessage: 'An error occurred. Please try again later',
     errorButtonTitle: 'Retry',

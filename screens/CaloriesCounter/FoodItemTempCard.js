@@ -13,18 +13,17 @@ import LanguageContext from '../../api/langcontext';
 import approveFoodItem from '../../api/approveFoodItem';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import i18nt from '../../locales';
+import { I18n } from 'i18n-js';
+import ItemResults from '../../components/Calories/ItemResults';
 // import { IconClose } from '../marketplace/filters/icons';
 const FoodItemCard = ({
+  title,
   item,
-  current,
   userId,
   selectedMeal,
-  i18n,
-  handleDeleteItem,
-  setMainStatus,
-  foodItems,
   foodId,
+  setMainStatus,
 }) => {
   const { theme } = useTheme();
   const styles = getStyles(theme);
@@ -33,6 +32,8 @@ const FoodItemCard = ({
   const [mealId, setMealId] = useState(null);
   const { userLanguage } = useContext(LanguageContext);
   const RTL = userLanguage === 'fa';
+  const i18n = new I18n(i18nt);
+  i18n.locale = userLanguage;
   const navigation = useNavigation();
   const handleSendFoodItemReq = async () => {
     setStatus('loading');
@@ -52,30 +53,11 @@ const FoodItemCard = ({
     }
   };
 
-  const handleDeleteFoodItem = async (mealId, index) => {
-    //console.log('index in card', index);
-    setStatus('idle');
-    handleDeleteItem(index);
-    alert('Item deleted');
-    // console.log('mealId', mealId);
-    const deleteResult = await deleteFoodItem(mealId);
-
-    //console.log('mealId', mealId);
-  };
-
-  const handleSendFoodFoodItemReq = async (index, item) => {
-    console.log('index in card', item);
-    setStatus('idle');
-    alert('Item submitted');
-    //return;
-    handleDeleteItem(index);
-    //console.log('mealId', mealId);
-  };
-
   const handleUpdatefoodItem = async (foodId, status) => {
+    navigation.goBack();
     await approveFoodItem(foodId, status);
     await AsyncStorage.removeItem('foodInput');
-    setMainStatus('idle');
+    // setMainStatus('idle');
 
     navigation.reset({
       index: 0,
@@ -83,126 +65,75 @@ const FoodItemCard = ({
     });
   };
 
+  const handleRejectfoodItem = async (foodId, status) => {
+    await approveFoodItem(foodId, status);
+    await AsyncStorage.removeItem('foodInput');
+    setMainStatus('idle');
+
+    navigation.goBack();
+  };
+
   return (
     <View
       style={[
         styles.container,
         status === 'dataLoaded' && {
-          height: Dimensions.get('window').height / 2,
+          height: Dimensions.get('window').height,
           direction: RTL ? 'rtl' : 'ltr',
         },
       ]}>
       <View style={styles.card}>
         <View style={styles.listTitle}>
-          <Text style={styles.itemTitle}>
-            {foodItems && foodItems[0]?.userInput}
-          </Text>
+          <Text style={styles.itemTitle}>{title}</Text>
         </View>
-        <Text style={styles.itemServingSize}>
-          {current.foodItems[0]?.serving_size}
-        </Text>
-        <View style={styles.list}>
-          <Text style={styles.itemText}>{i18n.t('calories')}</Text>
+        <Text style={styles.itemServingSize}>{item?.serving_size}</Text>
 
-          {/* <Text style={styles.itemValue}>{`${item?.calories}`}</Text> */}
-          <Text style={styles.itemUnit}>
-            <Text
-              style={
-                styles.itemValue
-              }>{`${current.foodItems[0]?.calories?.amount}`}</Text>
-            {`${current.foodItems[0]?.calories?.unit}`}
-          </Text>
-        </View>
+        <ItemResults
+          title={i18n.t('calories')}
+          amount={item?.calories?.amount}
+          unit={item?.calories?.unit}
+        />
+        <ItemResults
+          title={i18n.t('protein')}
+          amount={item?.protein?.amount}
+          unit={item?.protein?.unit}
+        />
+        <ItemResults
+          title={i18n.t('fats')}
+          amount={item?.total_fat?.amount}
+          unit={item?.total_fat?.unit}
+        />
+        <ItemResults
+          title={i18n.t('saturated_fat')}
+          amount={item?.saturated_fat?.amount}
+          unit={item?.saturated_fat?.unit}
+        />
 
-        <View style={styles.list}>
-          <Text style={styles.itemText}>{i18n.t('protein')}</Text>
-          <Text style={styles.itemUnit}>
-            <Text
-              style={
-                styles.itemValue
-              }>{`${current.foodItems[0]?.protein?.amount}`}</Text>
-            {`${current.foodItems[0]?.protein?.unit}`}
-          </Text>
-        </View>
-        <View style={styles.list}>
-          <View
-            style={{
-              flexDirection: 'column',
-            }}>
-            <Text style={styles.itemText}>{i18n.t('fats')}</Text>
-            <Text
-              style={{
-                color: theme.colors.white,
-                fontFamily: 'Vazirmatn',
-                fontSize: 10,
-              }}>
-              {i18n.t('saturated_fat')}
-            </Text>
-          </View>
+        <ItemResults
+          title={i18n.t('sugar')}
+          amount={item?.sugars?.amount}
+          unit={item?.sugars?.unit}
+        />
 
-          <View
-            style={{
-              flexDirection: 'column',
-            }}>
-            <Text style={styles.itemValue}>
-              {`${current.foodItems[0]?.total_fat?.amount}`}{' '}
-              {`${current.foodItems[0]?.total_fat?.unit}`}
-            </Text>
-            <Text
-              style={{
-                color: theme.colors.white,
-                fontFamily: 'Vazirmatn',
-                fontSize: 10,
-              }}>
-              {`${current.foodItems[0]?.saturated_fat?.amount}`}{' '}
-              {`${current.foodItems[0]?.total_fat?.unit}`}
-            </Text>
-          </View>
-        </View>
+        <ItemResults
+          title={i18n.t('carbs')}
+          amount={item?.total_carbohydrates?.amount}
+          unit={item?.total_carbohydrates?.unit}
+        />
 
-        <View style={styles.list}>
-          <Text style={styles.itemText}>{i18n.t('sugar')}</Text>
-          <Text style={styles.itemUnit}>
-            <Text
-              style={
-                styles.itemValue
-              }>{`${current.foodItems[0]?.sugars?.amount}`}</Text>
-            {`${current.foodItems[0]?.sugars?.unit}`}
-          </Text>
-        </View>
-        <View style={styles.list}>
-          <Text style={styles.itemText}>{i18n.t('carbs')} </Text>
-          <Text style={styles.itemUnit}>
-            <Text
-              style={
-                styles.itemValue
-              }>{`${current.foodItems[0]?.total_carbohydrates?.amount}`}</Text>
-            {`${current.foodItems[0]?.total_carbohydrates?.unit}`}
-          </Text>
-        </View>
+        <ItemResults
+          title={i18n.t('fiber')}
+          amount={item?.dietary_fiber?.amount}
+          unit={item?.dietary_fiber?.unit}
+        />
 
-        <View style={styles.list}>
-          <Text style={styles.itemText}>{i18n.t('fiber')}</Text>
-          <Text style={styles.itemUnit}>
-            <Text
-              style={
-                styles.itemValue
-              }>{`${current.foodItems[0]?.dietary_fiber?.amount}`}</Text>
-            {`${current.foodItems[0]?.dietary_fiber?.unit}`}
-          </Text>
-        </View>
-        {/* <Text
-              style={
-                styles.itemValue
-              }>{`${current.foodItems[0]?.saturated_fat?.amount}`}</Text>
-            {`${current.foodItems[0]?.saturated_fat?.unit}`}
-          </Text>  */}
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
 
-            width: Dimensions.get('window').width / 1.25,
+            //   bottom: 0,
+            width: Dimensions.get('window').width / 1.1,
 
             marginHorizontal: 0,
             marginVertical: 10,
@@ -210,15 +141,16 @@ const FoodItemCard = ({
           }}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => handleUpdatefoodItem(foodId, 'rejected')}>
+            onPress={() => handleRejectfoodItem(foodId, 'rejected')}>
             <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                alignContent: 'center',
               }}>
               <Text style={styles.buttontitle}>{i18n.t('notok')}</Text>
-              <Iconclose color={'red'} />
+              <Iconclose color={'white'} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -231,7 +163,7 @@ const FoodItemCard = ({
                 alignItems: 'center',
               }}>
               <Text style={styles.buttontitle}>{i18n.t('itsok')}</Text>
-              <IconTickCircle color={'green'} />
+              <IconTickCircle color={'white'} />
             </View>
           </TouchableOpacity>
         </View>
@@ -245,7 +177,7 @@ export default FoodItemCard;
 const getStyles = (theme) =>
   StyleSheet.create({
     buttontitle: {
-      color: theme.colors.secondary,
+      color: theme.colors.primary,
       fontSize: 16,
       //  fontWeight: 'bold',
       fontFamily: 'Vazirmatn',
@@ -254,15 +186,17 @@ const getStyles = (theme) =>
     container: {
       flex: 1,
       justifyContent: 'center',
-      padding: 5,
+      //padding: 5,
+      height: Dimensions.get('window').height,
       borderRadius: 10,
+
       // borderWidth: 0.3,
       // borderColor: theme.colors.border,
-      backgroundColor: theme.colors.secondary,
+      backgroundColor: theme.colors.backgroundColor,
       margin: 4,
 
       //backgroundColor: theme.colors.grey5,
-      height: Dimensions.get('window').height / 2,
+      //height: Dimensions.get('window').height / 2,
     },
     card: {
       padding: 5,
@@ -278,7 +212,7 @@ const getStyles = (theme) =>
       flexDirection: 'row',
       justifyContent: 'center',
       margin: 10,
-      borderWidth: 0.2,
+      // borderWidth: 0.2,
       padding: 10,
       borderRadius: 5,
       borderColor: theme.colors.border,
@@ -299,11 +233,11 @@ const getStyles = (theme) =>
     },
     input: {
       height: 40,
-      color: theme.colors.primary,
+      color: theme.colors.secondary,
       fontSize: 14,
     },
     itemUnit: {
-      color: theme.colors.white,
+      color: theme.colors.secondary,
       fontSize: 10,
       marginTop: 5,
 
@@ -311,27 +245,30 @@ const getStyles = (theme) =>
     },
     button: {
       //margin: 10,
-      padding: 10,
-      width: Dimensions.get('window').width / 3,
+      //padding: 10,
+      width: Dimensions.get('window').width / 2.5,
       height: 40,
-      borderRadius: 10,
+      borderRadius: 6,
+      justifyContent: 'center',
+      alignItems: 'stretch',
+      paddingHorizontal: 10,
       borderColor: theme.colors.primary,
-      backgroundColor: theme.colors.primary,
+      backgroundColor: theme.colors.button,
     },
     itemText: {
-      color: theme.colors.white,
+      color: theme.colors.secondary,
       fontSize: 16,
       // fontWeight: 'bold',
       fontFamily: 'Vazirmatn',
     },
     itemValue: {
-      color: theme.colors.white,
+      color: theme.colors.secondary,
       fontSize: 16,
       fontFamily: 'Vazirmatn',
       marginHorizontal: 5,
     },
     itemTitle: {
-      color: theme.colors.warning,
+      color: theme.colors.secondary,
       fontSize: 18,
       textAlign: 'center',
       justifyContent: 'center',
@@ -340,7 +277,7 @@ const getStyles = (theme) =>
       fontFamily: 'Vazirmatn',
     },
     itemServingSize: {
-      color: theme.colors.white,
+      color: theme.colors.secondary,
       fontSize: 12,
       textAlign: 'center',
       justifyContent: 'center',

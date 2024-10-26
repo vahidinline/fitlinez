@@ -5,6 +5,7 @@ import SetDailyCalories from '../screens/CaloriesCounter/config/SetDailyCalories
 import FoodItemCard from '../screens/CaloriesCounter/FoodItemTempCard';
 import CaloriesIndex from '../screens/CaloriesCounter/CaloriesIndex';
 import InputSelector from '../screens/CaloriesCounter/foodInput/InputSelector';
+import TempfoodItems from '../screens/CaloriesCounter/TempfoodItems';
 
 const Stack = createStackNavigator();
 function CaloriesNavigator() {
@@ -41,8 +42,8 @@ function CaloriesNavigator() {
       />
 
       <Stack.Screen
-        name="FoodItemCard"
-        component={FoodItemCard}
+        name="TempfoodItems"
+        component={TempfoodItems}
         options={{
           headerShown: false,
         }}

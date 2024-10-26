@@ -21,6 +21,7 @@ import { IconSearch, IconWarning } from '../../marketplace/filters/icons';
 import TempfoodItems from '../TempfoodItems';
 import FitlinezLoading from '../../../components/FitlinezLoading';
 import { ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 function FoodTextInput({
   selectedMeal,
@@ -39,7 +40,7 @@ function FoodTextInput({
   const i18n = new I18n(i18nt);
   i18n.locale = userLanguage;
   const RTL = userLanguage === 'fa';
-
+  const navigator = useNavigation();
   // Load the existing value from AsyncStorage on component mount
   useEffect(() => {
     const getStoredValue = async () => {
@@ -62,41 +63,38 @@ function FoodTextInput({
       userInput,
       userId,
       selectedMeal,
-      setStatus
+      setStatus,
+      i18n
     );
     if (res) {
-      //console.log('res in FoodTextInput', res);
-      setFoodItems(res);
-      setStatus('success');
+      // console.log('res in FoodTextInput', res.data);
+
+      try {
+        navigator.navigate('TempfoodItems', {
+          foodItems: res.data,
+          setStatus: setStatus,
+        });
+      } catch (e) {
+        console.log('error in FoodTextInput', e);
+      }
+      //setStatus('success');
     } else {
       setStatus('error');
     }
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}>
-      {status === 'success' && (
-        <TempfoodItems
-          foodItems={foodItems}
-          userId={userId}
-          selectedMeal={selectedMeal}
-          setStatus={setStatus}
-          i18n={i18n}
-        />
-      )}
-      <View style={styles.hintBox}>
-        <Text style={styles.hintText}>{i18n.t('foodTextInputHint')}</Text>
-      </View>
+    // <KeyboardAvoidingView
+    //   behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    <View style={styles.container}>
       {status === 'loading' && (
         <View
           style={{
             marginVertical: 10,
-            // backgroundColor: theme.colors.background,
           }}>
-          <Text style={styles.hintText}>{i18n.t('gettingCalories')}</Text>
-          <ActivityIndicator size="small" color="#0000ff" />
+          <FitlinezLoading />
+          {/* <Text style={styles.hintText}>{i18n.t('gettingCalories')}</Text>
+          <ActivityIndicator size="small" color="#0000ff" /> */}
         </View>
       )}
       {status === 'error' && (
@@ -126,11 +124,15 @@ function FoodTextInput({
           </Text>
         </View>
       )}
+
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View
           style={{
             flexDirection: 'column',
           }}>
+          <View style={styles.hintBox}>
+            <Text style={styles.hintText}>{i18n.t('foodTextInputHint')}</Text>
+          </View>
           <TextInput
             value={userInput}
             returnKeyType="done"
@@ -159,7 +161,7 @@ function FoodTextInput({
           </View>
         </View>
       </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
