@@ -6,10 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
-  RefreshControl,
 } from 'react-native';
-import { selectMeal } from '../../api/AsyncTempSessionStorage';
 import { useTheme } from '@rneui/themed';
 import { IconAdd } from '../marketplace/filters/icons';
 import LanguageContext from '../../api/langcontext';
@@ -38,7 +35,7 @@ function MealList({ userId }) {
   const [status, setStatus] = useState('idle');
   const [result, setResult] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-
+  console.log('result', result);
   const meals = [
     {
       id: 1,

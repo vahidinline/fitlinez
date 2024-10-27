@@ -11,6 +11,7 @@ import { IconMic, IconRecording } from '../../marketplace/filters/icons';
 import { Audio } from 'expo-av';
 import { Iconclose } from '../../marketplace/filters/icons';
 import { useTheme } from '@rneui/themed';
+import foodapi from '../../../api/foodApi';
 
 const VoiceGetter = ({
   setInputStatus,
@@ -86,13 +87,14 @@ const VoiceGetter = ({
     });
 
     try {
-      const response = await fetch(
-        'https://aibackendfitlinez.azurewebsites.net/voice/api/upload',
-        {
-          method: 'POST',
-          body: formData, // headers are automatically set for FormData
-        }
-      );
+      //const response = await fetch(
+      //   'https///voice/api/upload',
+      //   {
+      //     method: 'POST',
+      //     body: formData, // headers are automatically set for FormData
+      //   }
+      // );
+      const response = await foodapi.post('/voice/api/upload', formData);
       const data = await response.json();
       console.log(data);
       setUserInput(data.text);

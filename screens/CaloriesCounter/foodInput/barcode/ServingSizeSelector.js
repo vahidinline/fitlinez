@@ -28,27 +28,45 @@ export default function ServingSizeSelector({ setServingSize, i18n }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{i18n.t('selectServingsize')}</Text>
-      <View style={{ flex: 1, flexDirection: 'row' }}>
-        <TextInput
-          label={i18n.t('selectServingsize')}
-          style={styles.input}
-          placeholder="Enter serving size in grams"
-          keyboardType="numeric"
-          value={servingSize}
-          onChangeText={handleServingSizeChange}
-          returnKeyType="done"
-        />
+      {/* <Text style={styles.label}>{i18n.t('selectServingsize')}</Text> */}
+      <View style={{ flexDirection: 'row' }}>
+        <View
+          style={{
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '50%',
+          }}>
+          <Text style={styles.label}>{i18n.t('servingsize')} </Text>
+          <TextInput
+            label={i18n.t('selectServingsize')}
+            style={styles.input}
+            placeholder="Enter serving size in grams"
+            keyboardType="numeric"
+            value={servingSize}
+            onChangeText={handleServingSizeChange}
+            returnKeyType="done"
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '50%',
+          }}>
+          <Text style={styles.label}>{i18n.t('numberOfserving')}</Text>
 
-        <TextInput
-          label={i18n.t('numberOfServings')}
-          style={styles.input}
-          placeholder="Enter number of servings"
-          keyboardType="numeric"
-          value={numberOfServings}
-          onChangeText={handleNumberOfServingsChange}
-          returnKeyType="done"
-        />
+          <TextInput
+            label={i18n.t('numberOfServings')}
+            style={styles.input}
+            placeholder="Enter number of servings"
+            keyboardType="numeric"
+            value={numberOfServings}
+            onChangeText={handleNumberOfServingsChange}
+            returnKeyType="done"
+          />
+        </View>
       </View>
 
       <Text style={styles.totalLabel}>
@@ -64,17 +82,17 @@ const getStyles = (theme) =>
   StyleSheet.create({
     container: {
       // flexDirection: 'row',
-      marginVertical: 10,
+      paddingVertical: 10,
       paddingHorizontal: 20,
       borderColor: theme.colors.border,
       //borderWidth: 1,
       backgroundColor: theme.colors.primary,
       borderRadius: 8,
-      height: Dimensions.get('window').height / 5,
+      height: Dimensions.get('window').height / 6,
       width: Dimensions.get('window').width / 1.2,
     },
     label: {
-      fontSize: 16,
+      fontSize: 12,
       marginBottom: 5,
       fontFamily: 'Vazirmatn',
       textAlign: 'center',
@@ -90,7 +108,7 @@ const getStyles = (theme) =>
       width: '45%',
     },
     totalLabel: {
-      fontSize: 16,
+      fontSize: 14,
       marginTop: 10,
       fontFamily: 'Vazirmatn',
       textAlign: 'center',
